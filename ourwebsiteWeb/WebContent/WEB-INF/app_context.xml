@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="userService" class="org.harper.ourwebsite.service.profile.UserServiceImpl">
+		<property name="commonDao" ref="commonDao" />
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+
+	<bean id="postService" class="org.harper.ourwebsite.service.post.PostServiceImpl">
+		<property name="commonDao" ref="commonDao" />
+	</bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>mail4.myhostadmin.net</value>
+		</property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+		<property name="username" value="webmaster@kooobao.cn" />
+		<property name="password" value="jieninan" />
+	</bean>
+
+	<bean id="commonDao" class="org.harper.ourwebsite.domain.dao.toplink.CommonDaoImpl" />
+</beans>

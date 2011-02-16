@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+<head>
+<title>(For validation only)</title>
+</head>
+<body>
+<composite:interface>
+	<!-- Declare attributes here -->
+	<composite:attribute name="title" />
+	<composite:attribute name="logo" />
+	<composite:attribute name="link" />
+</composite:interface>
+<composite:implementation>
+	<!-- Create output here -->
+	<div class="section_part">
+	<div class="section_part_logo"><a href="#{cc.attrs.link}"><img
+		src="#{cc.attrs.logo}" /></a></div>
+	<div style="float: left">
+	<div class="section_part_title"><a href="#{cc.attrs.link}">
+	#{cc.attrs.title}</a></div>
+	<div class="section_part_desc">This is the description</div>
+	</div>
+	</div>
+</composite:implementation>
+
+</body>
+</html>

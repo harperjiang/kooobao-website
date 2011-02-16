@@ -1,0 +1,74 @@
+@CHARSET "UTF-8";
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+table img {
+	border-style: none;
+}
+
+th {
+	font-family: 宋体;
+	font-size: 12px;
+	text-align: center;
+	font-weight: bold;
+	padding: 0;
+}
+
+td {
+	font-family: 宋体;
+	font-size: 12px;
+	text-align: center;
+	padding: 0;
+}
+
+table.books {
+	
+}
+
+.bookstitle {
+	text-align: left;
+	font-family: 宋体;
+	font-size: 13px;
+	font-weight: bold;
+	color: #f4880c;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+table.books a {
+	text-decoration: none;
+}
+
+table.books th {
+	padding: 5px;
+	vertical-align: top
+}
+
+table.books td {
+	padding: 5px;
+	vertical-align: top
+}
+
+table.booklist td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+table.booklist td {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 10px;
+	text-align: center;
+}
+
+table.frame th {
+	padding: 10px;
+}
+
+table.frame td {
+	padding: 10px;
+	vertical-align: top;
+}
