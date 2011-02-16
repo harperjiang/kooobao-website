@@ -1,0 +1,111 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<% %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>欢迎光临酷宝英语教育-提供少儿英语教育一揽子解决方案</title>
+<link href="/style/main.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.loginLayout {
+	background-color: #f3f3f3;
+	border: solid 1px #a1a1a1;
+}
+
+.loginLayout label,.loginLayout input,.loginLayout select {
+	display: block;
+	height: 20px;
+	float: left;
+	margin-top: 10px;
+}
+
+.loginLayout input,.loginLayout select {
+	width: 80 px;
+}
+
+.loginLayout label {
+	width: 50 px;
+	padding-top: 3px;
+	margin-left: 4px;
+	text-align: left;
+	vertical-align: middle;
+	text-align: left;
+}
+</style>
+</head>
+<body>
+<jsp:include page="header.jsp" />
+
+<div class="panel" style="width: 150px; height: 180px;">
+<div class="panel_title">
+<div id="tl"><img src="/image/curve_topleft.gif" /></div>
+<div id="tr"><img src="/image/curve_topright.gif" /></div>
+公告促销</div>
+</div>
+
+<div class="panel" style="width: 580px; height: 180px;">
+<div class="panel_title">
+<div id="tl"><img src="/image/curve_topleft.gif" /></div>
+<div id="tr"><img src="/image/curve_topright.gif" /></div>
+Flash广告</div>
+</div>
+
+<div class="panel" style="width: 150px; height: 180px;">
+<div class="panel_title">
+<div id="tl"><img src="/image/curve_topleft.gif" /></div>
+<div id="tr"><img src="/image/curve_topright.gif" /></div>
+快速通道</div>
+<p>幼儿园教材</p>
+<p>小学教材</p>
+<p>互动式白板</p>
+<p>外教师资</p>
+</div>
+
+<div class="panel loginLayout" style="width: 150px; height: 200px;">
+<div class="panel_title">
+<div id="tl"><img src="/image/curve_topleft.gif" /></div>
+<div id="tr"><img src="/image/curve_topright.gif" /></div>
+会员登录</div>
+<%if(true) {%>
+<form method="POST" enctype="application/x-www-form-urlencoded"
+	action="index.jsp"><label for="userName">用户名:</label> <input
+	type="text" id="userName" /> <label for="userPass">密码:</label> <input
+	type="password" id="userPass" /> <input style="margin-left: 5px;"
+	type="submit" value="登录" /></form>
+<% }%> <br />
+<br />
+<a style="margin-left: 5px;" href="/member/register.jsp">注册新用户</a></div>
+
+
+<div class="panel" style="width: 365px; height: 200px;">
+<div class="panel_title">
+<div id="tl"><img src="/image/curve_topleft.gif" /></div>
+<div id="tr"><img src="/image/curve_topright.gif" /></div>
+幼教新闻</div>
+</div>
+
+<div class="panel" style="width: 365px; height: 200px;">
+<div class="panel_title">
+<div id="tl"><img src="/image/curve_topleft.gif" /></div>
+<div id="tr"><img src="/image/curve_topright.gif" /></div>
+公司动态</div>
+</div>
+
+<div class="blankpanel" style="width: 150px; height: 200px;"></div>
+
+<div class="panel" style="width: 365px; height: 200px;">
+<div class="panel_title">
+<div id="tl"><img src="/image/curve_topleft.gif" /></div>
+<div id="tr"><img src="/image/curve_topright.gif" /></div>
+会员专区</div>
+</div>
+
+<div class="panel" style="width: 365px; height: 200px;">
+<div class="panel_title">
+<div id="tl"><img src="/image/curve_topleft.gif" /></div>
+<div id="tr"><img src="/image/curve_topright.gif" /></div>
+视频导览</div>
+</div>
+
+<jsp:include page="footer.jsp" /></body>
+</html>

@@ -1,0 +1,203 @@
+@CHARSET "UTF-8";
+
+@import "list.css";
+
+@import "menu.css";
+
+@import "section.css";
+
+@import "table.css";
+
+@import "panel.css";
+
+@import "layer_video.css";
+
+@import "fast_nav.css";
+
+body {
+	text-align: center;
+}
+
+div {
+	font-family: 宋体;
+	font-size: 12px;
+	text-align: left;
+}
+
+div.body {
+	width: 950px !important;
+	width: 960px;
+	margin: 0px;
+	min-height: 700px;
+	_height: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0px;
+	padding-left: 12px;
+	text-align: left;
+	padding-top: 0px;
+	background-image: url(/image/bg_shadow.gif);
+}
+
+.titlebar {
+	text-align: left;
+	padding-top: 10px;
+	margin: 10px;
+}
+
+.title {
+	text-align: left;
+	font-family: 黑体;
+	font-size: 20px;
+	font-weight: bold;
+	color: #f4880c;
+	display: inline;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.bigtitle {
+	text-align: left;
+	font-family: 黑体;
+	font-size: 24px;
+	font-weight: bold;
+	color: #bbbbbb;
+	display: inline;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.subtitle {
+	text-align: left;
+	font-family: 黑体;
+	font-size: 16px;
+	font-weight: bold;
+	color: #f4880c;
+	display: inline;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.intitle {
+	text-align: left;
+	font-family: 宋体;
+	font-size: 12px;
+	font-weight: bold;
+	color: #f4880c;
+	display: inline;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.titledesc {
+	display: inline;
+}
+
+br {
+	clear: left;
+}
+
+div.container {
+	padding: 0px;
+	margin: 0px;
+}
+
+div.column {
+	float: left;
+	display: inline;
+}
+
+div.bottom {
+	width: 930px;
+	padding-top: 9px;
+	padding-bottom: 8px;
+	background: url(../image/menu_bg.gif);
+	margin-right: auto;
+	margin-left: auto;
+	font-family: 宋体;
+	font-size: 12px;
+	color: #ffffff;
+	text-align: center;
+	margin-right: auto;
+}
+
+div.content {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	padding: 4px;
+	background-image: url(/image/book_h_bg.gif);
+	background-repeat: repeat-x;
+}
+
+div.splitter {
+	background-image: url(/image/splitter.jpg);
+	background-repeat: repeat-x;
+}
+
+div.banner {
+	padding-left: 10px;
+	padding-top: 5px;
+	height: 30px;
+	width: auto;
+	font-size: 16px;
+	color: #205D18;
+	background-image: url(/image/gradient_bg.jpg);
+	repeat: repeat-x;
+}
+
+div.word_subtitle {
+	font-family: Times New Roman, 宋体;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+}
+
+div.word_content {
+	font-family: Times New Roman, 宋体;
+	font-size: 12px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+	width: 60%;
+}
+
+.formLayout {
+	background-color: #f3f3f3;
+	border: solid 1px #a1a1a1;
+	padding: 10px;
+	width: 300px;
+}
+
+.formLayout label,.formLayout input,.formLayout select,.formLayout textarea
+	{
+	display: block;
+	width: 120 px;
+	float: left;
+	margin-bottom: 10 px;
+}
+
+.formLayout label {
+	text-align: right;
+	padding-right: 20px;
+}
+
+p.ptitle {
+	font-weight: bold;
+	color: #490BFC;
+}
+
+p.stitle {
+	font-weight: bold;
+	color: #4F4F4F;
+}
+
+img {
+	border-style: none;
+}
+
+
+
