@@ -11,6 +11,7 @@ import javax.faces.component.UIData;
 import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.common.web.bean.RowIndexCounter;
 import com.kooobao.gsm.domain.dao.DeliveryDao;
 import com.kooobao.gsm.domain.entity.delivery.Delivery;
 
@@ -24,26 +25,79 @@ public class SearchDeliveryBean extends AbstractBean {
 
 	private String contactName;
 
+	private String status;
+
 	private List<Delivery> deliveries;
 
 	@ManagedProperty("#{deliveryDao}")
 	private DeliveryDao deliveryDao;
+
+	private RowIndexCounter counter = new RowIndexCounter();
 
 	public String search() {
 		if (StringUtils.isEmpty(customer) && StringUtils.isEmpty(contactName)) {
 			addMessage(FacesMessage.SEVERITY_WARN, "至少输入一项查询条件");
 			return "failed";
 		}
-		setDeliveries(getDeliveryDao().search(groupName, customer, contactName));
+		setDeliveries(getDeliveryDao().search(groupName, status, customer,
+				contactName));
+
+		// ArrayList<Delivery> list = new ArrayList<Delivery>();
+		// Delivery d = new Delivery();
+		// d.setOid(10);
+		// d.setCompany(ExpressCompany.圆通.name());
+		// d.setCreateDate(new Date());
+		// d.getContact().setName("aaa");
+		// d.setStatus(DOStatus.CREATED.name());
+		// list.add(d);
+		//
+		// Order o = new Order();
+		// o.setDeliveryStatus(DeliveryStatus.PREPARED.name());
+		// OrderItem i = new OrderItem();
+		// i.setCount(1);
+		// i.setPreparedCount(1);
+		// i.setSentCount(0);
+		// o.addItem(i);
+		//
+		// DeliveryItem di = new DeliveryItem();
+		// di.setCount(1);
+		// di.setOrderItem(i);
+		// d.addItem(di);
+		// d.setOrder(o);
+		// setDeliveries(list);
+
+		counter.reset();
+
 		return "success";
 	}
 
 	public String send() {
 		UIData dataTable = (UIData) getComponent("dataTable");
 		Delivery select = (Delivery) dataTable.getRowData();
-		SendDeliveryBean sdb = findBean("sendDeliveryBean");
-		sdb.setDelivery(select);
+		select.deliver();
+		getDeliveryDao().store(select);
 		return "success";
+	}
+
+	public String cancel() {
+		UIData dataTable = (UIData) getComponent("dataTable");
+		Delivery select = (Delivery) dataTable.getRowData();
+		select.cancel();
+		getDeliveryDao().store(select);
+		return "success";
+	}
+
+	public String view() {
+		UIData dataTable = (UIData) getComponent("dataTable");
+		Delivery select = (Delivery) dataTable.getRowData();
+
+		PrepareDeliveryBean pdb = findBean("prepareDeliveryBean");
+		pdb.setDelivery(select);
+		return "success";
+	}
+
+	public RowIndexCounter getCounter() {
+		return counter;
 	}
 
 	public String getGroupName() {
@@ -84,6 +138,14 @@ public class SearchDeliveryBean extends AbstractBean {
 
 	public void setDeliveryDao(DeliveryDao deliveryDao) {
 		this.deliveryDao = deliveryDao;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

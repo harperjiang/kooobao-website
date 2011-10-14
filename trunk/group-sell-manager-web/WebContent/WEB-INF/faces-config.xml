@@ -99,9 +99,9 @@
 		<display-name>search_delivery.xhtml</display-name>
 		<from-view-id>/search_delivery.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{searchDeliveryBean.send}</from-action>
+			<from-action>#{searchDeliveryBean.view}</from-action>
 			<from-outcome>success</from-outcome>
-			<to-view-id>/send_delivery.xhtml</to-view-id>
+			<to-view-id>/prepare_delivery.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

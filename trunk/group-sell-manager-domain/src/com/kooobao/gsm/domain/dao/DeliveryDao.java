@@ -7,7 +7,7 @@ import com.kooobao.gsm.domain.entity.delivery.Delivery;
 
 public interface DeliveryDao extends Dao<Delivery> {
 
-	public List<Delivery> search(String groupName, String customer,
-			String contactName);
+	public List<Delivery> search(String groupName, String status,
+			String customer, String contactName);
 
 }

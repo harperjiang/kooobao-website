@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.Validate;
 
+import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.gsm.domain.entity.order.ContactInfo;
 import com.kooobao.gsm.domain.entity.order.Order;
@@ -68,6 +69,10 @@ public class Delivery extends VersionEntity {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getDisplayStatus() {
+		return StatusUtils.text(DOStatus.valueOf(getStatus()));
 	}
 
 	public String getDisplayId() {
@@ -154,14 +159,12 @@ public class Delivery extends VersionEntity {
 
 	public void cancel() {
 		setStatus(DOStatus.CANCELLED.name());
-		Order order = null;
 		for (DeliveryItem di : getItems()) {
 			OrderItem oi = di.getOrderItem();
-			order = oi.getOrder();
 			oi.setPreparedCount(oi.getPreparedCount() - di.getCount());
 			oi.setSentCount(oi.getSentCount() - di.getCount());
 		}
-		OrderService.updateOrderSendStatus(order);
+		OrderService.updateOrderSendStatus(getOrder());
 	}
 
 	public Order getOrder() {
