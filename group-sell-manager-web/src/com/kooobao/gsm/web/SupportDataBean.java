@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.model.SelectItem;
 
+import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.gsm.domain.entity.delivery.DOStatus;
 import com.kooobao.gsm.domain.entity.delivery.ExpressCompany;
 
 @ManagedBean
@@ -22,6 +25,30 @@ public class SupportDataBean extends AbstractBean {
 				expressCompanies.add(comp.name());
 		}
 		return expressCompanies;
+	}
+
+	private List<SelectItem> deliveryStatus;
+
+	public List<SelectItem> getDeliveryStatus() {
+		if (null == deliveryStatus) {
+			deliveryStatus = createStatusList(DOStatus.class, true);
+		}
+		return deliveryStatus;
+	}
+
+	protected List<SelectItem> createStatusList(
+			Class<? extends Enum<?>> enumClass, boolean withAll) {
+		List<SelectItem> items = new ArrayList<SelectItem>();
+		if (withAll) {
+			items.add(new SelectItem(null, "(所有状态)"));
+		}
+		for (Enum<?> en : enumClass.getEnumConstants()) {
+			SelectItem sel = new SelectItem();
+			sel.setLabel(StatusUtils.text(en));
+			sel.setValue(en.name());
+			items.add(sel);
+		}
+		return items;
 	}
 
 }
