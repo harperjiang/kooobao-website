@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="group-sell-manager-web">
+        <wb-resource deploy-path="/" source-path="/WebContent"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/group-sell-manager-domain/group-sell-manager-domain">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-common/kooobao-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/GroupSellManager/build/classes"/>
+        <property name="context-root" value="group-sell-manager-web"/>
+    </wb-module>
+</project-modules>

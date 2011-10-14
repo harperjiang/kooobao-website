@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<import resource="env.xml" />
+
+	<!-- bean id="productDao" class="com.kooobao.wsm.domain.dao.jpa.JpaIssueDao"> 
+		<property name="template" ref="template" /> </bean -->
+
+	<!-- bean id="orderDao" class="com.kooobao.wsm.domain.dao.jpa.JpaUserDao"> 
+		<property name="template" ref="template" /> </bean -->
+
+	<bean id="productDao" class="com.kooobao.gsm.domain.dao.memory.MemoryProductDao" />
+	<bean id="orderDao" class="com.kooobao.gsm.domain.dao.memory.MemoryOrderDao" />
+	<bean id="deliveryDao" class="com.kooobao.gsm.domain.dao.memory.MemoryDeliveryDao" />
+
+
+	<bean id="deliveryService" class="com.kooobao.gsm.service.DeliveryService">
+		<property name="deliveryDao" ref="deliveryDao" />
+		<property name="orderDao" ref="orderDao" />
+	</bean>
+</beans>
