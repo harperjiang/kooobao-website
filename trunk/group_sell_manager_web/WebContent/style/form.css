@@ -1,0 +1,68 @@
+@CHARSET "UTF-8";
+
+label {
+	float: left;
+	width: 120px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+input,textarea,select {
+	width: 500px;
+	margin-bottom: 10px;
+	font-size: 12px;
+	font-family: 宋体;
+}
+
+textarea {
+	height: 60px;
+}
+
+.boxes {
+	width: 1em;
+}
+
+#submitbutton {
+	margin-left: 120px;
+	margin-top: 5px;
+	width: 90px;
+}
+
+br {
+	clear: left;
+}
+
+div.searchForm {
+	display: inline;
+	float: left;
+}
+
+div.searchForm label {
+	width: 120px;
+	font-weight: bold;
+}
+
+div.searchForm input,div.searchForm textarea,div.searchForm select {
+	width: 200px;
+	margin-bottom: 10px;
+	font-size: 12px;
+	font-family: 宋体;
+}
+
+div.searchForm textarea {
+	height: 150px;
+}
+
+div.searchForm .boxes {
+	width: 1em;
+}
+
+div.searchForm #submitbutton {
+	margin-left: 120px;
+	margin-top: 5px;
+	width: 90px;
+}
+
+div.searchForm br {
+	clear: left;
+}

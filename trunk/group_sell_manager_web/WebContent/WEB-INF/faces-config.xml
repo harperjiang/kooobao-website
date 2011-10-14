@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	version="2.0">
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+	</application>
+	<navigation-rule>
+		<display-name>maintain_order.xhtml</display-name>
+		<from-view-id>/maintain_order.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{maintainOrderBean.save}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/maintain_order_success.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>maintain_order_success.xhtml</display-name>
+		<from-view-id>/maintain_order_success.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{maintainOrderSuccessBean.another}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/maintain_order.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>maintain_order_success.xhtml</display-name>
+		<from-view-id>/maintain_order_success.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{maintainOrderSuccessBean.view}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/view_order.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>index.xhtml</display-name>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{queryOrderBean.view}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/view_order.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>view_order.xhtml</display-name>
+		<from-view-id>/view_order.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viewOrderBean.modify}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/maintain_order.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>view_order.xhtml</display-name>
+		<from-view-id>/view_order.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{viewOrderBean.prepare}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/prepare_delivery.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>view_unprepared.xhtml</display-name>
+		<from-view-id>/view_unprepared.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{queryOrderBean.view}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/view_order.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>prepare_delivery.xhtml</display-name>
+		<from-view-id>/prepare_delivery.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>saved</from-outcome>
+			<to-view-id>/prepare_delivery_result.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>prepare_delivery.xhtml</display-name>
+		<from-view-id>/prepare_delivery.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{prepareDeliveryBean.markShortage}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/mark_shortage_result.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<lifecycle>
+		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
+	</lifecycle>
+</faces-config>
