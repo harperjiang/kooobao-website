@@ -11,7 +11,6 @@ import com.kooobao.gsm.domain.entity.product.Product;
 public class MemoryProductDao extends AbstractMemoryDao<Product> implements
 		ProductDao {
 
-	@Override
 	public Product findProductById(String productId) {
 		Validate.notNull(productId);
 		for (Product product : getStorage().values())
