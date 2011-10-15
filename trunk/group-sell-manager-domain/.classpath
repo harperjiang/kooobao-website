@@ -13,5 +13,7 @@
 	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/MySQL JDBC Driver"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/kooobao-common"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache Commons"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring Framework 3.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

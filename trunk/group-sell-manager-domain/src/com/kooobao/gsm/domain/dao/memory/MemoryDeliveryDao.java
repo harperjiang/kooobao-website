@@ -13,20 +13,19 @@ public class MemoryDeliveryDao extends AbstractMemoryDao<Delivery> implements
 		DeliveryDao {
 
 	@Override
-	public List<Delivery> search(String groupName, String status,
-			String customer, String contactName) {
+	public List<Delivery> search(SearchBean search) {
 		List<Delivery> result = new ArrayList<Delivery>();
 		for (Delivery d : getStorage().values()) {
-			if ((StringUtils.isEmpty(groupName) || d.getOrder().getGroup()
-					.equals(groupName))
-					&& (StringUtils.isEmpty(customer) || customer.equals(d
-							.getOrder().getCustomer()))
-					&& (StringUtils.isEmpty(contactName)
-							|| contactName.equals(d.getOrder().getContact()
-									.getName()) || contactName.equals(d
+			if ((StringUtils.isEmpty(search.getGroupName()) || d.getOrder().getGroup()
+					.equals(search.getGroupName()))
+					&& (StringUtils.isEmpty(search.getCustomer()) || search.getCustomer().equals(d
+							.getOrder().getCustomer())
+					&& (StringUtils.isEmpty(search.getContactName())
+							|| search.getContactName().equals(d.getOrder().getContact()
+									.getName()) || search.getContactName().equals(d
 							.getContact().getName()))
-					&& (StringUtils.isEmpty(status) || status.equals(d
-							.getStatus())))
+					&& (StringUtils.isEmpty(search.getStatus()) || search.getStatus().equals(d
+							.getStatus()))))
 				result.add(d);
 		}
 		return result;

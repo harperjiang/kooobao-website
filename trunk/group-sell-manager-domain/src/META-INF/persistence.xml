@@ -21,8 +21,8 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/webshop_manage"/>
 			<property name="eclipselink.jdbc.read-connections.min" value="10"/>
 			<property name="eclipselink.jdbc.read-connections.max" value="10"/>
-			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
 			<property name="eclipselink.ddl-generation.output-mode" value="database"/>
+			<property name="eclipselink.logging.level.sql" value="ALL"/>
 		</properties>
 	</persistence-unit>
 </persistence>

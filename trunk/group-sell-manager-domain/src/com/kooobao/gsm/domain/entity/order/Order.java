@@ -76,7 +76,7 @@ public class Order extends VersionEntity {
 	@OneToOne
 	@JoinColumn(name = "delivery", referencedColumnName = "obj_id")
 	private Delivery delivery;
-	
+
 	public String getGroup() {
 		return group;
 	}
