@@ -11,7 +11,7 @@ import com.kooobao.common.domain.entity.VersionEntity;
 @Table(name = "gsm_group", uniqueConstraints = @UniqueConstraint(name = "uk_code", columnNames = "code"))
 public class Group extends VersionEntity {
 
-	@Column(name = "status", columnDefinition = "varchar(10)")
+	@Column(name = "status", columnDefinition = "varchar(30)")
 	private String status = GroupStatus.NOT_START.name();
 
 	@Column(name = "code", columnDefinition = "varchar(10)")

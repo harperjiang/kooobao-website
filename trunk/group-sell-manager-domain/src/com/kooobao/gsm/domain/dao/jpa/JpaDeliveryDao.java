@@ -68,4 +68,19 @@ public class JpaDeliveryDao extends AbstractJpaDao<Delivery> implements
 			}
 		});
 	}
+
+	@Override
+	public Delivery store(final Delivery entity) {
+//		return getTemplate().execute(new JpaCallback<Delivery>() {
+//			public Delivery doInJpa(EntityManager em)
+//					throws PersistenceException {
+//				Order order = em.find(Order.class, 51L);
+//				em.merge(entity.getOrder());
+//				em.persist(entity);
+//				return entity;
+//			}
+//		});
+		getTemplate().merge(entity.getOrder());
+		return super.store(entity);
+	}
 }

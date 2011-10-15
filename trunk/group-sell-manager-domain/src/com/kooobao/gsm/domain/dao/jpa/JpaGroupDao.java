@@ -12,7 +12,7 @@ public class JpaGroupDao extends AbstractJpaDao<Group> implements GroupDao {
 	@SuppressWarnings("unchecked")
 	public List<Group> getActiveGroup() {
 		return (List<Group>) getTemplate().find(
-				"select g from Group g where status = :a",
+				"select g from Group g where g.status = ?1",
 				GroupStatus.IN_PROGRESS.name());
 	}
 

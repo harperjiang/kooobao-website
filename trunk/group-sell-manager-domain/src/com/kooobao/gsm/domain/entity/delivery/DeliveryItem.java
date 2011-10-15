@@ -1,5 +1,6 @@
 package com.kooobao.gsm.domain.entity.delivery;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,7 +19,7 @@ public class DeliveryItem extends SimpleEntity {
 	@JoinColumn(name = "header_id", referencedColumnName = "obj_id", columnDefinition = "decimal(10)")
 	private Delivery header;
 
-	@OneToOne
+	@OneToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "order_item_id", referencedColumnName = "obj_id")
 	private OrderItem orderItem;
 

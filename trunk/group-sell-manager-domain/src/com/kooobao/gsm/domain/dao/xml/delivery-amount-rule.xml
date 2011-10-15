@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules xmlns="http://www.kooobao.com/gsm/delivery-amount-rule"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.kooobao.com/gsm/delivery-amount-rule delivery-amount-rule.xsd ">
+
+	<!-- 显示快递费 -->
+	<rule area="上海" delivery-method="EXPRESS" start="5.0" next="1.0"
+		xsi:type="ExpressRuleType" />
+
+	<rule area="浙江" delivery-method="EXPRESS" start="5.0" next="1.0"
+		xsi:type="ExpressRuleType" />
+
+	<rule area="江苏" delivery-method="EXPRESS" start="5.0" next="1.0"
+		xsi:type="ExpressRuleType" />
+
+
+	<!-- 中通实际运费 -->
+	<rule area="上海" delivery-method="中通" start="5.0" next="1.0"
+		xsi:type="ExpressRuleType" />
+
+	<rule area="浙江" delivery-method="中通" start="5.0" next="1.0"
+		xsi:type="ExpressRuleType" />
+
+	<rule area="江苏" delivery-method="中通" start="5.0" next="1.0"
+		xsi:type="ExpressRuleType" />
+
+</rules>
