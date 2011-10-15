@@ -21,12 +21,9 @@ import com.kooobao.gsm.domain.entity.delivery.Delivery;
 public class JpaDeliveryDao extends AbstractJpaDao<Delivery> implements
 		DeliveryDao {
 
-	@Override
 	public List<Delivery> search(final SearchBean search) {
 		search.validate();
 		return getTemplate().execute(new JpaCallback<List<Delivery>>() {
-
-			@Override
 			public List<Delivery> doInJpa(EntityManager em)
 					throws PersistenceException {
 				CriteriaBuilder cb = em.getCriteriaBuilder();

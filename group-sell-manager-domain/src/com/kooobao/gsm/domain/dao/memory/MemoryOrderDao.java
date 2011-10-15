@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.domain.dao.AbstractMemoryDao;
 import com.kooobao.gsm.domain.dao.OrderDao;
@@ -15,24 +14,22 @@ import com.kooobao.gsm.domain.entity.order.Order;
 public class MemoryOrderDao extends AbstractMemoryDao<Order> implements
 		OrderDao {
 
-	@Override
-	public List<Order> searchOrders(String groupName, String customer,
-			String contact, String[] deliveryStatus) {
+	public List<Order> searchOrders(SearchBean search) {
+		search.validate();
+
 		Map<String, String> statusMap = new HashMap<String, String>();
-		if (null != deliveryStatus)
-			for (String s : deliveryStatus)
+		if (null != search.getDeliveryStatus())
+			for (String s : search.getDeliveryStatus())
 				statusMap.put(s, s);
-		Validate.isTrue(deliveryStatus != null
-				|| (!StringUtils.isEmpty(customer) || !StringUtils
-						.isEmpty(contact)));
+
 		List<Order> result = new ArrayList<Order>();
 		for (Order order : getStorage().values()) {
-			if ((StringUtils.isEmpty(customer) || customer.equals(order
-					.getCustomer()))
-					&& (StringUtils.isEmpty(contact) || customer.equals(order
-							.getContact().getName()))
-					&& (deliveryStatus == null || statusMap.containsKey(order
-							.getDeliveryStatus()))) {
+			if ((StringUtils.isEmpty(search.getCustomer()) || search
+					.getCustomer().equals(order.getCustomer()))
+					&& (StringUtils.isEmpty(search.getContact()) || search
+							.getCustomer().equals(order.getContact().getName()))
+					&& (search.getDeliveryStatus() == null || statusMap
+							.containsKey(order.getDeliveryStatus()))) {
 				result.add(order);
 			}
 		}

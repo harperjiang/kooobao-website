@@ -12,7 +12,6 @@ import com.kooobao.gsm.domain.entity.delivery.Delivery;
 public class MemoryDeliveryDao extends AbstractMemoryDao<Delivery> implements
 		DeliveryDao {
 
-	@Override
 	public List<Delivery> search(SearchBean search) {
 		List<Delivery> result = new ArrayList<Delivery>();
 		for (Delivery d : getStorage().values()) {
