@@ -17,11 +17,11 @@ import com.kooobao.gsm.domain.entity.product.Product;
 public class OrderItem extends SimpleEntity {
 
 	@OneToOne
-	@JoinColumn(name = "product_id", columnDefinition = "decimal(10)", referencedColumnName = "obj_id")
+	@JoinColumn(name = "product_id", columnDefinition = "decimal(10)", nullable = false, referencedColumnName = "obj_id")
 	private Product product;
 
 	@ManyToOne
-	@JoinColumn(name = "order_id", columnDefinition = "decimal(10)", referencedColumnName = "obj_id")
+	@JoinColumn(name = "order_id", columnDefinition = "decimal(10)", nullable = false, referencedColumnName = "obj_id")
 	private Order order;
 
 	@Column(name = "unit_price", columnDefinition = "decimal(10,2)")
