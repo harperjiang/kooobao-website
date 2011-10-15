@@ -39,8 +39,9 @@ public class SearchDeliveryBean extends AbstractBean {
 			addMessage(FacesMessage.SEVERITY_WARN, "至少输入一项查询条件");
 			return "failed";
 		}
-		setDeliveries(getDeliveryDao().search(groupName, status, customer,
-				contactName));
+		setDeliveries(getDeliveryDao().search(
+				new DeliveryDao.SearchBean(groupName, status, customer,
+						contactName)));
 
 		// ArrayList<Delivery> list = new ArrayList<Delivery>();
 		// Delivery d = new Delivery();
