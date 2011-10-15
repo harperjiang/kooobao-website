@@ -11,6 +11,7 @@ import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.gsm.domain.entity.delivery.DOStatus;
 import com.kooobao.gsm.domain.entity.delivery.ExpressCompany;
+import com.kooobao.gsm.domain.entity.rule.DeliveryMethod;
 
 @ManagedBean
 @ApplicationScoped
@@ -34,6 +35,14 @@ public class SupportDataBean extends AbstractBean {
 			deliveryStatus = createStatusList(DOStatus.class, true);
 		}
 		return deliveryStatus;
+	}
+
+	private List<SelectItem> deliveryMethod;
+
+	public List<SelectItem> getDeliveryMethod() {
+		if (null == deliveryMethod)
+			deliveryMethod = createStatusList(DeliveryMethod.class, false);
+		return deliveryMethod;
 	}
 
 	protected List<SelectItem> createStatusList(

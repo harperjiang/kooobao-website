@@ -3,10 +3,14 @@
     <wb-module deploy-name="group-sell-manager-web">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/group-sell-manager-domain/group-sell-manager-domain">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-common/kooobao-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="delivery-amount-rule.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/group-sell-manager-domain/delivery-amount-rule.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/GroupSellManager/build/classes"/>

@@ -9,13 +9,18 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.gsm.domain.dao.OrderDao;
 import com.kooobao.gsm.domain.dao.ProductDao;
+import com.kooobao.gsm.domain.dao.SupportDao;
 import com.kooobao.gsm.domain.entity.order.DeliveryStatus;
 import com.kooobao.gsm.domain.entity.order.Order;
 import com.kooobao.gsm.domain.entity.order.OrderItem;
 import com.kooobao.gsm.domain.entity.product.Product;
+import com.kooobao.gsm.domain.entity.rule.DeliveryAmountRule;
+import com.kooobao.gsm.domain.entity.rule.GrossWeightRule;
 import com.kooobao.gsm.service.OrderService;
 
 @ManagedBean
@@ -45,24 +50,39 @@ public class MaintainOrderBean extends AbstractBean {
 	@ManagedProperty(value = "#{orderDao}")
 	private OrderDao orderDao;
 
+	@ManagedProperty(value = "#{supportDao}")
+	private SupportDao supportDao;
+
 	public String addProduct() {
 		if (null == productId)
 			return "success";
+
 		Product product = null;
-		if ((product = getProductDao().findProductById(getProductId())) != null) {
-			if (!index.containsKey(productId)) {
-				OrderItem item = new OrderItem();
-				item.setCount(1);
-				item.setProduct(product);
-				item.setUnitPrice(product.getRefUnitPrice());
-				order.addItem(item);
-				index.put(productId, order.getItems().size() - 1);
-			} else {
-				OrderItem item = order.getItems().get(index.get(productId));
-				item.setCount(item.getCount() + 1);
-			}
+		try {
+			product = getProductDao().findProductById(getProductId());
+		} catch (EmptyResultDataAccessException e) {
+			addMessage(FacesMessage.SEVERITY_WARN, "未找到产品:" + getProductId());
+			return "failed";
 		}
-		OrderService.setOrderTotalAmount(order, null);
+		if (!index.containsKey(productId)) {
+			OrderItem item = new OrderItem();
+			item.setCount(1);
+			item.setProduct(product);
+			item.setUnitPrice(product.getRefUnitPrice());
+			order.addItem(item);
+			index.put(productId, order.getItems().size() - 1);
+		} else {
+			OrderItem item = order.getItems().get(index.get(productId));
+			item.setCount(item.getCount() + 1);
+		}
+
+		OrderService.updateOrderTotal(order);
+		// Update Package Weight
+		// Update Total Amount
+		GrossWeightRule gwRule = getSupportDao().getWeightRule(order);
+
+		DeliveryAmountRule rule = getSupportDao().getAmountRule(order);
+		OrderService.updateOrderTotalAmount(order, rule, gwRule);
 		return "success";
 	}
 
@@ -76,7 +96,7 @@ public class MaintainOrderBean extends AbstractBean {
 
 	public String save() {
 		order.setDeliveryStatus(DeliveryStatus.NOT_PREPARED.name());
-		OrderService.setOrderTotalAmount(order, null);
+
 		if (BigDecimal.ZERO.equals(order.getTotalAmount())) {
 			addMessage(FacesMessage.SEVERITY_WARN, "不能保存总金额为0的订单");
 			return "failed";
@@ -126,6 +146,14 @@ public class MaintainOrderBean extends AbstractBean {
 
 	public void setOrderId(long orderId) {
 		this.orderId = orderId;
+	}
+
+	public SupportDao getSupportDao() {
+		return supportDao;
+	}
+
+	public void setSupportDao(SupportDao supportDao) {
+		this.supportDao = supportDao;
 	}
 
 }

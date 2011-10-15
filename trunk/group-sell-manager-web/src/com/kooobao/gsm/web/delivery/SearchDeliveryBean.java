@@ -34,6 +34,11 @@ public class SearchDeliveryBean extends AbstractBean {
 
 	private RowIndexCounter counter = new RowIndexCounter();
 
+	@Override
+	public void onPageLoad() {
+		counter.reset();
+	}
+
 	public String search() {
 		if (StringUtils.isEmpty(customer) && StringUtils.isEmpty(contactName)) {
 			addMessage(FacesMessage.SEVERITY_WARN, "至少输入一项查询条件");
@@ -42,32 +47,6 @@ public class SearchDeliveryBean extends AbstractBean {
 		setDeliveries(getDeliveryDao().search(
 				new DeliveryDao.SearchBean(groupName, status, customer,
 						contactName)));
-
-		// ArrayList<Delivery> list = new ArrayList<Delivery>();
-		// Delivery d = new Delivery();
-		// d.setOid(10);
-		// d.setCompany(ExpressCompany.圆通.name());
-		// d.setCreateDate(new Date());
-		// d.getContact().setName("aaa");
-		// d.setStatus(DOStatus.CREATED.name());
-		// list.add(d);
-		//
-		// Order o = new Order();
-		// o.setDeliveryStatus(DeliveryStatus.PREPARED.name());
-		// OrderItem i = new OrderItem();
-		// i.setCount(1);
-		// i.setPreparedCount(1);
-		// i.setSentCount(0);
-		// o.addItem(i);
-		//
-		// DeliveryItem di = new DeliveryItem();
-		// di.setCount(1);
-		// di.setOrderItem(i);
-		// d.addItem(di);
-		// d.setOrder(o);
-		// setDeliveries(list);
-
-		counter.reset();
 
 		return "success";
 	}
