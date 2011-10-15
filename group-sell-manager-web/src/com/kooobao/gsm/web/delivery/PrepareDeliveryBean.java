@@ -1,5 +1,9 @@
 package com.kooobao.gsm.web.delivery;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -7,13 +11,17 @@ import javax.faces.bean.SessionScoped;
 import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.gsm.domain.dao.DeliveryDao;
 import com.kooobao.gsm.domain.dao.OrderDao;
+import com.kooobao.gsm.domain.dao.SupportDao;
 import com.kooobao.gsm.domain.entity.delivery.Delivery;
 import com.kooobao.gsm.domain.entity.delivery.DeliveryItem;
 import com.kooobao.gsm.domain.entity.order.DeliveryStatus;
 import com.kooobao.gsm.domain.entity.order.Order;
 import com.kooobao.gsm.domain.entity.order.OrderItem;
-import com.kooobao.gsm.service.DeliveryService;
+import com.kooobao.gsm.domain.entity.rule.DeliveryAmountRule;
+import com.kooobao.gsm.domain.entity.rule.GrossWeightRule;
+import com.kooobao.gsm.service.OrderService;
 
 @ManagedBean
 @SessionScoped
@@ -26,21 +34,28 @@ public class PrepareDeliveryBean extends AbstractBean {
 	@ManagedProperty("#{orderDao}")
 	private OrderDao orderDao;
 
-	@ManagedProperty("#{deliveryService}")
-	private DeliveryService deliveryService;
+	@ManagedProperty("#{deliveryDao}")
+	private DeliveryDao deliveryDao;
+
+	@ManagedProperty("#{supportDao}")
+	private SupportDao supportDao;
 
 	private long orderId;
 
 	@Override
 	public void onPageLoad() {
-		if (0 == getOrderId())
+		if (0 == getOrderId() || getDelivery() != null) {
+			if (null == getDelivery())
+				delivery = new Delivery();
 			return;
+		}
+
 		setOrder(getOrderDao().find(getOrderId()));
 		Delivery delivery = new Delivery();
 		for (OrderItem item : order.getItems()) {
 			DeliveryItem ditem = new DeliveryItem();
 			ditem.setOrderItem(item);
-			ditem.setCount(0);
+			ditem.setCount(item.getCount() - item.getPreparedCount());
 			delivery.addItem(ditem);
 		}
 		delivery.getContact().setAddress(order.getContact().getAddress());
@@ -51,13 +66,20 @@ public class PrepareDeliveryBean extends AbstractBean {
 		super.onPageLoad();
 	}
 
-	protected boolean checkZeroItem() {
+	protected boolean checkItem() {
+		List<DeliveryItem> toRemove = new ArrayList<DeliveryItem>();
 		for (DeliveryItem di : delivery.getItems()) {
 			if (0 == di.getCount()) {
 				di.setHeader(null);
-				delivery.getItems().remove(di);
+				toRemove.add(di);
+			}
+			if (di.getCount() > di.getOrderItem().getCount()
+					- di.getOrderItem().getPreparedCount()) {
+				addMessage(FacesMessage.SEVERITY_WARN, "备货数量超过未发货数量");
+				return false;
 			}
 		}
+		delivery.getItems().removeAll(toRemove);
 		if (0 == delivery.getItems().size())
 			return false;
 		return true;
@@ -67,6 +89,7 @@ public class PrepareDeliveryBean extends AbstractBean {
 		Validate.isTrue(DeliveryStatus.NOT_PREPARED.name().equals(
 				getOrder().getDeliveryStatus()));
 		getOrder().setDeliveryStatus(DeliveryStatus.SHORT_OF_STORAGE.name());
+		updateOrder(getOrder());
 		setOrder(getOrderDao().store(getOrder()));
 		return "success";
 	}
@@ -80,12 +103,27 @@ public class PrepareDeliveryBean extends AbstractBean {
 	}
 
 	public String save() {
-		if (!checkZeroItem()) {
+		if (!checkItem()) {
 			return "failed";
 		}
 		delivery.prepare();
-		setDelivery(getDeliveryService().save(getDelivery()));
+		// delivery.setGrossWeight(getSupportDao().getWeightRule(delivery)
+		// .getPackageWeight(delivery));
+		updateOrder(delivery.getOrder());
+		// setOrder(getOrderDao().store(delivery.getOrder()));
+//		setDelivery(getDeliveryDao().store(getDelivery()));
+//		getOrderDao().store(getOrder());
+		getDeliveryDao().store(getDelivery());
 		return "saved";
+	}
+
+	protected void updateOrder(Order order) {
+		OrderService.updateOrderTotal(order);
+		// Update Package Weight
+		// Update Total Amount
+		GrossWeightRule gwRule = getSupportDao().getWeightRule(order);
+		DeliveryAmountRule rule = getSupportDao().getAmountRule(order);
+		OrderService.updateOrderTotalAmount(order, rule, gwRule);
 	}
 
 	public Order getOrder() {
@@ -120,12 +158,20 @@ public class PrepareDeliveryBean extends AbstractBean {
 		this.delivery = delivery;
 	}
 
-	public DeliveryService getDeliveryService() {
-		return deliveryService;
+	public SupportDao getSupportDao() {
+		return supportDao;
 	}
 
-	public void setDeliveryService(DeliveryService deliveryService) {
-		this.deliveryService = deliveryService;
+	public void setSupportDao(SupportDao supportDao) {
+		this.supportDao = supportDao;
+	}
+
+	public DeliveryDao getDeliveryDao() {
+		return deliveryDao;
+	}
+
+	public void setDeliveryDao(DeliveryDao deliveryDao) {
+		this.deliveryDao = deliveryDao;
 	}
 
 }

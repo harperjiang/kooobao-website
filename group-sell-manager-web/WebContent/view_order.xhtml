@@ -15,19 +15,19 @@
 }
 
 .col3 {
-	width: 30px;
+	width: 50px;
 }
 
 .col4 {
-	width: 30px;
+	width: 50px;
 }
 
 .col5 {
-	width: 30px;
+	width: 50px;
 }
 
 .col6 {
-	width: 30px;
+	width: 50px;
 }
 </style>
 		<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">查看团购单</div>
@@ -41,6 +41,9 @@
 			<h:outputLabel value="客户名" />
 			<h:inputText value="#{viewOrderBean.order.customer}" readonly="true" />
 			<br />
+			<h:outputLabel value="备注号码" />
+			<h:inputText value="#{viewOrderBean.order.refNumber}" readonly="true" />
+			<br />
 			<h:outputLabel value="联系人" />
 			<h:inputText value="#{viewOrderBean.order.contact.name}"
 				readonly="true" />
@@ -53,9 +56,17 @@
 			<h:inputTextarea value="#{viewOrderBean.order.contact.address}"
 				readonly="true" />
 			<br />
+			<h:outputLabel value="期望运送方式" />
+			<h:inputText value="#{viewOrderBean.order.expectDeliveryMethodDesc}"
+				readonly="true" />
+			<br />
+
 			<h:outputLabel value="总价" />
 			<h:inputText value="#{viewOrderBean.order.totalAmount}"
 				readonly="true" />
+			<br />
+			<h:outputLabel value="已付款" />
+			<h:inputText value="#{maintainOrderBean.order.paidAmount}" />
 			<br />
 			<br />
 			<h:outputLabel value="订购书籍列表" />
@@ -79,14 +90,24 @@
 					<h:outputText value="#{item.count}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">总价</f:facet>
-					<h:outputText value="#{item.unitPrice*item.count}" />
-				</h:column>
-				<h:column>
 					<f:facet name="header">已备货</f:facet>
 					<h:outputText value="#{item.preparedCount}" />
 				</h:column>
+				<h:column>
+					<f:facet name="header">备注</f:facet>
+					<h:outputText
+						rendered="#{viewOrderBean.order.deliveryStatus!='NOT_PREPARED' and item.preparedCount lt item.count}"
+						value="有缺货" style="color:#ff0000;" />
+				</h:column>
 			</h:dataTable>
+			<br />
+			<h:outputLabel value="书款" />
+			<h:inputText
+				value="#{viewOrderBean.order.totalAmount - viewOrderBean.order.adjust}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="运输费用" />
+			<h:inputText value="#{viewOrderBean.order.adjust}" readonly="true" />
 			<br />
 			<br />
 			<h:panelGroup rendered="#{viewOrderBean.internal}">
@@ -99,6 +120,9 @@
 					action="#{viewOrderBean.prepare}" />
 			</h:panelGroup>
 		</h:form>
+		<br />
+		<a href="inner_index.htm">回到首页</a>
+		<br />
 		<h:panelGroup rendered="#{viewOrderBean.order.delivery!=null}">
 			<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">物流状态</div>
 			<h:outputLabel value="物流状态" />
