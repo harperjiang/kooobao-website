@@ -7,12 +7,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIData;
-import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.gsm.domain.dao.OrderDao;
+import com.kooobao.gsm.domain.dao.OrderDao.SearchBean;
 import com.kooobao.gsm.domain.entity.order.DeliveryStatus;
 import com.kooobao.gsm.domain.entity.order.Order;
 
@@ -36,26 +36,23 @@ public class QueryOrderBean extends AbstractBean {
 	public String search() {
 		if (StringUtils.isEmpty(getCustomer())
 				&& StringUtils.isEmpty(getContactName())) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "至少输入一项查询条件",
-							"至少输入一项查询条件"));
+			addMessage(FacesMessage.SEVERITY_WARN, "至少输入一项查询条件");
 			return "failed";
 		}
-		setOrders(getOrderDao().searchOrders(getGroupName(), getCustomer(),
-				getContactName(), null));
+		setOrders(getOrderDao().searchOrders(
+				new SearchBean(getGroupName(), getCustomer(), getContactName(),
+						null, null)));
 		internal = false;
 		return "success";
 	}
 
 	public String searchUnprepared() {
 		setOrders(getOrderDao().searchOrders(
-				getGroupName(),
-				getCustomer(),
-				getContactName(),
-				new String[] { DeliveryStatus.NOT_PREPARED.name(),
-						DeliveryStatus.PARTIALLY_PREPARED.name(),
-						DeliveryStatus.PARTIALLY_DELIVERED.name() }));
+				new SearchBean(getGroupName(), getCustomer(), getContactName(),
+						null, new String[] {
+								DeliveryStatus.NOT_PREPARED.name(),
+								DeliveryStatus.PARTIALLY_PREPARED.name(),
+								DeliveryStatus.PARTIALLY_DELIVERED.name() })));
 		internal = true;
 		return "success";
 	}
