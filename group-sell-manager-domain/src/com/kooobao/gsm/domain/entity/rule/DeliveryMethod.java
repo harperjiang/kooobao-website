@@ -1,5 +1,6 @@
 package com.kooobao.gsm.domain.entity.rule;
 
-public interface DiscountRule {
+public enum DeliveryMethod {
 
+	EXPRESS, POST
 }

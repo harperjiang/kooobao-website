@@ -5,17 +5,10 @@ import java.math.BigDecimal;
 import com.kooobao.gsm.domain.entity.order.DeliveryStatus;
 import com.kooobao.gsm.domain.entity.order.Order;
 import com.kooobao.gsm.domain.entity.order.OrderItem;
-import com.kooobao.gsm.domain.entity.rule.DiscountRule;
+import com.kooobao.gsm.domain.entity.rule.DeliveryAmountRule;
+import com.kooobao.gsm.domain.entity.rule.GrossWeightRule;
 
 public class OrderService {
-
-	public static void setOrderTotalAmount(Order order, DiscountRule rule) {
-		BigDecimal sum = BigDecimal.ZERO;
-		for (OrderItem item : order.getItems())
-			sum = sum.add(item.getUnitPrice().multiply(
-					new BigDecimal(item.getCount())));
-		order.setTotalAmount(sum);
-	}
 
 	public static void updateOrderPrepareStatus(Order order) {
 		if (DeliveryStatus.DELIVERED.name().equals(order.getDeliveryStatus())
@@ -63,5 +56,39 @@ public class OrderService {
 			order.setDeliveryStatus(DeliveryStatus.NOT_PREPARED.name());
 			updateOrderPrepareStatus(order);
 		}
+	}
+
+	public static void updateOrderTotal(Order order) {
+		BigDecimal sum = BigDecimal.ZERO;
+		BigDecimal weight = BigDecimal.ZERO;
+
+		boolean usetotal = (order.getDeliveryStatus()
+				.equals(DeliveryStatus.NOT_PREPARED.name()));
+
+		for (OrderItem item : order.getItems()) {
+
+			sum = sum.add(item.getUnitPrice().multiply(
+					new BigDecimal(usetotal ? item.getCount() : item
+							.getPreparedCount())));
+			weight = weight.add(item
+					.getProduct()
+					.getNetWeight()
+					.multiply(
+							new BigDecimal(usetotal ? item.getCount() : item
+									.getPreparedCount())));
+		}
+		order.setTotalAmount(sum);
+		order.setGrossWeight(weight);
+	}
+
+	public static void updateOrderTotalAmount(Order order,
+			DeliveryAmountRule daRule, GrossWeightRule gwRule) {
+		BigDecimal value = null;
+		if (null != daRule && null != (value = daRule.calculate(order))) {
+			order.setTotalAmount(order.getTotalAmount().add(value));
+			order.setAdjust(value);
+		}
+		if (null != gwRule && null != (value = gwRule.getPackageWeight(order)))
+			order.setGrossWeight(order.getGrossWeight().add(value));
 	}
 }

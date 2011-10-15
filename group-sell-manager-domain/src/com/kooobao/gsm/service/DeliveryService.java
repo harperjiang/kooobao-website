@@ -7,8 +7,7 @@ import com.kooobao.gsm.domain.entity.delivery.Delivery;
 public class DeliveryService {
 
 	public Delivery save(Delivery delivery) {
-		getOrderDao().store(delivery.getOrder());
-		return getDeliveryDao().store(delivery);
+		return null;
 	}
 
 	private DeliveryDao deliveryDao;

@@ -1,5 +1,6 @@
 package com.kooobao.gsm.domain.entity.delivery;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,11 +26,12 @@ import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.gsm.domain.entity.order.ContactInfo;
 import com.kooobao.gsm.domain.entity.order.Order;
 import com.kooobao.gsm.domain.entity.order.OrderItem;
+import com.kooobao.gsm.domain.entity.rule.DeliveryTarget;
 import com.kooobao.gsm.service.OrderService;
 
 @Entity
 @Table(name = "gsm_delivery")
-public class Delivery extends VersionEntity {
+public class Delivery extends VersionEntity implements DeliveryTarget {
 
 	@Column(name = "company", columnDefinition = "varchar(20)")
 	private String company;
@@ -59,9 +61,15 @@ public class Delivery extends VersionEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date sendDate;
 
-	@OneToOne
+	@OneToOne(cascade = { CascadeType.MERGE })
 	@JoinColumn(name = "order_id", columnDefinition = "decimal(10)", referencedColumnName = "obj_id")
 	private Order order;
+
+	@Column(name = "gross_weight", columnDefinition = "decimal(10,2)")
+	private BigDecimal grossWeight = BigDecimal.ZERO;;
+
+	@Column(name = "delivery_fee", columnDefinition = "decimal(10,2)")
+	private BigDecimal deliveryFee = BigDecimal.ZERO;;
 
 	public String getStatus() {
 		return status;
@@ -173,6 +181,38 @@ public class Delivery extends VersionEntity {
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public BigDecimal getGrossWeight() {
+		return grossWeight;
+	}
+
+	public void setGrossWeight(BigDecimal grossWeight) {
+		this.grossWeight = grossWeight;
+	}
+
+	public BigDecimal getDeliveryFee() {
+		return deliveryFee;
+	}
+
+	public void setDeliveryFee(BigDecimal deliveryFee) {
+		this.deliveryFee = deliveryFee;
+	}
+
+	public String getDeliveryMethod() {
+		return getCompany();
+	}
+
+	public String getAddress() {
+		return getContact().getAddress();
+	}
+
+	public BigDecimal getAmount() {
+		return null;
+	}
+
+	public BigDecimal getWeight() {
+		return getGrossWeight();
 	}
 
 }

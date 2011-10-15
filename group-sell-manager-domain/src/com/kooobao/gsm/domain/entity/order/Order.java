@@ -25,16 +25,18 @@ import com.kooobao.common.domain.entity.SimpleEntity;
 import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.gsm.domain.entity.delivery.Delivery;
+import com.kooobao.gsm.domain.entity.rule.DeliveryMethod;
+import com.kooobao.gsm.domain.entity.rule.DeliveryTarget;
 
 @Entity
 @Table(name = "gsm_order")
-public class Order extends VersionEntity {
+public class Order extends VersionEntity implements DeliveryTarget {
 
 	@Column(name = "group_code", columnDefinition = "varchar(20)")
 	private String group;
 
-	@Column(name = "number", columnDefinition = "varchar(30)")
-	private String number;
+	@Column(name = "ref_number", columnDefinition = "varchar(30)")
+	private String refNumber;
 
 	@Column(name = "customer", columnDefinition = "varchar(30)")
 	private String customer;
@@ -64,18 +66,27 @@ public class Order extends VersionEntity {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "order")
 	private List<OrderItem> items;
 
-	@Column(name = "discount", columnDefinition = "decimal(10,2)")
-	private BigDecimal discount = BigDecimal.ZERO;
+	@Column(name = "adjust", columnDefinition = "decimal(10,2)")
+	private BigDecimal adjust = BigDecimal.ZERO;
 
 	@Column(name = "total_amount", columnDefinition = "decimal(10,2)")
-	private BigDecimal totalAmount;
+	private BigDecimal totalAmount = BigDecimal.ZERO;
 
 	@Column(name = "remark", columnDefinition = "text")
 	private String remark;
 
-	@OneToOne
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "delivery", referencedColumnName = "obj_id")
 	private Delivery delivery;
+
+	@Column(name = "expect_delivery_method", columnDefinition = "varchar(10)")
+	private String expectDeliveryMethod;
+
+	@Column(name = "paid_amount", columnDefinition = "decimal(10,2)")
+	private BigDecimal paidAmount = BigDecimal.ZERO;
+
+	@Column(name = "gross_weight", columnDefinition = "decimal(10,2)")
+	private BigDecimal grossWeight = BigDecimal.ZERO;
 
 	public String getGroup() {
 		return group;
@@ -101,12 +112,12 @@ public class Order extends VersionEntity {
 		this.items = items;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getRefNumber() {
+		return refNumber;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setRefNumber(String refNumber) {
+		this.refNumber = refNumber;
 	}
 
 	public String getStatus() {
@@ -130,12 +141,12 @@ public class Order extends VersionEntity {
 		this.deliveryStatus = deliveryStatus;
 	}
 
-	public BigDecimal getDiscount() {
-		return discount;
+	public BigDecimal getAdjust() {
+		return adjust;
 	}
 
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
+	public void setAdjust(BigDecimal adjust) {
+		this.adjust = adjust;
 	}
 
 	public BigDecimal getTotalAmount() {
@@ -192,6 +203,18 @@ public class Order extends VersionEntity {
 		getItems().add(item);
 	}
 
+	public String getExpectDeliveryMethod() {
+		return expectDeliveryMethod;
+	}
+
+	public String getExpectDeliveryMethodDesc() {
+		return StatusUtils.text(DeliveryMethod.valueOf(expectDeliveryMethod));
+	}
+
+	public void setExpectDeliveryMethod(String expectDeliveryMethod) {
+		this.expectDeliveryMethod = expectDeliveryMethod;
+	}
+
 	public String getDisplayId() {
 		return SimpleEntity.extend(getOid(), 8);
 	}
@@ -207,5 +230,37 @@ public class Order extends VersionEntity {
 
 	public boolean isDeliveryPreparable() {
 		return OrderStatus.CONFIRMED.name().equals(getStatus());
+	}
+
+	public BigDecimal getPaidAmount() {
+		return paidAmount;
+	}
+
+	public void setPaidAmount(BigDecimal paidAmount) {
+		this.paidAmount = paidAmount;
+	}
+
+	public String getDeliveryMethod() {
+		return getExpectDeliveryMethod();
+	}
+
+	public String getAddress() {
+		return getContact().getAddress();
+	}
+
+	public BigDecimal getAmount() {
+		return getTotalAmount();
+	}
+
+	public BigDecimal getWeight() {
+		return getGrossWeight();
+	}
+
+	public BigDecimal getGrossWeight() {
+		return grossWeight;
+	}
+
+	public void setGrossWeight(BigDecimal grossWeight) {
+		this.grossWeight = grossWeight;
 	}
 }

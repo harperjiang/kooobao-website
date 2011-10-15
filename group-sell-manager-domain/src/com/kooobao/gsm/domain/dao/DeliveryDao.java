@@ -8,6 +8,8 @@ import org.apache.commons.lang.Validate;
 import com.kooobao.common.domain.dao.Dao;
 import com.kooobao.common.domain.dao.ISearchBean;
 import com.kooobao.gsm.domain.entity.delivery.Delivery;
+import com.kooobao.gsm.domain.entity.rule.DeliveryAmountRule;
+import com.kooobao.gsm.domain.entity.rule.DeliveryTarget;
 
 public interface DeliveryDao extends Dao<Delivery> {
 
@@ -53,5 +55,4 @@ public interface DeliveryDao extends Dao<Delivery> {
 	}
 
 	public List<Delivery> search(SearchBean search);
-
 }
