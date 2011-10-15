@@ -99,7 +99,20 @@
 					action="#{viewOrderBean.prepare}" />
 			</h:panelGroup>
 		</h:form>
-		<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">物流状态</div>
-
+		<h:panelGroup rendered="#{viewOrderBean.order.delivery!=null}">
+			<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">物流状态</div>
+			<h:outputLabel value="物流状态" />
+			<h:inputText value="#{viewOrderBean.order.delivery.displayStatus}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="快递公司" />
+			<h:inputText value="#{viewOrderBean.order.delivery.company}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="快递单号" />
+			<h:inputText value="#{viewOrderBean.order.delivery.number}"
+				readonly="true" />
+			<br />
+		</h:panelGroup>
 	</ui:define>
 </ui:composition>

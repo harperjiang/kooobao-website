@@ -13,8 +13,12 @@
 
 	<bean id="productDao" class="com.kooobao.gsm.domain.dao.memory.MemoryProductDao" />
 	<bean id="orderDao" class="com.kooobao.gsm.domain.dao.memory.MemoryOrderDao" />
-	<bean id="deliveryDao" class="com.kooobao.gsm.domain.dao.memory.MemoryDeliveryDao" />
-
+	<bean id="deliveryDao" class="com.kooobao.gsm.domain.dao.jpa.JpaDeliveryDao">
+		<property name="template" ref="template" />
+	</bean>
+	<bean id="groupDao" class="com.kooobao.gsm.domain.dao.jpa.JpaGroupDao">
+		<property name="template" ref="template" />
+	</bean>
 
 	<bean id="deliveryService" class="com.kooobao.gsm.service.DeliveryService">
 		<property name="deliveryDao" ref="deliveryDao" />
