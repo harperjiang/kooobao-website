@@ -14,7 +14,7 @@
 	width: 150px;
 }
 </style>
-		<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">未配货订单查询</div>
+		<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">订单查询</div>
 		<div class="searchForm"><h:form>
 			<h:outputLabel value="团购活动" />
 			<h:selectOneMenu value="#{queryOrderBean.groupName}">
@@ -27,8 +27,15 @@
 			<h:outputLabel value="联系人姓名" />
 			<h:inputText value="#{queryOrderBean.contactName}" />
 			<br />
-			<h:commandButton action="#{queryOrderBean.searchUnprepared}"
-				value="查找" />
+			<h:outputLabel value="参考编号" />
+			<h:inputText value="#{queryOrderBean.refNumber}" />
+			<br />
+			<h:outputLabel value="订单状态" />
+			<h:selectOneMenu value="#{queryOrderBean.status}">
+				<f:selectItems value="#{supportDataBean.orderStatus}" />
+			</h:selectOneMenu>
+			<br />
+			<h:commandButton action="#{queryOrderBean.search}" value="查找" />
 			<h:messages />
 		</h:form> <br />
 		<a href="inner_index.htm">回到首页</a> <br />

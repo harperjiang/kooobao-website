@@ -16,14 +16,16 @@ public interface OrderDao extends Dao<Order> {
 		private String contact;
 		private String[] status;
 		private String[] deliveryStatus;
+		private String refNumber;
 
 		public SearchBean(String groupName, String customer, String contact,
-				String[] status, String[] deliveryStatus) {
+				String[] status, String[] deliveryStatus, String refNumber) {
 			this.groupName = groupName;
 			this.customer = customer;
 			this.contact = contact;
 			this.status = status;
 			this.deliveryStatus = deliveryStatus;
+			this.refNumber = refNumber;
 		}
 
 		public String getGroupName() {
@@ -66,11 +68,22 @@ public interface OrderDao extends Dao<Order> {
 			this.deliveryStatus = deliveryStatus;
 		}
 
+		public String getRefNumber() {
+			return refNumber;
+		}
+
+		public void setRefNumber(String refNumber) {
+			this.refNumber = refNumber;
+		}
+
 		public void validate() {
-			Validate.isTrue(!StringUtils.isEmpty(getCustomer())
-					|| !StringUtils.isEmpty(getContact())
-					|| (status != null && status.length > 1)
-					|| (deliveryStatus != null && deliveryStatus.length > 1));
+			// Validate.isTrue(
+			// !StringUtils.isEmpty(getCustomer())
+			// || !StringUtils.isEmpty(getContact())
+			// || !StringUtils.isEmpty(getRefNumber())
+			// || (status != null && status.length > 0)
+			// || (deliveryStatus != null && deliveryStatus.length > 0),
+			// "至少输入一项查询条件");
 		}
 	}
 

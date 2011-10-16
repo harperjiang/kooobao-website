@@ -2,21 +2,21 @@
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13184382333600" configfile="/group-sell-manager-web/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="maintain_order.xhtml" x="384" y="24" id="pf13185062486630" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf13185062486631" inlinks="pf13185062653985 pf131851525487910" path="/maintain_order.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="maintain_order_success.xhtml" x="360" y="168" id="pf13185062486632" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf13185062653985 pf13185062761086" inlinks="pf13185062486631" path="/maintain_order_success.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="view_order.xhtml" x="92" y="168" id="pf13185062761087" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" outlinks="pf131851525487910 pf131851742416211" inlinks="pf13185062761086 pf13185124162748 pf13185259947200" path="/view_order.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="view_order.xhtml" x="92" y="168" id="pf13185062761087" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" outlinks="pf131851525487910 pf131851742416211" inlinks="pf13185062761086 pf13185124162748 pf13187362621520" path="/view_order.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="108" y="24" id="pf13185124162749" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf13185124162748" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="prepare_delivery.xhtml" x="379" y="276" id="pf131851742416312" referenceLink="//@navigationRule.8/@fromViewId|" outlinks="pf13185268762892 pf13185273184384" inlinks="pf131851742416211 pf13186144571389" path="/prepare_delivery.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="view_unprepared.xhtml" x="74" y="360" id="pf13185259947211" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf13185259947200" path="/view_unprepared.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="prepare_delivery.xhtml" x="379" y="276" id="pf131851742416312" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" outlinks="pf13185268762892 pf13185273184384" inlinks="pf131851742416211 pf13186144571389" path="/prepare_delivery.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="prepare_delivery_result.xhtml" x="420" y="468" id="pf13185268762903" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" inlinks="pf13185268762892" path="/prepare_delivery_result.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="mark_shortage_result.xhtml" x="227" y="468" id="pf13185273184385" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" inlinks="pf13185273184384" path="/mark_shortage_result.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="search_delivery.xhtml" x="80" y="538" id="pf13185978657946" referenceLink="//@navigationRule.9/@fromViewId|" outlinks="pf13186144571389" path="/search_delivery.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="query_order.xhtml" id="pf13187362621531" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf13187362621520" path="/query_order.xhtml"/>
   <links id="pf13185062486631" target="pf13185062486632" source="pf13185062486630" outcome="success" redirect="true" fromaction="#{maintainOrderBean.save}"/>
   <links id="pf13185062653985" target="pf13185062486630" source="pf13185062486632" outcome="success" redirect="true" fromaction="#{maintainOrderSuccessBean.another}"/>
   <links id="pf13185062761086" target="pf13185062761087" source="pf13185062486632" outcome="success" redirect="true" fromaction="#{maintainOrderSuccessBean.view}"/>
   <links id="pf13185124162748" target="pf13185062761087" source="pf13185124162749" outcome="success" redirect="true" fromaction="#{queryOrderBean.view}"/>
   <links id="pf131851525487910" target="pf13185062486630" source="pf13185062761087" outcome="success" redirect="true" fromaction="#{viewOrderBean.modify}"/>
   <links id="pf131851742416211" target="pf131851742416312" source="pf13185062761087" outcome="success" redirect="true" fromaction="#{viewOrderBean.prepare}"/>
-  <links id="pf13185259947200" target="pf13185062761087" source="pf13185259947211" outcome="success" redirect="true" fromaction="#{queryOrderBean.view}"/>
   <links id="pf13185268762892" target="pf13185268762903" source="pf131851742416312" outcome="saved"/>
   <links id="pf13185273184384" target="pf13185273184385" source="pf131851742416312" outcome="success" redirect="true" fromaction="#{prepareDeliveryBean.markShortage}"/>
   <links id="pf13186144571389" target="pf131851742416312" source="pf13185978657946" outcome="success" redirect="true" fromaction="#{searchDeliveryBean.view}"/>
+  <links id="pf13187362621520" target="pf13185062761087" source="pf13187362621531" outcome="success" redirect="true" fromaction="#{queryOrderBean.view}"/>
 </pageflow:Pageflow>

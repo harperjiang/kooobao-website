@@ -30,7 +30,7 @@ public class ViewOrderBean extends AbstractBean {
 
 	public String modify() {
 		MaintainOrderBean mob = findBean("maintainOrderBean");
-		mob.setOrderId(getOrderId());
+		mob.setOrder(getOrder());
 		return "success";
 	}
 
