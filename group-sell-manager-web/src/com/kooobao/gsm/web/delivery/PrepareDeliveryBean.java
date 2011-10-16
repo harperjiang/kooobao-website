@@ -56,7 +56,8 @@ public class PrepareDeliveryBean extends AbstractBean {
 			DeliveryItem ditem = new DeliveryItem();
 			ditem.setOrderItem(item);
 			ditem.setCount(item.getCount() - item.getPreparedCount());
-			delivery.addItem(ditem);
+			if (ditem.getCount() > 0)
+				delivery.addItem(ditem);
 		}
 		delivery.getContact().setAddress(order.getContact().getAddress());
 		delivery.getContact().setLocation(order.getContact().getLocation());
@@ -111,8 +112,8 @@ public class PrepareDeliveryBean extends AbstractBean {
 		// .getPackageWeight(delivery));
 		updateOrder(delivery.getOrder());
 		// setOrder(getOrderDao().store(delivery.getOrder()));
-//		setDelivery(getDeliveryDao().store(getDelivery()));
-//		getOrderDao().store(getOrder());
+		// setDelivery(getDeliveryDao().store(getDelivery()));
+		// getOrderDao().store(getOrder());
 		getDeliveryDao().store(getDelivery());
 		return "saved";
 	}

@@ -8,16 +8,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIData;
 
+import org.apache.commons.lang.Validate;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.gsm.domain.dao.OrderDao;
 import com.kooobao.gsm.domain.dao.ProductDao;
 import com.kooobao.gsm.domain.dao.SupportDao;
-import com.kooobao.gsm.domain.entity.order.DeliveryStatus;
 import com.kooobao.gsm.domain.entity.order.Order;
 import com.kooobao.gsm.domain.entity.order.OrderItem;
+import com.kooobao.gsm.domain.entity.order.OrderStatus;
 import com.kooobao.gsm.domain.entity.product.Product;
 import com.kooobao.gsm.domain.entity.rule.DeliveryAmountRule;
 import com.kooobao.gsm.domain.entity.rule.GrossWeightRule;
@@ -36,12 +38,18 @@ public class MaintainOrderBean extends AbstractBean {
 	private long orderId;
 
 	public MaintainOrderBean() {
-		reset();
-	}
-
-	public void reset() {
 		order = new Order();
 		index = new HashMap<String, Integer>();
+	}
+
+	public void onPageLoad() {
+		if (null == order)
+			order = new Order();
+		index.clear();
+		int count = 0;
+		for (OrderItem item : order.getItems()) {
+			index.put(item.getProduct().getCode(), count++);
+		}
 	}
 
 	@ManagedProperty(value = "#{productDao}")
@@ -76,6 +84,11 @@ public class MaintainOrderBean extends AbstractBean {
 			item.setCount(item.getCount() + 1);
 		}
 
+		refresh();
+		return "success";
+	}
+
+	protected void refresh() {
 		OrderService.updateOrderTotal(order);
 		// Update Package Weight
 		// Update Total Amount
@@ -83,27 +96,47 @@ public class MaintainOrderBean extends AbstractBean {
 
 		DeliveryAmountRule rule = getSupportDao().getAmountRule(order);
 		OrderService.updateOrderTotalAmount(order, rule, gwRule);
-		return "success";
 	}
 
 	public String increase() {
+		UIData dataTable = (UIData) getComponent("dataTable");
+		OrderItem select = (OrderItem) dataTable.getRowData();
+		select.setCount(select.getCount() + 1);
+		refresh();
 		return "success";
 	}
 
 	public String decrease() {
+		UIData dataTable = (UIData) getComponent("dataTable");
+		OrderItem select = (OrderItem) dataTable.getRowData();
+		if (select.getCount() > 0) {
+			select.setCount(select.getCount() - 1);
+			refresh();
+		}
+
 		return "success";
+
 	}
 
 	public String save() {
-		order.setDeliveryStatus(DeliveryStatus.NOT_PREPARED.name());
-
+		// order.setDeliveryStatus(DeliveryStatus.NOT_PREPARED.name());
+		Validate.isTrue(OrderStatus.CONFIRMED.name().equals(order.getStatus()));
+		// Validate.isTrue(DeliveryStatus.)
+		// TODO Unmodifiable Status
 		if (BigDecimal.ZERO.equals(order.getTotalAmount())) {
 			addMessage(FacesMessage.SEVERITY_WARN, "不能保存总金额为0的订单");
 			return "failed";
 		}
+		for (OrderItem item : order.getItems()) {
+			if (item.getCount() < item.getPreparedCount()) {
+				addMessage(FacesMessage.SEVERITY_WARN, "订单数量不得修改为小于已备货数量");
+				return "failed";
+			}
+		}
+
 		Order neworder = getOrderDao().store(order);
 		setOrderId(neworder.getOid());
-		reset();
+
 		((ViewOrderBean) findBean("viewOrderBean")).setInternal(true);
 		return "success";
 	}

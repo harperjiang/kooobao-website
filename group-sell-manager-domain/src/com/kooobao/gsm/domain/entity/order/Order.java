@@ -80,7 +80,7 @@ public class Order extends VersionEntity implements DeliveryTarget {
 	private Delivery delivery;
 
 	@Column(name = "expect_delivery_method", columnDefinition = "varchar(10)")
-	private String expectDeliveryMethod;
+	private String expectDeliveryMethod = DeliveryMethod.EXPRESS.name();
 
 	@Column(name = "paid_amount", columnDefinition = "decimal(10,2)")
 	private BigDecimal paidAmount = BigDecimal.ZERO;

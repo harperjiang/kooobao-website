@@ -68,8 +68,8 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>view_unprepared.xhtml</display-name>
-		<from-view-id>/view_unprepared.xhtml</from-view-id>
+		<display-name>query_order.xhtml</display-name>
+		<from-view-id>/query_order.xhtml</from-view-id>
 		<navigation-case>
 			<from-action>#{queryOrderBean.view}</from-action>
 			<from-outcome>success</from-outcome>

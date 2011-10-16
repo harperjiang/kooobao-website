@@ -11,7 +11,7 @@ public class FixedAmountRule extends DeliveryAmountRule {
 
 	@Override
 	public BigDecimal calculate(DeliveryTarget target) {
-		return null;
+		return getPrice();
 	}
 
 	public BigDecimal getPrice() {

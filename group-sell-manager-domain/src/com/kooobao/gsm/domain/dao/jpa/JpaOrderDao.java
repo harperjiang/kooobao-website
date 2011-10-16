@@ -57,6 +57,10 @@ public class JpaOrderDao extends AbstractJpaDao<Order> implements OrderDao {
 					predicates.add(root.get("deliveryStatus").in(
 							(Object[]) search.getDeliveryStatus()));
 				}
+				if (!StringUtils.isEmpty(search.getRefNumber())) {
+					predicates.add(cb.equal(root.get("refNumber"),
+							search.getRefNumber()));
+				}
 
 				if (!CollectionUtils.isEmpty(predicates)) {
 					Predicate p = predicates.get(0);

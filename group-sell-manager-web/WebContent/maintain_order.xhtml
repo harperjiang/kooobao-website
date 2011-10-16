@@ -100,7 +100,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">数量</f:facet>
-					<h:outputText value="#{item.count}" />
+					<h:inputText style="width:20px" value="#{item.count}" />
 				</h:column>
 				<h:column>
 					<f:facet name="header">总价</f:facet>
@@ -117,6 +117,15 @@
 					</h:commandLink>
 				</h:column>
 			</h:dataTable>
+			<br />
+			<br />
+			<h:outputLabel value="书款" />
+			<h:inputText
+				value="#{maintainOrderBean.order.totalAmount - maintainOrderBean.order.adjust}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="运输费用" />
+			<h:inputText value="#{maintainOrderBean.order.adjust}" readonly="true" />
 			<br />
 			<br />
 			<h:commandButton action="#{maintainOrderBean.save}" value="保存订单" />

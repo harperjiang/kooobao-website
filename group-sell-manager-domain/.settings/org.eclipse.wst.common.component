@@ -3,8 +3,6 @@
     <wb-module deploy-name="group-sell-manager-domain">
         <wb-resource deploy-path="/" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/data"/>
-        <dependent-module archiveName="delivery-amount-rule.jar" deploy-path="/" handle="module:/classpath/lib/group-sell-manager-domain/delivery-amount-rule.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
+        <wb-resource deploy-path="/" source-path="/test"/>
     </wb-module>
 </project-modules>

@@ -84,11 +84,12 @@ public class OrderService {
 	public static void updateOrderTotalAmount(Order order,
 			DeliveryAmountRule daRule, GrossWeightRule gwRule) {
 		BigDecimal value = null;
+		if (null != gwRule && null != (value = gwRule.getPackageWeight(order)))
+			order.setGrossWeight(order.getGrossWeight().add(value));
 		if (null != daRule && null != (value = daRule.calculate(order))) {
 			order.setTotalAmount(order.getTotalAmount().add(value));
 			order.setAdjust(value);
 		}
-		if (null != gwRule && null != (value = gwRule.getPackageWeight(order)))
-			order.setGrossWeight(order.getGrossWeight().add(value));
+
 	}
 }

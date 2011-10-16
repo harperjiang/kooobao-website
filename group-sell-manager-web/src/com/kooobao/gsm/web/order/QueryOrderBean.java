@@ -13,8 +13,9 @@ import org.apache.commons.lang.StringUtils;
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.gsm.domain.dao.OrderDao;
 import com.kooobao.gsm.domain.dao.OrderDao.SearchBean;
-import com.kooobao.gsm.domain.entity.order.DeliveryStatus;
 import com.kooobao.gsm.domain.entity.order.Order;
+import com.kooobao.gsm.domain.entity.order.OrderStatus;
+import com.kooobao.gsm.web.SupportDataBean;
 
 @ManagedBean
 @SessionScoped
@@ -26,6 +27,10 @@ public class QueryOrderBean extends AbstractBean {
 
 	private String contactName;
 
+	private int status;
+
+	private String refNumber;
+
 	private List<Order> orders;
 
 	private boolean internal;
@@ -33,7 +38,23 @@ public class QueryOrderBean extends AbstractBean {
 	@ManagedProperty(value = "#{orderDao}")
 	private OrderDao orderDao;
 
-	public String search() {
+	private SupportDataBean supportDataBean;
+
+	@Override
+	public void onPageLoad() {
+		reset();
+		super.onPageLoad();
+	}
+
+	private void reset() {
+		groupName = null;
+		customer = null;
+		contactName = null;
+		status = 0;
+		orders = null;
+	}
+
+	public String searchByCustomer() {
 		if (StringUtils.isEmpty(getCustomer())
 				&& StringUtils.isEmpty(getContactName())) {
 			addMessage(FacesMessage.SEVERITY_WARN, "至少输入一项查询条件");
@@ -41,20 +62,34 @@ public class QueryOrderBean extends AbstractBean {
 		}
 		setOrders(getOrderDao().searchOrders(
 				new SearchBean(getGroupName(), getCustomer(), getContactName(),
-						null, null)));
+						null, null, null)));
 		internal = false;
 		return "success";
 	}
 
-	public String searchUnprepared() {
-		setOrders(getOrderDao().searchOrders(
-				new SearchBean(getGroupName(), getCustomer(), getContactName(),
-						null, new String[] {
-								DeliveryStatus.NOT_PREPARED.name(),
-								DeliveryStatus.PARTIALLY_PREPARED.name(),
-								DeliveryStatus.PARTIALLY_DELIVERED.name() })));
-		internal = true;
-		return "success";
+	public String search() {
+		String[] orderStatus = null;
+		String[] deliveryStatus = null;
+		String[] status = getSupportDataBean()
+				.translateOrderStatus(getStatus());
+		if (status != null && status[0].equals(OrderStatus.CANCELLED.name())) {
+			orderStatus = status;
+			deliveryStatus = null;
+		} else if (null != status) {
+			orderStatus = new String[] { OrderStatus.CONFIRMED.name() };
+			deliveryStatus = status;
+		}
+		try {
+			setOrders(getOrderDao().searchOrders(
+					new SearchBean(getGroupName(), getCustomer(),
+							getContactName(), orderStatus, deliveryStatus,
+							getRefNumber())));
+			internal = true;
+			return "success";
+		} catch (IllegalArgumentException e) {
+			addMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
+			return "failed";
+		}
 	}
 
 	public String view() {
@@ -113,4 +148,31 @@ public class QueryOrderBean extends AbstractBean {
 	public void setInternal(boolean internal) {
 		this.internal = internal;
 	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public SupportDataBean getSupportDataBean() {
+		if (null == supportDataBean)
+			supportDataBean = findBean("supportDataBean");
+		return supportDataBean;
+	}
+
+	public void setSupportDataBean(SupportDataBean supportDataBean) {
+		this.supportDataBean = supportDataBean;
+	}
+
+	public String getRefNumber() {
+		return refNumber;
+	}
+
+	public void setRefNumber(String refNumber) {
+		this.refNumber = refNumber;
+	}
+
 }
