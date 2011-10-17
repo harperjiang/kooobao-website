@@ -61,11 +61,16 @@ public class JpaOrderDao extends AbstractJpaDao<Order> implements OrderDao {
 				if (!StringUtils.isEmpty(search.getRefNumber())) {
 					if (search.getRefNumber().contains("-")) {
 						String[] fromto = search.getRefNumber().split("-");
-						predicates.add(cb.between(root
-								.<BigDecimal> get("refNumber"), new BigDecimal(
-								fromto[0]), new BigDecimal(fromto[1])));
+						predicates.add(cb.between(cb.function("to_number",
+								BigDecimal.class, root.get("refNumber")),
+								new BigDecimal(fromto[0]), new BigDecimal(
+										fromto[1])));
 					} else if (search.getRefNumber().startsWith(">")) {
-
+						predicates.add(cb.greaterThan(
+								cb.function("to_number", BigDecimal.class,
+										root.get("refNumber")),
+								new BigDecimal(search.getRefNumber().substring(
+										1))));
 					} else {
 						predicates.add(cb.equal(root.get("refNumber"),
 								search.getRefNumber()));

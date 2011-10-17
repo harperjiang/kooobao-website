@@ -36,6 +36,12 @@ public class JpaOrderDaoTest extends JpaDaoTest {
 				"Contact A", new String[] { OrderStatus.CONFIRMED.name() },
 				new String[] { DeliveryStatus.NOT_PREPARED.name() }, "32-424",
 				false));
+		
+		orderDao.searchOrders(new SearchBean("Group A", "Customer A",
+				"Contact A", new String[] { OrderStatus.CONFIRMED.name() },
+				new String[] { DeliveryStatus.NOT_PREPARED.name() }, ">424",
+				false));
+		
 	}
 
 }
