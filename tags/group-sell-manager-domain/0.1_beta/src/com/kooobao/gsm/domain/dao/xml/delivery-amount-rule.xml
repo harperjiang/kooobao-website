@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules xmlns="http://www.kooobao.com/gsm/delivery-amount-rule"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.kooobao.com/gsm/delivery-amount-rule delivery-amount-rule.xsd ">
+
+	<!-- 显示快递费 -->
+	<rule area="上海" delivery-method="EXPRESS" start="5" next="1"
+		xsi:type="ExpressRuleType" />
+	<rule area="江苏" delivery-method="EXPRESS" start="5" next="1"
+		xsi:type="ExpressRuleType" />
+	<rule area="浙江" delivery-method="EXPRESS" start="5" next="1"
+		xsi:type="ExpressRuleType" />
+	<rule area="北京" delivery-method="EXPRESS" start="8" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="广东" delivery-method="EXPRESS" start="8" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="辽宁" delivery-method="EXPRESS" start="12" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="云南" delivery-method="EXPRESS" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="山西" delivery-method="EXPRESS" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="陕西" delivery-method="EXPRESS" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="安徽" delivery-method="EXPRESS" start="6" next="3"
+		xsi:type="ExpressRuleType" />
+	<rule area="山东" delivery-method="EXPRESS" start="8" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="福建" delivery-method="EXPRESS" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="内蒙" delivery-method="EXPRESS" start="15" next="12"
+		xsi:type="ExpressRuleType" />
+	<rule area="四川" delivery-method="EXPRESS" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="青海" delivery-method="EXPRESS" start="15" next="12"
+		xsi:type="ExpressRuleType" />
+	<rule area="河南" delivery-method="EXPRESS" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="海南" delivery-method="EXPRESS" start="12" next="8"
+		xsi:type="ExpressRuleType" />
+	<rule area="湖南" delivery-method="EXPRESS" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="天津" delivery-method="EXPRESS" start="8" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="广西" delivery-method="EXPRESS" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="吉林" delivery-method="EXPRESS" start="12" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="湖北" delivery-method="EXPRESS" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="河北" delivery-method="EXPRESS" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="重庆" delivery-method="EXPRESS" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="江西" delivery-method="EXPRESS" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="黑龙" delivery-method="EXPRESS" start="12" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="贵州" delivery-method="EXPRESS" start="12" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="新疆" delivery-method="EXPRESS" start="20" next="18"
+		xsi:type="ExpressRuleType" />
+	<rule area="甘肃" delivery-method="EXPRESS" start="15" next="12"
+		xsi:type="ExpressRuleType" />
+	<rule area="宁夏" delivery-method="EXPRESS" start="15" next="12"
+		xsi:type="ExpressRuleType" />
+	<rule area="西藏" delivery-method="EXPRESS" start="20" next="18"
+		xsi:type="ExpressRuleType" />
+
+	<!-- 显示邮政费用 -->
+	<rule delivery-method="POST" xsi:type="FixedRuleType"
+		floor-amount="0" ceiling-amount="100" amount="10" />
+	<rule delivery-method="POST" xsi:type="FixedRuleType"
+		floor-amount="101" ceiling-amount="200" amount="15" />
+	<rule delivery-method="POST" xsi:type="FixedRuleType"
+		floor-amount="201" ceiling-amount="300" amount="18" />
+	<rule delivery-method="POST" xsi:type="FixedRuleType"
+		floor-amount="301" ceiling-amount="400" amount="22" />
+	<rule delivery-method="POST" xsi:type="FixedRuleType"
+		floor-amount="401" ceiling-amount="500" amount="25" />
+	<rule delivery-method="POST" xsi:type="FixedRuleType"
+		floor-amount="501" ceiling-amount="600" amount="30" />
+	<rule delivery-method="POST" xsi:type="FixedRuleType"
+		floor-amount="601" ceiling-amount="700" amount="35" />
+	<rule delivery-method="POST" xsi:type="FixedRuleType"
+		floor-amount="701" amount="36" />
+
+
+	<!-- 中通实际运费 -->
+	<rule area="上海" delivery-method="中通" start="5" next="1"
+		xsi:type="ExpressRuleType" />
+	<rule area="江苏" delivery-method="中通" start="5" next="1"
+		xsi:type="ExpressRuleType" />
+	<rule area="浙江" delivery-method="中通" start="5" next="1"
+		xsi:type="ExpressRuleType" />
+	<rule area="北京" delivery-method="中通" start="8" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="广东" delivery-method="中通" start="8" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="辽宁" delivery-method="中通" start="12" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="云南" delivery-method="中通" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="山西" delivery-method="中通" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="陕西" delivery-method="中通" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="安徽" delivery-method="中通" start="6" next="3"
+		xsi:type="ExpressRuleType" />
+	<rule area="山东" delivery-method="中通" start="8" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="福建" delivery-method="中通" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="内蒙" delivery-method="中通" start="15" next="12"
+		xsi:type="ExpressRuleType" />
+	<rule area="四川" delivery-method="中通" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="青海" delivery-method="中通" start="15" next="12"
+		xsi:type="ExpressRuleType" />
+	<rule area="河南" delivery-method="中通" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="海南" delivery-method="中通" start="12" next="8"
+		xsi:type="ExpressRuleType" />
+	<rule area="湖南" delivery-method="中通" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="天津" delivery-method="中通" start="8" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="广西" delivery-method="中通" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="吉林" delivery-method="中通" start="12" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="湖北" delivery-method="中通" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="河北" delivery-method="中通" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="重庆" delivery-method="中通" start="10" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="江西" delivery-method="中通" start="10" next="5"
+		xsi:type="ExpressRuleType" />
+	<rule area="黑龙" delivery-method="中通" start="12" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="贵州" delivery-method="中通" start="12" next="7"
+		xsi:type="ExpressRuleType" />
+	<rule area="新疆" delivery-method="中通" start="20" next="18"
+		xsi:type="ExpressRuleType" />
+	<rule area="甘肃" delivery-method="中通" start="15" next="12"
+		xsi:type="ExpressRuleType" />
+	<rule area="宁夏" delivery-method="中通" start="15" next="12"
+		xsi:type="ExpressRuleType" />
+	<rule area="西藏" delivery-method="中通" start="20" next="18"
+		xsi:type="ExpressRuleType" />
+
+
+</rules>
