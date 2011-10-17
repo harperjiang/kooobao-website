@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://www.kooobao.com/gsm/delivery-amount-rule"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.kooobao.com/gsm/delivery-amount-rule">
+
+    <complexType name="DeliveryAmountRuleType">
+    	<attribute name="area" type="string" use="optional"></attribute>
+    	<attribute name="delivery-method" type="string"
+    		use="required">
+    	</attribute>
+    	<attribute name="ceiling-amount" type="double" use="optional"></attribute>
+    	<attribute name="floor-amount" type="double"></attribute>
+    	<attribute name="ceiling-weight" type="double"></attribute>
+    	<attribute name="floor-weight" type="double"></attribute>
+    </complexType>
+
+    <complexType name="FixedRuleType">
+    	<complexContent>
+    		<extension base="tns:DeliveryAmountRuleType">
+    			<attribute name="amount" type="double"></attribute>
+    		</extension>
+    	</complexContent>
+    </complexType>
+
+    <complexType name="ExpressRuleType">
+    	<complexContent>
+    		<extension base="tns:DeliveryAmountRuleType">
+    			<attribute name="start" type="double"></attribute>
+                <attribute name="next" type="double"></attribute>
+            </extension>
+    	</complexContent>
+    </complexType>
+
+    <element name="rules" type="tns:RuleListType"></element>
+    
+    <complexType name="RuleListType">
+    	<sequence maxOccurs="unbounded" minOccurs="1">
+    		<element name="rule" type="tns:DeliveryAmountRuleType"></element>
+    	</sequence>
+    </complexType>
+</schema>
