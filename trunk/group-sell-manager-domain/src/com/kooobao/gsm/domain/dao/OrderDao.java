@@ -2,9 +2,6 @@ package com.kooobao.gsm.domain.dao;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
-
 import com.kooobao.common.domain.dao.Dao;
 import com.kooobao.common.domain.dao.ISearchBean;
 import com.kooobao.gsm.domain.entity.order.Order;
@@ -17,15 +14,18 @@ public interface OrderDao extends Dao<Order> {
 		private String[] status;
 		private String[] deliveryStatus;
 		private String refNumber;
+		private boolean findProblematic;
 
 		public SearchBean(String groupName, String customer, String contact,
-				String[] status, String[] deliveryStatus, String refNumber) {
+				String[] status, String[] deliveryStatus, String refNumber,
+				boolean findProblematic) {
 			this.groupName = groupName;
 			this.customer = customer;
 			this.contact = contact;
 			this.status = status;
 			this.deliveryStatus = deliveryStatus;
 			this.refNumber = refNumber;
+			this.findProblematic = findProblematic;
 		}
 
 		public String getGroupName() {
@@ -74,6 +74,14 @@ public interface OrderDao extends Dao<Order> {
 
 		public void setRefNumber(String refNumber) {
 			this.refNumber = refNumber;
+		}
+
+		public boolean isFindProblematic() {
+			return findProblematic;
+		}
+
+		public void setFindProblematic(boolean findProblematic) {
+			this.findProblematic = findProblematic;
 		}
 
 		public void validate() {

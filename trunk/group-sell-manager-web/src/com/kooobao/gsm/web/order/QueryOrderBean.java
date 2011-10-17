@@ -33,6 +33,8 @@ public class QueryOrderBean extends AbstractBean {
 
 	private List<Order> orders;
 
+	private boolean findProblematic = true;
+
 	private boolean internal;
 
 	@ManagedProperty(value = "#{orderDao}")
@@ -42,7 +44,7 @@ public class QueryOrderBean extends AbstractBean {
 
 	@Override
 	public void onPageLoad() {
-		reset();
+		// reset();
 		super.onPageLoad();
 	}
 
@@ -62,7 +64,7 @@ public class QueryOrderBean extends AbstractBean {
 		}
 		setOrders(getOrderDao().searchOrders(
 				new SearchBean(getGroupName(), getCustomer(), getContactName(),
-						null, null, null)));
+						null, null, null, false)));
 		internal = false;
 		return "success";
 	}
@@ -72,6 +74,7 @@ public class QueryOrderBean extends AbstractBean {
 		String[] deliveryStatus = null;
 		String[] status = getSupportDataBean()
 				.translateOrderStatus(getStatus());
+
 		if (status != null && status[0].equals(OrderStatus.CANCELLED.name())) {
 			orderStatus = status;
 			deliveryStatus = null;
@@ -83,7 +86,7 @@ public class QueryOrderBean extends AbstractBean {
 			setOrders(getOrderDao().searchOrders(
 					new SearchBean(getGroupName(), getCustomer(),
 							getContactName(), orderStatus, deliveryStatus,
-							getRefNumber())));
+							getRefNumber(), isFindProblematic())));
 			internal = true;
 			return "success";
 		} catch (IllegalArgumentException e) {
@@ -98,6 +101,7 @@ public class QueryOrderBean extends AbstractBean {
 		ViewOrderBean viewOrderBean = findBean("viewOrderBean");
 		viewOrderBean.setOrderId(select.getOid());
 		viewOrderBean.setInternal(internal);
+		reset();
 		return "success";
 	}
 
@@ -173,6 +177,14 @@ public class QueryOrderBean extends AbstractBean {
 
 	public void setRefNumber(String refNumber) {
 		this.refNumber = refNumber;
+	}
+
+	public boolean isFindProblematic() {
+		return findProblematic;
+	}
+
+	public void setFindProblematic(boolean findProblematic) {
+		this.findProblematic = findProblematic;
 	}
 
 }

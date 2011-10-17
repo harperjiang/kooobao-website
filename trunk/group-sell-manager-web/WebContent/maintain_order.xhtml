@@ -70,6 +70,7 @@
 	document.getElementById("infoForm:productId").focus();
 </script>
 			<h:messages />
+			<h:commandButton value="刷新" action="#{maintainOrderBean.refresh}" />
 			<br />
 			<h:outputLabel value="毛重" />
 			<h:inputText value="#{maintainOrderBean.order.grossWeight}"
@@ -125,7 +126,8 @@
 				readonly="true" />
 			<br />
 			<h:outputLabel value="运输费用" />
-			<h:inputText value="#{maintainOrderBean.order.adjust}" readonly="true" />
+			<h:inputText value="#{maintainOrderBean.order.adjust}"
+				readonly="true" />
 			<br />
 			<br />
 			<h:commandButton action="#{maintainOrderBean.save}" value="保存订单" />

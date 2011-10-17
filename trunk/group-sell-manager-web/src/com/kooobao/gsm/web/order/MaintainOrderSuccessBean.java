@@ -21,5 +21,9 @@ public class MaintainOrderSuccessBean extends AbstractBean {
 		viewBean.setOrderId(orderId);
 		return "success";
 	}
+	
+	public String backsearch() {
+		return "success";
+	}
 
 }

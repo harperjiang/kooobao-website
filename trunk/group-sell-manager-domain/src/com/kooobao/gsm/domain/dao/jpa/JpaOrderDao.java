@@ -1,5 +1,6 @@
 package com.kooobao.gsm.domain.dao.jpa;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +59,22 @@ public class JpaOrderDao extends AbstractJpaDao<Order> implements OrderDao {
 							(Object[]) search.getDeliveryStatus()));
 				}
 				if (!StringUtils.isEmpty(search.getRefNumber())) {
-					predicates.add(cb.equal(root.get("refNumber"),
-							search.getRefNumber()));
+					if (search.getRefNumber().contains("-")) {
+						String[] fromto = search.getRefNumber().split("-");
+						predicates.add(cb.between(root
+								.<BigDecimal> get("refNumber"), new BigDecimal(
+								fromto[0]), new BigDecimal(fromto[1])));
+					} else if (search.getRefNumber().startsWith(">")) {
+
+					} else {
+						predicates.add(cb.equal(root.get("refNumber"),
+								search.getRefNumber()));
+					}
+				}
+
+				if (search.isFindProblematic()) {
+					predicates.add(cb.notEqual(root.get("paidAmount"),
+							root.get("totalAmount")));
 				}
 
 				if (!CollectionUtils.isEmpty(predicates)) {
@@ -73,5 +88,4 @@ public class JpaOrderDao extends AbstractJpaDao<Order> implements OrderDao {
 			}
 		});
 	}
-
 }
