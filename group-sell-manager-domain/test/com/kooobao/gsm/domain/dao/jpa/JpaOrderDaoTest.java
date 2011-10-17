@@ -23,7 +23,19 @@ public class JpaOrderDaoTest extends JpaDaoTest {
 
 		orderDao.searchOrders(new SearchBean("Group A", "Customer A",
 				"Contact A", new String[] { OrderStatus.CONFIRMED.name() },
-				new String[] { DeliveryStatus.NOT_PREPARED.name() }, "32"));
+				new String[] { DeliveryStatus.NOT_PREPARED.name() }, "32",
+				false));
+	}
+
+	@Test
+	public void testSearchBetween() {
+		JpaOrderDao orderDao = new JpaOrderDao();
+		orderDao.setTemplate(getTemplate());
+
+		orderDao.searchOrders(new SearchBean("Group A", "Customer A",
+				"Contact A", new String[] { OrderStatus.CONFIRMED.name() },
+				new String[] { DeliveryStatus.NOT_PREPARED.name() }, "32-424",
+				false));
 	}
 
 }

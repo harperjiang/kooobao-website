@@ -88,7 +88,7 @@ public class MaintainOrderBean extends AbstractBean {
 		return "success";
 	}
 
-	protected void refresh() {
+	public String refresh() {
 		OrderService.updateOrderTotal(order);
 		// Update Package Weight
 		// Update Total Amount
@@ -96,14 +96,14 @@ public class MaintainOrderBean extends AbstractBean {
 
 		DeliveryAmountRule rule = getSupportDao().getAmountRule(order);
 		OrderService.updateOrderTotalAmount(order, rule, gwRule);
+		return "success";
 	}
 
 	public String increase() {
 		UIData dataTable = (UIData) getComponent("dataTable");
 		OrderItem select = (OrderItem) dataTable.getRowData();
 		select.setCount(select.getCount() + 1);
-		refresh();
-		return "success";
+		return refresh();
 	}
 
 	public String decrease() {
@@ -133,7 +133,7 @@ public class MaintainOrderBean extends AbstractBean {
 				return "failed";
 			}
 		}
-
+		refresh();
 		Order neworder = getOrderDao().store(order);
 		setOrderId(neworder.getOid());
 

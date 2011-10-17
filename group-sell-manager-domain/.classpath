@@ -34,5 +34,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="config"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

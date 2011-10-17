@@ -25,7 +25,7 @@ public abstract class DeliveryAmountRule {
 		Validate.notNull(target.getAmount());
 		Validate.notNull(target.getWeight());
 
-		if ((StringUtils.isEmpty(area) || target.getAddress().startsWith(area))
+		if ((StringUtils.isEmpty(area) || target.getAddress().contains(area))
 				&& (weightFloor.compareTo(target.getWeight()) < 0)
 				&& (BigDecimal.ZERO.equals(weightCeiling) || weightCeiling
 						.compareTo(target.getWeight()) > 0)
