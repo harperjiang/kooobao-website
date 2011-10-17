@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">酷宝英语教育-团购信息查询系统-新建团购单</ui:define>
+	<ui:define name="body">
+		<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">新建团购单-保存成功</div>
+		<h:form>
+			<h:inputHidden value="#{maintainOrderBean.orderId}" />
+			<h:commandButton action="#{maintainOrderSuccessBean.backsearch}" value="回到查询界面" />
+			<h:commandButton action="#{maintainOrderSuccessBean.view}" value="查看订单" />
+			<h:commandButton action="#{maintainOrderSuccessBean.another}"
+				value="继续新建订单" />
+		</h:form>
+	</ui:define>
+</ui:composition>
