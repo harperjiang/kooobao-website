@@ -1,3 +1,5 @@
+package group;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -20,9 +22,9 @@ public class GroupInit {
 		Group group = new Group();
 		group.setStatus(GroupStatus.IN_PROGRESS.name());
 		group.setName("爸妈网第69号团购");
-		
+
 		em.persist(group);
-		
+
 		em.getTransaction().commit();
 	}
 
