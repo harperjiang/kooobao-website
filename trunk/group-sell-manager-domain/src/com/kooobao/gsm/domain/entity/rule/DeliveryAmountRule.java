@@ -28,10 +28,10 @@ public abstract class DeliveryAmountRule {
 		if ((StringUtils.isEmpty(area) || target.getAddress().contains(area))
 				&& (weightFloor.compareTo(target.getWeight()) < 0)
 				&& (BigDecimal.ZERO.equals(weightCeiling) || weightCeiling
-						.compareTo(target.getWeight()) > 0)
+						.compareTo(target.getWeight()) >= 0)
 				&& (sumFloor.compareTo(target.getAmount()) < 0)
 				&& (BigDecimal.ZERO.equals(sumCeiling) || sumCeiling
-						.compareTo(target.getAmount()) > 0)) {
+						.compareTo(target.getAmount()) >= 0)) {
 			return true;
 		}
 		return false;
