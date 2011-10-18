@@ -10,11 +10,13 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.LogFactory;
 
 import com.kooobao.authcenter.Constants;
 import com.kooobao.authcenter.service.AuthenticateService;
 import com.kooobao.authcenter.service.Token;
+import com.kooobao.common.util.ConfigLoader;
 import com.kooobao.common.web.bean.AbstractBean;
 
 @ManagedBean
@@ -63,7 +65,15 @@ public class LoginBean extends AbstractBean {
 	}
 
 	private Token validateLogin() {
-		return new Token();
+		String system = ConfigLoader.getInstance().load("auth_list", "system");
+		if (StringUtils.isEmpty(system)) {
+			LogFactory.getLog(getClass()).warn(
+					"System name Not Found, cannot validate login");
+			return null;
+		}
+		Token token = getAuthService().login(system, getUserId(),
+				getPlainPass());
+		return token;
 	}
 
 	public String getUserId() {
