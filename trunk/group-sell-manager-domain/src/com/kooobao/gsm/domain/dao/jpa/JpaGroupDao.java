@@ -9,11 +9,12 @@ import com.kooobao.gsm.domain.entity.group.GroupStatus;
 
 public class JpaGroupDao extends AbstractJpaDao<Group> implements GroupDao {
 
-	@SuppressWarnings("unchecked")
 	public List<Group> getActiveGroup() {
-		return (List<Group>) getTemplate().find(
-				"select g from Group g where g.status = ?1",
-				GroupStatus.IN_PROGRESS.name());
+		return getEntityManager()
+				.createQuery("select g from Group g where g.status = ?1",
+						Group.class)
+				.setParameter(1, GroupStatus.IN_PROGRESS.name())
+				.getResultList();
 	}
 
 	public Group newGroup() {

@@ -5,7 +5,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.junit.Before;
-import org.springframework.orm.jpa.JpaTemplate;
 
 public class JpaDaoTest {
 
@@ -13,16 +12,11 @@ public class JpaDaoTest {
 
 	private EntityManager em;
 
-	private JpaTemplate template;
-
 	@Before
 	public void before() {
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory(puName);
 		em = emf.createEntityManager();
-
-		template = new JpaTemplate();
-		template.setEntityManager(em);
 
 		prepareData();
 	}
@@ -37,10 +31,6 @@ public class JpaDaoTest {
 
 	public EntityManager getEm() {
 		return em;
-	}
-
-	public JpaTemplate getTemplate() {
-		return template;
 	}
 
 	protected void prepareData() {

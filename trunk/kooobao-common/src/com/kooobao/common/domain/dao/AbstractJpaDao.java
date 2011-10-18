@@ -2,34 +2,35 @@ package com.kooobao.common.domain.dao;
 
 import java.lang.reflect.ParameterizedType;
 
-import org.springframework.orm.jpa.JpaTemplate;
+import javax.persistence.EntityManager;
 
 import com.kooobao.common.domain.entity.VersionEntity;
 
 public abstract class AbstractJpaDao<T extends VersionEntity> implements Dao<T> {
 
-	private JpaTemplate template;
+	private EntityManager entityManager;
 
-	public JpaTemplate getTemplate() {
-		return template;
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
-	public void setTemplate(JpaTemplate template) {
-		this.template = template;
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 
 	public T store(T entity) {
 		if (0 == entity.getOid()) {
-			getTemplate().persist(entity);
+			getEntityManager().persist(entity);
 			return entity;
 		}
-		return getTemplate().merge(entity);
+		return getEntityManager().merge(entity);
 	}
 
 	public T find(long oid) {
-		return getTemplate().find(getParamClass(), oid);
+		return getEntityManager().find(getParamClass(), oid);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected Class<T> getParamClass() {
 		return (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
