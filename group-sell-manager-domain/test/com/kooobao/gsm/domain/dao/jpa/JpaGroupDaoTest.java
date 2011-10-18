@@ -16,8 +16,7 @@ public class JpaGroupDaoTest extends JpaDaoTest {
 	@Test
 	public void testGetActiveGroup() {
 		JpaGroupDao jdd = new JpaGroupDao();
-		jdd.setTemplate(getTemplate());
-
+		jdd.setEntityManager(getEm());
 		jdd.getActiveGroup();
 	}
 

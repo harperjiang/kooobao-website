@@ -19,7 +19,7 @@ public class JpaOrderDaoTest extends JpaDaoTest {
 	@Test
 	public void testSearchOrders() {
 		JpaOrderDao orderDao = new JpaOrderDao();
-		orderDao.setTemplate(getTemplate());
+		orderDao.setEntityManager(getEm());
 
 		orderDao.searchOrders(new SearchBean("Group A", "Customer A",
 				"Contact A", new String[] { OrderStatus.CONFIRMED.name() },
@@ -30,18 +30,18 @@ public class JpaOrderDaoTest extends JpaDaoTest {
 	@Test
 	public void testSearchBetween() {
 		JpaOrderDao orderDao = new JpaOrderDao();
-		orderDao.setTemplate(getTemplate());
+		orderDao.setEntityManager(getEm());
 
 		orderDao.searchOrders(new SearchBean("Group A", "Customer A",
 				"Contact A", new String[] { OrderStatus.CONFIRMED.name() },
 				new String[] { DeliveryStatus.NOT_PREPARED.name() }, "32-424",
 				false));
-		
+
 		orderDao.searchOrders(new SearchBean("Group A", "Customer A",
 				"Contact A", new String[] { OrderStatus.CONFIRMED.name() },
 				new String[] { DeliveryStatus.NOT_PREPARED.name() }, ">424",
 				false));
-		
+
 	}
 
 }

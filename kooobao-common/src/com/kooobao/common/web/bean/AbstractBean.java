@@ -14,8 +14,7 @@ public abstract class AbstractBean implements JSFLifecycleAware {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2271163629134210455L;
-
+	@SuppressWarnings("unchecked")
 	public static <T> T findBean(String beanName) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		return (T) context.getApplication().evaluateExpressionGet(context,
