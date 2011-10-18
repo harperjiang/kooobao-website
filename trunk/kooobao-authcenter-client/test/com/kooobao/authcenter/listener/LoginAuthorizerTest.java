@@ -8,7 +8,9 @@ public class LoginAuthorizerTest {
 
 	@Test
 	public void testNeedValidate() {
-		fail("Not yet implemented");
+		LoginAuthorizer auth = new LoginAuthorizer();
+		assertFalse(auth.needValidate("/login.xhtml"));
+		assertTrue(auth.needValidate("/query.xhtml"));
 	}
 
 }
