@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<import resource="env.xml" />
+	<import resource="auth.xml"/>
 
 	<!-- bean id="productDao" class="com.kooobao.wsm.domain.dao.jpa.JpaIssueDao"> 
 		<property name="entityManager" ref="entityManager"/> </bean -->
