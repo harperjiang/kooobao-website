@@ -44,4 +44,13 @@ public class JpaOrderDaoTest extends JpaDaoTest {
 
 	}
 
+	@Test
+	public void testRollback() {
+		JpaOrderDao orderDao = new JpaOrderDao();
+		orderDao.setEntityManager(getEm());
+		getEm().getTransaction().begin();
+		orderDao.rollback(orderDao.find(309l));
+		getEm().getTransaction().commit();
+	}
+
 }

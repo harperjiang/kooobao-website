@@ -27,6 +27,8 @@ public class SearchDeliveryBean extends AbstractBean {
 
 	private String status;
 
+	private String refNumber;
+
 	private List<Delivery> deliveries;
 
 	@ManagedProperty("#{deliveryDao}")
@@ -40,13 +42,14 @@ public class SearchDeliveryBean extends AbstractBean {
 	}
 
 	public String search() {
-		if (StringUtils.isEmpty(customer) && StringUtils.isEmpty(contactName)) {
+		if (StringUtils.isEmpty(customer) && StringUtils.isEmpty(contactName)
+				&& StringUtils.isEmpty(refNumber)) {
 			addMessage(FacesMessage.SEVERITY_WARN, "至少输入一项查询条件");
 			return "failed";
 		}
 		setDeliveries(getDeliveryDao().search(
-				new DeliveryDao.SearchBean(groupName, status, customer,
-						contactName)));
+				new DeliveryDao.SearchBean(groupName, status, refNumber,
+						customer, contactName)));
 
 		return "success";
 	}
@@ -73,6 +76,7 @@ public class SearchDeliveryBean extends AbstractBean {
 
 		PrepareDeliveryBean pdb = findBean("prepareDeliveryBean");
 		pdb.setDelivery(select);
+		pdb.setOrder(select.getOrder());
 		return "success";
 	}
 
@@ -126,6 +130,14 @@ public class SearchDeliveryBean extends AbstractBean {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getRefNumber() {
+		return refNumber;
+	}
+
+	public void setRefNumber(String refNumber) {
+		this.refNumber = refNumber;
 	}
 
 }

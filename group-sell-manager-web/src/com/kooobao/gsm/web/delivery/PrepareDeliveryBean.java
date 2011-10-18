@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.web.bean.AbstractBean;
@@ -40,30 +41,32 @@ public class PrepareDeliveryBean extends AbstractBean {
 	@ManagedProperty("#{supportDao}")
 	private SupportDao supportDao;
 
-	private long orderId;
+	// private long orderId;
 
 	@Override
 	public void onPageLoad() {
-		if (0 == getOrderId() || getDelivery() != null) {
-			if (null == getDelivery())
-				delivery = new Delivery();
-			return;
+		// if (0 == getOrderId() || getDelivery() != null) {
+		// if (null == getDelivery())
+		// delivery = new Delivery();
+		// return;
+		// }
+		//
+		// setOrder(getOrderDao().find(getOrderId()));
+		if (null == delivery) {
+			Delivery delivery = new Delivery();
+			for (OrderItem item : order.getItems()) {
+				DeliveryItem ditem = new DeliveryItem();
+				ditem.setOrderItem(item);
+				ditem.setCount(item.getCount() - item.getPreparedCount());
+				if (ditem.getCount() > 0)
+					delivery.addItem(ditem);
+			}
+			delivery.getContact().setAddress(order.getContact().getAddress());
+			delivery.getContact().setLocation(order.getContact().getLocation());
+			delivery.getContact().setName(order.getContact().getName());
+			delivery.getContact().setPhone(order.getContact().getPhone());
+			setDelivery(delivery);
 		}
-
-		setOrder(getOrderDao().find(getOrderId()));
-		Delivery delivery = new Delivery();
-		for (OrderItem item : order.getItems()) {
-			DeliveryItem ditem = new DeliveryItem();
-			ditem.setOrderItem(item);
-			ditem.setCount(item.getCount() - item.getPreparedCount());
-			if (ditem.getCount() > 0)
-				delivery.addItem(ditem);
-		}
-		delivery.getContact().setAddress(order.getContact().getAddress());
-		delivery.getContact().setLocation(order.getContact().getLocation());
-		delivery.getContact().setName(order.getContact().getName());
-		delivery.getContact().setPhone(order.getContact().getPhone());
-		setDelivery(delivery);
 		super.onPageLoad();
 	}
 
@@ -103,18 +106,26 @@ public class PrepareDeliveryBean extends AbstractBean {
 		return save();
 	}
 
+	public String quickSend() {
+		if (StringUtils.isEmpty(getDelivery().getNumber())) {
+			addMessage(FacesMessage.SEVERITY_WARN, "请输入运单号");
+			return "false";
+		}
+		if (!checkItem()) {
+			return "failed";
+		}
+		delivery.prepare();
+		delivery.deliver();
+		setDelivery(getDeliveryDao().store(delivery));
+		return "saved";
+	}
+
 	public String save() {
 		if (!checkItem()) {
 			return "failed";
 		}
 		delivery.prepare();
-		// delivery.setGrossWeight(getSupportDao().getWeightRule(delivery)
-		// .getPackageWeight(delivery));
-		updateOrder(delivery.getOrder());
-		// setOrder(getOrderDao().store(delivery.getOrder()));
-		// setDelivery(getDeliveryDao().store(getDelivery()));
-		// getOrderDao().store(getOrder());
-		getDeliveryDao().store(getDelivery());
+		setDelivery(getDeliveryDao().store(getDelivery()));
 		return "saved";
 	}
 
@@ -143,13 +154,13 @@ public class PrepareDeliveryBean extends AbstractBean {
 		this.orderDao = orderDao;
 	}
 
-	public long getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
-	}
+	// public long getOrderId() {
+	// return orderId;
+	// }
+	//
+	// public void setOrderId(long orderId) {
+	// this.orderId = orderId;
+	// }
 
 	public Delivery getDelivery() {
 		return delivery;

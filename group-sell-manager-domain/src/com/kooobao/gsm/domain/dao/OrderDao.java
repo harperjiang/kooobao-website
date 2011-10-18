@@ -96,4 +96,6 @@ public interface OrderDao extends Dao<Order> {
 	}
 
 	public List<Order> searchOrders(SearchBean search);
+	
+	public Order rollback(Order order);
 }

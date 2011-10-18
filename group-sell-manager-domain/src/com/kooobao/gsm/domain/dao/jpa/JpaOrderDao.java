@@ -14,7 +14,10 @@ import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.domain.dao.AbstractJpaDao;
 import com.kooobao.gsm.domain.dao.OrderDao;
+import com.kooobao.gsm.domain.entity.delivery.Delivery;
 import com.kooobao.gsm.domain.entity.order.Order;
+import com.kooobao.gsm.domain.entity.order.OrderItem;
+import com.kooobao.gsm.service.OrderService;
 
 public class JpaOrderDao extends AbstractJpaDao<Order> implements OrderDao {
 
@@ -81,5 +84,21 @@ public class JpaOrderDao extends AbstractJpaDao<Order> implements OrderDao {
 
 		return getEntityManager().createQuery(query).getResultList();
 
+	}
+
+	public Order rollback(final Order order) {
+		order.setDelivery(null);
+		List<Delivery> deliveries = getEntityManager()
+				.createQuery("select d from Delivery d where d.order = ?1",
+						Delivery.class).setParameter(1, order).getResultList();
+		for (Delivery delivery : deliveries)
+			getEntityManager().remove(delivery);
+		for (OrderItem item : order.getItems()) {
+			item.setPreparedCount(0);
+			item.setSentCount(0);
+		}
+		OrderService.updateOrderSendStatus(order);
+		OrderService.updateOrderPrepareStatus(order);
+		return getEntityManager().merge(order);
 	}
 }

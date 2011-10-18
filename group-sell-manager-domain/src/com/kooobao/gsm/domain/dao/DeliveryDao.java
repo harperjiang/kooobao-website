@@ -8,8 +8,6 @@ import org.apache.commons.lang.Validate;
 import com.kooobao.common.domain.dao.Dao;
 import com.kooobao.common.domain.dao.ISearchBean;
 import com.kooobao.gsm.domain.entity.delivery.Delivery;
-import com.kooobao.gsm.domain.entity.rule.DeliveryAmountRule;
-import com.kooobao.gsm.domain.entity.rule.DeliveryTarget;
 
 public interface DeliveryDao extends Dao<Delivery> {
 
@@ -19,14 +17,17 @@ public interface DeliveryDao extends Dao<Delivery> {
 
 		private String status;
 
+		private String refNumber;
+
 		private String customer;
 
 		private String contactName;
 
-		public SearchBean(String groupName, String status, String customer,
-				String contactName) {
+		public SearchBean(String groupName, String status, String refNumber,
+				String customer, String contactName) {
 			this.groupName = groupName;
 			this.status = status;
+			this.refNumber = refNumber;
 			this.customer = customer;
 			this.contactName = contactName;
 		}
@@ -47,10 +48,19 @@ public interface DeliveryDao extends Dao<Delivery> {
 			return contactName;
 		}
 
+		public String getRefNumber() {
+			return refNumber;
+		}
+
+		public void setRefNumber(String refNumber) {
+			this.refNumber = refNumber;
+		}
+
 		public void validate() {
 			Validate.isTrue(!StringUtils.isEmpty(groupName));
 			Validate.isTrue(!StringUtils.isEmpty(customer)
-					|| !StringUtils.isEmpty(contactName));
+					|| !StringUtils.isEmpty(contactName)
+					|| !StringUtils.isEmpty(refNumber));
 		}
 	}
 

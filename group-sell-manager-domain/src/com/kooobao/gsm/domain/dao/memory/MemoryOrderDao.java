@@ -35,4 +35,9 @@ public class MemoryOrderDao extends AbstractMemoryDao<Order> implements
 		}
 		return result;
 	}
+
+	public Order rollback(Order order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
