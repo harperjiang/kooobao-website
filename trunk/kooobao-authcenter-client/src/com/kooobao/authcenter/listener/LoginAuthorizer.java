@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.kooobao.authcenter.Constants;
 import com.kooobao.authcenter.service.AuthenticateService;
 import com.kooobao.authcenter.service.Token;
 
@@ -26,7 +27,6 @@ public class LoginAuthorizer implements PhaseListener {
 
 	}
 
-	public static final String TOKEN = "com.kooobao.authcenter.Token";
 
 	public void afterPhase(PhaseEvent event) {
 		String viewId = event.getFacesContext().getViewRoot().getViewId();
@@ -34,9 +34,11 @@ public class LoginAuthorizer implements PhaseListener {
 		if (needValidate(viewId)) {
 			HttpSession ssn = (HttpSession) event.getFacesContext()
 					.getExternalContext().getSession(true);
-			Object token = ssn.getAttribute(TOKEN);
+			Object token = ssn.getAttribute(Constants.TOKEN);
 			if (!(token instanceof Token)
 					|| !getAuthService().validate((Token) token)) {
+				// Log URL
+				ssn.setAttribute(Constants.JUMP_URL, viewId);
 				// Validate Failed, require login
 				event.getFacesContext()
 						.getApplication()
