@@ -19,7 +19,7 @@ public class ViewOrderBean extends AbstractBean {
 	private OrderDao orderDao;
 
 	private long orderId;
-	
+
 	private boolean internal;
 
 	@Override
@@ -36,7 +36,14 @@ public class ViewOrderBean extends AbstractBean {
 
 	public String prepare() {
 		PrepareDeliveryBean mob = findBean("prepareDeliveryBean");
-		mob.setOrderId(getOrderId());
+		// mob.setOrderId(getOrderId());
+		mob.setOrder(getOrder());
+		mob.setDelivery(null);
+		return "success";
+	}
+
+	public String rollback() {
+		getOrderDao().rollback(order);
 		return "success";
 	}
 

@@ -118,10 +118,14 @@
 				<h:commandButton
 					rendererd="#{viewOrderBean.order.deliveryPreparable}" value="配货"
 					action="#{viewOrderBean.prepare}" />
+				<h:commandButton value="回到未配货状态(删除所有已生成运单)"
+					action="#{viewOrderBean.rollback}" />
+
+				<a href="query_order.htm">回到查询页面</a>
+				<a href="inner_index.htm">回到首页</a>
 			</h:panelGroup>
 		</h:form>
 		<br />
-		<a href="inner_index.htm">回到首页</a>
 		<br />
 		<h:panelGroup rendered="#{viewOrderBean.order.delivery!=null}">
 			<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">物流状态</div>

@@ -46,6 +46,10 @@ public class JpaDeliveryDao extends AbstractJpaDao<Delivery> implements
 					root.get("order").get("contact").get("name"),
 					search.getContactName())));
 		}
+		if (!StringUtils.isEmpty(search.getRefNumber())) {
+			predicates.add(cb.equal(root.get("order").get("refNumber"),
+					search.getRefNumber()));
+		}
 
 		if (!CollectionUtils.isEmpty(predicates)) {
 			Predicate p = predicates.get(0);
@@ -60,15 +64,6 @@ public class JpaDeliveryDao extends AbstractJpaDao<Delivery> implements
 
 	@Override
 	public Delivery store(final Delivery entity) {
-		// return getTemplate().execute(new JpaCallback<Delivery>() {
-		// public Delivery doInJpa(EntityManager em)
-		// throws PersistenceException {
-		// Order order = em.find(Order.class, 51L);
-		// em.merge(entity.getOrder());
-		// em.persist(entity);
-		// return entity;
-		// }
-		// });
 		getEntityManager().merge(entity.getOrder());
 		return super.store(entity);
 	}

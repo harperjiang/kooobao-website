@@ -86,6 +86,9 @@ if(confirm("快递单取消后无法恢复，你确认吗?")) {
 			<h:outputLabel value="联系人姓名" />
 			<h:inputText value="#{searchDeliveryBean.contactName}" />
 			<br />
+			<h:outputLabel value="参考编号" />
+			<h:inputText value="#{searchDeliveryBean.refNumber}" />
+			<br />
 			<h:outputLabel value="快递单状态" />
 			<h:selectOneMenu value="#{searchDeliveryBean.status}">
 				<f:selectItems value="#{supportDataBean.deliveryStatus}" />

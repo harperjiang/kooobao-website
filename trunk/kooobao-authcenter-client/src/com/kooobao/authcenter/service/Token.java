@@ -17,6 +17,12 @@ public class Token implements Serializable {
 
 	private String[] authorities;
 
+	public Token(String module, String userId,String uuid) {
+		this.module = module;
+		this.userId = userId;
+		this.uuid = uuid;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

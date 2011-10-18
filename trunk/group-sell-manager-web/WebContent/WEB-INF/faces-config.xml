@@ -11,6 +11,10 @@
 		<managed-bean-name>loginBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.authcenter.web.bean.LoginBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>authService</property-name>
+			<value>#{authenticateService}</value>
+		</managed-property>
 	</managed-bean>
 	<navigation-rule>
 		<display-name>maintain_order.xhtml</display-name>
