@@ -1,6 +1,8 @@
 package com.kooobao.authcenter.domain.entity;
 
-public enum Authority {
+import java.io.Serializable;
+
+public enum Authority implements Serializable {
 
 	CreateIssue, CloseIssue, ExtendIssue;
 	
