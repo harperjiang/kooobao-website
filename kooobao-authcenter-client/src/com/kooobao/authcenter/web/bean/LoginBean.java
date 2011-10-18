@@ -27,6 +27,8 @@ public class LoginBean extends AbstractBean {
 
 	private String plainPass;
 
+	private boolean loggedIn;
+
 	@ManagedProperty("#{authenticateService}")
 	private AuthenticateService authService;
 
@@ -36,9 +38,9 @@ public class LoginBean extends AbstractBean {
 			addMessage(FacesMessage.SEVERITY_ERROR, "登录失败");
 			return "false";
 		}
+		loggedIn = true;
 		putTokenInSession(token);
 		jumpUrl();
-
 		return "true";
 	}
 
@@ -98,6 +100,14 @@ public class LoginBean extends AbstractBean {
 
 	public void setAuthService(AuthenticateService authService) {
 		this.authService = authService;
+	}
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 
 }

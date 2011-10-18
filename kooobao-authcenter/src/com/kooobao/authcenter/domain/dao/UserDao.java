@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.kooobao.authcenter.domain.entity.Authority;
 import com.kooobao.authcenter.domain.entity.User;
-import com.kooobao.common.domain.dao.Dao;
 
-public interface UserDao extends Dao<User> {
+public interface UserDao {
+	
+	public User store(User user);
 
 	public List<User> getUserByAuthority();
 
-	public User findUser(String userId);
-	
+	public User findUser(String system, String userId);
+
 	public User findUser(String userId, Authority auth);
 }

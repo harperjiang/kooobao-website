@@ -99,6 +99,8 @@ public class XmlSupportDao extends AbstractJpaDao<VersionEntity> implements
 	private GrossWeightRule weightRule;
 
 	public synchronized GrossWeightRule getWeightRule(DeliveryTarget target) {
+		if (BigDecimal.ZERO.equals(target.getWeight()))
+			return null;
 		if (null == weightRule) {
 			weightRule = new DefaultGrossWeightRule(new BigDecimal("1.3"));
 		}

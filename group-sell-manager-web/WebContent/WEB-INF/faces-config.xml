@@ -129,6 +129,15 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>login_success.xhtml</display-name>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 	<lifecycle>
 		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>
