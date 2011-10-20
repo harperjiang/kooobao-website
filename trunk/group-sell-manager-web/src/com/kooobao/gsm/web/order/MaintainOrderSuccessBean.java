@@ -10,6 +10,8 @@ import com.kooobao.common.web.bean.AbstractBean;
 public class MaintainOrderSuccessBean extends AbstractBean {
 
 	public String another() {
+		MaintainOrderBean orderBean = findBean("maintainOrderBean");
+		orderBean.setOrder(null);
 		return "success";
 	}
 
