@@ -12,7 +12,6 @@
 	<bean id="socketFactory" class="sun.rmi.transport.proxy.RMIDirectSocketFactory" />
 
 	<bean id="rmiRegistry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
-		<property name="host" value="localhost" />
 		<property name="port" value="9001" />
 		<property name="serverSocketFactory" ref="socketFactory" />
 		<property name="clientSocketFactory" ref="socketFactory" />
