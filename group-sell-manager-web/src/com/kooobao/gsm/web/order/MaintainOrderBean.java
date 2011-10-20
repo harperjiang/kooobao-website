@@ -138,6 +138,7 @@ public class MaintainOrderBean extends AbstractBean {
 		setOrderId(neworder.getOid());
 
 		((ViewOrderBean) findBean("viewOrderBean")).setInternal(true);
+		order = null;
 		return "success";
 	}
 
