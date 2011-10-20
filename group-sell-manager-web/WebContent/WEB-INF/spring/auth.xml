@@ -9,9 +9,10 @@
                      http://www.springframework.org/schema/aop  
                      http://www.springframework.org/schema/aop/spring-aop.xsd ">
 
-	<!-- bean id="authenticateService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean"> 
-		<property name="serviceUrl" value="rmi://localhost:9001/AuthenticateService" 
-		/> <property name="serviceInterface" value="com.kooobao.authcenter.service.AuthenticateService" 
-		/> </bean -->
-	<bean id="authenticateService" class="com.kooobao.authcenter.service.DummyAuthenticateService" />
+	<bean id="authenticateService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:9001/AuthenticateService" />
+		<property name="serviceInterface"
+			value="com.kooobao.authcenter.service.AuthenticateService" />
+	</bean>
+	
 </beans>
