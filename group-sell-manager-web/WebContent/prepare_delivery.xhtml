@@ -87,14 +87,17 @@ input.smallText {
 			<br />
 			<a href="inner_index.htm">回到首页</a>
 			<br />
-			<!-- TODO: -->
-			<h:commandButton value="保存" action="#{prepareDeliveryBean.save}" />
+			<a href="search_delivery.htm">回到快递单查询页面</a>
 			<br />
-			<h:commandButton value="全部配货"
-				action="#{prepareDeliveryBean.quickPrepare}" />
-			<br />
-			<h:commandButton value="快速发货"
-				action="#{prepareDeliveryBean.quickSend}" />
+			<h:panelGroup rendered="#{prepareDeliveryBean.delivery.editable}">
+				<h:commandButton value="保存" action="#{prepareDeliveryBean.save}" />
+				<br />
+				<h:commandButton value="全部配货"
+					action="#{prepareDeliveryBean.quickPrepare}" />
+				<br />
+				<h:commandButton value="快速发货"
+					action="#{prepareDeliveryBean.quickSend}" />
+			</h:panelGroup>
 			<br />
 			<h:messages />
 			<br />

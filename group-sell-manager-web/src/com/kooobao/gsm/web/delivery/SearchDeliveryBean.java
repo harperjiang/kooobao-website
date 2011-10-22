@@ -75,8 +75,8 @@ public class SearchDeliveryBean extends AbstractBean {
 		Delivery select = (Delivery) dataTable.getRowData();
 
 		PrepareDeliveryBean pdb = findBean("prepareDeliveryBean");
-		pdb.setDelivery(select);
-		pdb.setOrder(select.getOrder());
+		pdb.setDeliveryId(select.getOid());
+		pdb.setOrderId(0);
 		return "success";
 	}
 

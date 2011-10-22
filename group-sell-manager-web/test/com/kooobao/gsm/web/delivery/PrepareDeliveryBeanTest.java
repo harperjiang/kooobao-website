@@ -20,8 +20,7 @@ public class PrepareDeliveryBeanTest {
 		pdb.setOrderDao(appContext.getBean("orderDao", OrderDao.class));
 		pdb.setSupportDao(appContext.getBean("supportDao", SupportDao.class));
 
-		// pdb.setOrderId(51L);
-		pdb.setOrder(pdb.getOrderDao().find(51l));
+		pdb.setOrderId(51l);
 
 		pdb.onPageLoad();
 

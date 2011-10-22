@@ -28,7 +28,11 @@ import com.kooobao.gsm.service.OrderService;
 @SessionScoped
 public class PrepareDeliveryBean extends AbstractBean {
 
+	private long orderId;
+
 	private Order order;
+
+	private long deliveryId;
 
 	private Delivery delivery;
 
@@ -45,13 +49,16 @@ public class PrepareDeliveryBean extends AbstractBean {
 
 	@Override
 	public void onPageLoad() {
-		// if (0 == getOrderId() || getDelivery() != null) {
-		// if (null == getDelivery())
-		// delivery = new Delivery();
-		// return;
-		// }
-		//
-		// setOrder(getOrderDao().find(getOrderId()));
+		if (0 != orderId) {
+			setOrder(getOrderDao().find(orderId));
+			orderId = 0;
+			deliveryId = 0;
+			delivery = null;
+		} else if (0 != deliveryId) {
+			setDelivery(getDeliveryDao().find(deliveryId));
+			setOrder(delivery.getOrder());
+			deliveryId = 0;
+		}
 		if (null == delivery) {
 			Delivery delivery = new Delivery();
 			for (OrderItem item : order.getItems()) {
@@ -142,7 +149,7 @@ public class PrepareDeliveryBean extends AbstractBean {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	private void setOrder(Order order) {
 		this.order = order;
 	}
 
@@ -154,19 +161,11 @@ public class PrepareDeliveryBean extends AbstractBean {
 		this.orderDao = orderDao;
 	}
 
-	// public long getOrderId() {
-	// return orderId;
-	// }
-	//
-	// public void setOrderId(long orderId) {
-	// this.orderId = orderId;
-	// }
-
 	public Delivery getDelivery() {
 		return delivery;
 	}
 
-	public void setDelivery(Delivery delivery) {
+	private void setDelivery(Delivery delivery) {
 		this.delivery = delivery;
 	}
 
@@ -184,6 +183,22 @@ public class PrepareDeliveryBean extends AbstractBean {
 
 	public void setDeliveryDao(DeliveryDao deliveryDao) {
 		this.deliveryDao = deliveryDao;
+	}
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
+
+	public long getDeliveryId() {
+		return deliveryId;
+	}
+
+	public void setDeliveryId(long deliveryId) {
+		this.deliveryId = deliveryId;
 	}
 
 }
