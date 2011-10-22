@@ -1,7 +1,9 @@
 package com.kooobao.gsm.web.order;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.application.FacesMessage;
@@ -93,6 +95,12 @@ public class MaintainOrderBean extends AbstractBean {
 	}
 
 	public String refresh() {
+		List<OrderItem> toRemove = new ArrayList<OrderItem>();
+		for (OrderItem item : order.getItems()) {
+			if (0 >= item.getCount())
+				toRemove.add(item);
+		}
+		order.getItems().removeAll(toRemove);
 		OrderService.updateOrderTotal(order);
 		// Update Package Weight
 		// Update Total Amount

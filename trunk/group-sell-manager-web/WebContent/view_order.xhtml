@@ -109,7 +109,6 @@
 			<h:outputLabel value="运输费用" />
 			<h:inputText value="#{viewOrderBean.order.adjust}" readonly="true" />
 			<br />
-			<br />
 			<h:panelGroup rendered="#{loginBean.loggedIn}">
 				<h:commandButton rendered="#{viewOrderBean.order.modifyable}"
 					value="修改订单" action="#{viewOrderBean.modify}" />
@@ -125,7 +124,6 @@
 				<a href="inner_index.htm">回到首页</a>
 			</h:panelGroup>
 		</h:form>
-		<br />
 		<br />
 		<h:panelGroup rendered="#{viewOrderBean.order.delivery!=null}">
 			<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">物流状态</div>

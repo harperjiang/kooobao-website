@@ -215,4 +215,7 @@ public class Delivery extends VersionEntity implements DeliveryTarget {
 		return getGrossWeight();
 	}
 
+	public boolean isEditable() {
+		return DOStatus.CREATED.equals(getStatus());
+	}
 }

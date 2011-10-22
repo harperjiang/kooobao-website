@@ -18,7 +18,7 @@ public class MaintainOrderSuccessBean extends AbstractBean {
 	public String view() {
 		// Get Order Id
 		MaintainOrderBean orderBean = findBean("maintainOrderBean");
-		long orderId = orderBean.getOrder().getOid();
+		long orderId = orderBean.getOrderId();
 		ViewOrderBean viewBean = findBean("viewOrderBean");
 		viewBean.setOrderId(orderId);
 		return "success";

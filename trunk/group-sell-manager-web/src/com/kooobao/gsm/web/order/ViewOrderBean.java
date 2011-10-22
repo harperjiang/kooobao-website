@@ -33,20 +33,20 @@ public class ViewOrderBean extends AbstractBean {
 
 	public String modify() {
 		MaintainOrderBean mob = findBean("maintainOrderBean");
-		mob.setOrder(getOrder());
+		mob.setOrderId(order.getOid());
 		return "success";
 	}
 
 	public String prepare() {
 		PrepareDeliveryBean mob = findBean("prepareDeliveryBean");
 		// mob.setOrderId(getOrderId());
-		mob.setOrder(getOrder());
-		mob.setDelivery(null);
+		mob.setOrderId(getOrder().getOid());
+		mob.setDeliveryId(0);
 		return "success";
 	}
 
 	public String rollback() {
-		getOrderDao().rollback(order);
+		order = getOrderDao().rollback(order);
 		return "success";
 	}
 
