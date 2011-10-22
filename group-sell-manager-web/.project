@@ -5,6 +5,7 @@
 	<projects>
 		<project>group-sell-manager-domain</project>
 		<project>kooobao-common</project>
+		<project>kooobao-authcenter-client</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

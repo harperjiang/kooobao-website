@@ -35,8 +35,6 @@ public class QueryOrderBean extends AbstractBean {
 
 	private boolean findProblematic = true;
 
-	private boolean internal;
-
 	@ManagedProperty(value = "#{orderDao}")
 	private OrderDao orderDao;
 
@@ -65,7 +63,6 @@ public class QueryOrderBean extends AbstractBean {
 		setOrders(getOrderDao().searchOrders(
 				new SearchBean(getGroupName(), getCustomer(), getContactName(),
 						null, null, null, false)));
-		internal = false;
 		return "success";
 	}
 
@@ -87,7 +84,6 @@ public class QueryOrderBean extends AbstractBean {
 					new SearchBean(getGroupName(), getCustomer(),
 							getContactName(), orderStatus, deliveryStatus,
 							getRefNumber(), isFindProblematic())));
-			internal = true;
 			return "success";
 		} catch (IllegalArgumentException e) {
 			addMessage(FacesMessage.SEVERITY_ERROR, e.getMessage());
@@ -100,7 +96,6 @@ public class QueryOrderBean extends AbstractBean {
 		Order select = (Order) dataTable.getRowData();
 		ViewOrderBean viewOrderBean = findBean("viewOrderBean");
 		viewOrderBean.setOrderId(select.getOid());
-		viewOrderBean.setInternal(internal);
 		reset();
 		return "success";
 	}
@@ -143,14 +138,6 @@ public class QueryOrderBean extends AbstractBean {
 
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
-	}
-
-	public boolean isInternal() {
-		return internal;
-	}
-
-	public void setInternal(boolean internal) {
-		this.internal = internal;
 	}
 
 	public int getStatus() {

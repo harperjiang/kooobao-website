@@ -10,6 +10,9 @@
         <dependent-module archiveName="group-sell-manager-domain.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/group-sell-manager-domain/group-sell-manager-domain">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="kooobao-authcenter-client.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-authcenter-client/kooobao-authcenter-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="group-sell-manager-web"/>
         <property name="java-output-path" value="/group-sell-manager-web/build/classes"/>
     </wb-module>
