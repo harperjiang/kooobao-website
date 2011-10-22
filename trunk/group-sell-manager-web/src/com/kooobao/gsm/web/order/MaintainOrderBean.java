@@ -43,6 +43,10 @@ public class MaintainOrderBean extends AbstractBean {
 	}
 
 	public void onPageLoad() {
+		if (orderId != 0) {
+			order = getOrderDao().find(orderId);
+			orderId = 0;
+		}
 		if (null == order)
 			order = new Order();
 		index.clear();

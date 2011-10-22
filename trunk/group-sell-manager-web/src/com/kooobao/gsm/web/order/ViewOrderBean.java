@@ -24,7 +24,10 @@ public class ViewOrderBean extends AbstractBean {
 
 	@Override
 	public void onPageLoad() {
-		setOrder(getOrderDao().find(getOrderId()));
+		if (orderId != 0) {
+			setOrder(getOrderDao().find(getOrderId()));
+			orderId = 0;
+		}
 		super.onPageLoad();
 	}
 

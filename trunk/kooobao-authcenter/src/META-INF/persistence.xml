@@ -6,7 +6,7 @@
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/webshop_test"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gsm_test"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value="jieninan"/>
 			<property name="eclipselink.jdbc.read-connections.min" value="10"/>

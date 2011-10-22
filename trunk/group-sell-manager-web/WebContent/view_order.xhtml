@@ -110,7 +110,7 @@
 			<h:inputText value="#{viewOrderBean.order.adjust}" readonly="true" />
 			<br />
 			<br />
-			<h:panelGroup rendered="#{viewOrderBean.internal}">
+			<h:panelGroup rendered="#{loginBean.loggedIn}">
 				<h:commandButton rendered="#{viewOrderBean.order.modifyable}"
 					value="修改订单" action="#{viewOrderBean.modify}" />
 				<h:commandButton rendererd="#{viewOrderBean.order.cancellable}"
