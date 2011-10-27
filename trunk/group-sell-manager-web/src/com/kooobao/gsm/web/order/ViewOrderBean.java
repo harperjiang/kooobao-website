@@ -45,6 +45,7 @@ public class ViewOrderBean extends AbstractBean {
 	public String modify() {
 		MaintainOrderBean mob = findBean("maintainOrderBean");
 		mob.setOrderId(order.getOid());
+		mob.setOrder(order);
 		return "success";
 	}
 
@@ -140,7 +141,7 @@ public class ViewOrderBean extends AbstractBean {
 			return "需退款" + order.getPaidAmount().subtract(copy.getAmount());
 		}
 		if (compare < 0) {
-			return "需补款" + copy.getAmount().subtract(order.getAmount());
+			return "需补款" + copy.getAmount().subtract(order.getPaidAmount());
 		}
 		return null;
 	}
