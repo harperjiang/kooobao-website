@@ -49,21 +49,27 @@ input.smallText {
 					<f:facet name="header">名称</f:facet>
 					<h:outputText value="#{item.orderItem.product.name}" />
 				</h:column>
-				<h:column>
+
+				<h:column rendered="#{delivery.status eq 'CREATED'}">
+					<f:facet name="header">备货数量</f:facet>
+					<h:outputText value="#{item.count}" />
+				</h:column>
+				<h:column rendered="#{delivery.status == NULL}">
 					<f:facet name="header">数量</f:facet>
 					<h:outputText value="#{item.orderItem.count}" />
 				</h:column>
-				<h:column>
+				<h:column rendered="#{delivery.status == NULL}">
 					<f:facet name="header">未备货数量</f:facet>
 					<h:outputText
 						value="#{item.orderItem.count-item.orderItem.preparedCount}" />
 				</h:column>
-				<h:column>
+				<h:column rendered="#{delivery.status == NULL}">
 					<f:facet name="header">本次备货数量</f:facet>
 					<h:inputText styleClass="smallText" value="#{item.count}">
 						<f:convertNumber integerOnly="true" />
 					</h:inputText>
 				</h:column>
+
 			</h:dataTable>
 			<br />
 
@@ -92,10 +98,10 @@ input.smallText {
 			<h:panelGroup rendered="#{prepareDeliveryBean.delivery.editable}">
 				<h:commandButton value="保存" action="#{prepareDeliveryBean.save}" />
 				<br />
-				<h:commandButton value="全部配货"
+				<h:commandButton value="全部配货" rendered="#{delivery.status eq null}"
 					action="#{prepareDeliveryBean.quickPrepare}" />
 				<br />
-				<h:commandButton value="快速发货"
+				<h:commandButton value="快速发货" rendered="#{delivery.status eq null}"
 					action="#{prepareDeliveryBean.quickSend}" />
 			</h:panelGroup>
 			<br />

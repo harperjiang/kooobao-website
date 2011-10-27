@@ -35,5 +35,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="config"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kooobao-gui"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.harper.frm.gui"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

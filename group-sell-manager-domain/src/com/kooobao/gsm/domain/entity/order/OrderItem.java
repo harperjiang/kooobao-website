@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.Validate;
+
 import com.kooobao.common.domain.entity.SimpleEntity;
 import com.kooobao.gsm.domain.entity.product.Product;
 
@@ -76,6 +78,7 @@ public class OrderItem extends SimpleEntity {
 	}
 
 	public void setPreparedCount(int preparedCount) {
+		Validate.isTrue(getCount() >= preparedCount);
 		this.preparedCount = preparedCount;
 	}
 
@@ -84,6 +87,7 @@ public class OrderItem extends SimpleEntity {
 	}
 
 	public void setSentCount(int sentCount) {
+		Validate.isTrue(getPreparedCount() >= sentCount);
 		this.sentCount = sentCount;
 	}
 

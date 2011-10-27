@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13184382333600" configfile="/group-sell-manager-web/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="maintain_order.xhtml" x="770" y="785" id="pf13185062486630" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf13185062486631" inlinks="pf13185062653985 pf131851525487910" path="/maintain_order.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="maintain_order.xhtml" x="770" y="785" id="pf13185062486630" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf13185062486631" inlinks="pf13185062653985 pf131851525487910 pf13196392621940" path="/maintain_order.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="maintain_order_success.xhtml" x="122" y="785" id="pf13185062486632" referenceLink="//@navigationRule.10/@fromViewId|" outlinks="pf13185062653985 pf13185062761086 pf13187466992362" inlinks="pf13185062486631" path="/maintain_order_success.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="view_order.xhtml" x="554" y="583" id="pf13185062761087" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" outlinks="pf131851525487910 pf131851742416211" inlinks="pf13185062761086 pf13185124162748 pf13187362621520" path="/view_order.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="338" y="178" id="pf13185124162749" referenceLink="//@navigationRule.12/@navigationCase.0/@toViewId|" outlinks="pf13185124162748" inlinks="pf13189410140390" path="/index.xhtml"/>
@@ -11,6 +11,7 @@
   <nodes xsi:type="pageflow:PFPage" name="query_order.xhtml" x="338" y="562" id="pf13187362621531" referenceLink="//@navigationRule.10/@navigationCase.0/@toViewId|" outlinks="pf13187362621520" inlinks="pf13187466992362" path="/query_order.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="122" y="1169" id="pf13188738890113" referenceLink="//@navigationRule.11/@fromViewId|" outlinks="pf13188738890114" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="login_success.xhtml" x="338" y="1169" id="pf13188738890115" referenceLink="//@navigationRule.12/@fromViewId|" outlinks="pf13189410140390" inlinks="pf13188738890114" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="inner_index.xhtml" x="600" y="924" id="pf13196392621961" outlinks="pf13196392621940" path="/inner_index.xhtml"/>
   <links id="pf13185062486631" target="pf13185062486632" source="pf13185062486630" outcome="success" redirect="true" fromaction="#{maintainOrderBean.save}"/>
   <links id="pf13185062653985" target="pf13185062486630" source="pf13185062486632" outcome="success" redirect="true" fromaction="#{maintainOrderSuccessBean.another}"/>
   <links id="pf13185062761086" target="pf13185062761087" source="pf13185062486632" outcome="success" redirect="true" fromaction="#{maintainOrderSuccessBean.view}"/>
@@ -24,4 +25,5 @@
   <links id="pf13187466992362" target="pf13187362621531" source="pf13185062486632" outcome="success" redirect="true" fromaction="#{maintainOrderSuccessBean.backsearch}"/>
   <links id="pf13188738890114" target="pf13188738890115" source="pf13188738890113" outcome="require_login" redirect="true"/>
   <links id="pf13189410140390" target="pf13185124162749" source="pf13188738890115" outcome="success" redirect="true"/>
+  <links id="pf13196392621940" target="pf13185062486630" source="pf13196392621961" outcome="success" redirect="true" fromaction="#{innerIndexBean.createOrder}"/>
 </pageflow:Pageflow>

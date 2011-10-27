@@ -54,6 +54,13 @@ public class SearchDeliveryBean extends AbstractBean {
 		return "success";
 	}
 
+	public String save() {
+		UIData dataTable = (UIData) getComponent("dataTable");
+		Delivery select = (Delivery) dataTable.getRowData();
+		getDeliveryDao().store(select);
+		return "success";
+	}
+
 	public String send() {
 		UIData dataTable = (UIData) getComponent("dataTable");
 		Delivery select = (Delivery) dataTable.getRowData();

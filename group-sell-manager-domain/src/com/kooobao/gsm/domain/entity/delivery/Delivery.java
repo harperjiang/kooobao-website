@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.domain.entity.StatusUtils;
@@ -40,7 +41,7 @@ public class Delivery extends VersionEntity implements DeliveryTarget {
 	private String number;
 
 	@Column(name = "status", columnDefinition = "varchar(10)")
-	private String status = DOStatus.CREATED.name();
+	private String status;
 
 	@Embedded
 	@AttributeOverrides({
@@ -143,6 +144,7 @@ public class Delivery extends VersionEntity implements DeliveryTarget {
 
 	public void prepare() {
 		Order order = null;
+		setStatus(DOStatus.CREATED.name());
 		for (DeliveryItem di : getItems()) {
 			OrderItem oi = di.getOrderItem();
 			order = oi.getOrder();
@@ -155,11 +157,9 @@ public class Delivery extends VersionEntity implements DeliveryTarget {
 	}
 
 	public void deliver() {
-		Order order = null;
 		setStatus(DOStatus.DELIVERED.name());
 		for (DeliveryItem di : getItems()) {
 			OrderItem oi = di.getOrderItem();
-			order = oi.getOrder();
 			oi.setSentCount(oi.getSentCount() + di.getCount());
 		}
 		OrderService.updateOrderSendStatus(order);
@@ -216,6 +216,7 @@ public class Delivery extends VersionEntity implements DeliveryTarget {
 	}
 
 	public boolean isEditable() {
-		return DOStatus.CREATED.equals(getStatus());
+		return StringUtils.isEmpty(getStatus())
+				|| DOStatus.CREATED.name().equals(getStatus());
 	}
 }

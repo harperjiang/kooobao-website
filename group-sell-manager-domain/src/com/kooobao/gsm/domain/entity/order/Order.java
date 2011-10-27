@@ -203,6 +203,16 @@ public class Order extends VersionEntity implements DeliveryTarget {
 		getItems().add(item);
 	}
 
+	public void cancel() {
+		Validate.isTrue(OrderStatus.CONFIRMED.name().equals(getStatus()));
+		for (OrderItem item : getItems()) {
+			if (item.getPreparedCount() != 0)
+				throw new IllegalStateException(
+						"There exists delivery orders that had not been cancelled");
+		}
+		setStatus(OrderStatus.CANCELLED.name());
+	}
+
 	public String getExpectDeliveryMethod() {
 		return expectDeliveryMethod;
 	}
@@ -224,14 +234,17 @@ public class Order extends VersionEntity implements DeliveryTarget {
 	}
 
 	public boolean isCancellable() {
-		return !(DeliveryStatus.DELIVERED.name().equals(getDeliveryStatus()) || DeliveryStatus.PARTIALLY_DELIVERED
-				.name().equals(getDeliveryStatus()));
+		return !OrderStatus.CANCELLED.name().equals(getStatus())
+				&& !(DeliveryStatus.DELIVERED.name()
+						.equals(getDeliveryStatus()) || DeliveryStatus.PARTIALLY_DELIVERED
+						.name().equals(getDeliveryStatus()));
 	}
 
 	public boolean isDeliveryPreparable() {
 		return OrderStatus.CONFIRMED.name().equals(getStatus());
 	}
-
+	
+	
 	public BigDecimal getPaidAmount() {
 		return paidAmount;
 	}
@@ -263,4 +276,5 @@ public class Order extends VersionEntity implements DeliveryTarget {
 	public void setGrossWeight(BigDecimal grossWeight) {
 		this.grossWeight = grossWeight;
 	}
+
 }

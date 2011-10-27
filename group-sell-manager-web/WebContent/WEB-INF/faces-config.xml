@@ -142,6 +142,16 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>inner_index.xhtml</display-name>
+		<from-view-id>/inner_index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{innerIndexBean.createOrder}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/maintain_order.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 	<lifecycle>
 		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>
