@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/report"/>
         <dependent-module archiveName="kooobao-common.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-common/kooobao-common">
             <dependency-type>uses</dependency-type>
         </dependent-module>
