@@ -75,7 +75,12 @@ public class ImportPay {
 								Order.class)
 						.setParameter("refNumber", refNumber).getSingleResult();
 				Delivery delivery = new Delivery();
-				delivery.setCompany(ExpressCompany.中通.name());
+				String express = readString(row.getCell(19));
+				if ("快递".equals(express))
+					delivery.setCompany(ExpressCompany.中通.name());
+				else if ("平邮".equals(express)) {
+					delivery.setCompany(ExpressCompany.邮政.name());
+				}
 				delivery.setNumber(expressNum);
 
 				for (OrderItem item : order.getItems()) {
@@ -102,7 +107,12 @@ public class ImportPay {
 								Order.class)
 						.setParameter("refNumber", refNumber).getSingleResult();
 				Delivery delivery = new Delivery();
-				delivery.setCompany(ExpressCompany.中通.name());
+				String express = readString(row.getCell(19));
+				if ("快递".equals(express))
+					delivery.setCompany(ExpressCompany.中通.name());
+				else if ("平邮".equals(express)) {
+					delivery.setCompany(ExpressCompany.邮政.name());
+				}
 				delivery.setNumber(expressNum);
 
 				for (OrderItem item : order.getItems()) {
@@ -127,7 +137,7 @@ public class ImportPay {
 		if (cell.getCellType() == Cell.CELL_TYPE_STRING)
 			return cell.getStringCellValue();
 		if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC)
-			return String.valueOf((long)cell.getNumericCellValue());
+			return String.valueOf((long) cell.getNumericCellValue());
 		return null;
 	}
 

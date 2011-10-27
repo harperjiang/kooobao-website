@@ -45,12 +45,12 @@ public class MaintainOrderBean extends AbstractBean {
 	}
 
 	public void onPageLoad() {
-		if (orderId != 0) {
+		if (orderId != 0 && order == null) {
 			order = getOrderDao().find(orderId);
-			orderId = 0;
-		}
-		if (null == order)
+		} else {
 			order = new Order();
+		}
+
 		index.clear();
 		int count = 0;
 		for (OrderItem item : order.getItems()) {
@@ -108,6 +108,7 @@ public class MaintainOrderBean extends AbstractBean {
 
 		DeliveryAmountRule rule = getSupportDao().getAmountRule(order);
 		OrderService.updateOrderTotalAmount(order, rule, gwRule);
+
 		return "success";
 	}
 
@@ -131,9 +132,7 @@ public class MaintainOrderBean extends AbstractBean {
 	}
 
 	public String save() {
-		// order.setDeliveryStatus(DeliveryStatus.NOT_PREPARED.name());
 		Validate.isTrue(OrderStatus.CONFIRMED.name().equals(order.getStatus()));
-		// Validate.isTrue(DeliveryStatus.)
 		// TODO Unmodifiable Status
 		if (BigDecimal.ZERO.equals(order.getTotalAmount())) {
 			addMessage(FacesMessage.SEVERITY_WARN, "不能保存总金额为0的订单");
@@ -149,8 +148,6 @@ public class MaintainOrderBean extends AbstractBean {
 		Order neworder = getOrderDao().store(order);
 		setOrderId(neworder.getOid());
 
-		((ViewOrderBean) findBean("viewOrderBean")).setInternal(true);
-		order = null;
 		return "success";
 	}
 

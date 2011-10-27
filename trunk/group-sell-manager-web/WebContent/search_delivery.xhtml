@@ -116,7 +116,9 @@ if(confirm("快递单取消后无法恢复，你确认吗?")) {
 				</h:column>
 				<h:column>
 					<f:facet name="header">快递公司</f:facet>
-					<h:outputText value="#{delivery.company}" />
+					<h:selectOneMenu value="#{delivery.company}" style="width:60px;">
+						<f:selectItems value="#{supportDataBean.expressCompanies}" />
+					</h:selectOneMenu>
 				</h:column>
 				<h:column>
 					<f:facet name="header">快递单号</f:facet>
@@ -156,13 +158,15 @@ if(confirm("快递单取消后无法恢复，你确认吗?")) {
 				<h:column id="operationColumn">
 					<f:facet name="header">操作</f:facet>
 
+					<h:commandLink id="saveLink" action="#{searchDeliveryBean.save}"
+						value="保存" />
+					<br />
+					<br />
 					<h:outputLink rendered="#{'CREATED' == delivery.status}" value="#"
 						onclick="send(#{searchDeliveryBean.counter.rowIndex});">发货</h:outputLink>
 
 					<h:commandLink id="sendLink" styleClass="invisibleLink"
 						action="#{searchDeliveryBean.send}" value="发货" />
-
-					<br />
 					<br />
 					<h:outputLink rendered="#{'CREATED' == delivery.status}" value="#"
 						onclick="cancel(#{searchDeliveryBean.counter.rowIndex});">取消</h:outputLink>

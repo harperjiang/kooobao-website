@@ -128,10 +128,12 @@ public class PrepareDeliveryBean extends AbstractBean {
 	}
 
 	public String save() {
-		if (!checkItem()) {
-			return "failed";
+		if (StringUtils.isEmpty(delivery.getStatus())) {
+			if (!checkItem()) {
+				return "failed";
+			}
+			delivery.prepare();
 		}
-		delivery.prepare();
 		setDelivery(getDeliveryDao().store(getDelivery()));
 		return "saved";
 	}
