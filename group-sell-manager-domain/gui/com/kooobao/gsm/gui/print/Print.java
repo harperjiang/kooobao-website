@@ -1,4 +1,4 @@
-package com.kooobao.gsm.util.print;
+package com.kooobao.gsm.gui.print;
 
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;

@@ -1,4 +1,4 @@
-package com.kooobao.gsm.util.print;
+package com.kooobao.gsm.gui.print;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
