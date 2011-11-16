@@ -20,5 +20,10 @@ public class JpaDeliveryDaoTest extends JpaDaoTest {
 		jdd.setEntityManager(getEm());
 		jdd.search(new SearchBean("Group A", null, "", "custA", "contactA"));
 	}
+	
+	@Test
+	public void testInsert() {
+		
+	}
 
 }
