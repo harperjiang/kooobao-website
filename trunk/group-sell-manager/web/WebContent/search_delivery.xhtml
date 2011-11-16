@@ -1,0 +1,181 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">酷宝英语教育-团购信息查询系统</ui:define>
+	<ui:define name="body">
+		<style type="text/css">
+.col1 {
+	width: 50px;
+}
+
+.col2 {
+	width: 50px;
+}
+
+.col3 {
+	width: 50px;
+}
+
+.col4 {
+	width: 80px;
+}
+
+.col41 {
+	width: 30px;
+}
+
+.col5 {
+	width: 40px;
+}
+
+.col6 {
+	width: 50px;
+}
+
+.col7 {
+	width: 50px;
+}
+
+.col8 {
+	width: 180px;
+}
+
+.col9 {
+	width: 40px;
+}
+
+.invisibleLink {
+	visibility: hidden;
+}
+</style>
+		<script language="javascript">
+function send(index) {
+	
+	var textField = document.getElementById('resultForm:dataTable:'+index+':numberField');
+	var weightField = document.getElementById('resultForm:dataTable:'+index+':weightField');
+	if(''==textField.value) {
+		alert("请填写快递单号");
+		return;
+	}
+	if(0==weightField.value) {
+		alert('请填写包裹重量');
+		return;
+	}
+	if(confirm("确认发货?单号:"+textField.value+',重量:'+weightField.value+"kg")) {
+		return myfaces.oam.submitForm('resultForm','resultForm:dataTable:'+index+':sendLink');
+	}
+}		
+		
+function cancel(index){
+if(confirm("快递单取消后无法恢复，你确认吗?")) {
+	return myfaces.oam.submitForm('resultForm','resultForm:dataTable:'+index+':cancelLink');
+}}
+</script>
+		<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">快递单查询</div>
+		<div class="searchForm"><h:form id="searchForm">
+			<h:outputLabel value="团购活动" />
+			<h:selectOneMenu value="#{searchDeliveryBean.groupName}">
+				<f:selectItems value="#{maintainGroupBean.groupNames}" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel value="客户名" />
+			<h:inputText value="#{searchDeliveryBean.customer}" />
+			<br />
+			<h:outputLabel value="联系人姓名" />
+			<h:inputText value="#{searchDeliveryBean.contactName}" />
+			<br />
+			<h:outputLabel value="参考编号" />
+			<h:inputText value="#{searchDeliveryBean.refNumber}" />
+			<br />
+			<h:outputLabel value="快递单状态" />
+			<h:selectOneMenu value="#{searchDeliveryBean.status}">
+				<f:selectItems value="#{supportDataBean.deliveryStatus}" />
+			</h:selectOneMenu>
+			<br />
+			<h:commandButton action="#{searchDeliveryBean.search}" value="查找" />
+			<h:messages />
+		</h:form> <br />
+		<a href="inner_index.htm">回到首页</a> <br />
+		<br />
+		<h:form id="resultForm">
+			<h:dataTable id="dataTable" styleClass="dataTable" width="880"
+				columnClasses="col1,col2,col3,col4,col41,col5,col6,col7,col8,col9"
+				cellpadding="5" var="delivery"
+				value="#{searchDeliveryBean.deliveries}">
+				<h:column>
+					<f:facet name="header">订单号</f:facet>
+					<h:commandLink action="#{searchDeliveryBean.view}">
+						<h:outputText value="#{delivery.displayId}" />
+					</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header">客户</f:facet>
+					<h:outputText value="#{delivery.order.customer}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">快递公司</f:facet>
+					<h:selectOneMenu value="#{delivery.company}" style="width:60px;">
+						<f:selectItems value="#{supportDataBean.expressCompanies}" />
+					</h:selectOneMenu>
+				</h:column>
+				<h:column>
+					<f:facet name="header">快递单号</f:facet>
+					<h:outputText rendered="#{'CREATED' != delivery.status}"
+						value="#{delivery.number}" />
+					<h:inputText style="width:120px"
+						rendered="#{'CREATED' == delivery.status}" id="numberField"
+						value="#{delivery.number}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">毛重</f:facet>
+					<h:outputText rendered="#{'CREATED' != delivery.status}"
+						value="#{delivery.grossWeight}" />
+					<h:inputText style="width:40px"
+						rendered="#{'CREATED' == delivery.status}" id="weightField"
+						value="#{delivery.grossWeight}" />kg
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">创建于</f:facet>
+					<h:outputText value="#{delivery.createDate}">
+						<f:convertDateTime pattern="yyyy/MM/dd" />
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">订单状态</f:facet>
+					<h:outputText value="#{delivery.displayStatus}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">收货人</f:facet>
+					<h:outputText value="#{delivery.contact.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">地址信息</f:facet>
+					<h:outputText value="#{delivery.contact.address}" />
+				</h:column>
+				<h:column id="operationColumn">
+					<f:facet name="header">操作</f:facet>
+
+					<h:commandLink id="saveLink" action="#{searchDeliveryBean.save}"
+						value="保存" />
+					<br />
+					<br />
+					<h:outputLink rendered="#{'CREATED' == delivery.status}" value="#"
+						onclick="send(#{searchDeliveryBean.counter.rowIndex});">发货</h:outputLink>
+
+					<h:commandLink id="sendLink" styleClass="invisibleLink"
+						action="#{searchDeliveryBean.send}" value="发货" />
+					<br />
+					<h:outputLink rendered="#{'CREATED' == delivery.status}" value="#"
+						onclick="cancel(#{searchDeliveryBean.counter.rowIndex});">取消</h:outputLink>
+
+					<h:commandLink id="cancelLink" styleClass="invisibleLink"
+						action="#{searchDeliveryBean.cancel}" value="取消" />
+						#{searchDeliveryBean.counter.next}
+				</h:column>
+			</h:dataTable>
+		</h:form></div>
+	</ui:define>
+</ui:composition>
