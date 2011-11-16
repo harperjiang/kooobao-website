@@ -13,12 +13,10 @@ public class LoginAuthorizer implements PhaseListener {
 	 */
 	private static final long serialVersionUID = -3841769738586236647L;
 
-	@Override
 	public void beforePhase(PhaseEvent event) {
 
 	}
 
-	@Override
 	public void afterPhase(PhaseEvent event) {
 		String viewId = event.getFacesContext().getViewRoot().getViewId();
 		if ("/login.xhtml".equals(viewId))
@@ -34,7 +32,6 @@ public class LoginAuthorizer implements PhaseListener {
 		}
 	}
 
-	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RESTORE_VIEW;
 	}
