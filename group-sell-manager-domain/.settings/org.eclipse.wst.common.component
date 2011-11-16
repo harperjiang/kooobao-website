@@ -4,7 +4,7 @@
         <wb-resource deploy-path="/" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/data"/>
         <wb-resource deploy-path="/" source-path="/test"/>
-        <wb-resource deploy-path="/" source-path="/report"/>
-        <wb-resource deploy-path="/" source-path="/gui"/>
+<wb-resource deploy-path="/" source-path="/report"/>
+<wb-resource deploy-path="/" source-path="/gui"/>
     </wb-module>
 </project-modules>

@@ -35,7 +35,7 @@ public class GeneratePaymentReport {
 
 		List<Order> orders = em
 				.createQuery(
-						"select o from Order o where o.deliveryStatus in ('DELIVERED','PARTIALLY_DELIVERED')",
+						"select o from Order o where o.status = 'CONFIRMED' and o.deliveryStatus in ('DELIVERED','PARTIALLY_DELIVERED')",
 						Order.class).getResultList();
 		XmlSupportDao supportDao = new XmlSupportDao();
 		int count = 0;
@@ -45,8 +45,7 @@ public class GeneratePaymentReport {
 		titleRow.createCell(1).setCellValue("已收款项");
 		titleRow.createCell(2).setCellValue("实发款项");
 		titleRow.createCell(3).setCellValue("应补/退款项");
-
-		BigDecimal sum = new BigDecimal("0");
+		titleRow.createCell(4).setCellValue("算术值");
 
 		for (Order order : orders) {
 			Row row = sheet.createRow(count++);
@@ -90,6 +89,12 @@ public class GeneratePaymentReport {
 			}
 			if (result < 0)
 				c3.setCellValue("补" + subtract.doubleValue());
+
+			Cell c4 = row.createCell(4);
+			c4.setCellType(Cell.CELL_TYPE_NUMERIC);
+			c4.setCellValue(order.getPaidAmount()
+					.subtract(copy.getTotalAmount())
+					.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 		}
 
 		FileOutputStream fos = new FileOutputStream("Payment Report");
