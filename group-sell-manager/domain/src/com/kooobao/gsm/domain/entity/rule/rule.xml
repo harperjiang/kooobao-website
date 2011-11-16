@@ -1,0 +1,11 @@
+<rules>
+	<rule>
+		<type></type>
+		<delivery-method></delivery-method>
+		<area></area>
+		<weight-floor></weight-floor>
+		<weight-ceiling></weight-ceiling>
+		<sum-floor></sum-floor>
+		<sum-ceiling></sum-ceiling>
+	</rule>
+</rules>
