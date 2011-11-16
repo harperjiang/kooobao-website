@@ -1,0 +1,164 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">酷宝英语教育-团购信息查询系统-新建团购单</ui:define>
+	<ui:define name="body">
+		<style type="text/css">
+.col1 {
+	width: 40px;
+}
+
+.col2 {
+	width: 240px;
+}
+
+.col3 {
+	width: 50px;
+}
+
+.col4 {
+	width: 50px;
+}
+
+.col5 {
+	width: 50px;
+}
+
+.col6 {
+	width: 50px;
+}
+</style>
+		<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">查看团购单</div>
+		<h:form>
+			<h:outputLabel value="团购活动" />
+			<h:inputText value="#{viewOrderBean.order.group}" readonly="true" />
+			<br />
+			<h:outputLabel value="单号" />
+			<h:inputText value="#{viewOrderBean.order.displayId}" readonly="true" />
+			<br />
+			<h:outputLabel value="订单状态" />
+			<h:inputText value="#{viewOrderBean.order.fullStatus}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="客户名" />
+			<h:inputText value="#{viewOrderBean.order.customer}" readonly="true" />
+			<br />
+			<h:outputLabel value="备注号码" />
+			<h:inputText value="#{viewOrderBean.order.refNumber}" readonly="true" />
+			<br />
+			<h:outputLabel value="联系人" />
+			<h:inputText value="#{viewOrderBean.order.contact.name}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="联系电话" />
+			<h:inputText value="#{viewOrderBean.order.contact.phone}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="地址" />
+			<h:inputTextarea value="#{viewOrderBean.order.contact.address}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="期望运送方式" />
+			<h:inputText value="#{viewOrderBean.order.expectDeliveryMethodDesc}"
+				readonly="true" />
+			<br />
+
+			<h:outputLabel value="订单总价" />
+			<h:inputText value="#{viewOrderBean.order.totalAmount}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="已付款" />
+			<h:inputText value="#{viewOrderBean.order.paidAmount}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="实际发货款" />
+			<h:inputText value="#{viewOrderBean.copy.totalAmount}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="退款状态" />
+			<h:inputText value="#{viewOrderBean.refundStatus}" readonly="true" />
+			<br />
+			<h:outputLabel value="订购书籍列表" />
+			<h:dataTable id="dataTable" styleClass="dataTable" width="560"
+				columnClasses="col1,col2,col3,col4,col5"
+				value="#{viewOrderBean.order.items}" var="item">
+				<h:column>
+					<f:facet name="header">编号</f:facet>
+					<h:outputText value="#{item.product.code}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">名称</f:facet>
+					<h:outputText value="#{item.product.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">单价</f:facet>
+					<h:outputText value="#{item.unitPrice}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">数量</f:facet>
+					<h:outputText value="#{item.count}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">已备货</f:facet>
+					<h:outputText value="#{item.preparedCount}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">备注</f:facet>
+					<h:outputText
+						rendered="#{viewOrderBean.order.deliveryStatus!='NOT_PREPARED' and item.preparedCount lt item.count}"
+						value="有缺货" style="color:#ff0000;" />
+				</h:column>
+			</h:dataTable>
+			<br />
+			<h:outputLabel value="订单书款" />
+			<h:inputText
+				value="#{viewOrderBean.order.totalAmount - viewOrderBean.order.adjust}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="订单运输费用" />
+			<h:inputText value="#{viewOrderBean.order.adjust}" readonly="true" />
+			<br />
+			<h:outputLabel value="实际应付书款" />
+			<h:inputText
+				value="#{viewOrderBean.copy.totalAmount - viewOrderBean.copy.adjust}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="实际运输费用" />
+			<h:inputText value="#{viewOrderBean.copy.adjust}" readonly="true" />
+			<br />
+			<h:panelGroup rendered="#{loginBean.loggedIn}">
+				<h:commandButton rendered="#{viewOrderBean.order.modifyable}"
+					value="修改订单" action="#{viewOrderBean.modify}" />
+				<h:commandButton rendered="#{viewOrderBean.order.cancellable}"
+					value="取消订单" action="#{viewOrderBean.cancel}" />
+				<h:commandButton
+					rendered="#{viewOrderBean.order.deliveryPreparable}" value="配货"
+					action="#{viewOrderBean.prepare}" />
+				<h:commandButton value="回到未配货状态(删除所有已生成运单)"
+					rendered="#{viewOrderBean.order.deliveryPreparable}"
+					action="#{viewOrderBean.rollback}" />
+
+				<a href="query_order.htm">回到查询页面</a>
+				<a href="inner_index.htm">回到首页</a>
+			</h:panelGroup>
+		</h:form>
+		<br />
+		<h:panelGroup rendered="#{viewOrderBean.order.delivery!=null}">
+			<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">物流状态</div>
+			<h:outputLabel value="物流状态" />
+			<h:inputText value="#{viewOrderBean.order.delivery.displayStatus}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="快递公司" />
+			<h:inputText value="#{viewOrderBean.order.delivery.company}"
+				readonly="true" />
+			<br />
+			<h:outputLabel value="快递单号" />
+			<h:inputText value="#{viewOrderBean.order.delivery.number}"
+				readonly="true" />
+			<br />
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
