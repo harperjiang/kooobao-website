@@ -19,10 +19,10 @@ public abstract class AbstractJpaDao<T extends VersionEntity> implements Dao<T> 
 	}
 
 	public T store(T entity) {
-		if (0 == entity.getOid()) {
-			getEntityManager().persist(entity);
-			return entity;
-		}
+//		if (0 == entity.getOid()) {
+//			getEntityManager().persist(entity);
+//			return entity;
+//		}
 		return getEntityManager().merge(entity);
 	}
 
