@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">酷宝英语教育-问题件跟踪系统:记录问题件</ui:define>
+	<ui:define name="body">
+		<div style="margin-top: 25px;">
+
+		<div style="font-size: 18px; margin-bottom: 20px;">登记问题件</div>
+
+		<div style="font-size: 18px; margin-bottom: 20px;">登记成功!</div>
+		<h:form>
+			<h:inputHidden value="#{createIssueSuccess.issueOid}" />
+			<h:commandButton value="继续登记" action="#{createIssueSuccess.newIssue}" />
+			<br />
+			<h:commandButton value="查看记录"
+				action="#{createIssueSuccess.viewCreated}" />
+		</h:form></div>
+
+	</ui:define>
+</ui:composition>

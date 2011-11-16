@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">酷宝英语教育-问题件跟踪系统:记录问题件</ui:define>
+	<ui:param name="onload" value="#{viewIssue.reload}" />
+	<ui:define name="body">
+		<div style="margin-top: 25px;">
+		<div style="font-size: 18px; margin-bottom: 20px;">跟踪问题件</div>
+		<div class="block color1"><h:outputLabel value="标题" /> <h:inputText
+			value="#{viewIssue.issue.subject}" readonly="true" /> <br />
+		<h:outputLabel value="客户信息" /> <h:inputText
+			value="#{viewIssue.issue.customer}" readonly="true" /> <br />
+		<h:outputLabel value="问题时间" /> <h:inputText
+			value="#{viewIssue.issue.issueTime}" readonly="true">
+			<f:convertDateTime pattern="yyyy/MM/dd" />
+		</h:inputText> <br />
+		<h:outputLabel value="当前负责人" /> <h:inputText readonly="true"
+			value="#{viewIssue.issue.followerId}" /> <br />
+		<h:outputLabel value="当前状态" /> <h:inputText
+			value="#{viewIssue.issue.statusText}" /> <br />
+		<h:outputLabel value="创建人" /> <h:inputText readonly="true"
+			value="#{viewIssue.issue.creatorId}" /> <br />
+		<h:outputLabel value="创建时间" /> <h:inputText readonly="true"
+			value="#{viewIssue.issue.createTime}">
+			<f:convertDateTime pattern="yyyy/MM/dd" />
+		</h:inputText> <br />
+		<h:outputLabel value="问题描述" /> <h:inputTextarea
+			value="#{viewIssue.issue.description}" readonly="true" /> <br />
+		</div>
+
+
+		<ui:repeat varStatus="status" var="trackLog"
+			value="#{viewIssue.issue.trackLogs}">
+
+			<div class="block #{status.index%2==0?'color2':'color1'}"><h:outputLabel
+				value="日期" /> <h:inputText readonly="true"
+				value="#{trackLog.logTime}">
+				<f:convertDateTime pattern="yyyy/MM/dd" />
+			</h:inputText> <br />
+			<h:outputLabel value="录入人" /> <h:inputText readonly="true"
+				value="#{trackLog.inputBy}" /><br />
+			<h:outputLabel value="状态变化" /> <h:inputText readonly="true"
+				value="#{trackLog.statusChange}" /><br />
+			<h:outputLabel value="问题描述" /> <h:inputTextarea readonly="true"
+				value="#{trackLog.description}" /><br />
+			</div>
+
+		</ui:repeat> <h:panelGroup rendered="#{viewIssue.issue.editable}"
+			styleClass="block">
+			<h:form>
+				<h:outputLabel value="改变负责人为" />
+				<h:selectOneMenu value="#{viewIssue.track.assignTo}">
+					<f:selectItems value="#{supportData.followers}" />
+				</h:selectOneMenu>
+				<br />
+				<h:outputLabel value="改变状态为" />
+				<h:selectOneMenu value="#{viewIssue.track.statusTo}">
+					<f:selectItems value="#{supportData.troubleStatus}" />
+				</h:selectOneMenu>
+
+				<br />
+				<h:outputLabel value="描述" />
+				<h:inputTextarea id="desc" value="#{viewIssue.track.description}"
+					required="true" requiredMessage="请填写描述" />
+				<h:message for="desc" />
+				<br />
+
+				<h:commandButton value="提交" action="#{viewIssue.saveTrack}" />
+			</h:form>
+		</h:panelGroup> <h:form>
+			<h:outputLabel value="解决方案" />
+			<h:inputTextarea id="solution" value="#{viewIssue.issue.solution}"
+				required="true" requiredMessage="请填写解决方案" />
+			<br />
+			<h:message for="solution" />
+			<br />
+
+			<h:commandButton value="修改解决方案" action="#{viewIssue.saveIssue}" />
+		</h:form></div>
+	</ui:define>
+</ui:composition>

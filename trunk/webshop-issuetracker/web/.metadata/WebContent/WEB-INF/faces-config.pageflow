@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13157023383910" configfile="/WebshopManager/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="create_issue.xhtml" x="110" y="34" id="pf13157253572471" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" outlinks="pf13157920627593" inlinks="pf13160078402410" path="/create_issue.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="132" y="228" id="pf13157265544244" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" outlinks="pf13157265544245" inlinks="pf13159381979536" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="view_issue_list.xhtml" x="348" y="228" id="pf13157265544256" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf13157455024487" inlinks="pf13157265544245" path="/view_issue_list.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="view_issue.xhtml" x="564" y="228" id="pf13157455024488" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" outlinks="pf13157860546770 pf13170145157450" inlinks="pf13157455024487 pf13157860546770 pf13158069347025 pf13170145157450" path="/view_issue.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="360" y="336" id="pf13157908007032" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf13159381979536" inlinks="pf13167112511550 pf13167112891652" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="create_issue_success.xhtml" x="326" y="34" id="pf13157920627604" referenceLink="//@navigationRule.8/@fromViewId|" outlinks="pf13158069347025 pf13160078402410" inlinks="pf13157920627593" path="/create_issue_success.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="logout" x="141" y="348" id="pf13167112511561" outlinks="pf13167112511550 pf13167112891652" path="*"/>
+  <links id="pf13157265544245" target="pf13157265544256" source="pf13157265544244" outcome="success" redirect="true"/>
+  <links id="pf13157455024487" target="pf13157455024488" source="pf13157265544256" outcome="success" redirect="true" fromaction="#{viewIssueList.view}"/>
+  <links id="pf13157920627593" target="pf13157920627604" source="pf13157253572471" outcome="success" redirect="true" fromaction="#{createIssue.save}"/>
+  <links id="pf13157860546770" target="pf13157455024488" source="pf13157455024488" outcome="success" fromaction="#{viewIssue.saveTrack}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf13158069347025" target="pf13157455024488" source="pf13157920627604" outcome="success" redirect="true" fromaction="#{createIssueSuccess.viewCreated}"/>
+  <links id="pf13159381979536" target="pf13157265544244" source="pf13157908007032" outcome="success" redirect="true" fromaction="#{login.login}"/>
+  <links id="pf13160078402410" target="pf13157253572471" source="pf13157920627604" outcome="success" redirect="true" fromaction="#{createIssueSuccess.newIssue}"/>
+  <links id="pf13167112511550" target="pf13157908007032" source="pf13167112511561" outcome="logout" redirect="true"/>
+  <links id="pf13167112891652" target="pf13157908007032" source="pf13167112511561" outcome="success" redirect="true" fromaction="#{login.logout}"/>
+  <links id="pf13170145157450" target="pf13157455024488" source="pf13157455024488" outcome="success" redirect="true" fromaction="#{viewIssue.saveIssue}">
+    <bendPoints d1Height="-66" d2Height="-66"/>
+    <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
+    <bendPoints d1Width="-94" d2Width="-94"/>
+  </links>
+</pageflow:Pageflow>
