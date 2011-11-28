@@ -36,8 +36,7 @@ public class OrderService {
 	}
 
 	public static void updateOrderSendStatus(Order order) {
-		if (DeliveryStatus.DELIVERED.name().equals(order.getDeliveryStatus())
-				|| DeliveryStatus.SHORT_OF_STORAGE.name().equals(
+		if (DeliveryStatus.SHORT_OF_STORAGE.name().equals(
 						order.getDeliveryStatus()))
 			return;
 		int sum = 0;
