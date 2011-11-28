@@ -48,13 +48,14 @@ public class LoginBean extends AbstractBean {
 		javax.servlet.http.HttpServletResponse response = (HttpServletResponse) javax.faces.context.FacesContext
 				.getCurrentInstance().getExternalContext().getResponse();
 		Object previousUrl = getSession().getAttribute(Constants.JUMP_URL);
-		// Jump to previous URL
-		if (null != previousUrl)
-			try {
-				response.sendRedirect(String.valueOf(previousUrl));
-			} catch (IOException e) {
-				LogFactory.getLog(getClass()).error("Failed to redirect page");
-			}
+
+		// Jump to previous URL, index.htm if null
+		previousUrl = null == previousUrl ? "/index.htm" : previousUrl;
+		try {
+			response.sendRedirect(String.valueOf(previousUrl));
+		} catch (IOException e) {
+			LogFactory.getLog(getClass()).error("Failed to redirect page");
+		}
 	}
 
 	protected static HttpSession getSession() {
