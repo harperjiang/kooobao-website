@@ -102,6 +102,7 @@ public class ViewOrderBean extends AbstractBean {
 	private void copy() {
 		copy = new Order();
 		copy.getContact().setAddress(getOrder().getAddress());
+		copy.setExpectDeliveryMethod(getOrder().getExpectDeliveryMethod());
 		for (OrderItem item : getOrder().getItems()) {
 			OrderItem copyItem = new OrderItem();
 			copyItem.setCount(item.getPreparedCount());
