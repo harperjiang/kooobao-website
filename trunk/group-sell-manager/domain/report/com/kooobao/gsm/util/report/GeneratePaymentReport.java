@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -33,6 +34,7 @@ public class GeneratePaymentReport {
 	public static void main(String[] args) throws Exception {
 
 		Map<String, BigDecimal> commissions = new HashMap<String, BigDecimal>();
+		Map<String,BigDecimal> counter = new HashMap<String,BigDecimal>();
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				GeneratePaymentReport.class.getResourceAsStream("commission")));
 		String line = null;
@@ -84,6 +86,10 @@ public class GeneratePaymentReport {
 				copyItem.setProduct(item.getProduct());
 				copy.addItem(copyItem);
 				BigDecimal itemC = commissions.get(item.getProduct().getCode());
+				if(!counter.containsKey(item.getProduct().getCode()))
+					counter.put(item.getProduct().getCode(), BigDecimal.ZERO);
+				BigDecimal current = counter.get(item.getProduct().getCode());
+				counter.put(item.getProduct().getCode(), current.add(new BigDecimal(item.getSentCount())));
 				commission = commission.add(itemC.multiply(new BigDecimal(item.getSentCount())));
 			}
 			OrderService.updateOrderTotal(copy);
@@ -146,6 +152,27 @@ public class GeneratePaymentReport {
 
 		FileOutputStream fos = new FileOutputStream("Payment Report.xls");
 		workbook.write(fos);
+		fos.close();
+		
+		output(counter);
+	}
+
+	private static void output(Map<String, BigDecimal> counter) throws Exception {
+		Workbook wb = new HSSFWorkbook();
+		Sheet sheet = wb.createSheet("Sheet 1");
+		int rowCount = 0;
+		int cellCount = 0;
+		Row row = sheet.createRow(rowCount++);
+		row.createCell(cellCount++).setCellValue("编号");
+		row.createCell(cellCount++).setCellValue("数量");
+		for (Entry<String,BigDecimal> result : counter.entrySet()) {
+			cellCount = 0;
+			row = sheet.createRow(rowCount++);
+			row.createCell(cellCount++).setCellValue(result.getKey());
+			row.createCell(cellCount++).setCellValue(result.getValue().toString());
+		}
+		FileOutputStream fos = new FileOutputStream("CommissionReport2.xls");
+		wb.write(fos);
 		fos.close();
 	}
 }
