@@ -6,6 +6,9 @@
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/webshop-issuetracker-domain/webshop-issuetracker-domain">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="kooobao-authcenter-client.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-authcenter-client/kooobao-authcenter-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/WebshopManager/build/classes"/>
         <property name="context-root" value="webshop-issuetracker-web"/>
     </wb-module>
