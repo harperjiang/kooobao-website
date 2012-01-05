@@ -28,7 +28,7 @@ import com.kooobao.wsm.domain.entity.VersionEntity;
  * 
  */
 @Entity
-@Table(name = "isue_main")
+@Table(name = "ist_isue_main")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "category", columnDefinition = "varchar(40)")
 public class Issue extends VersionEntity {
