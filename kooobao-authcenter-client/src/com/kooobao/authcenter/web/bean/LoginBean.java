@@ -44,6 +44,12 @@ public class LoginBean extends AbstractBean {
 		return "true";
 	}
 
+	public String logout() {
+		getAuthService().logout(getTokenFromSession());
+		loggedIn = false;
+		return "true";
+	}
+
 	private void jumpUrl() {
 		javax.servlet.http.HttpServletResponse response = (HttpServletResponse) javax.faces.context.FacesContext
 				.getCurrentInstance().getExternalContext().getResponse();
@@ -65,6 +71,10 @@ public class LoginBean extends AbstractBean {
 
 	private void putTokenInSession(Token token) {
 		getSession().setAttribute(Constants.TOKEN, token);
+	}
+
+	private Token getTokenFromSession() {
+		return (Token) getSession().getAttribute(Constants.TOKEN);
 	}
 
 	private Token validateLogin() {
