@@ -56,6 +56,11 @@ public class DefaultAuthenticateService implements AuthenticateService {
 		return token;
 	}
 
+	public void logout(Token token) {
+		if (null != token)
+			userCache.remove(token.getUuid());
+	}
+
 	public boolean validate(Token token) {
 		if (userCache.containsKey(token.getUuid())
 				&& System.currentTimeMillis()
