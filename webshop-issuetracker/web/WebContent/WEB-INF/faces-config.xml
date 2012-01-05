@@ -8,16 +8,6 @@
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
 	<managed-bean>
-		<description>Store User Login Info</description>
-		<managed-bean-name>login</managed-bean-name>
-		<managed-bean-class>com.kooobao.wsm.web.login.LoginBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-			<property-name>userDao</property-name>
-			<value>#{userDao}</value>
-		</managed-property>
-	</managed-bean>
-	<managed-bean>
 		<managed-bean-name>createIssue</managed-bean-name>
 		<managed-bean-class>com.kooobao.wsm.web.issue.CreateIssueBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
@@ -66,6 +56,11 @@
 			<property-name>issueDao</property-name>
 			<value>#{issueDao}</value>
 		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.authcenter.web.bean.LoginBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
 		<display-name>create_issue.xhtml</display-name>
@@ -164,7 +159,7 @@
 	</navigation-rule>
 	<lifecycle>
 		<phase-listener>com.kooobao.wsm.web.common.listener.BeanInitializer</phase-listener>
-		<phase-listener>com.kooobao.wsm.web.common.listener.LoginAuthorizer</phase-listener>
+		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>
 	</lifecycle>
 
 </faces-config>

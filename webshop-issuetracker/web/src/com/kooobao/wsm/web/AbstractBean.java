@@ -7,8 +7,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+import com.kooobao.authcenter.web.bean.LoginBean;
 import com.kooobao.wsm.web.common.listener.JSFLifecycleAware;
-import com.kooobao.wsm.web.login.LoginBean;
 
 public abstract class AbstractBean implements JSFLifecycleAware {
 
