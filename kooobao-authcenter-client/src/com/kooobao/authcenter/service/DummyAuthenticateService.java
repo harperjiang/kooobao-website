@@ -12,4 +12,8 @@ public class DummyAuthenticateService implements AuthenticateService {
 		return true;
 	}
 
+	public void logout(Token token) {
+
+	}
+
 }
