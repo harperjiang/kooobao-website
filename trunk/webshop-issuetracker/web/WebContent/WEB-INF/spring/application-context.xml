@@ -10,7 +10,4 @@
 		<property name="template" ref="template" />
 	</bean>
 
-	<bean id="userDao" class="com.kooobao.wsm.domain.dao.jpa.JpaUserDao">
-		<property name="template" ref="template" />
-	</bean>
 </beans>

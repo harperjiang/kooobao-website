@@ -5,6 +5,7 @@
 	<projects>
 		<project>webshop-issuetracker-domain</project>
 		<project>kooobao-authcenter-client</project>
+		<project>kooobao-common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
