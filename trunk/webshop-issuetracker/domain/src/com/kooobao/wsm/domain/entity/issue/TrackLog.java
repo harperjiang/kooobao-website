@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 import com.kooobao.wsm.domain.entity.SimpleEntity;
 
 @Entity
-@Table(name = "isue_track_log")
+@Table(name = "ist_isue_track_log")
 public class TrackLog extends SimpleEntity {
 
 	@ManyToOne

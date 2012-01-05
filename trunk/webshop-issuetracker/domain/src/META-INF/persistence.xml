@@ -9,7 +9,6 @@
 		<class>com.kooobao.wsm.domain.entity.VersionEntity</class>
 		<class>com.kooobao.wsm.domain.entity.issue.Issue</class>
 		<class>com.kooobao.wsm.domain.entity.issue.TrackLog</class>
-		<class>com.kooobao.wsm.domain.entity.user.User</class>
 		<class>com.kooobao.wsm.domain.entity.issue.TroubleCase</class>
 		<shared-cache-mode>ALL</shared-cache-mode>
 		<properties>
