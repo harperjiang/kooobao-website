@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+	xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_1.xsd">
+	<table-generator name="frTG" table="fr_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="fr_record" />
+	<table-generator name="attachmentTG" table="fr_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="fr_attachment" />
+	<table-generator name="fileStorageTG" table="fr_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="fr_file_storage" />
+	
+
+	<entity class="com.kooobao.fr.domain.entity.FinancialRecord">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" column-definition="decimal(10)"/>
+				<generated-value generator="frTG" />
+			</basic>
+		</attributes>
+	</entity>
+	
+	<entity class="com.kooobao.fr.domain.entity.Attachment">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" column-definition="decimal(10)"/>
+				<generated-value generator="attachmentTG" />
+			</basic>
+		</attributes>
+	</entity>
+	
+	<entity class="com.kooobao.fr.domain.entity.FileStorage">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" column-definition="decimal(10)"/>
+				<generated-value generator="fileStorageTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+</entity-mappings>
