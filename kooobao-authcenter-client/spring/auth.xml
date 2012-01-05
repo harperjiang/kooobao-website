@@ -14,5 +14,9 @@
 		<property name="serviceInterface"
 			value="com.kooobao.authcenter.service.AuthenticateService" />
 	</bean>
-	
+
+	<bean id="userService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:9001/UserService" />
+		<property name="serviceInterface" value="com.kooobao.authcenter.service.UserService" />
+	</bean>
 </beans>
