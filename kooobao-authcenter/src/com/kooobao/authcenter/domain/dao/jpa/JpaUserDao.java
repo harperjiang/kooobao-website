@@ -48,4 +48,13 @@ public class JpaUserDao implements UserDao {
 	public User findUser(String userId, Authority auth) {
 		return null;
 	}
+
+	public List<User> findUsers(String system, List<Authority> auths) {
+		TypedQuery<User> query = getEntityManager()
+				.createQuery(
+						"select u from User u join u.systems s where value(s)=:sysname",
+						User.class);
+		query.setParameter("sysname", system);
+		return query.getResultList();
+	}
 }

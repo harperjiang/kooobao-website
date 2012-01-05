@@ -33,4 +33,17 @@
 		<property name="service" ref="defaultAuthenticateService" />
 	</bean>
 
+	<bean id="defaultUserService" class="com.kooobao.authcenter.service.DefaultUserService">
+		<property name="userDao" ref="userDao" />
+	</bean>
+
+	<bean id="userService" class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="registryPort" value="9001" />
+		<property name="registryHost" value="localhost" />
+		<property name="servicePort" value="9002" />
+		<property name="serviceInterface" value="com.kooobao.authcenter.service.UserService" />
+		<property name="serviceName" value="UserService" />
+		<property name="service" ref="defaultUserService" />
+	</bean>
+
 </beans>
