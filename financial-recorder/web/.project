@@ -3,6 +3,9 @@
 	<name>financial-recorder-web</name>
 	<comment></comment>
 	<projects>
+		<project>financial-recorder-domain</project>
+		<project>kooobao-common</project>
+		<project>kooobao-authcenter-client</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
