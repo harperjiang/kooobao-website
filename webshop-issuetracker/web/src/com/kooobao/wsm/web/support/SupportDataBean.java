@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
-import com.kooobao.wsm.domain.dao.UserDao;
+import com.kooobao.authcenter.service.UserService;
+import com.kooobao.common.util.ConfigLoader;
 import com.kooobao.wsm.domain.entity.issue.TroubleCase;
-import com.kooobao.wsm.domain.entity.user.User;
 import com.kooobao.wsm.web.AbstractBean;
 
 public class SupportDataBean extends AbstractBean {
@@ -17,10 +17,11 @@ public class SupportDataBean extends AbstractBean {
 	}
 
 	public void initFollowers() {
-		List<User> users = getUserDao().getIssueFollowers();
+		String system = ConfigLoader.getInstance().load("auth_list", "system");
+		List<String> users = getUserService().getUsers(system, null);
 		followers = new ArrayList<String>();
-		for (User user : users)
-			followers.add(user.getId());
+		for (String user : users)
+			followers.add(user);
 	}
 
 	private List<String> followers;
@@ -60,14 +61,14 @@ public class SupportDataBean extends AbstractBean {
 		return troubleSearchStatus;
 	}
 
-	private UserDao userDao;
+	private UserService userService;
 
-	public UserDao getUserDao() {
-		return userDao;
+	public UserService getUserService() {
+		return userService;
 	}
 
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 }
