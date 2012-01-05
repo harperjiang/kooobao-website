@@ -40,6 +40,11 @@ public class DefaultAuthenticateServiceTest {
 			public User store(User user) {
 				return null;
 			}
+
+			public List<User> findUsers(String system, List<Authority> auths) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 	}
 
