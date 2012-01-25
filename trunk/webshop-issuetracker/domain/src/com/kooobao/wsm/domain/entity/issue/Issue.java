@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.Validate;
 
-import com.kooobao.wsm.domain.entity.VersionEntity;
+import com.kooobao.common.domain.entity.VersionEntity;
 
 /**
  * Issue means an issue to follow up.
@@ -199,18 +199,6 @@ public class Issue extends VersionEntity {
 
 	public void setSolution(String solution) {
 		this.solution = solution;
-	}
-
-	static final String extend(long number, int extendTo) {
-		if (String.valueOf(number).length() >= extendTo) {
-			return String.valueOf(number);
-		}
-		StringBuilder sb = new StringBuilder();
-		sb.append(number);
-		while (sb.length() < extendTo) {
-			sb.insert(0, '0');
-		}
-		return sb.toString();
 	}
 
 	protected String getStatusTextFor(String status) {
