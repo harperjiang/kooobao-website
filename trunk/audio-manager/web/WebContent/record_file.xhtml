@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>酷宝英语教育-音源文件管理系统</title>
+	<link href="style/main.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<div class="body">
+		<div align="center"
+			style="margin: 0px; padding: 0px; text-align: center">
+			<img src="image/logo_long.gif" />
+		</div>
+		<div class="content">
+			<div class="title">音源文件管理</div>
+
+			<div style="font-size: 18px; margin-bottom: 20px; margin-top: 30px">上传音源文件</div>
+			<h:form id="infoForm">
+				<h:outputLabel value="文件名" />
+				<h:inputText value="#{maintainOrderBean.order.customer}"
+					required="true" requiredMessage="文件名不能为空" />
+				<br />
+				<h:outputLabel value="文件段落数" />
+				<h:inputText value="#{maintainOrderBean.order.refNumber}"
+					required="true" requiredMessage="段落数不能为空" />
+				<br />
+				<h:outputLabel value="选择上传文件" />
+				<h:inputText value="#{maintainOrderBean.order.contact.name}"
+					required="true" requiredMessage="上传文件不能为空" />
+				<br />
+			</h:form>
+		</div>
+	</div>
+	</div>
+	<div class="bottom">酷宝教育 2009-2010 沪ICP备09094888号</div>
+</h:body>
+</html>
