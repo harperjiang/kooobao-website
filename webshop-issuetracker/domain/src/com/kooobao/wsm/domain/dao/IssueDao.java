@@ -3,6 +3,7 @@ package com.kooobao.wsm.domain.dao;
 import java.util.Date;
 import java.util.List;
 
+import com.kooobao.common.domain.dao.Dao;
 import com.kooobao.wsm.domain.entity.issue.Issue;
 import com.kooobao.wsm.domain.entity.issue.TroubleCase;
 

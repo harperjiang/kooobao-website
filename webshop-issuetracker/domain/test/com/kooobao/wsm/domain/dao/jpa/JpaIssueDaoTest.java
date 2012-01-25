@@ -7,7 +7,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.junit.Test;
-import org.springframework.orm.jpa.JpaTemplate;
 
 import com.kooobao.wsm.domain.dao.IssueDao.FindIssueBean;
 import com.kooobao.wsm.domain.entity.issue.Issue;
@@ -26,11 +25,8 @@ public class JpaIssueDaoTest {
 				.createEntityManagerFactory("WebshopManagerPU");
 		EntityManager em = emf.createEntityManager();
 
-		JpaTemplate template = new JpaTemplate();
-		template.setEntityManager(em);
-
 		JpaIssueDao dao = new JpaIssueDao();
-		dao.setTemplate(template);
+		dao.setEntityManager(em);
 
 		dao.findIssues(new FindIssueBean(TroubleCase.class, null, null,
 				(String) null, 3));

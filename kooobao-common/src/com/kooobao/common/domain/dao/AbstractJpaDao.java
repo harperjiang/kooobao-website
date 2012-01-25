@@ -31,7 +31,7 @@ public abstract class AbstractJpaDao<T extends VersionEntity> implements Dao<T> 
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<T> getParamClass() {
+	public Class<T> getParamClass() {
 		return (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}

@@ -4,24 +4,17 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="WebshopManagerPU"
 		transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>java:/comp/env/jdbc/KooobaoAppDS</non-jta-data-source>
 		<mapping-file>META-INF/eclipselink-orm.xml</mapping-file>
-		<class>com.kooobao.wsm.domain.entity.SimpleEntity</class>
-		<class>com.kooobao.wsm.domain.entity.VersionEntity</class>
+		<class>com.kooobao.common.domain.entity.SimpleEntity</class>
+		<class>com.kooobao.common.domain.entity.VersionEntity</class>
 		<class>com.kooobao.wsm.domain.entity.issue.Issue</class>
 		<class>com.kooobao.wsm.domain.entity.issue.TrackLog</class>
 		<class>com.kooobao.wsm.domain.entity.issue.TroubleCase</class>
 		<shared-cache-mode>ALL</shared-cache-mode>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/gsm_test" />
-
-			<!-- EclipseLink should create the database schema automatically -->
-			<property name="eclipselink.jdbc.read-connections.shared" value="true"/>
-			<property name="eclipselink.jdbc.read-connections.min" value="3"/>
-			<property name="eclipselink.jdbc.read-connections.max" value="6"/>
 			<property name="eclipselink.logging.level.sql" value="FINEST"/>
-			<property name="javax.persistence.jdbc.password" value="jieninan"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 		</properties>
 
 	</persistence-unit>

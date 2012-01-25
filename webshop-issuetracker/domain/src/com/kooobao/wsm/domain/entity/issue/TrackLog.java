@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.kooobao.wsm.domain.entity.SimpleEntity;
+import com.kooobao.common.domain.entity.SimpleEntity;
 
 @Entity
 @Table(name = "ist_isue_track_log")
