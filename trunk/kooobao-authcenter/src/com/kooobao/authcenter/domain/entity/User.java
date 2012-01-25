@@ -42,6 +42,9 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastLoginTime;
 
+	@Column(name = "email", columnDefinition = "varchar(50)", nullable = false)
+	private String email;
+
 	@ElementCollection
 	@CollectionTable(name = "auc_user_system", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
 	@MapKeyColumn(name = "system_name")
@@ -94,6 +97,14 @@ public class User {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+
+	protected String getEmail() {
+		return email;
+	}
+
+	protected void setEmail(String email) {
+		this.email = email;
 	}
 
 	public static String encryptPass(String input) {
