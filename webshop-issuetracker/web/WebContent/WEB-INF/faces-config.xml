@@ -26,8 +26,8 @@
 		<managed-bean-class>com.kooobao.wsm.web.support.SupportDataBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 		<managed-property>
-			<property-name>userDao</property-name>
-			<value>#{userDao}</value>
+			<property-name>userService</property-name>
+			<value>#{userService}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
@@ -58,9 +58,13 @@
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-name>login</managed-bean-name>
 		<managed-bean-class>com.kooobao.authcenter.web.bean.LoginBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>authService</property-name>
+			<value>#{authenticateService}</value>
+		</managed-property>
 	</managed-bean>
 	<navigation-rule>
 		<display-name>create_issue.xhtml</display-name>
@@ -101,18 +105,18 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>logout</display-name>
+		<display-name>require_login</display-name>
 		<navigation-case>
-			<from-outcome>logout</from-outcome>
+			<from-outcome>require_login</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>logout2</display-name>
+		<display-name>logout</display-name>
 		<navigation-case>
 			<from-action>#{login.logout}</from-action>
-			<from-outcome>success</from-outcome>
+			<from-outcome>true</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
@@ -124,16 +128,6 @@
 			<from-action>#{createIssueSuccess.viewCreated}</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/view_issue.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>login.xhtml</display-name>
-		<from-view-id>/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{login.login}</from-action>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/index.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
