@@ -1,8 +1,70 @@
-insert into auc_user_system (user_id,system_name) values('cndebbie','ist');
-INSERT INTO AUC_USER (user_id,version,enc_pass) values('Bella',1,'4QrcOUm6Wau+VuBX8g+IPg==');
-insert into auc_user_system (user_id,system_name) values('Bella','ist'); 
-INSERT INTO AUC_USER (user_id,version,enc_pass) values('丽丽',1,'d3u7eGmugZMkn4/30+Wa/g==');
-insert into auc_user_system (user_id,system_name) values('丽丽','ist');
+-- MySQL dump 10.13  Distrib 5.1.59, for Win32 (ia32)
+--
+-- Host: localhost    Database: gsm_test
+-- ------------------------------------------------------
+-- Server version	5.1.59-community
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `auc_user`
+--
+
+DROP TABLE IF EXISTS `auc_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auc_user` (
+  `user_id` varchar(10) NOT NULL DEFAULT '',
+  `desc_text` text,
+  `last_login_time` datetime DEFAULT NULL,
+  `version` decimal(10,0) DEFAULT NULL,
+  `enc_pass` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auc_user`
+--
+
+LOCK TABLES `auc_user` WRITE;
+/*!40000 ALTER TABLE `auc_user` DISABLE KEYS */;
+INSERT INTO `auc_user` VALUES ('Bella',NULL,NULL,'1','4QrcOUm6Wau+VuBX8g+IPg=='),('cndebbie',NULL,NULL,'1','1V8MJfvPbQzo7yLzZFIMDw=='),('丽丽',NULL,NULL,'1','d3u7eGmugZMkn4/30+Wa/g==');
+/*!40000 ALTER TABLE `auc_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auc_user_system`
+--
+
+DROP TABLE IF EXISTS `auc_user_system`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auc_user_system` (
+  `user_id` varchar(10) DEFAULT NULL,
+  `system_name` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auc_user_system`
+--
+
+LOCK TABLES `auc_user_system` WRITE;
+/*!40000 ALTER TABLE `auc_user_system` DISABLE KEYS */;
+INSERT INTO `auc_user_system` VALUES ('cndebbie','gsm'),('cndebbie','ist'),('Bella','ist'),('丽丽','ist');
+/*!40000 ALTER TABLE `auc_user_system` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 DROP TABLE IF EXISTS `ist_sequence`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
