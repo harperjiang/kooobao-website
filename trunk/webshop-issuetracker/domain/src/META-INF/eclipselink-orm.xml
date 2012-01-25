@@ -3,11 +3,9 @@
 	xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_1.xsd">
-	<table-generator name="issueTG" table="sys_sequence"
+	<table-generator name="issueTG" table="ist_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="isue_main" />
-	<table-generator name="userTG" table="sys_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="profile_user" />
-	<table-generator name="trackLogTG" table="sys_sequence"
+	<table-generator name="trackLogTG" table="ist_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="isue_track_log" />
 
 	<entity class="com.kooobao.wsm.domain.entity.issue.Issue">
