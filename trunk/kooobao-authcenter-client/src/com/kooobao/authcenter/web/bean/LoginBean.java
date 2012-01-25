@@ -1,6 +1,7 @@
 package com.kooobao.authcenter.web.bean;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,6 +30,8 @@ public class LoginBean extends AbstractBean {
 
 	private boolean loggedIn;
 
+	private Date loginDate;
+
 	@ManagedProperty("#{authenticateService}")
 	private AuthenticateService authService;
 
@@ -39,6 +42,7 @@ public class LoginBean extends AbstractBean {
 			return "false";
 		}
 		loggedIn = true;
+		loginDate = new Date();
 		putTokenInSession(token);
 		jumpUrl();
 		return "true";
@@ -47,6 +51,7 @@ public class LoginBean extends AbstractBean {
 	public String logout() {
 		getAuthService().logout(getTokenFromSession());
 		loggedIn = false;
+		loginDate = null;
 		return "true";
 	}
 
@@ -56,7 +61,11 @@ public class LoginBean extends AbstractBean {
 		Object previousUrl = getSession().getAttribute(Constants.JUMP_URL);
 
 		// Jump to previous URL, index.htm if null
-		previousUrl = null == previousUrl ? "/index.htm" : previousUrl;
+		String indexPage = ConfigLoader.getInstance().load("auth_list",
+				"index_page");
+		if (null == indexPage)
+			indexPage = "index.xhtml";
+		previousUrl = null == previousUrl ? indexPage : previousUrl;
 		try {
 			response.sendRedirect(String.valueOf(previousUrl));
 		} catch (IOException e) {
@@ -119,6 +128,14 @@ public class LoginBean extends AbstractBean {
 
 	public void setLoggedIn(boolean loggedIn) {
 		this.loggedIn = loggedIn;
+	}
+
+	public Date getLoginDate() {
+		return loginDate;
+	}
+
+	public void setLoginDate(Date loginDate) {
+		this.loginDate = loginDate;
 	}
 
 }
