@@ -10,15 +10,26 @@ import com.kooobao.common.domain.entity.SimpleEntity;
 @Table(name = "fr_file_storage")
 public class FileStorage extends SimpleEntity {
 
-	@Column(name = "content", columnDefinition = "blob")
-	private byte[] content;
+	@Column(name = "path", columnDefinition = "varchar(255)")
+	private String path;
 
-	public byte[] getContent() {
-		return content;
+	@Column(name = "size", columnDefinition = "decimal(10)")
+	private long size;
+
+	public String getPath() {
+		return path;
 	}
 
-	public void setContent(byte[] content) {
-		this.content = content;
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public long getSize() {
+		return size;
+	}
+
+	public void setSize(long size) {
+		this.size = size;
 	}
 
 }

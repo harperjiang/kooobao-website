@@ -2,9 +2,13 @@ package com.kooobao.fr.domain.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
 
@@ -12,11 +16,15 @@ import com.kooobao.common.domain.entity.SimpleEntity;
 @Table(name = "fr_attachment")
 public class Attachment extends SimpleEntity {
 
+	@Column(name="name")
 	private String name;
 
+	@Column(name="create_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date createDate;
 
 	@OneToOne
+	@JoinColumn(name="file_id",referencedColumnName="obj_id")
 	private FileStorage file;
 
 	public String getName() {
