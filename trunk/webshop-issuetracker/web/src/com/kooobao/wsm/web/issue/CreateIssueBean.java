@@ -23,12 +23,8 @@ public class CreateIssueBean extends AbstractBean {
 	}
 
 	public String save() {
-		
-		
 		getIssue().setCreatorId(getCurrentUserId());
-		
-		getIssueDao().store(getIssue());
-
+		setIssue(getIssueDao().store(getIssue()));
 		CreateIssueSuccessBean cisb = findBean("createIssueSuccess");
 		cisb.setIssueOid(getIssue().getOid());
 		return "success";
