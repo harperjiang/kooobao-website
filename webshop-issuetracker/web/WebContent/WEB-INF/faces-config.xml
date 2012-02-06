@@ -152,8 +152,8 @@
 		</navigation-case>
 	</navigation-rule>
 	<lifecycle>
-		<phase-listener>com.kooobao.wsm.web.common.listener.BeanInitializer</phase-listener>
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>
+		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
 	</lifecycle>
 
 </faces-config>
