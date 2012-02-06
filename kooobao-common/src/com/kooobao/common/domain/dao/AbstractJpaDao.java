@@ -4,9 +4,7 @@ import java.lang.reflect.ParameterizedType;
 
 import javax.persistence.EntityManager;
 
-import com.kooobao.common.domain.entity.VersionEntity;
-
-public abstract class AbstractJpaDao<T extends VersionEntity> implements Dao<T> {
+public abstract class AbstractJpaDao<T> implements Dao<T> {
 
 	private EntityManager entityManager;
 

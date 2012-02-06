@@ -20,10 +20,15 @@ public class BeanInitializer implements PhaseListener {
 		String viewId = phaseEvent.getFacesContext().getViewRoot().getViewId();
 		Log log = LogFactory.getLog(getClass());
 		if (viewId.endsWith(".xhtml")) {
-			String managedBeanName = getManagedBeanNameFromView(viewId);
-			Object object = facesContext.getApplication()
-					.evaluateExpressionGet(facesContext,
-							"#{" + managedBeanName + "}", Object.class);
+			String[] managedBeanName = getManagedBeanNameFromView(viewId);
+			Object object = null;
+			for (int i = 0; i < managedBeanName.length; i++) {
+				object = facesContext.getApplication().evaluateExpressionGet(
+						facesContext, "#{" + managedBeanName[i] + "}",
+						Object.class);
+				if (object != null)
+					break;
+			}
 			if (object == null)
 				log.debug("OnPageLoad cannot be executed, no such managed bean:"
 						+ managedBeanName);
@@ -47,7 +52,7 @@ public class BeanInitializer implements PhaseListener {
 		return PhaseId.RESTORE_VIEW;
 	}
 
-	protected String getManagedBeanNameFromView(String viewId) {
+	protected String[] getManagedBeanNameFromView(String viewId) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(viewId);
 		// Delete the first slash
@@ -59,7 +64,6 @@ public class BeanInitializer implements PhaseListener {
 				sb.setCharAt(index, (char) (sb.charAt(index) - ('a' - 'A')));
 			}
 		}
-		sb.append("Bean");
-		return sb.toString();
+		return new String[]{sb.toString(),sb.toString()+"Bean"};
 	}
 }
