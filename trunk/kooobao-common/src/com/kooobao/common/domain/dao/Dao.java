@@ -1,8 +1,7 @@
 package com.kooobao.common.domain.dao;
 
-import com.kooobao.common.domain.entity.VersionEntity;
 
-public interface Dao<T extends VersionEntity> {
+public interface Dao<T> {
 
 	public T store(T entity);
 
