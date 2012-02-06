@@ -49,6 +49,8 @@ public class LoginAuthorizer implements PhaseListener {
 						.getNavigationHandler()
 						.handleNavigation(event.getFacesContext(), null,
 								"require_login");
+			} else {
+				// Validate the existence of Login Bean
 			}
 		}
 	}
