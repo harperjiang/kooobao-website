@@ -15,13 +15,18 @@ public class JpaActorDao extends AbstractJpaDao<Actor> implements ActorDao {
 
 	public List<Actor> getActors(Role role) {
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
-		
+
 		CriteriaQuery<Actor> query = builder.createQuery(Actor.class);
 		Root<Actor> root = query.from(Actor.class);
-//		Subquery<String> roleSub = query.subquery(String.class);
-//		roleSub.from()
-		query.where(builder.equal(root.get("roles"),role.name()));
+		// Subquery<String> roleSub = query.subquery(String.class);
+		// roleSub.from()
+		query.where(builder.equal(root.get("roles"), role.name()));
 		return getEntityManager().createQuery(query).getResultList();
+	}
+
+	public Actor getActor(String id) {
+		return getEntityManager().createNamedQuery("getActorById", Actor.class)
+				.setParameter("id", id).getSingleResult();
 	}
 
 }

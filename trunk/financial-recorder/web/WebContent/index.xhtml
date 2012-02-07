@@ -5,35 +5,114 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">酷宝英语教育-财务信息记录系统</ui:define>
 	<ui:define name="body">
-		
-		<div class="panel newspanel" style="width: 390px; height: 215px;">
-		<div class="panel_title">
-		<div id="tl"><img src="image/curve_topleft.gif" /></div>
-		<div id="tr"><img src="image/curve_topright.gif" /></div>
-		上月财务记录概况</div>
-		<h:form>
-			<p><h:commandLink action="#{issueSummary.viewMyIssue}">财务月度:<h:outputText
-					value="#{issueSummary.myIssueCount}" />
-			</h:commandLink></p>
-			<p><h:commandLink action="#{issueSummary.viewNewIssue}">收入:<h:outputText
-					value="#{issueSummary.newIssueCount}" />
-			</h:commandLink></p>
-			<p><h:commandLink action="#{issueSummary.viewUnsolvedIssue}">支出:<h:outputText
-					value="#{issueSummary.unsolvedIssueCount}" />
-			</h:commandLink></p>
+		<h:panelGroup styleClass="panel newspanel"
+			rendered="#{actorBean.isOperator}"
+			style="width: 390px; height: 215px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				我发起的操作 共
+				<h:outputText value="#{financialRecordService.myRecordCount}" />
+				项
+			</div>
+			<h:form>
+				<h:dataTable id="dataTable" styleClass="dataTable" width="390"
+					value="#{financialInfoBean.myRecords}" var="record"
+					columnClasses="col1,col2,col3,col4,col5">
+					<h:column>
+						<f:facet name="header">类型</f:facet>
+						<h:commandLink action="#{financialInfoBean.view}">#{record.type}</h:commandLink>
+					</h:column>
+					<h:column>
+						<f:facet name="header">金额</f:facet>
+						#{record.amount}
+					</h:column>
+					<h:column>
+						<f:facet name="header">对方</f:facet>
+						#{record.with}
+					</h:column>
+					<h:column>
+						<f:facet name="header">创建</f:facet>
+						#{record.createBy}
+					</h:column>
+					<h:column>
+						<f:facet name="header">跟进</f:facet>
+						#{record.followup}
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</h:panelGroup>
+		<h:panelGroup styleClass="panel newspanel"
+			rendered="#{!actorBean.isOperator}"
+			style="width: 390px; height: 215px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				等待处理的操作 共
+				<h:outputText value="#{financialRecordService.myFollowupCount}" />
+				项
+			</div>
+			<h:form>
+				<h:dataTable id="dataTable" styleClass="dataTable" width="390"
+					value="#{financialInfoBean.myFollowups}" var="record"
+					columnClasses="col1,col2,col3,col4,col5">
+					<h:column>
+						<f:facet name="header">类型</f:facet>
+						#{record.type}
+					</h:column>
+					<h:column>
+						<f:facet name="header">金额</f:facet>
+						#{record.amount}
+					</h:column>
+					<h:column>
+						<f:facet name="header">对方</f:facet>
+						#{record.with}
+					</h:column>
+					<h:column>
+						<f:facet name="header">创建</f:facet>
+						#{record.createBy}
+					</h:column>
+					<h:column>
+						<f:facet name="header">跟进</f:facet>
+						#{record.followup}
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</h:panelGroup>
+		<div class="blankpanel" style="width: 30px; height: 215px;" />
 
-			<p><h:commandLink action="#{issueSummary.viewOver3DayIssue}">超过3天的未结问题件:<h:outputText
-					value="#{issueSummary.over3DayIssueCount}" />
-			</h:commandLink></p>
-			<p><h:commandLink action="#{issueSummary.viewOver7DayIssue}">超过7天的未结问题件:<h:outputText
-					value="#{issueSummary.over7DayIssueCount}" />
-			</h:commandLink></p>
-			<p><h:commandLink action="#{issueSummary.view7DayIssue}">7天内的问题件:<h:outputText
-					value="#{issueSummary.day7IssueCount}" />
-			</h:commandLink></p>
-			<p><h:commandLink action="#{issueSummary.viewMonthIssue}">30天内的问题件:<h:outputText
-					value="#{issueSummary.monthIssueCount}" />
-			</h:commandLink></p>
-		</h:form></div>
+		<div class="panel newspanel" style="width: 390px; height: 215px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				常用操作
+			</div>
+			<h:form>
+				<p>
+					<h:commandLink action="#{financialInfoBean.requestPayment}">请求付款
+					</h:commandLink>
+				</p>
+				<p>
+					<h:commandLink action="#{financialInfoBean.recordReceive}">登记收款
+					</h:commandLink>
+				</p>
+				<p>
+					<h:commandLink action="#{financialInfoBean.searchRecords}">搜索已创建的流程
+					</h:commandLink>
+				</p>
+			</h:form>
+		</div>
 	</ui:define>
 </ui:composition>

@@ -45,6 +45,9 @@ public class FinancialRecord extends VersionEntity {
 	@Column(name = "create_by", columnDefinition = "varchar(30)")
 	String createBy;
 
+	@Column(name = "follow_up", columnDefinition = "varchar(30)")
+	String followup;
+
 	@Column(name = "amount", columnDefinition = "decimal(10,2)")
 	BigDecimal amount;
 
@@ -67,6 +70,8 @@ public class FinancialRecord extends VersionEntity {
 	public FinancialRecord() {
 		// Should not be invoked explicitly
 		with = new AccountInfo();
+		createDate = new Date();
+		recordDate = new Date();
 	}
 
 	public String getStatus() {
@@ -131,6 +136,14 @@ public class FinancialRecord extends VersionEntity {
 
 	public AccountInfo getWith() {
 		return with;
+	}
+
+	public String getFollowup() {
+		return followup;
+	}
+
+	public void setFollowup(String followup) {
+		this.followup = followup;
 	}
 
 	public void addHistory(RecordHistory history) {

@@ -4,7 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<import resource="env.xml" />
-	<import resource="auth.xml"/>
+	<import resource="auth.xml" />
 
-	
+	<bean id="actorService" class="com.kooobao.fr.web.dummy.DummyActorService" />
+	<bean id="financialRecordService" class="com.kooobao.fr.web.dummy.DummyFinancialRecordService" />
+	<bean id="customerService" class="com.kooobao.fr.web.dummy.DummyCustomerService" />
 </beans>
