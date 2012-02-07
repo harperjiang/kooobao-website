@@ -8,4 +8,5 @@ import com.kooobao.fr.domain.entity.Role;
 
 public interface ActorDao extends Dao<Actor> {
 	public List<Actor> getActors(Role type);
+	public Actor getActor(String id);
 }

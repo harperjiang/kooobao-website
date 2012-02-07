@@ -1,0 +1,11 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">酷宝英语教育-财务信息记录系统</ui:define>
+	<ui:define name="body">
+		<h:panelGroup rendered="#{createRecordBean.payment}"
+			style="font-size: 18px; margin-bottom: 20px;">操作已成功！</h:panelGroup>
+	</ui:define>
+</ui:composition>

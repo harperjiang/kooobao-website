@@ -8,16 +8,28 @@
 </h:head>
 <h:body>
 	<div class="body">
-	<div align="center"
-		style="margin: 0px; padding: 0px; text-align: center"><img
-		src="image/logo_long.gif" /></div>
-	<div class="content">
-	<div class="title">财务信息记录系统</div>
-
-	<div style="margin-top: 10px; margin-bottom: 10px;"><a
-		href="index.htm">回到首页</a></div>
-
-	<ui:insert name="body" /></div>
+		<div align="center"
+			style="margin: 0px; padding: 0px; text-align: center">
+			<img src="image/logo_long.gif" />
+		</div>
+		<div class="content">
+			<div class="title">财务信息记录系统</div>
+			<div style="margin-top: 10px; margin-bottom: 10px;">
+				欢迎
+				<h:outputText value="#{loginBean.userId}" />
+				,上次成功登陆时间：
+				<h:outputText value="#{loginBean.loginDate}" />
+			</div>
+			<div style="margin-top: 10px; margin-bottom: 10px;">
+				<a href="index.htm">回到首页</a>
+			</div>
+			<div style="margin-top: 10px; margin-bottom: 10px;">
+				<h:form>
+					<h:commandLink action="#{loginBean.logout}" value="退出系统" />
+				</h:form>
+			</div>
+			<ui:insert name="body" />
+		</div>
 	</div>
 	<div class="bottom">酷宝教育 2009-2010 沪ICP备09094888号</div>
 </h:body>

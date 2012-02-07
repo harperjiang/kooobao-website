@@ -6,6 +6,8 @@
 
 @IMPORT "table.css";
 
+@IMPORT "float.css";
+
 body {
 	text-align: center;
 }

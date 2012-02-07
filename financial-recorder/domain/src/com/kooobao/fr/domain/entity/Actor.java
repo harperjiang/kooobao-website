@@ -8,11 +8,13 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
 @Table(name = "fr_actor")
+@NamedQuery(name="getActorById",query="select a from Actor a where a.id = :id")
 public class Actor {
 
 	@Id

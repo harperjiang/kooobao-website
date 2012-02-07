@@ -24,5 +24,10 @@ public class JpaActorDaoTest extends
 	public void testGetActors() {
 		actorDao.getActors(Role.OPERATOR);
 	}
+	
+	@Test
+	public void testGetActorById() {
+		actorDao.getActor("big");
+	}
 
 }
