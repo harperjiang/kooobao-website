@@ -14,8 +14,10 @@ import org.apache.commons.lang.StringUtils;
 import com.kooobao.authcenter.Constants;
 import com.kooobao.authcenter.service.AuthenticateService;
 import com.kooobao.authcenter.service.Token;
+import com.kooobao.authcenter.web.bean.LoginBean;
 import com.kooobao.common.spring.ApplicationContextHolder;
 import com.kooobao.common.util.ConfigLoader;
+import com.kooobao.common.web.bean.AbstractBean;
 
 public class LoginAuthorizer implements PhaseListener {
 
@@ -51,6 +53,12 @@ public class LoginAuthorizer implements PhaseListener {
 								"require_login");
 			} else {
 				// Validate the existence of Login Bean
+				Token yesToken = (Token) token;
+				LoginBean loginBean = AbstractBean.findBean("loginBean");
+				if (!yesToken.getUserId().equals(loginBean.getUserId())) {
+					loginBean.setUserId(yesToken.getUserId());
+					loginBean.setLoggedIn(true);
+				}
 			}
 		}
 	}
