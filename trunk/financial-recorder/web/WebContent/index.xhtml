@@ -101,11 +101,13 @@
 			</div>
 			<h:form>
 				<p>
-					<h:commandLink action="#{financialInfoBean.requestPayment}">请求付款
+					<h:commandLink rendered="#{actorInfoBean.operator}"
+						action="#{financialInfoBean.requestPayment}">请求付款
 					</h:commandLink>
 				</p>
 				<p>
-					<h:commandLink action="#{financialInfoBean.recordReceive}">登记收款
+					<h:commandLink rendered="#{actorInfoBean.operator}"
+						action="#{financialInfoBean.recordReceive}">登记收款
 					</h:commandLink>
 				</p>
 				<p>

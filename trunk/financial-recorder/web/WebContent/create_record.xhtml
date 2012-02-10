@@ -11,11 +11,12 @@
 				document.getElementById("customerWindow").style.visibility = "visible";
 			}
 			function select(index){
-				return myfaces.oam.submitForm('form','form:customerTable:'+index+':selectLink');
+				return myfaces.oam.submitForm('form','customerTable:'+index+':selectLink');
 			}
 			//
 		</script>
-		<h:form>
+
+		<h:form id="form" enctype="multipart/form-data" prependId="false">
 			<h:panelGroup style="margin-top: 25px;">
 				<h:panelGroup rendered="#{createRecordBean.payment}"
 					style="font-size: 18px; margin-bottom: 20px;">请求付款</h:panelGroup>
@@ -30,8 +31,36 @@
 					</h:inputText>
 					<h:message for="amountText" />
 					<br /> <a href="#" onclick="javascript:openCustomerWindow()">选择常用客户</a>
-
 					<br />
+					<div id="customerWindow"
+						style="width: 400px; height: 200px; left: 350px; top: 350px; visibility: hidden;"
+						class="floatWindow">
+						<h:dataTable id="customerTable" width="450"
+							value="#{createRecordBean.customers}" var="customer"
+							styleClass="dataTable">
+							<h:column>
+								<f:facet name="header">客户名</f:facet>
+								<h:outputText value="#{customer.name}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">客户公司</f:facet>
+								<h:outputText value="#{customer.company}" />
+
+							</h:column>
+							<h:column>
+								<f:facet name="header">帳號</f:facet>
+								<h:outputText value="#{customer.account}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header"></f:facet>
+								<h:outputLink value="#"
+									onclick="select(#{createRecordBean.counter.rowIndex});">选择</h:outputLink>
+								<h:commandLink id="selectLink" style="visibility: hidden;"
+									action="#{createRecordBean.selectCustomer}" value="选择" />
+								<h:outputText value="#{createRecordBean.counter.next}" />
+							</h:column>
+						</h:dataTable>
+					</div>
 					<h:outputLabel value="客户名称" />
 					<h:inputText value="#{createRecordBean.record.with.name}" />
 					<br />
@@ -49,40 +78,12 @@
 					<h:outputLabel value="描述" />
 					<h:inputTextarea value="#{createRecordBean.record.description}" />
 					<br />
+					<h:outputLabel value="上传文件" />
+					<input id="attachment" name="attachment" type="file" />
 					<h:commandButton value="保存" action="#{createRecordBean.save}" />
 				</div>
 			</h:panelGroup>
 		</h:form>
-		<div id="customerWindow"
-			style="width: 400px; height: 200px; left: 350px; top: 350px; visibility: hidden;"
-			class="floatWindow">
-			<h:form id="form">
-				<h:dataTable id="customerTable" width="450"
-					value="#{selectCustomerBean.customers}" var="customer"
-					styleClass="dataTable">
-					<h:column>
-						<f:facet name="header">客户名</f:facet>
-						<h:outputText value="#{customer.name}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">客户公司</f:facet>
-						<h:outputText value="#{customer.company}" />
 
-					</h:column>
-					<h:column>
-						<f:facet name="header">帳號</f:facet>
-						<h:outputText value="#{customer.account}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header"></f:facet>
-						<h:outputLink value="#"
-							onclick="select(#{selectCustomerBean.counter.rowIndex});">选择</h:outputLink>
-						<h:commandLink id="selectLink" style="visibility: hidden;"
-							action="#{createRecordBean.selectCustomer}" value="选择" />
-						<h:outputText value="#{selectCustomerBean.counter.next}" />
-					</h:column>
-				</h:dataTable>
-			</h:form>
-		</div>
 	</ui:define>
 </ui:composition>

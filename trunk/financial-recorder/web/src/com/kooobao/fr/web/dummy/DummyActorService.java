@@ -14,6 +14,7 @@ public class DummyActorService implements ActorService {
 		actor.setId(id);
 		List<String> list = new ArrayList<String>();
 		list.add(Role.MANAGER.name());
+		list.add(Role.TELLER.name());
 		actor.setRoles(list);
 		return actor;
 	}

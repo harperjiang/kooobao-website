@@ -16,7 +16,7 @@ public class ActorInfoBean extends AbstractBean {
 
 	}
 
-	protected Actor getActor() {
+	public Actor getActor() {
 		LoginBean loginBean = findBean("loginBean");
 		if (null == loginBean || !loginBean.isLoggedIn())
 			throw new IllegalStateException("Not logged in");
@@ -49,4 +49,6 @@ public class ActorInfoBean extends AbstractBean {
 	public boolean isTeller() {
 		return getActor().getRoles().contains(Role.TELLER.name());
 	}
+	
+	
 }
