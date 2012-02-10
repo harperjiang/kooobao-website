@@ -3,8 +3,8 @@
   <nodes xsi:type="pageflow:PFPage" name="require_login" x="122" y="178" id="pf13284293553025" outlinks="pf13284293553026 pf13284488223968" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="178" id="pf13284293553027" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf13284293553026 pf13284488223968" path="/login.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="200" y="305" id="pf13285539542771" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf13285539542772 pf13285539683105" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="create_record.xhtml" x="469" y="294" id="pf13285539542774" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" outlinks="pf13285886047366" inlinks="pf13285539542772 pf13285539683105" path="/create_record.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="operation_success.xhtml" x="456" y="420" id="pf13285886047367" inlinks="pf13285886047366" path="/operation_success.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="create_record.xhtml" x="469" y="294" id="pf13285539542774" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf13285886047366" inlinks="pf13285539542772 pf13285539683105" path="/create_record.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="operation_success.xhtml" x="456" y="420" id="pf13285886047367" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf13285886047366" path="/operation_success.xhtml"/>
   <links id="pf13284293553026" target="pf13284293553027" source="pf13284293553025" outcome="require_login"/>
   <links id="pf13284488223968" target="pf13284293553027" source="pf13284293553025" outcome="true" fromaction="#{loginBean.logout}"/>
   <links id="pf13285539542772" target="pf13285539542774" source="pf13285539542771" fromaction="#{financialInfoBean.recordReceive}"/>

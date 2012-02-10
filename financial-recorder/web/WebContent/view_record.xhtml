@@ -1,0 +1,167 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">酷宝英语教育-财务信息记录系统</ui:define>
+	<ui:define name="body">
+		<script type="text/javascript">
+			//           
+
+			//
+		</script>
+
+		<h:panelGroup style="margin-top: 25px;">
+			<h:panelGroup rendered="#{viewRecordBean.payment}"
+				style="font-size: 18px; margin-bottom: 20px;">付款请求</h:panelGroup>
+			<h:panelGroup rendered="#{!viewRecordBean.payment}"
+				style="font-size: 18px; margin-bottom: 20px;">收款记录</h:panelGroup>
+			<div class="block color1">
+				<h:outputLabel value="金额" />
+				<h:inputText id="amountText" value="#{viewRecordBean.record.amount}"
+					readonly="true">
+				</h:inputText>
+				<h:message for="amountText" />
+				<br />
+				<h:outputLabel value="客户名称" />
+				<h:inputText value="#{viewRecordBean.record.with.name}"
+					readonly="true" />
+				<br />
+				<h:outputLabel value="客户公司名称" />
+				<h:inputText value="#{viewRecordBean.record.with.company}"
+					readonly="true" />
+				<br />
+				<h:outputLabel value="客户账户" />
+				<h:inputText value="#{viewRecordBean.record.with.account}"
+					readonly="true" />
+				<br />
+				<h:outputLabel value="请求人" />
+				<h:inputText value="#{viewRecordBean.record.createBy}"
+					readonly="true" />
+				<br />
+				<h:outputLabel value="请求时间" />
+				<h:inputText value="#{viewRecordBean.record.createDate}"
+					readonly="true">
+					<f:convertDateTime pattern="yyyy/MM/dd" />
+				</h:inputText>
+				<br />
+				<h:outputLabel value="当前状态" />
+				<h:inputText value="#{viewRecordBean.record.status}" readonly="true" />
+				<br />
+				<h:outputLabel value="描述" />
+				<h:inputTextarea value="#{viewRecordBean.record.description}"
+					readonly="true" />
+				<br />
+				<h:outputLabel value="附件" />
+				<h:outputLink
+					value="/download?file=#{viewRecordBean.record.attachment.oid}">
+					<h:outputText value="#{viewRecordBean.record.attachment.name}" />
+				</h:outputLink>
+			</div>
+
+			<div class="block color2" style="padding-top: 10px;">
+				<h:panelGroup style="font-size: 14px; margin-bottom: 20px;">操作记录</h:panelGroup>
+				<h:dataTable styleClass="dataTable" width="500"
+					value="#{viewRecordBean.record.histories}" var="history">
+					<h:column>
+						<f:facet name="header">操作时间</f:facet>
+						<h:outputText value="#{history.operateDate}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">操作人</f:facet>
+						<h:outputText value="#{history.operator}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">操作</f:facet>
+						<h:outputText value="#{history.operation}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">附加說明</f:facet>
+						<h:outputText value="#{history.description}" />
+					</h:column>
+				</h:dataTable>
+			</div>
+			<h:panelGroup
+				rendered="#{actorInfoBean.manager and viewRecordBean.record.status == 'PAYMENT_SUBMIT'}">
+				<div class="block color1">
+					<h:form>
+						<h:commandButton value="批准"
+							action="#{viewRecordBean.approvePayment}" />
+						<br />
+						<h:commandButton value="拒绝"
+							action="#{viewRecordBean.rejectPayment}" />
+						<br />
+						<h:outputLabel for="reason" value="理由" />
+						<h:inputText id="reason" value="#{viewRecordBean.comment}" />
+						<br />
+					</h:form>
+				</div>
+			</h:panelGroup>
+
+			<h:panelGroup
+				rendered="#{actorInfoBean.teller} and #{viewRecordBean.record.status == 'PAYMENT_APPROVED'}">
+				<div class="block color1">
+					<h:form>
+						<h:outputLabel for="commission" value="手续费" />
+						<h:inputText id="commission" value="#{viewRecordBean.commission}">
+							<f:convertNumber />
+						</h:inputText>
+						<br />
+						<h:commandButton value="确认付款"
+							action="#{viewRecordBean.confirmPayment}" />
+						<br />
+						<h:commandButton value="无法付款"
+							action="#{viewRecordBean.failedPayment}" />
+						<br />
+						<h:outputLabel for="comment" value="附加说明" />
+						<h:inputText id="comment" value="#{viewRecordBean.comment}" />
+						<br />
+					</h:form>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup
+				rendered="#{actorInfoBean.teller and viewRecordBean.record.status == 'RECEIVE_SUBMIT'}">
+				<div class="block color1">
+					<h:form>
+						<h:outputLabel for="commission" value="" />
+						<h:inputText id="commission" value="#{viewRecordBean.commission}">
+							<f:convertNumber />
+						</h:inputText>
+						<br />
+						<h:outputLabel for="comment" value="附加说明" />
+						<h:inputText id="comment" value="#{viewRecordBean.comment}" />
+						<br />
+						<h:commandButton value="确认收款"
+							action="#{viewRecordBean.confirmReceive}" />
+					</h:form>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup
+				rendered="#{actorInfoBean.operator and viewRecordBean.record.status == 'RECEIVE_SUBMIT'}">
+				<div class="block color1">
+					<h:form>
+						<h:outputLabel for="reason" value="理由" />
+						<h:inputText id="reason" value="#{viewRecordBean.comment}" />
+						<br />
+						<h:commandButton value="撤回请求"
+							action="#{viewRecordBean.cancelReceive}" />
+					</h:form>
+				</div>
+			</h:panelGroup>
+			<h:panelGroup
+				rendered="#{actorInfoBean.operator and (viewRecordBean.record.status == 'PAYMENT_APPROVED' or viewRecordBean.record.status == 'PAYMENT_SUBMIT')}">
+				<div class="block color1">
+					<h:form>
+						<h:outputLabel for="reason" value="理由" />
+						<h:inputText id="reason" value="#{viewRecordBean.comment}" />
+						<br />
+						<h:commandButton value="撤回请款"
+							action="#{viewRecordBean.cancelPayment}" />
+					</h:form>
+				</div>
+			</h:panelGroup>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

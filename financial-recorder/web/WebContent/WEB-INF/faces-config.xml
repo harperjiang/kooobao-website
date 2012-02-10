@@ -48,6 +48,20 @@
 			<property-name>financialRecordService</property-name>
 			<value>#{financialRecordService}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>customerService</property-name>
+			<property-class>com.kooobao.fr.service.CustomerService</property-class>
+			<value>#{customerService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>viewRecordBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.fr.web.record.ViewRecordBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>financialRecordService</property-name>
+			<value>#{financialRecordService}</value>
+		</managed-property>
 	</managed-bean>
 	<navigation-rule>
 		<display-name>require_login</display-name>
@@ -89,7 +103,6 @@
 			<to-view-id>/operation_success.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
 	<lifecycle>
 		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>

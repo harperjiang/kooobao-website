@@ -1,11 +1,22 @@
 package com.kooobao.fr.web.record;
 
-import javax.faces.component.UIData;
+import java.util.Date;
+import java.util.List;
 
+import javax.faces.component.UIData;
+import javax.faces.context.FacesContext;
+
+import com.kooobao.authcenter.web.bean.LoginBean;
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.common.web.bean.RowIndexCounter;
+import com.kooobao.common.web.fileupload.FileBean;
+import com.kooobao.common.web.fileupload.MultipartRequestWrapper;
+import com.kooobao.fr.domain.entity.Attachment;
 import com.kooobao.fr.domain.entity.Customer;
+import com.kooobao.fr.domain.entity.FileStorage;
 import com.kooobao.fr.domain.entity.FinancialRecord;
 import com.kooobao.fr.domain.entity.PaymentRecord;
+import com.kooobao.fr.service.CustomerService;
 import com.kooobao.fr.service.FinancialRecordService;
 
 public class CreateRecordBean extends AbstractBean {
@@ -37,6 +48,37 @@ public class CreateRecordBean extends AbstractBean {
 		this.financialRecordService = financialRecordService;
 	}
 
+	private CustomerService customerService;
+
+	public CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+	
+	public List<Customer> getCustomers() {
+		return getCustomerService().getRecentCustomer(5);
+	}
+	
+	private RowIndexCounter counter = new RowIndexCounter();
+	
+	public RowIndexCounter getCounter() {
+		return counter;
+	}
+
+	@Override
+	public void onPageLoad() {
+		counter.reset();
+	}
+	
+	
+	public String select() {
+		System.out.println("Selected");
+		return "true";
+	}
+	
 	public String selectCustomer() {
 		UIData dataTable = (UIData) getComponent("customerTable");
 		Customer select = (Customer) dataTable.getRowData();
@@ -45,7 +87,25 @@ public class CreateRecordBean extends AbstractBean {
 	}
 
 	public String save() {
-		setRecord(getFinancialRecordService().save(getRecord()));
+		MultipartRequestWrapper request = (MultipartRequestWrapper) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest();
+		
+		FileBean fb = request.getFile("attachment");
+		if (null != fb) {
+			// Process Attachment
+			Attachment attachment = new Attachment();
+			attachment.setCreateDate(new Date());
+			attachment.setName(fb.getOriginName());
+			attachment.setSize(fb.getSize());
+			FileStorage fileStorage = new FileStorage();
+			fileStorage.setPath(fb.getPath());
+			fileStorage.setContentType(fb.getContentType());
+			attachment.setFile(fileStorage);
+			getRecord().setAttachment(attachment);
+		}
+		getRecord()
+				.setCreateBy(((LoginBean) findBean("loginBean")).getUserId());
+		setRecord(getFinancialRecordService().create(getRecord()));
 		return "success";
 	}
 }
