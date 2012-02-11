@@ -1,6 +1,7 @@
 package com.kooobao.fr.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -20,15 +21,25 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		return getFinancialRecordDao().getCountByCreateBy(actor);
 	}
 
+	private static final String[] MANAGER_STATUS = new String[] { "PAYMENT_SUBMIT" };
+
+	private static final String[] TELLER_STATUS = new String[] {
+			"PAYMENT_APPROVED", "RECEIVE_SUBMIT" };
+
 	public int getMyFollowupCount(String actorId) {
 		Actor actor = getActorDao().getActor(actorId);
+		List<String> status = new ArrayList<String>();
 		if (actor.getRoles().contains(Role.MANAGER.name())) {
-			return getFinancialRecordDao().getCountByStatus(new String[] {});
+			for (String sta : MANAGER_STATUS)
+				status.add(sta);
 		}
 		if (actor.getRoles().contains(Role.TELLER.name())) {
-			return getFinancialRecordDao().getCountByStatus(new String[] {});
+			for (String sta : TELLER_STATUS)
+				status.add(sta);
 		}
-		return 0;
+		String[] statusArray = new String[status.size()];
+		status.toArray(statusArray);
+		return getFinancialRecordDao().getCountByStatus(statusArray);
 	}
 
 	public List<FinancialRecord> getMyRecords(String id, int limit) {
@@ -37,13 +48,18 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 
 	public List<FinancialRecord> getMyFollowups(String id, int limit) {
 		Actor actor = getActorDao().getActor(id);
+		List<String> status = new ArrayList<String>();
 		if (actor.getRoles().contains(Role.MANAGER.name())) {
-			return getFinancialRecordDao().getRecordsByStatus(new String[] {});
+			for (String sta : MANAGER_STATUS)
+				status.add(sta);
 		}
 		if (actor.getRoles().contains(Role.TELLER.name())) {
-			return getFinancialRecordDao().getRecordsByStatus(new String[] {});
+			for (String sta : TELLER_STATUS)
+				status.add(sta);
 		}
-		return Collections.emptyList();
+		String[] statusArray = new String[status.size()];
+		status.toArray(statusArray);
+		return getFinancialRecordDao().getRecordsByStatus(statusArray, limit);
 	}
 
 	public FinancialRecord create(FinancialRecord record) {
@@ -94,8 +110,10 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 
 	public PageSearchResult<FinancialRecord> search(Date fromDate, Date toDate,
 			String[] status, int recordStart, int recordStop) {
-		int count = getFinancialRecordDao().searchCount(fromDate, toDate,status);
-		List<FinancialRecord> resultList = getFinancialRecordDao().search(fromDate,toDate,status,recordStart,recordStop);
+		int count = getFinancialRecordDao().searchCount(fromDate, toDate,
+				status);
+		List<FinancialRecord> resultList = getFinancialRecordDao().search(
+				fromDate, toDate, status, recordStart, recordStop);
 		return new PageSearchResult<FinancialRecord>(count, resultList);
 	}
 
