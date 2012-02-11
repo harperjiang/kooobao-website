@@ -18,6 +18,14 @@ public class TaskQueue<TASK> {
 		new DaemonThread().start();
 	}
 
+	public void add(TASK task) {
+		try {
+			queue.put(task);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public static interface Executor<TASK> {
 		public void execute(TASK task);
 	}

@@ -21,7 +21,7 @@ import com.kooobao.authcenter.domain.entity.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/application-context.xml" })
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 public class JpaUserDaoTest extends
 		AbstractTransactionalJUnit4SpringContextTests {
 
@@ -31,10 +31,10 @@ public class JpaUserDaoTest extends
 	@Before
 	public void prepareData() {
 		User user = new User();
-		user.setId("debbie");
+		user.setId("manager");
+		user.setEncryptedPass(User.encryptPass("123456"));
 		Map<String,String> systemMap = new HashMap<String,String>();
-		systemMap.put("gsm", "gsm");
-		systemMap.put("kbk", "kbk");
+		systemMap.put("fr", "fr");
 		user.setSystems(systemMap);
 		user.setLastLoginTime(new Date());
 		

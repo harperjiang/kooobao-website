@@ -25,9 +25,17 @@ public abstract class AbstractMemoryDao<T extends VersionEntity> implements
 		storage.put(entity.getOid(), entity);
 		return entity;
 	}
-	
+
 	public T find(long oid) {
 		return storage.get(Long.valueOf(oid));
+	}
+
+	public T find(T example) {
+		for (T value : getStorage().values()) {
+			if (value.equals(example))
+				return value;
+		}
+		return null;
 	}
 
 	protected Map<Long, T> getStorage() {
