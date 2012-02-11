@@ -21,6 +21,8 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 	}
 
 	public int getCountByStatus(String[] status) {
+		if (status == null || status.length == 0)
+			return 0;
 		TypedQuery<Long> query = getEntityManager().createQuery(
 				"select count(f) from FinancialRecord f where f.status in "
 						+ inQuery(status.length), Long.class);
@@ -39,9 +41,13 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 	}
 
 	public List<FinancialRecord> getRecordsByStatus(String[] status, int limit) {
+		String queryStr = "select f from FinancialRecord f ";
+
+		if (!(status == null || status.length == 0)) {
+			queryStr += "where f.status in " + inQuery(status.length);
+		}
 		TypedQuery<FinancialRecord> query = getEntityManager().createQuery(
-				"select f from FinancialRecord f where f.status in "
-						+ inQuery(status.length), FinancialRecord.class);
+				queryStr, FinancialRecord.class);
 		for (int i = 0; i < status.length; i++) {
 			query.setParameter("val" + i, status[i]);
 		}

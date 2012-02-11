@@ -43,4 +43,9 @@ public class PaymentRecord extends FinancialRecord {
 			transit(RecordStatus.PAYMENT_APPROVED, RecordStatus.PAYMENT_CANCEL,
 					operator, reason);
 	}
+
+	public void resubmit(String id) {
+		transit(RecordStatus.PAYMENT_REJECT, RecordStatus.PAYMENT_SUBMIT, id,
+				null);
+	}
 }
