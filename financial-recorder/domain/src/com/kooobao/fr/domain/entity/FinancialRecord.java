@@ -17,11 +17,16 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang.Validate;
+
+import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 
 @Entity
@@ -66,6 +71,10 @@ public class FinancialRecord extends VersionEntity {
 
 	@OneToMany(mappedBy = "record", fetch = FetchType.LAZY, targetEntity = RecordHistory.class)
 	List<RecordHistory> histories;
+
+	@OneToOne
+	@JoinColumn(name = "attachment", referencedColumnName = "obj_id")
+	Attachment attachment;
 
 	public FinancialRecord() {
 		// Should not be invoked explicitly
@@ -146,11 +155,36 @@ public class FinancialRecord extends VersionEntity {
 		this.followup = followup;
 	}
 
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
+	}
+
 	public void addHistory(RecordHistory history) {
 		if (null == histories)
 			histories = new ArrayList<RecordHistory>();
 		history.setRecord(this);
 		histories.add(history);
+	}
+
+	public String getStatusText() {
+		return StatusUtils.text(RecordStatus.valueOf(getStatus()));
+	}
+
+	void transit(RecordStatus from, RecordStatus to, String operator,
+			String reason) {
+		Validate.isTrue(getStatus().equals(from.name()));
+		setStatus(to);
+
+		RecordHistory hist = new RecordHistory();
+		hist.setDescription(reason);
+		hist.setOperateDate(new Date());
+		hist.setOperator(operator);
+		hist.setOperation(to.name());
+		addHistory(hist);
 	}
 
 }

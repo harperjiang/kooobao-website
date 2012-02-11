@@ -13,21 +13,24 @@ import javax.persistence.TemporalType;
 import com.kooobao.common.domain.entity.SimpleEntity;
 
 @Entity
-@Table(name="fr_record_history")
+@Table(name = "fr_record_history")
 public class RecordHistory extends SimpleEntity {
 
 	@ManyToOne
-	@JoinColumn(name="record_id",referencedColumnName="obj_id",columnDefinition="decimal(10)")
+	@JoinColumn(name = "record_id", referencedColumnName = "obj_id", columnDefinition = "decimal(10)")
 	private FinancialRecord record;
-	
-	@Column(name="operator")
+
+	@Column(name = "operator")
 	private String operator;
-	
-	@Column(name="operate_date")
+
+	@Column(name = "operate_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date operateDate;
-	
-	@Column(name="desc_text")
+
+	@Column(name = "operation")
+	private String operation;
+
+	@Column(name = "desc_text")
 	private String description;
 
 	public FinancialRecord getRecord() {
@@ -61,6 +64,13 @@ public class RecordHistory extends SimpleEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
+	public String getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
+
 }

@@ -1,8 +1,12 @@
 package com.kooobao.fr.domain.entity;
 
+import java.io.File;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
 
@@ -13,8 +17,8 @@ public class FileStorage extends SimpleEntity {
 	@Column(name = "path", columnDefinition = "varchar(255)")
 	private String path;
 
-	@Column(name = "size", columnDefinition = "decimal(10)")
-	private long size;
+	@Column(name = "content_type", columnDefinition = "varchar(100)")
+	private String contentType;
 
 	public String getPath() {
 		return path;
@@ -24,12 +28,18 @@ public class FileStorage extends SimpleEntity {
 		this.path = path;
 	}
 
-	public long getSize() {
-		return size;
+	public String getContentType() {
+		return contentType;
 	}
 
-	public void setSize(long size) {
-		this.size = size;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
+	public String getAbbreviatedPath() {
+		if (StringUtils.isEmpty(getPath()))
+			return "";
+		return getPath().substring(
+				getPath().lastIndexOf(File.separatorChar) + 1);
+	}
 }
