@@ -31,9 +31,11 @@ public class Utilities {
 		return cal.getTime();
 	}
 
-	public static Date offset(int offset) {
+	
+	
+	public static Date offset(Date date,int offset) {
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
+		cal.setTime(date);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
