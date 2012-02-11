@@ -14,7 +14,7 @@ public interface FinancialRecordDao extends Dao<FinancialRecord> {
 
 	List<FinancialRecord> getRecordsByCreatedBy(String id, int limit);
 
-	List<FinancialRecord> getRecordsByStatus(String[] strings);
+	List<FinancialRecord> getRecordsByStatus(String[] strings, int limit);
 
 	int searchCount(Date fromDate, Date toDate, String[] status);
 
