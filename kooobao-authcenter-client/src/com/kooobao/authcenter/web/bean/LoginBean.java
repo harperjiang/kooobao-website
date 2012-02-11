@@ -138,4 +138,10 @@ public class LoginBean extends AbstractBean {
 		this.loginDate = loginDate;
 	}
 
+	public static String getCurrentUser() {
+		LoginBean loginBean = findBean("loginBean");
+		if(null == loginBean)
+			return null;
+		return loginBean.getUserId();
+	}
 }
