@@ -95,6 +95,12 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		return getFinancialRecordDao().store(record);
 	}
 
+	public FinancialRecord resubmitPayment(FinancialRecord record, Actor actor,
+			String comment) {
+		((PaymentRecord) record).resubmit(actor.getId());
+		return getFinancialRecordDao().store(record);
+	}
+
 	public FinancialRecord failPayment(FinancialRecord record, Actor actor,
 			String reason) {
 		((PaymentRecord) record).failToPay(actor.getId(), reason);

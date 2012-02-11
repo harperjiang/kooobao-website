@@ -43,4 +43,7 @@ public interface FinancialRecordService {
 
 	PageSearchResult<FinancialRecord> search(Date fromDate, Date toDate,
 			String[] status, int recordStart, int recordStop);
+
+	FinancialRecord resubmitPayment(FinancialRecord record, Actor actor,
+			String comment);
 }
