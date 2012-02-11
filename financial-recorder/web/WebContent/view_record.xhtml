@@ -24,39 +24,36 @@
 				<h:message for="amountText" />
 				<br />
 				<h:outputLabel value="客户名称" />
-				<h:inputText value="#{viewRecordBean.record.with.name}"
-					readonly="true" />
+				<h:inputText value="#{viewRecordBean.record.with.name}" />
 				<br />
 				<h:outputLabel value="客户公司名称" />
-				<h:inputText value="#{viewRecordBean.record.with.company}"
-					readonly="true" />
+				<h:inputText value="#{viewRecordBean.record.with.company}" />
 				<br />
 				<h:outputLabel value="客户账户" />
-				<h:inputText value="#{viewRecordBean.record.with.account}"
-					readonly="true" />
+				<h:inputText value="#{viewRecordBean.record.with.account}" />
 				<br />
 				<h:outputLabel value="请求人" />
-				<h:inputText value="#{viewRecordBean.record.createBy}"
-					readonly="true" />
+				<h:inputText value="#{viewRecordBean.record.createBy}" />
 				<br />
 				<h:outputLabel value="请求时间" />
-				<h:inputText value="#{viewRecordBean.record.createDate}"
-					readonly="true">
+				<h:inputText value="#{viewRecordBean.record.createDate}">
 					<f:convertDateTime pattern="yyyy/MM/dd" />
 				</h:inputText>
 				<br />
 				<h:outputLabel value="当前状态" />
-				<h:inputText value="#{viewRecordBean.record.status}" readonly="true" />
+				<h:inputText value="#{viewRecordBean.record.statusText}" />
 				<br />
 				<h:outputLabel value="描述" />
-				<h:inputTextarea value="#{viewRecordBean.record.description}"
-					readonly="true" />
+				<h:inputTextarea value="#{viewRecordBean.record.description}" />
 				<br />
 				<h:outputLabel value="附件" />
 				<h:outputLink
 					value="/download?file=#{viewRecordBean.record.attachment.oid}">
 					<h:outputText value="#{viewRecordBean.record.attachment.name}" />
 				</h:outputLink>
+				<br />
+				<h:commandButton rendered="#{viewRecordBean.editable}" value="重新提交"
+					action="#{viewRecordBean.resubmitPayment}" />
 			</div>
 
 			<div class="block color2" style="padding-top: 10px;">

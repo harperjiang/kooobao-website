@@ -139,4 +139,10 @@ public class DummyFinancialRecordService implements FinancialRecordService {
 				createDummyRecords(recordStop - recordStart));
 	}
 
+	public FinancialRecord resubmitPayment(FinancialRecord record, Actor actor,
+			String comment) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

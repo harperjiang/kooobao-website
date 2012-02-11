@@ -6,7 +6,7 @@
 	<ui:define name="title">酷宝英语教育-财务信息记录系统</ui:define>
 	<ui:define name="body">
 		<h:panelGroup styleClass="panel newspanel"
-			rendered="#{actorBean.isOperator}"
+			rendered="#{actorInfoBean.operator}"
 			style="width: 390px; height: 215px;">
 			<div class="panel_title">
 				<div id="tl">
@@ -19,8 +19,8 @@
 				<h:outputText value="#{financialInfoBean.myRecordCount}" />
 				项
 			</div>
-			<h:form>
-				<h:dataTable id="dataTable" styleClass="dataTable" width="390"
+			<h:form id="myOperationForm">
+				<h:dataTable id="myOperationDataTable" styleClass="dataTable" width="390"
 					value="#{financialInfoBean.myRecords}" var="record"
 					columnClasses="col1,col2,col3,col4,col5">
 					<h:column>
@@ -47,7 +47,7 @@
 			</h:form>
 		</h:panelGroup>
 		<h:panelGroup styleClass="panel newspanel"
-			rendered="#{!actorBean.isOperator}"
+			rendered="#{not actorInfoBean.operator}"
 			style="width: 390px; height: 215px;">
 			<div class="panel_title">
 				<div id="tl">
@@ -60,36 +60,38 @@
 				<h:outputText value="#{financialInfoBean.myFollowupCount}" />
 				项
 			</div>
-			<h:form>
-				<h:dataTable id="dataTable" styleClass="dataTable" width="390"
+			<h:form id="myFollowupForm">
+				<h:dataTable id="myFollowupDataTable" styleClass="dataTable" width="390"
 					value="#{financialInfoBean.myFollowups}" var="record"
 					columnClasses="col1,col2,col3,col4,col5">
 					<h:column>
 						<f:facet name="header">类型</f:facet>
-						#{record.type}
+						<h:commandLink action="#{financialInfoBean.view}">
+							<h:outputText value="#{record.type}" />
+						</h:commandLink>
 					</h:column>
 					<h:column>
 						<f:facet name="header">金额</f:facet>
-						#{record.amount}
+						<h:outputText value="#{record.amount}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">对方</f:facet>
-						#{record.with}
+						<h:outputText value="#{record.with}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">创建</f:facet>
-						#{record.createBy}
+						<h:outputText value="#{record.createBy}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">跟进</f:facet>
-						#{record.followup}
+						<h:outputText value="#{record.followup}" />
 					</h:column>
 				</h:dataTable>
 			</h:form>
 		</h:panelGroup>
 		<div class="blankpanel" style="width: 30px; height: 215px;" />
 
-		<div class="panel newspanel" style="width: 390px; height: 215px;">
+		<div class="panel newspanel" style="width: 390px; height: 2z15px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
