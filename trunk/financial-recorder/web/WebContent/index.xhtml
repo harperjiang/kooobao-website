@@ -20,8 +20,8 @@
 				项
 			</div>
 			<h:form id="myOperationForm">
-				<h:dataTable id="myOperationDataTable" styleClass="dataTable" width="390"
-					value="#{financialInfoBean.myRecords}" var="record"
+				<h:dataTable id="myOperationDataTable" styleClass="dataTable"
+					width="390" value="#{financialInfoBean.myRecords}" var="record"
 					columnClasses="col1,col2,col3,col4,col5">
 					<h:column>
 						<f:facet name="header">类型</f:facet>
@@ -29,19 +29,19 @@
 					</h:column>
 					<h:column>
 						<f:facet name="header">金额</f:facet>
-						#{record.amount}
+						<h:outputText value="#{record.amount}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">对方</f:facet>
-						#{record.with}
+						<h:outputText value="#{record.with}" />
 					</h:column>
 					<h:column>
 						<f:facet name="header">创建</f:facet>
-						#{record.createBy}
+						<h:outputText value="#{record.createBy}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header">跟进</f:facet>
-						#{record.followup}
+						<f:facet name="header">状态</f:facet>
+						<h:outputText value="#{record.status}" />
 					</h:column>
 				</h:dataTable>
 			</h:form>
@@ -61,8 +61,8 @@
 				项
 			</div>
 			<h:form id="myFollowupForm">
-				<h:dataTable id="myFollowupDataTable" styleClass="dataTable" width="390"
-					value="#{financialInfoBean.myFollowups}" var="record"
+				<h:dataTable id="myFollowupDataTable" styleClass="dataTable"
+					width="390" value="#{financialInfoBean.myFollowups}" var="record"
 					columnClasses="col1,col2,col3,col4,col5">
 					<h:column>
 						<f:facet name="header">类型</f:facet>
@@ -83,8 +83,8 @@
 						<h:outputText value="#{record.createBy}" />
 					</h:column>
 					<h:column>
-						<f:facet name="header">跟进</f:facet>
-						<h:outputText value="#{record.followup}" />
+						<f:facet name="header">状态</f:facet>
+						<h:outputText value="#{record.status}" />
 					</h:column>
 				</h:dataTable>
 			</h:form>

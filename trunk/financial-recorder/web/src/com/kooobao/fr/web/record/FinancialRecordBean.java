@@ -15,7 +15,7 @@ public class FinancialRecordBean {
 
 	private String createBy;
 
-	private String followup;
+	private String status;
 
 	private FinancialRecord record;
 
@@ -30,7 +30,7 @@ public class FinancialRecordBean {
 		setWith(record.getWith().getName() + " "
 				+ record.getWith().getCompany());
 		setCreateBy(record.getCreateBy());
-		setFollowup(record.getFollowup());
+		setStatus(record.getStatusText());
 	}
 
 	public String getType() {
@@ -65,12 +65,12 @@ public class FinancialRecordBean {
 		this.createBy = createBy;
 	}
 
-	public String getFollowup() {
-		return followup;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setFollowup(String followup) {
-		this.followup = followup;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getOid() {

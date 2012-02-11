@@ -30,7 +30,7 @@ public class ActorInfoBean extends AbstractBean {
 						+ currentUserId);
 			}
 		} else {
-			if (actor.getId().equals(loginBean.getUserId())) {
+			if (!actor.getId().equals(loginBean.getUserId())) {
 				actor = null;
 				return getActor();
 			}
@@ -49,6 +49,5 @@ public class ActorInfoBean extends AbstractBean {
 	public boolean isTeller() {
 		return getActor().getRoles().contains(Role.TELLER.name());
 	}
-	
-	
+
 }
