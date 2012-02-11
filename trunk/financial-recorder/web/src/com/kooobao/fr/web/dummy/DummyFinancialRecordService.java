@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.fr.domain.entity.Actor;
 import com.kooobao.fr.domain.entity.Attachment;
 import com.kooobao.fr.domain.entity.FileStorage;
@@ -17,19 +18,19 @@ import com.kooobao.fr.service.FinancialRecordService;
 
 public class DummyFinancialRecordService implements FinancialRecordService {
 
-	public int getMyRecordCount() {
+	public int getMyRecordCount(String id) {
 		return 20;
 	}
 
-	public int getMyFollowupCount() {
+	public int getMyFollowupCount(String id) {
 		return 10;
 	}
 
-	public List<FinancialRecord> getMyRecords(int limit) {
+	public List<FinancialRecord> getMyRecords(String id, int limit) {
 		return createDummyRecords(limit);
 	}
 
-	public List<FinancialRecord> getMyFollowups(int limit) {
+	public List<FinancialRecord> getMyFollowups(String id, int limit) {
 		return createDummyRecords(limit);
 	}
 
@@ -130,6 +131,12 @@ public class DummyFinancialRecordService implements FinancialRecordService {
 			String comment) {
 		((ReceiveRecord) record).cancel(actor.getId(), comment);
 		return record;
+	}
+
+	public PageSearchResult<FinancialRecord> search(Date fromDate, Date toDate,
+			String[] status, int recordStart, int recordStop) {
+		return new PageSearchResult<FinancialRecord>(100,
+				createDummyRecords(recordStop - recordStart));
 	}
 
 }
