@@ -11,6 +11,7 @@ import com.kooobao.fr.domain.entity.FinancialRecord;
 import com.kooobao.fr.domain.entity.PaymentRecord;
 import com.kooobao.fr.domain.entity.ReceiveRecord;
 import com.kooobao.fr.service.FinancialRecordService;
+import com.kooobao.fr.web.actor.ActorInfoBean;
 
 public class FinancialInfoBean extends AbstractBean {
 
@@ -47,7 +48,13 @@ public class FinancialInfoBean extends AbstractBean {
 	}
 
 	public String view() {
-		UIData dataTable = (UIData) getComponent("dataTable");
+		UIData dataTable = null;
+		ActorInfoBean actorInfoBean = findBean("actorInfoBean");
+		if (actorInfoBean.isOperator()) {
+			dataTable = (UIData) getComponent("myOperationDataTable");
+		} else {
+			dataTable = (UIData) getComponent("myFollowupDataTable");
+		}
 		FinancialRecordBean select = (FinancialRecordBean) dataTable
 				.getRowData();
 		ViewRecordBean viewRecordBean = findBean("viewRecordBean");

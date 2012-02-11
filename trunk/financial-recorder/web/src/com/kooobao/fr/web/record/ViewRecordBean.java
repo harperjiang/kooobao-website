@@ -6,9 +6,9 @@ import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.fr.domain.entity.Actor;
 import com.kooobao.fr.domain.entity.FinancialRecord;
 import com.kooobao.fr.domain.entity.PaymentRecord;
+import com.kooobao.fr.domain.entity.RecordStatus;
 import com.kooobao.fr.service.FinancialRecordService;
 import com.kooobao.fr.web.actor.ActorInfoBean;
-import com.kooobao.fr.web.dummy.DummyFinancialRecordService;
 
 public class ViewRecordBean extends AbstractBean {
 
@@ -19,9 +19,6 @@ public class ViewRecordBean extends AbstractBean {
 	}
 
 	public FinancialRecord getRecord() {
-		if (null == record) {
-			record = new DummyFinancialRecordService().createDummyRecord();
-		}
 		return record;
 	}
 
@@ -60,6 +57,13 @@ public class ViewRecordBean extends AbstractBean {
 		this.commission = commission;
 	}
 
+	public boolean isEditable() {
+		ActorInfoBean actorInfoBean = findBean("actorInfoBean");
+		return actorInfoBean.isOperator()
+				&& (RecordStatus.PAYMENT_REJECT.name().equals(getRecord()
+						.getStatus()));
+	}
+
 	protected Actor getActor() {
 		ActorInfoBean actorInfoBean = findBean("actorInfoBean");
 		if (null == actorInfoBean)
@@ -67,6 +71,12 @@ public class ViewRecordBean extends AbstractBean {
 		return actorInfoBean.getActor();
 	}
 
+	public String resubmitPayment() {
+		setRecord(getFinancialRecordService().resubmitPayment(getRecord(),
+				getActor(), comment));
+		return "success";
+	}
+	
 	public String approvePayment() {
 		setRecord(getFinancialRecordService().approvePayment(getRecord(),
 				getActor(), comment));
