@@ -1,6 +1,5 @@
 package com.kooobao.fr.domain.dao.impl;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -14,18 +13,17 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 		implements FinancialRecordDao {
 
 	public int getCountByCreateBy(String actor) {
-		BigDecimal count = getEntityManager()
+		Long count = getEntityManager()
 				.createQuery(
 						"select count(f) from FinancialRecord f where f.createBy = :id",
-						BigDecimal.class).setParameter("id", actor)
-				.getSingleResult();
+						Long.class).setParameter("id", actor).getSingleResult();
 		return count.intValue();
 	}
 
 	public int getCountByStatus(String[] status) {
-		TypedQuery<BigDecimal> query = getEntityManager().createQuery(
+		TypedQuery<Long> query = getEntityManager().createQuery(
 				"select count(f) from FinancialRecord f where f.status in "
-						+ inQuery(status.length), BigDecimal.class);
+						+ inQuery(status.length), Long.class);
 		for (int i = 0; i < status.length; i++) {
 			query.setParameter("val" + i, status[i]);
 		}
@@ -51,13 +49,15 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 	}
 
 	public int searchCount(Date fromDate, Date toDate, String[] status) {
-		TypedQuery<BigDecimal> query = getEntityManager()
+		TypedQuery<Long> query = getEntityManager()
 				.createQuery(
 						"select count(f) from FinancialRecord f where (f.createDate between :fromDate and :toDate) and f.status in "
-								+ inQuery(status.length), BigDecimal.class);
+								+ inQuery(status.length), Long.class);
 		for (int i = 0; i < status.length; i++) {
 			query.setParameter("val" + i, status[i]);
 		}
+		query.setParameter("fromDate", fromDate);
+		query.setParameter("toDate", toDate);
 		return query.getSingleResult().intValue();
 	}
 
@@ -70,6 +70,8 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 		for (int i = 0; i < status.length; i++) {
 			query.setParameter("val" + i, status[i]);
 		}
+		query.setParameter("fromDate", fromDate);
+		query.setParameter("toDate", toDate);
 		query.setFirstResult(recordStart).setMaxResults(recordStop);
 		return query.getResultList();
 	}
@@ -80,7 +82,7 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 		for (int i = 0; i < count; i++) {
 			builder.append(":val" + i).append(",");
 		}
-		builder.deleteCharAt(builder.length());
+		builder.deleteCharAt(builder.length() - 1);
 		builder.append(")");
 		return builder.toString();
 	}
