@@ -9,5 +9,8 @@
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
+	<bean id="financialRecordDao" class="com.kooobao.fr.domain.dao.impl.JpaFinancialRecordDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
 
 </beans>
