@@ -17,7 +17,10 @@ public class FinancialRecordBean {
 
 	private String followup;
 
+	private FinancialRecord record;
+
 	public void from(FinancialRecord record) {
+		this.record = record;
 		setOid(String.valueOf(record.getOid()));
 		if (record instanceof PaymentRecord)
 			setType("付款");
@@ -76,6 +79,10 @@ public class FinancialRecordBean {
 
 	public void setOid(String oid) {
 		this.oid = oid;
+	}
+
+	public FinancialRecord getRecord() {
+		return record;
 	}
 
 }

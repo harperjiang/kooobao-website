@@ -125,11 +125,6 @@
 				rendered="#{actorInfoBean.teller and viewRecordBean.record.status == 'RECEIVE_SUBMIT'}">
 				<div class="block color1">
 					<h:form>
-						<h:outputLabel for="commission" value="" />
-						<h:inputText id="commission" value="#{viewRecordBean.commission}">
-							<f:convertNumber />
-						</h:inputText>
-						<br />
 						<h:outputLabel for="comment" value="附加说明" />
 						<h:inputText id="comment" value="#{viewRecordBean.comment}" />
 						<br />
