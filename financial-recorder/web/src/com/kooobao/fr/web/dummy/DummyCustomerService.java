@@ -20,5 +20,15 @@ public class DummyCustomerService implements CustomerService {
 		return customers;
 	}
 
+	public Customer addCustomer(Customer newCust) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Customer findCustomer(Customer similar) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
