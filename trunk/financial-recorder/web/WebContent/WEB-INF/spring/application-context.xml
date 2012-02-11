@@ -6,7 +6,31 @@
 	<import resource="env.xml" />
 	<import resource="auth.xml" />
 
-	<bean id="actorService" class="com.kooobao.fr.web.dummy.DummyActorService" />
-	<bean id="financialRecordService" class="com.kooobao.fr.web.dummy.DummyFinancialRecordService" />
-	<bean id="customerService" class="com.kooobao.fr.web.dummy.DummyCustomerService" />
+	<bean id="actorDao" class="com.kooobao.fr.domain.dao.impl.JpaActorDao">
+		<property name="entityManager" value="entityManager" />
+	</bean>
+	<bean id="customerDao" class="com.kooobao.fr.domain.dao.impl.JpaCustomerDao">
+		<property name="entityManager" value="entityManager" />
+	</bean>
+	<bean id="financialRecordDao" class="com.kooobao.fr.domain.dao.impl.JpaFinancialRecordDao">
+		<property name="entityManager" value="entityManager" />
+	</bean>
+	<bean id="attachmentDao" class="com.kooobao.fr.domain.dao.impl.JpaAttachmentDao">
+		<property name="entityManager" value="entityManager" />
+	</bean>
+
+	<bean id="attachmentService" class="com.kooobao.fr.service.DefaultAttachmentService">
+		<property name="attachmentDao" value="attachmentDao" />
+	</bean>
+
+	<bean id="actorService" class="com.kooobao.fr.service.DefaultActorService">
+		<property name="actorDao" value="actorDao" />
+	</bean>
+	<bean id="financialRecordService" class="com.kooobao.fr.service.DefaultFinancialRecordService">
+		<property name="financialRecordDao" value="financialRecordDao" />
+		<property name="actorDao" value="actorDao" />
+	</bean>
+	<bean id="customerService" class="com.kooobao.fr.service.DefaultCustomerService">
+		<property name="customerDao" value="customerDao" />
+	</bean>
 </beans>
