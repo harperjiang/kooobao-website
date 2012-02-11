@@ -46,7 +46,7 @@ public abstract class AbstractBean implements JSFLifecycleAware {
 				new FacesMessage(severity, message, message));
 
 	}
-
+	
 	protected List<FileBean> fileBeans;
 
 
