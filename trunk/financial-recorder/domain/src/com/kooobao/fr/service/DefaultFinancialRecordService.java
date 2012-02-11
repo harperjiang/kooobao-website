@@ -2,7 +2,6 @@ package com.kooobao.fr.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +9,7 @@ import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.fr.domain.dao.ActorDao;
 import com.kooobao.fr.domain.dao.FinancialRecordDao;
 import com.kooobao.fr.domain.entity.Actor;
+import com.kooobao.fr.domain.entity.Customer;
 import com.kooobao.fr.domain.entity.FinancialRecord;
 import com.kooobao.fr.domain.entity.PaymentRecord;
 import com.kooobao.fr.domain.entity.ReceiveRecord;
@@ -63,6 +63,11 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 	}
 
 	public FinancialRecord create(FinancialRecord record) {
+		Customer customer = new Customer();
+		customer.setName(record.getWith().getName());
+		customer.setCompany(record.getWith().getCompany());
+		customer.setAccount(record.getWith().getAccount());
+		DefaultCustomerService.addCustomerQueue.add(customer);
 		return getFinancialRecordDao().store(record);
 	}
 

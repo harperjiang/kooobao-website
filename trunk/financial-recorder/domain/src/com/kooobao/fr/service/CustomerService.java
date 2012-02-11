@@ -7,4 +7,8 @@ import com.kooobao.fr.domain.entity.Customer;
 public interface CustomerService {
 
 	List<Customer> getRecentCustomer(int count);
+	
+	Customer addCustomer(Customer newCust);
+	
+	Customer findCustomer(Customer similar);
 }
