@@ -72,7 +72,7 @@ public class FinancialRecord extends VersionEntity {
 	@OneToMany(mappedBy = "record", fetch = FetchType.LAZY, targetEntity = RecordHistory.class)
 	List<RecordHistory> histories;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attachment", referencedColumnName = "obj_id")
 	Attachment attachment;
 

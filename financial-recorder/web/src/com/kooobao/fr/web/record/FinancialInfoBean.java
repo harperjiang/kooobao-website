@@ -10,6 +10,7 @@ import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.fr.domain.entity.FinancialRecord;
 import com.kooobao.fr.domain.entity.PaymentRecord;
 import com.kooobao.fr.domain.entity.ReceiveRecord;
+import com.kooobao.fr.domain.entity.RecordStatus;
 import com.kooobao.fr.service.FinancialRecordService;
 import com.kooobao.fr.web.actor.ActorInfoBean;
 
@@ -76,6 +77,8 @@ public class FinancialInfoBean extends AbstractBean {
 	}
 
 	public String searchRecords() {
+		SearchRecordBean searchRecordBean = findBean("searchRecordBean");
+		searchRecordBean.setStatus(RecordStatus.PAYMENT_SUBMIT.name());
 		return "success";
 	}
 
