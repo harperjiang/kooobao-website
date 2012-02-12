@@ -50,7 +50,7 @@
 					<f:selectItems value="#{supportInfoBean.status}" />
 				</h:selectOneMenu>
 				<br />
-				<h:commandButton value="查询" />
+				<h:commandButton value="查询" action="#{searchRecordBean.search}" />
 			</h:form>
 
 			<h:form id="resultForm">
