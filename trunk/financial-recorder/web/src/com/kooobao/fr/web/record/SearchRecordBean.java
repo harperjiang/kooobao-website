@@ -41,14 +41,11 @@ public class SearchRecordBean extends PageSearchBean {
 		this.status = status;
 	}
 
-	@Override
-	public void onPageLoad() {
-		search();
-	}
-
 	public String search() {
-		PageSearchResult<FinancialRecord> result = getFinancialRecordService().search(getFromDate(),
-				getToDate(), new String[]{getStatus()}, getRecordStart(), getRecordStop());
+		PageSearchResult<FinancialRecord> result = getFinancialRecordService()
+				.search(getFromDate(), getToDate(),
+						new String[] { getStatus() }, getRecordStart(),
+						getRecordStop());
 		setRecords(result.getResult());
 		setPageCount(result.getPageCount());
 		return "success";

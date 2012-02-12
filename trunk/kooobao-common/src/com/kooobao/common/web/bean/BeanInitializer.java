@@ -49,7 +49,7 @@ public class BeanInitializer implements PhaseListener {
 	}
 
 	public PhaseId getPhaseId() {
-		return PhaseId.RESTORE_VIEW;
+		return PhaseId.APPLY_REQUEST_VALUES;
 	}
 
 	protected String[] getManagedBeanNameFromView(String viewId) {
@@ -64,6 +64,6 @@ public class BeanInitializer implements PhaseListener {
 				sb.setCharAt(index, (char) (sb.charAt(index) - ('a' - 'A')));
 			}
 		}
-		return new String[]{sb.toString(),sb.toString()+"Bean"};
+		return new String[] { sb.toString(), sb.toString() + "Bean" };
 	}
 }
