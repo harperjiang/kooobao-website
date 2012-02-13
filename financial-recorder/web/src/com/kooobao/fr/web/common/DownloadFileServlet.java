@@ -50,6 +50,8 @@ public class DownloadFileServlet extends HttpServlet {
 			FileInputStream fis = new FileInputStream(attachment.getFile()
 					.getPath());
 			response.setContentType(attachment.getFile().getContentType());
+			response.setHeader("Content-Disposition", "attachment;filename=\""
+					+ attachment.getName() + "\"");
 			IOUtils.copy(fis, response.getOutputStream());
 			fis.close();
 		}
