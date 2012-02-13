@@ -114,7 +114,7 @@ CREATE TABLE `fr_customer` (
 
 LOCK TABLES `fr_customer` WRITE;
 /*!40000 ALTER TABLE `fr_customer` DISABLE KEYS */;
-INSERT INTO `fr_customer` VALUES (1,'??','?????','???? 3234553553','2012-02-12 05:23:48','1');
+
 /*!40000 ALTER TABLE `fr_customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +139,6 @@ CREATE TABLE `fr_file_storage` (
 
 LOCK TABLES `fr_file_storage` WRITE;
 /*!40000 ALTER TABLE `fr_file_storage` DISABLE KEYS */;
-INSERT INTO `fr_file_storage` VALUES (1,'/home/harper/webapps/uploadfile/2703d7a7-a452-4421-a426-2374f39b84c6','application/vnd.ms-excel');
 /*!40000 ALTER TABLE `fr_file_storage` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +176,6 @@ CREATE TABLE `fr_record` (
 
 LOCK TABLES `fr_record` WRITE;
 /*!40000 ALTER TABLE `fr_record` DISABLE KEYS */;
-INSERT INTO `fr_record` VALUES (1,'PAYMENT','PAYMENT_REJECT','fr_operato','2','3244.00',NULL,'','2012-02-12 05:23:19','2012-02-11 08:00:00',NULL,1,'??','?????','???? 3234553553');
 /*!40000 ALTER TABLE `fr_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,7 +227,6 @@ CREATE TABLE `fr_sequence` (
 
 LOCK TABLES `fr_sequence` WRITE;
 /*!40000 ALTER TABLE `fr_sequence` DISABLE KEYS */;
-INSERT INTO `fr_sequence` VALUES ('fr_attachment','50'),('fr_record','50'),('fr_record_history','50'),('fr_customer','50'),('fr_file_storage','50');
 /*!40000 ALTER TABLE `fr_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
