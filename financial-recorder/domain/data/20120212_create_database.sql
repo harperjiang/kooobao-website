@@ -227,6 +227,7 @@ CREATE TABLE `fr_sequence` (
 
 LOCK TABLES `fr_sequence` WRITE;
 /*!40000 ALTER TABLE `fr_sequence` DISABLE KEYS */;
+INSERT INTO `fr_sequence` VALUES ('fr_attachment','0'),('fr_record','0'),('fr_record_history','0'),('fr_customer','0'),('fr_file_storage','0');
 /*!40000 ALTER TABLE `fr_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
