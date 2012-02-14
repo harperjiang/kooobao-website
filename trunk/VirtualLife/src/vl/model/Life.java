@@ -17,6 +17,14 @@ public class Life {
 	}
 
 	protected void move(int newx, int newy) {
+		if (newx < 0)
+			newx = World.WORLD_SIZE + newx;
+		if (newy < 0)
+			newy = World.WORLD_SIZE + newy;
+		if (newx >= World.WORLD_SIZE)
+			newx -= World.WORLD_SIZE;
+		if (newy >= World.WORLD_SIZE)
+			newy -= World.WORLD_SIZE;
 		if (world.environment[newx][newy] == null) {
 			world.environment[newx][newy] = this;
 			world.environment[x][y] = null;
@@ -26,6 +34,8 @@ public class Life {
 	}
 
 	protected void split(int newx, int newy) {
+		newx = World.limit(newx);
+		newy = World.limit(newy);
 		if (world.environment[newx][newy] == null) {
 			Life newlife = new Life(world, newx, newy);
 			world.environment[newx][newy] = newlife;
@@ -36,36 +46,28 @@ public class Life {
 		int loc = rand.nextInt() % 8;
 		switch (loc) {
 		case 0:
-			if (x > 0 && y > 0)
-				move(x - 1, y - 1);
+			move(x - 1, y - 1);
 			break;
 		case 1:
-			if (x > 0)
-				move(x - 1, y);
+			move(x - 1, y);
 			break;
 		case 2:
-			if (x > 0 && y < World.WORLD_SIZE - 1)
-				move(x - 1, y + 1);
+			move(x - 1, y + 1);
 			break;
 		case 3:
-			if (y > 0)
-				move(x, y - 1);
+			move(x, y - 1);
 			break;
 		case 4:
-			if (y < World.WORLD_SIZE - 1)
-				move(x, y + 1);
+			move(x, y + 1);
 			break;
 		case 5:
-			if (x < World.WORLD_SIZE - 1 && y > 0)
-				move(x + 1, y - 1);
+			move(x + 1, y - 1);
 			break;
 		case 6:
-			if (x < World.WORLD_SIZE - 1)
-				move(x + 1, y);
+			move(x + 1, y);
 			break;
 		case 7:
-			if (x < World.WORLD_SIZE - 1 && y < World.WORLD_SIZE - 1)
-				move(x + 1, y + 1);
+			move(x + 1, y + 1);
 			break;
 		}
 	}
@@ -74,49 +76,49 @@ public class Life {
 		int loc = rand.nextInt() % 8;
 		switch (loc) {
 		case 0:
-			if (x > 0 && y > 0)
-				split(x - 1, y - 1);
+			split(x - 1, y - 1);
 			break;
 		case 1:
-			if (x > 0)
-				split(x - 1, y);
+			split(x - 1, y);
 			break;
 		case 2:
-			if (x > 0 && y < World.WORLD_SIZE - 1)
-				split(x - 1, y + 1);
+			split(x - 1, y + 1);
 			break;
 		case 3:
-			if (y > 0)
-				split(x, y - 1);
+			split(x, y - 1);
 			break;
 		case 4:
-			if (y < World.WORLD_SIZE - 1)
-				split(x, y + 1);
+			split(x, y + 1);
 			break;
 		case 5:
-			if (x < World.WORLD_SIZE - 1 && y > 0)
-				split(x + 1, y - 1);
+			split(x + 1, y - 1);
 			break;
 		case 6:
-			if (x < World.WORLD_SIZE - 1)
-				split(x + 1, y);
+			split(x + 1, y);
 			break;
 		case 7:
-			if (x < World.WORLD_SIZE - 1 && y < World.WORLD_SIZE - 1)
-				split(x + 1, y + 1);
+			split(x + 1, y + 1);
 			break;
 		}
 	}
 
 	public void act() {
-		switch (rand.nextInt() % 2) {
-		case 0:
-			move();
-			break;
-		case 1:
+		if (alone())
 			split();
-			break;
-		}
+		else
+			move();
+		// switch (rand.nextInt() % 2) {
+		// case 0:
+		// move();
+		// break;
+		// case 1:
+		// split();
+		// break;
+		// }
+	}
+
+	protected boolean alone() {
+		return getWorld().alone(getX(), getY());
 	}
 
 	public int getX() {

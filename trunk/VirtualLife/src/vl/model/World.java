@@ -69,26 +69,38 @@ public class World {
 	}
 
 	protected boolean surround(int i, int j) {
-		if (i != 0 && j != 0 && environment[i - 1][j - 1] == null)
-			return false;
-		if (i != 0 && environment[i - 1][j] == null)
-			return false;
-		if (i != (WORLD_SIZE - 1) && environment[i + 1][j] == null)
-			return false;
-		if (j != 0 && environment[i][j - 1] == null)
-			return false;
-		if (j != (WORLD_SIZE - 1) && environment[i][j + 1] == null)
-			return false;
-		if (j != 0 && i != (WORLD_SIZE - 1)
-				&& environment[i + 1][j - 1] == null)
-			return false;
-		if (i != (WORLD_SIZE - 1) && environment[i + 1][j] == null)
-			return false;
-		if (i != (WORLD_SIZE - 1) && j != (WORLD_SIZE - 1)
-				&& environment[i + 1][j + 1] == null)
-			return false;
+		return exist(limit(i - 1), limit(j - 1))
+				&& exist(limit(i - 1), limit(j))
+				&& exist(limit(i - 1), limit(j + 1))
+				&& exist(limit(i), limit(j - 1)) && exist(i, j)
+				&& exist(limit(i), limit(j + 1))
+				&& exist(limit(i + 1), limit(j - 1))
+				&& exist(limit(i + 1), limit(j))
+				&& exist(limit(i + 1), limit(j + 1));
+	}
 
-		return true;
+	static final int limit(int x) {
+		while (x < 0)
+			x += World.WORLD_SIZE;
+		while (x >= World.WORLD_SIZE)
+			x -= World.WORLD_SIZE;
+		return x;
+	}
+
+	protected boolean exist(int x, int y) {
+		return environment[x][y] != null;
+	}
+
+	protected boolean alone(int i, int j) {
+		return exist(i, j)
+				&& !(exist(limit(i - 1), limit(j - 1))
+						|| exist(limit(i - 1), limit(j))
+						|| exist(limit(i - 1), limit(j + 1))
+						|| exist(limit(i), limit(j - 1))
+						|| exist(limit(i), limit(j + 1))
+						|| exist(limit(i + 1), limit(j - 1))
+						|| exist(limit(i + 1), limit(j)) || exist(limit(i + 1),
+							limit(j + 1)));
 	}
 
 	private EventListenerList proxy;
