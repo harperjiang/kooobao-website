@@ -99,6 +99,7 @@
 		<navigation-case>
 			<from-action>#{financialInfoBean.recordReceive}</from-action>
 			<to-view-id>/create_record.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -107,6 +108,7 @@
 		<navigation-case>
 			<from-action>#{financialInfoBean.requestPayment}</from-action>
 			<to-view-id>/create_record.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -116,6 +118,7 @@
 			<from-action>#{createRecordBean.save}</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/operation_success.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -125,6 +128,7 @@
 			<from-action>#{financialInfoBean.view}</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/view_record.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -134,6 +138,17 @@
 			<from-action>#{financialInfoBean.searchRecords}</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/search_record.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>search_record.xhtml</display-name>
+		<from-view-id>/search_record.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{searchRecordBean.view}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/view_record.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<lifecycle>

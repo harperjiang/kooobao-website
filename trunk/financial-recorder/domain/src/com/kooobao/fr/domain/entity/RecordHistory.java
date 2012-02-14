@@ -4,8 +4,10 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,6 +34,10 @@ public class RecordHistory extends SimpleEntity {
 
 	@Column(name = "desc_text")
 	private String description;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "attachment", referencedColumnName = "obj_id")
+	private Attachment attachment;
 
 	public FinancialRecord getRecord() {
 		return record;
@@ -71,6 +77,14 @@ public class RecordHistory extends SimpleEntity {
 
 	public void setOperation(String operation) {
 		this.operation = operation;
+	}
+
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
 	}
 
 }

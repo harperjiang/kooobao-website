@@ -6,10 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.kooobao.common.web.bean.PageSearchResult;
+import com.kooobao.common.web.fileupload.FileBean;
 import com.kooobao.fr.domain.dao.ActorDao;
 import com.kooobao.fr.domain.dao.FinancialRecordDao;
 import com.kooobao.fr.domain.entity.Actor;
+import com.kooobao.fr.domain.entity.Attachment;
 import com.kooobao.fr.domain.entity.Customer;
+import com.kooobao.fr.domain.entity.FileStorage;
 import com.kooobao.fr.domain.entity.FinancialRecord;
 import com.kooobao.fr.domain.entity.PaymentRecord;
 import com.kooobao.fr.domain.entity.ReceiveRecord;
@@ -64,6 +67,7 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 
 	public FinancialRecord create(FinancialRecord record) {
 		Customer customer = new Customer();
+		customer.setCreateDate(null);
 		customer.setName(record.getWith().getName());
 		customer.setCompany(record.getWith().getCompany());
 		customer.setAccount(record.getWith().getAccount());
@@ -89,9 +93,12 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		return getFinancialRecordDao().store(record);
 	}
 
-	public FinancialRecord payPayment(FinancialRecord record, Actor actor,
-			BigDecimal commission, String reason) {
+	public FinancialRecord payPayment(FinancialRecord record,
+			FileBean attachment, Actor actor, BigDecimal commission,
+			String reason) {
 		((PaymentRecord) record).confirm(commission, actor.getId(), reason);
+		record.getHistories().get(record.getHistories().size() - 1)
+				.setAttachment(createAttachment(attachment));
 		return getFinancialRecordDao().store(record);
 	}
 
@@ -148,4 +155,17 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		this.financialRecordDao = financialRecordDao;
 	}
 
+	protected Attachment createAttachment(FileBean fb) {
+		if (null == fb)
+			return null;
+		Attachment attachment = new Attachment();
+		attachment.setCreateDate(new Date());
+		attachment.setName(fb.getOriginName());
+		attachment.setSize(fb.getSize());
+		FileStorage fileStorage = new FileStorage();
+		fileStorage.setPath(fb.getPath());
+		fileStorage.setContentType(fb.getContentType());
+		attachment.setFile(fileStorage);
+		return attachment;
+	}
 }

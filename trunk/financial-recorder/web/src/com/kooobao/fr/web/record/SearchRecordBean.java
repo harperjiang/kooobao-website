@@ -3,6 +3,8 @@ package com.kooobao.fr.web.record;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.component.UIData;
+
 import com.kooobao.common.web.Utilities;
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.bean.PageSearchResult;
@@ -48,6 +50,15 @@ public class SearchRecordBean extends PageSearchBean {
 						getRecordStop());
 		setRecords(result.getResult());
 		setPageCount(result.getPageCount());
+		return "success";
+	}
+
+	public String view() {
+		UIData dataTable = (UIData) getComponent("resultDataTable");
+		FinancialRecord select = (FinancialRecord) dataTable.getRowData();
+		ViewRecordBean viewRecordBean = findBean("viewRecordBean");
+		// .setIssueOid(select.getOid());
+		viewRecordBean.setRecord(select);
 		return "success";
 	}
 

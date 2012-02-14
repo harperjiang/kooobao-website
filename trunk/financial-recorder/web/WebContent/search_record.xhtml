@@ -59,7 +59,9 @@
 					value="#{searchRecordBean.records}" var="record">
 					<h:column>
 						<f:facet name="header">金额</f:facet>
-						<h:outputText value="#{record.amount}" />
+						<h:commandLink action="#{searchRecordBean.view}">
+							<h:outputText value="#{record.amount}" />
+						</h:commandLink>
 					</h:column>
 					<h:column>
 						<f:facet name="header">收/付款人</f:facet>
