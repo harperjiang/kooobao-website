@@ -2,7 +2,11 @@ package com.kooobao.fr.web.record;
 
 import java.math.BigDecimal;
 
+import javax.faces.context.FacesContext;
+
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.common.web.fileupload.FileBean;
+import com.kooobao.common.web.fileupload.MultipartRequestWrapper;
 import com.kooobao.fr.domain.entity.Actor;
 import com.kooobao.fr.domain.entity.FinancialRecord;
 import com.kooobao.fr.domain.entity.PaymentRecord;
@@ -76,7 +80,7 @@ public class ViewRecordBean extends AbstractBean {
 				getActor(), comment));
 		return "success";
 	}
-	
+
 	public String approvePayment() {
 		setRecord(getFinancialRecordService().approvePayment(getRecord(),
 				getActor(), comment));
@@ -90,7 +94,11 @@ public class ViewRecordBean extends AbstractBean {
 	}
 
 	public String confirmPayment() {
-		setRecord(getFinancialRecordService().payPayment(getRecord(),
+		MultipartRequestWrapper request = (MultipartRequestWrapper) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest();
+		FileBean fb = request.getFile("attachment");
+
+		setRecord(getFinancialRecordService().payPayment(getRecord(), fb,
 				getActor(), commission, comment));
 		return "success";
 	}

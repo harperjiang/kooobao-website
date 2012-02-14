@@ -1,0 +1,1 @@
+alter table fr_record_history add attachment bigint(20);

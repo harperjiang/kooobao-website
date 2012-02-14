@@ -1,5 +1,6 @@
 package com.kooobao.fr.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -40,8 +41,10 @@ public class DefaultCustomerService implements CustomerService {
 							.getInstance().getApplicationContext()
 							.getBean("customerService");
 					try {
+						customer.setCreateDate(null);
 						service.findCustomer(customer);
 					} catch (NoResultException e) {
+						customer.setCreateDate(new Date());
 						service.addCustomer(customer);
 					}
 				}

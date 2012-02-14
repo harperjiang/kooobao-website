@@ -10,6 +10,9 @@
 			function openCustomerWindow() {
 				document.getElementById("customerWindow").style.visibility = "visible";
 			}
+			function closeCustomerWindow() {
+				document.getElementById("customerWindow").style.visibility = "hidden";
+			}
 			function select(index){
 				return myfaces.oam.submitForm('form','customerTable:'+index+':selectLink');
 			}
@@ -60,6 +63,7 @@
 								<h:outputText value="#{createRecordBean.counter.next}" />
 							</h:column>
 						</h:dataTable>
+						<h:outputLink onclick="closeCustomerWindow()">关闭窗口</h:outputLink>
 					</div>
 					<h:outputLabel value="客户名称" />
 					<h:inputText value="#{createRecordBean.record.with.name}" />

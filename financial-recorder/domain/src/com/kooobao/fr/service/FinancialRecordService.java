@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.kooobao.common.web.bean.PageSearchResult;
+import com.kooobao.common.web.fileupload.FileBean;
 import com.kooobao.fr.domain.entity.Actor;
 import com.kooobao.fr.domain.entity.FinancialRecord;
 
@@ -29,8 +30,8 @@ public interface FinancialRecordService {
 	FinancialRecord cancelPayment(FinancialRecord record, Actor actor,
 			String reason);
 
-	FinancialRecord payPayment(FinancialRecord record, Actor actor,
-			BigDecimal commission, String reason);
+	FinancialRecord payPayment(FinancialRecord record, FileBean attachment,
+			Actor actor, BigDecimal commission, String reason);
 
 	FinancialRecord failPayment(FinancialRecord record, Actor actor,
 			String reason);

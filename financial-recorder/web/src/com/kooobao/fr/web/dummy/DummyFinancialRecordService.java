@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.kooobao.common.web.bean.PageSearchResult;
+import com.kooobao.common.web.fileupload.FileBean;
 import com.kooobao.fr.domain.entity.Actor;
 import com.kooobao.fr.domain.entity.Attachment;
 import com.kooobao.fr.domain.entity.FileStorage;
@@ -109,8 +110,9 @@ public class DummyFinancialRecordService implements FinancialRecordService {
 		return record;
 	}
 
-	public FinancialRecord payPayment(FinancialRecord record, Actor actor,
-			BigDecimal commission, String reason) {
+	public FinancialRecord payPayment(FinancialRecord record,
+			FileBean attachment, Actor actor, BigDecimal commission,
+			String reason) {
 		((PaymentRecord) record).confirm(commission, actor.getId(), reason);
 		return record;
 	}

@@ -2,16 +2,17 @@
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13216688010900" configfile="/financial-recorder-web/WebContent/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="require_login" x="122" y="178" id="pf13284293553025" outlinks="pf13284293553026 pf13284488223968" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="178" id="pf13284293553027" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf13284293553026 pf13284488223968" path="/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="200" y="305" id="pf13285539542771" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf13285539542772 pf13285539683105 pf13289956757580 pf13290687205440" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="200" y="305" id="pf13285539542771" referenceLink="//@navigationRule.6/@fromViewId|" outlinks="pf13285539542772 pf13285539683105 pf13289956757580 pf13290687205440" path="/index.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="create_record.xhtml" x="469" y="294" id="pf13285539542774" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf13285886047366" inlinks="pf13285539542772 pf13285539683105" path="/create_record.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="operation_success.xhtml" x="456" y="420" id="pf13285886047367" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf13285886047366" path="/operation_success.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="view_record.xhtml" x="76" y="420" id="pf13289956757581" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf13289956757580" path="/view_record.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="search_record.xhtml" x="252" y="420" id="pf13290687205451" inlinks="pf13290687205440" path="/search_record.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="view_record.xhtml" x="76" y="420" id="pf13289956757581" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" inlinks="pf13289956757580 pf13292400325400" path="/view_record.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="search_record.xhtml" x="252" y="420" id="pf13290687205451" referenceLink="//@navigationRule.7/@fromViewId|" outlinks="pf13292400325400" inlinks="pf13290687205440" path="/search_record.xhtml"/>
   <links id="pf13284293553026" target="pf13284293553027" source="pf13284293553025" outcome="require_login"/>
   <links id="pf13284488223968" target="pf13284293553027" source="pf13284293553025" outcome="true" fromaction="#{loginBean.logout}"/>
-  <links id="pf13285539542772" target="pf13285539542774" source="pf13285539542771" fromaction="#{financialInfoBean.recordReceive}"/>
-  <links id="pf13285539683105" target="pf13285539542774" source="pf13285539542771" fromaction="#{financialInfoBean.requestPayment}"/>
-  <links id="pf13285886047366" target="pf13285886047367" source="pf13285539542774" outcome="success" fromaction="#{createRecordBean.save}"/>
-  <links id="pf13289956757580" target="pf13289956757581" source="pf13285539542771" outcome="success" fromaction="#{financialInfoBean.view}"/>
-  <links id="pf13290687205440" target="pf13290687205451" source="pf13285539542771" outcome="success" fromaction="#{financialInfoBean.searchRecords}"/>
+  <links id="pf13285539542772" target="pf13285539542774" source="pf13285539542771" redirect="true" fromaction="#{financialInfoBean.recordReceive}"/>
+  <links id="pf13285539683105" target="pf13285539542774" source="pf13285539542771" redirect="true" fromaction="#{financialInfoBean.requestPayment}"/>
+  <links id="pf13285886047366" target="pf13285886047367" source="pf13285539542774" outcome="success" redirect="true" fromaction="#{createRecordBean.save}"/>
+  <links id="pf13289956757580" target="pf13289956757581" source="pf13285539542771" outcome="success" redirect="true" fromaction="#{financialInfoBean.view}"/>
+  <links id="pf13290687205440" target="pf13290687205451" source="pf13285539542771" outcome="success" redirect="true" fromaction="#{financialInfoBean.searchRecords}"/>
+  <links id="pf13292400325400" target="pf13289956757581" source="pf13290687205451" outcome="success" redirect="true" fromaction="#{searchRecordBean.view}"/>
 </pageflow:Pageflow>
