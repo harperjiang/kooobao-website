@@ -1,11 +1,12 @@
 package vl.model;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.event.EventListenerList;
+
+import vl.model.strategy.AliveStrategy;
 
 public class World {
 
@@ -13,9 +14,11 @@ public class World {
 
 	private Thread daemonThread;
 
-	public static final int WORLD_SIZE = 45;
+	public static final int WORLD_SIZE = 180;
 
-	static final int SEED_SIZE = 10;
+	static final int SEED_SIZE = 5000;
+
+	private WorldStrategy strategy = new AliveStrategy();
 
 	public World() {
 		proxy = new EventListenerList();
@@ -34,6 +37,7 @@ public class World {
 				}
 			}
 		};
+		daemonThread.setDaemon(true);
 		daemonThread.start();
 	}
 
@@ -47,36 +51,42 @@ public class World {
 	}
 
 	public void tick() {
-		List<Point> toKill = new ArrayList<Point>();
-		// Kill all lives being surrounded
-		for (int i = 0; i < WORLD_SIZE; i++)
-			for (int j = 0; j < WORLD_SIZE; j++) {
-				if (surround(i, j))
-					toKill.add(new Point(i, j));
-			}
-		// Kill it
-		for (Point point : toKill)
-			environment[point.x][point.y] = null;
-
-		// Ask all lives to behave according to their own mind
-		for (int i = 0; i < WORLD_SIZE; i++)
-			for (int j = 0; j < WORLD_SIZE; j++) {
-				if (environment[i][j] != null)
-					// Act
-					environment[i][j].act();
-			}
-		worldChanged(new WorldChangeEvent(this));
+		if (strategy.evolve(this))
+			worldChanged(new WorldChangeEvent(this));
 	}
 
-	protected boolean surround(int i, int j) {
-		return exist(limit(i - 1), limit(j - 1))
-				&& exist(limit(i - 1), limit(j))
-				&& exist(limit(i - 1), limit(j + 1))
-				&& exist(limit(i), limit(j - 1)) && exist(i, j)
-				&& exist(limit(i), limit(j + 1))
-				&& exist(limit(i + 1), limit(j - 1))
-				&& exist(limit(i + 1), limit(j))
-				&& exist(limit(i + 1), limit(j + 1));
+	public void kill(int i, int j) {
+		environment[i][j] = null;
+	}
+
+	public void born(int x, int y) {
+		if (null == environment[x][y])
+			environment[x][y] = new Life(this, x, y);
+	}
+
+	public int surround(int i, int j) {
+		int val = 0;
+		if (exist(limit(i - 1), limit(j - 1)))
+			val++;
+		if (exist(limit(i - 1), limit(j)))
+			val++;
+		if (exist(limit(i - 1), limit(j + 1)))
+			val++;
+		if (exist(limit(i), limit(j - 1)))
+			val++;
+		if (exist(limit(i), limit(j + 1)))
+			val++;
+		if (exist(limit(i + 1), limit(j - 1)))
+			val++;
+		if (exist(limit(i + 1), limit(j)))
+			val++;
+		if (exist(limit(i + 1), limit(j + 1)))
+			val++;
+		return val;
+	}
+
+	public boolean alone(int i, int j) {
+		return 0 == surround(i, j);
 	}
 
 	static final int limit(int x) {
@@ -87,20 +97,12 @@ public class World {
 		return x;
 	}
 
-	protected boolean exist(int x, int y) {
+	public boolean exist(int x, int y) {
 		return environment[x][y] != null;
 	}
 
-	protected boolean alone(int i, int j) {
-		return exist(i, j)
-				&& !(exist(limit(i - 1), limit(j - 1))
-						|| exist(limit(i - 1), limit(j))
-						|| exist(limit(i - 1), limit(j + 1))
-						|| exist(limit(i), limit(j - 1))
-						|| exist(limit(i), limit(j + 1))
-						|| exist(limit(i + 1), limit(j - 1))
-						|| exist(limit(i + 1), limit(j)) || exist(limit(i + 1),
-							limit(j + 1)));
+	public Life get(int i, int j) {
+		return environment[i][j];
 	}
 
 	private EventListenerList proxy;
@@ -130,4 +132,5 @@ public class World {
 		}
 		return lives;
 	}
+
 }
