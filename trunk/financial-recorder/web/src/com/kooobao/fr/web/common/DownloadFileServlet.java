@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 
 import com.kooobao.common.spring.ApplicationContextHolder;
-import com.kooobao.common.util.ConfigLoader;
 import com.kooobao.fr.domain.entity.Attachment;
 import com.kooobao.fr.service.AttachmentService;
 
@@ -51,7 +50,8 @@ public class DownloadFileServlet extends HttpServlet {
 					.getPath());
 			response.setContentType(attachment.getFile().getContentType());
 			response.setHeader("Content-Disposition", "attachment;filename=\""
-					+ attachment.getName() + "\"");
+					+ java.net.URLEncoder.encode(attachment.getName(), "utf8")
+					+ "\"");
 			IOUtils.copy(fis, response.getOutputStream());
 			fis.close();
 		}
