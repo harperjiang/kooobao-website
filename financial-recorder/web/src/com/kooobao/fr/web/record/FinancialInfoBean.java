@@ -71,7 +71,7 @@ public class FinancialInfoBean extends AbstractBean {
 	}
 
 	public String recordReceive() {
-		CreateRecordBean viewRecordBean = findBean("viewRecordBean");
+		CreateRecordBean viewRecordBean = findBean("createRecordBean");
 		viewRecordBean.setRecord(new ReceiveRecord());
 		return "success";
 	}
