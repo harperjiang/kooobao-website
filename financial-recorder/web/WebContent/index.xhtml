@@ -5,9 +5,29 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">酷宝英语教育-财务信息记录系统</ui:define>
 	<ui:define name="body">
+		<style type="text/css">
+.col1 {
+	width: 60px;
+}
+
+.col2 {
+	width: 100px;
+}
+
+.col3 {
+	width: 200px;
+}
+
+.col4 {
+	width: 100px;
+}
+
+.col5 {
+	width: 100px;
+}
+</style>
 		<h:panelGroup styleClass="panel newspanel"
-			rendered="#{actorInfoBean.operator}"
-			style="width: 390px; height: 215px;">
+			rendered="#{actorInfoBean.operator}" style="width: 600px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -21,7 +41,7 @@
 			</div>
 			<h:form id="myOperationForm">
 				<h:dataTable id="myOperationDataTable" styleClass="dataTable"
-					width="390" value="#{financialInfoBean.myRecords}" var="record"
+					width="600" value="#{financialInfoBean.myRecords}" var="record"
 					columnClasses="col1,col2,col3,col4,col5">
 					<h:column>
 						<f:facet name="header">类型</f:facet>
@@ -47,8 +67,7 @@
 			</h:form>
 		</h:panelGroup>
 		<h:panelGroup styleClass="panel newspanel"
-			rendered="#{not actorInfoBean.operator}"
-			style="width: 390px; height: 215px;">
+			rendered="#{not actorInfoBean.operator}" style="width: 600px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -62,7 +81,7 @@
 			</div>
 			<h:form id="myFollowupForm">
 				<h:dataTable id="myFollowupDataTable" styleClass="dataTable"
-					width="390" value="#{financialInfoBean.myFollowups}" var="record"
+					width="600" value="#{financialInfoBean.myFollowups}" var="record"
 					columnClasses="col1,col2,col3,col4,col5">
 					<h:column>
 						<f:facet name="header">类型</f:facet>
@@ -91,7 +110,7 @@
 		</h:panelGroup>
 		<div class="blankpanel" style="width: 30px; height: 215px;" />
 
-		<div class="panel newspanel" style="width: 390px; height: 2z15px;">
+		<div class="panel newspanel" style="width: 200px; height: 215px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
