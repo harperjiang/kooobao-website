@@ -99,7 +99,7 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		((PaymentRecord) record).confirm(commission, actor.getId(), reason);
 		record.getHistories().get(record.getHistories().size() - 1)
 				.setAttachment(createAttachment(attachment));
-		if(creditPay !=null && !creditPay.equals(BigDecimal.ZERO)) {
+		if (creditPay != null && !creditPay.equals(BigDecimal.ZERO)) {
 			// Credit Pay
 			ReceiveRecord creditReceive = new ReceiveRecord();
 			creditReceive.getWith().fromCustomer(CREDIT_CUSTOMER);
@@ -110,10 +110,9 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		}
 		return getFinancialRecordDao().store(record);
 	}
-	
-	
+
 	static Customer CREDIT_CUSTOMER = new Customer();
-	
+
 	static {
 		CREDIT_CUSTOMER.setName("信用卡账户");
 	}
@@ -171,9 +170,20 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		this.financialRecordDao = financialRecordDao;
 	}
 
-	protected Attachment createAttachment(FileBean fb) {
+	public static final Attachment createAttachment(FileBean fb) {
 		if (null == fb)
 			return null;
+
+		// For Browsers that contains path info
+		if (fb.getOriginName().contains("/")) {
+			fb.setOriginName(fb.getOriginName().substring(
+					fb.getOriginName().lastIndexOf('/') + 1));
+		}
+		if (fb.getOriginName().contains("\\")) {
+			fb.setOriginName(fb.getOriginName().substring(
+					fb.getOriginName().lastIndexOf('\\') + 1));
+		}
+
 		Attachment attachment = new Attachment();
 		attachment.setCreateDate(new Date());
 		attachment.setName(fb.getOriginName());
