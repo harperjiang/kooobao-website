@@ -31,7 +31,8 @@ public interface FinancialRecordService {
 			String reason);
 
 	FinancialRecord payPayment(FinancialRecord record, FileBean attachment,
-			Actor actor, BigDecimal commission, String reason);
+			Actor actor, BigDecimal commission, BigDecimal creditPay,
+			String reason);
 
 	FinancialRecord failPayment(FinancialRecord record, Actor actor,
 			String reason);

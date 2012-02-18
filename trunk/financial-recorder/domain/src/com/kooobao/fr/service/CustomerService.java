@@ -11,4 +11,5 @@ public interface CustomerService {
 	Customer addCustomer(Customer newCust);
 	
 	Customer findCustomer(Customer similar);
+
 }
