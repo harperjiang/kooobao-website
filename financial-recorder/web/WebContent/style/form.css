@@ -34,6 +34,16 @@ textarea {
 	width: 1em;
 }
 
+input.submitbutton {
+	width: 220px;
+}
+
+input.submitlongbutton {
+	margin-left: 120px;
+	margin-top: 5px;
+	width: 500px;
+}
+
 #submitbutton {
 	margin-left: 120px;
 	margin-top: 5px;

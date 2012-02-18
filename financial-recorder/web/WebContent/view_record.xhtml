@@ -20,7 +20,7 @@
 }
 
 .col3 {
-	width: 110px;
+	width: 210px;
 }
 
 .col4 {
@@ -29,6 +29,11 @@
 
 .col5 {
 	width: 130px;
+}
+
+.buttondiv {
+	margin-left: 120px;
+	margin-top: 10px;
 }
 </style>
 		<h:panelGroup style="margin-top: 25px;">
@@ -80,7 +85,7 @@
 
 			<div class="block color2" style="padding-top: 10px;">
 				<h:panelGroup style="font-size: 14px; margin-bottom: 20px;">操作记录</h:panelGroup>
-				<h:dataTable styleClass="dataTable" width="700"
+				<h:dataTable styleClass="dataTable" width="800"
 					columnClasses="col1,col2,col3,col4,col5"
 					value="#{viewRecordBean.record.histories}" var="history">
 					<h:column>
@@ -114,15 +119,16 @@
 				rendered="#{actorInfoBean.manager and viewRecordBean.record.status == 'PAYMENT_SUBMIT'}">
 				<div class="block color1">
 					<h:form>
-						<h:commandButton value="批准"
-							action="#{viewRecordBean.approvePayment}" />
+						<h:outputLabel for="reason" value="处理意见" />
+						<h:inputTextarea id="reason" value="#{viewRecordBean.comment}" />
 						<br />
-						<h:commandButton value="拒绝"
-							action="#{viewRecordBean.rejectPayment}" />
-						<br />
-						<h:outputLabel for="reason" value="理由" />
-						<h:inputText id="reason" value="#{viewRecordBean.comment}" />
-						<br />
+						<div class="buttondiv">
+							<h:commandButton value="批准" styleClass="submitbutton"
+								action="#{viewRecordBean.approvePayment}" />
+							<h:commandButton value="拒绝" styleClass="submitbutton"
+								style="margin-left:60px;"
+								action="#{viewRecordBean.rejectPayment}" />
+						</div>
 					</h:form>
 				</div>
 			</h:panelGroup>
@@ -136,14 +142,21 @@
 							<f:convertNumber />
 						</h:inputText>
 						<br />
-						<h:commandButton value="确认付款"
-							action="#{viewRecordBean.confirmPayment}" />
+						<h:outputLabel for="creditPay" value="信用卡支付" />
+						<h:inputText id="creditPay" value="#{viewRecordBean.creditPay}">
+							<f:convertNumber />
+						</h:inputText>
 						<br />
 						<h:outputLabel for="comment" value="附加说明" />
-						<h:inputText id="comment" value="#{viewRecordBean.comment}" />
+						<h:inputTextarea id="comment" value="#{viewRecordBean.comment}" />
 						<br />
-						<h:commandButton value="无法付款"
-							action="#{viewRecordBean.failedPayment}" />
+						<div class="buttondiv">
+							<h:commandButton value="确认付款" styleClass="submitbutton"
+								action="#{viewRecordBean.confirmPayment}" />
+							<h:commandButton value="无法付款" styleClass="submitbutton"
+								style="margin-left:60px;"
+								action="#{viewRecordBean.failedPayment}" />
+						</div>
 						<br />
 						<input id="attachment" name="attachment" type="file" value="上传附件" />
 					</h:form>
@@ -154,9 +167,9 @@
 				<div class="block color1">
 					<h:form>
 						<h:outputLabel for="comment" value="附加说明" />
-						<h:inputText id="comment" value="#{viewRecordBean.comment}" />
+						<h:inputTextarea id="comment" value="#{viewRecordBean.comment}" />
 						<br />
-						<h:commandButton value="确认收款"
+						<h:commandButton value="确认收款" styleClass="submitlongbutton"
 							action="#{viewRecordBean.confirmReceive}" />
 					</h:form>
 				</div>
@@ -166,9 +179,9 @@
 				<div class="block color1">
 					<h:form>
 						<h:outputLabel for="reason" value="理由" />
-						<h:inputText id="reason" value="#{viewRecordBean.comment}" />
+						<h:inputTextarea id="reason" value="#{viewRecordBean.comment}" />
 						<br />
-						<h:commandButton value="撤回请求"
+						<h:commandButton value="撤回请求" styleClass="submitlongbutton"
 							action="#{viewRecordBean.cancelReceive}" />
 					</h:form>
 				</div>
@@ -178,9 +191,9 @@
 				<div class="block color1">
 					<h:form>
 						<h:outputLabel for="reason" value="理由" />
-						<h:inputText id="reason" value="#{viewRecordBean.comment}" />
+						<h:inputTextarea id="reason" value="#{viewRecordBean.comment}" />
 						<br />
-						<h:commandButton value="撤回请款"
+						<h:commandButton value="撤回请款" styleClass="submitlongbutton"
 							action="#{viewRecordBean.cancelPayment}" />
 					</h:form>
 				</div>

@@ -112,7 +112,7 @@ public class DummyFinancialRecordService implements FinancialRecordService {
 
 	public FinancialRecord payPayment(FinancialRecord record,
 			FileBean attachment, Actor actor, BigDecimal commission,
-			String reason) {
+			BigDecimal creditPay, String reason) {
 		((PaymentRecord) record).confirm(commission, actor.getId(), reason);
 		return record;
 	}
