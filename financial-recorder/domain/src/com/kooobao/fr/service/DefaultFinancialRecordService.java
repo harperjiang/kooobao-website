@@ -95,11 +95,27 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 
 	public FinancialRecord payPayment(FinancialRecord record,
 			FileBean attachment, Actor actor, BigDecimal commission,
-			String reason) {
+			BigDecimal creditPay, String reason) {
 		((PaymentRecord) record).confirm(commission, actor.getId(), reason);
 		record.getHistories().get(record.getHistories().size() - 1)
 				.setAttachment(createAttachment(attachment));
+		if(creditPay !=null && !creditPay.equals(BigDecimal.ZERO)) {
+			// Credit Pay
+			ReceiveRecord creditReceive = new ReceiveRecord();
+			creditReceive.getWith().fromCustomer(CREDIT_CUSTOMER);
+			creditReceive.setAmount(creditPay);
+			creditReceive.setDescription("信用卡付款");
+			creditReceive.confirm(actor.getId(), "自动确认");
+			getFinancialRecordDao().store(creditReceive);
+		}
 		return getFinancialRecordDao().store(record);
+	}
+	
+	
+	static Customer CREDIT_CUSTOMER = new Customer();
+	
+	static {
+		CREDIT_CUSTOMER.setName("信用卡账户");
 	}
 
 	public FinancialRecord resubmitPayment(FinancialRecord record, Actor actor,

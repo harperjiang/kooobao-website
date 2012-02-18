@@ -163,6 +163,7 @@ public class FinancialRecord extends VersionEntity {
 		this.attachment = attachment;
 	}
 
+
 	public void addHistory(RecordHistory history) {
 		if (null == histories)
 			histories = new ArrayList<RecordHistory>();
