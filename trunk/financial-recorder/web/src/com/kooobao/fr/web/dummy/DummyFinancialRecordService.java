@@ -147,4 +147,10 @@ public class DummyFinancialRecordService implements FinancialRecordService {
 		return null;
 	}
 
+	public FinancialRecord balancePayment(FinancialRecord record, Actor actor,
+			String reason) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -151,9 +151,12 @@
 						<h:inputTextarea id="comment" value="#{viewRecordBean.comment}" />
 						<br />
 						<div class="buttondiv">
-							<h:commandButton value="确认付款" styleClass="submitbutton"
+							<h:commandButton value="确认付款" styleClass="submitbutton2"
 								action="#{viewRecordBean.confirmPayment}" />
-							<h:commandButton value="无法付款" styleClass="submitbutton"
+							<h:commandButton value="确认平账" styleClass="submitbutton2"
+								style="margin-left:60px;"
+								action="#{viewRecordBean.balancePayment}" />
+							<h:commandButton value="无法付款" styleClass="submitbutton2"
 								style="margin-left:60px;"
 								action="#{viewRecordBean.failedPayment}" />
 						</div>

@@ -129,6 +129,12 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		return getFinancialRecordDao().store(record);
 	}
 
+	public FinancialRecord balancePayment(FinancialRecord record, Actor actor,
+			String reason) {
+		((PaymentRecord) record).balance(actor.getId(), reason);
+		return getFinancialRecordDao().store(record);
+	}
+
 	public FinancialRecord confirmReceive(FinancialRecord record, Actor actor,
 			String comment) {
 		((ReceiveRecord) record).confirm(actor.getId(), comment);
@@ -194,4 +200,5 @@ public class DefaultFinancialRecordService implements FinancialRecordService {
 		attachment.setFile(fileStorage);
 		return attachment;
 	}
+
 }
