@@ -35,6 +35,11 @@ public class PaymentRecord extends FinancialRecord {
 				operator, reason);
 	}
 
+	public void balance(String operator, String reason) {
+		transit(RecordStatus.PAYMENT_APPROVED, RecordStatus.PAYMENT_BALANCED,
+				operator, reason);
+	}
+
 	public void cancel(String operator, String reason) {
 		if (getStatus().equals(RecordStatus.PAYMENT_SUBMIT.name()))
 			transit(RecordStatus.PAYMENT_SUBMIT, RecordStatus.PAYMENT_CANCEL,

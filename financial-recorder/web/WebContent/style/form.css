@@ -38,6 +38,10 @@ input.submitbutton {
 	width: 220px;
 }
 
+input.submitbutton2 {
+	width: 126px;
+}
+
 input.submitlongbutton {
 	margin-left: 120px;
 	margin-top: 5px;

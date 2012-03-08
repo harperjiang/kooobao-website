@@ -37,6 +37,9 @@ public interface FinancialRecordService {
 	FinancialRecord failPayment(FinancialRecord record, Actor actor,
 			String reason);
 
+	FinancialRecord balancePayment(FinancialRecord record, Actor actor,
+			String reason);
+
 	FinancialRecord confirmReceive(FinancialRecord record, Actor actor,
 			String comment);
 

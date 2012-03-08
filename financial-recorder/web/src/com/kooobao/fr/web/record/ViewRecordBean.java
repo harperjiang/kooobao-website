@@ -44,7 +44,7 @@ public class ViewRecordBean extends AbstractBean {
 	private String comment;
 
 	private BigDecimal commission;
-	
+
 	private BigDecimal creditPay;
 
 	public String getComment() {
@@ -109,12 +109,18 @@ public class ViewRecordBean extends AbstractBean {
 		FileBean fb = request.getFile("attachment");
 
 		setRecord(getFinancialRecordService().payPayment(getRecord(), fb,
-				getActor(), commission,creditPay, comment));
+				getActor(), commission, creditPay, comment));
 		return "success";
 	}
 
 	public String failedPayment() {
 		setRecord(getFinancialRecordService().failPayment(getRecord(),
+				getActor(), comment));
+		return "success";
+	}
+
+	public String balancePayment() {
+		setRecord(getFinancialRecordService().balancePayment(getRecord(),
 				getActor(), comment));
 		return "success";
 	}
