@@ -1,6 +1,6 @@
 package com.kooobao.common.web.bean;
 
-public class PageSearchBean extends AbstractBean {
+public abstract class PageSearchBean extends AbstractBean {
 
 	private int pageCount;
 
@@ -11,14 +11,16 @@ public class PageSearchBean extends AbstractBean {
 	public String prevPage() {
 		if (currentPage > 0)
 			currentPage--;
-		return "success";
+		return search();
 	}
 
 	public String nextPage() {
 		if (currentPage < pageCount)
 			currentPage++;
-		return "success";
+		return search();
 	}
+
+	public abstract String search();
 
 	protected int getRecordStart() {
 		return (currentPage - 1) * pageSize;
@@ -34,6 +36,11 @@ public class PageSearchBean extends AbstractBean {
 
 	protected void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
+	}
+
+	protected void setRecordCount(int recordCount) {
+		setPageCount((int) Math
+				.ceil(((double) recordCount / (double) getPageSize())));
 	}
 
 	public int getCurrentPage() {
