@@ -35,7 +35,7 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 	public List<FinancialRecord> getRecordsByCreatedBy(String id, int limit) {
 		return getEntityManager()
 				.createQuery(
-						"select f from FinancialRecord f where f.createBy = :id",
+						"select f from FinancialRecord f where f.createBy = :id order by f.createDate desc",
 						FinancialRecord.class).setParameter("id", id)
 				.setMaxResults(limit).getResultList();
 	}
@@ -46,6 +46,7 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 		if (!(status == null || status.length == 0)) {
 			queryStr += "where f.status in " + inQuery(status.length);
 		}
+		queryStr += " order by f.createDate desc";
 		TypedQuery<FinancialRecord> query = getEntityManager().createQuery(
 				queryStr, FinancialRecord.class);
 		for (int i = 0; i < status.length; i++) {
@@ -72,13 +73,16 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 		TypedQuery<FinancialRecord> query = getEntityManager()
 				.createQuery(
 						"select f from FinancialRecord f where (f.createDate between :fromDate and :toDate) and f.status in "
-								+ inQuery(status.length), FinancialRecord.class);
+								+ inQuery(status.length)
+								+ " order by f.createDate desc",
+						FinancialRecord.class);
 		for (int i = 0; i < status.length; i++) {
 			query.setParameter("val" + i, status[i]);
 		}
 		query.setParameter("fromDate", fromDate);
 		query.setParameter("toDate", toDate);
-		query.setFirstResult(recordStart).setMaxResults(recordStop);
+		query.setFirstResult(recordStart).setMaxResults(
+				recordStop - recordStart);
 		return query.getResultList();
 	}
 

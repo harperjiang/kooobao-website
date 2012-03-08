@@ -49,7 +49,7 @@ public class SearchRecordBean extends PageSearchBean {
 						new String[] { getStatus() }, getRecordStart(),
 						getRecordStop());
 		setRecords(result.getResult());
-		setPageCount(result.getPageCount());
+		setRecordCount(result.getPageCount());
 		return "success";
 	}
 
