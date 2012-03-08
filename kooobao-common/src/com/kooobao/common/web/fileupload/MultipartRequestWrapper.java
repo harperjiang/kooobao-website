@@ -33,6 +33,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.util.ConfigLoader;
 
@@ -84,18 +85,20 @@ public class MultipartRequestWrapper extends HttpServletRequestWrapper {
 					addTextParameter(item.getFieldName(),
 							Streams.asString(item.openStream()));
 				} else {
-					FileBean fb = new FileBean();
-					String fileName = path + File.separator
-							+ UUID.randomUUID().toString();
-					FileOutputStream fos = new FileOutputStream(fileName);
-					int size = IOUtils.copy(item.openStream(), fos);
-					fos.close();
-					fb.setOriginName(item.getName());
-					fb.setPath(fileName);
-					fb.setSize(size);
-					fb.setContentType(item.getContentType());
+					if (!StringUtils.isEmpty(item.getName())) {
+						FileBean fb = new FileBean();
+						String fileName = path + File.separator
+								+ UUID.randomUUID().toString();
+						FileOutputStream fos = new FileOutputStream(fileName);
+						int size = IOUtils.copy(item.openStream(), fos);
+						fos.close();
+						fb.setOriginName(item.getName());
+						fb.setPath(fileName);
+						fb.setSize(size);
+						fb.setContentType(item.getContentType());
 
-					files.put(item.getFieldName(), fb);
+						files.put(item.getFieldName(), fb);
+					}
 				}
 			}
 		} catch (Exception e) {
