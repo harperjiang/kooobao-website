@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface DataSet {
 
-	public List<String> getCoordinates();
+	public String[] getCoordinates();
 
-	public List<List<Object>> getData();
+	public List<DataVector> getData();
 }
