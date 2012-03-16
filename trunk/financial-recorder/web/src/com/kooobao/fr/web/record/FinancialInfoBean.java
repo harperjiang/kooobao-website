@@ -81,6 +81,10 @@ public class FinancialInfoBean extends AbstractBean {
 		searchRecordBean.setStatus(RecordStatus.PAYMENT_SUBMIT.name());
 		return "success";
 	}
+	
+	public String checkReport() {
+		return "success";
+	}
 
 	public FinancialRecordService getFinancialRecordService() {
 		return financialRecordService;
