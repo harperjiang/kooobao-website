@@ -33,4 +33,8 @@
 	<bean id="customerService" class="com.kooobao.fr.service.DefaultCustomerService">
 		<property name="customerDao" ref="customerDao" />
 	</bean>
+
+	<bean id="reportService" class="com.kooobao.fr.service.DefaultReportService">
+		<property name="financialRecordDao" ref="financialRecordDao" />
+	</bean>
 </beans>
