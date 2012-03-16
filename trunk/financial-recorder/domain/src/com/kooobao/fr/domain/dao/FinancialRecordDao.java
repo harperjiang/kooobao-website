@@ -1,5 +1,6 @@
 package com.kooobao.fr.domain.dao;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -21,4 +22,5 @@ public interface FinancialRecordDao extends Dao<FinancialRecord> {
 	List<FinancialRecord> search(Date fromDate, Date toDate, String[] status,
 			int recordStart, int recordStop);
 
+	BigDecimal getSumAmount(Date from,Date to, String status);
 }
