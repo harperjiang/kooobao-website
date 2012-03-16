@@ -54,10 +54,10 @@ public class FinancialRecord extends VersionEntity {
 	String followup;
 
 	@Column(name = "amount", columnDefinition = "decimal(10,2)")
-	BigDecimal amount;
+	BigDecimal amount = BigDecimal.ZERO;
 
 	@Column(name = "adjust_amount", columnDefinition = "decimal(10,2)")
-	BigDecimal adjustAmount;
+	BigDecimal adjustAmount = BigDecimal.ZERO;
 
 	@Column(name = "record_desc", columnDefinition = "text")
 	String description;
@@ -162,7 +162,6 @@ public class FinancialRecord extends VersionEntity {
 	public void setAttachment(Attachment attachment) {
 		this.attachment = attachment;
 	}
-
 
 	public void addHistory(RecordHistory history) {
 		if (null == histories)

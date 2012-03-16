@@ -1,5 +1,6 @@
 package com.kooobao.fr.domain.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -81,8 +82,10 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 		}
 		query.setParameter("fromDate", fromDate);
 		query.setParameter("toDate", toDate);
-		query.setFirstResult(recordStart).setMaxResults(
-				recordStop - recordStart);
+		if (recordStart != -1)
+			query.setFirstResult(recordStart);
+		if (recordStop != -1)
+			query.setMaxResults(recordStop - recordStart);
 		return query.getResultList();
 	}
 
@@ -95,5 +98,16 @@ public class JpaFinancialRecordDao extends AbstractJpaDao<FinancialRecord>
 		builder.deleteCharAt(builder.length() - 1);
 		builder.append(")");
 		return builder.toString();
+	}
+
+	static String SUMAMOUNT_QUERY = "select sum(r.amount + r.adjustAmount) from FinancialRecord r where r.status = :status and r.createDate between :begin and :end";
+
+	public BigDecimal getSumAmount(Date from, Date to, String status) {
+		TypedQuery<BigDecimal> query = getEntityManager().createQuery(
+				SUMAMOUNT_QUERY, BigDecimal.class);
+		query.setParameter("status", status);
+		query.setParameter("begin", from);
+		query.setParameter("end", to);
+		return query.getSingleResult();
 	}
 }
