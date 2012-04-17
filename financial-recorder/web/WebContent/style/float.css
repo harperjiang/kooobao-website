@@ -1,9 +1,0 @@
-@CHARSET "UTF-8";
-
-div.floatWindow {
-	position: absolute;
-	background-color: #ffffff;
-	border-style: solid;
-	border-width: 2px;
-	border-color: #dddddd;
-}
