@@ -25,5 +25,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/kooobao-common"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kooobao-authcenter-client"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kooobao.am.entity.Document;
-import com.kooobao.am.facade.DocumentFacade;
+import com.kooobao.am.service.DocumentService;
 
 /**
  * Servlet implementation class DocumentServlet
@@ -61,7 +60,7 @@ public class DocumentServlet extends HttpServlet {
 		DocumentRequestBean reqBean = parse(request.getPathTranslated());
 
 		try {
-			Document doc = getDocumentFacade().getDocument(reqBean.getDocId());
+			String docPath = getDocumentService().getDocumentPath(reqBean.getDocId());
 			
 //			Redirect to Requested Doc Path
 //			response.addHeader();
@@ -74,7 +73,7 @@ public class DocumentServlet extends HttpServlet {
 		return null;
 	}
 
-	protected DocumentFacade getDocumentFacade() {
+	protected DocumentService getDocumentService() {
 		return null;
 	}
 }

@@ -1,66 +1,32 @@
 package com.kooobao.am.entity;
 
-public class Document {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import com.kooobao.common.domain.entity.VersionEntity;
+
+@Entity
+@Table(name="am_document")
+public class Document extends VersionEntity {
 	
-	private int oid;
-	
+	@Column(name="doc_id")
 	private String docId;
 	
+	@Column(name="author")
 	private String author;
 	
+	@Column(name="name")
 	private String name;
 	
+	@Column(name="section_count")
 	private int sectionCount;
 	
+	@Column(name="disk_path")
 	private String diskPath;
 
-	public int getOid() {
-		return oid;
-	}
-
-	public void setOid(int oid) {
-		this.oid = oid;
-	}
-
-	public String getDocId() {
-		return docId;
-	}
-
-	public void setDocId(String docId) {
-		this.docId = docId;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getSectionCount() {
-		return sectionCount;
-	}
-
-	public void setSectionCount(int sectionCount) {
-		this.sectionCount = sectionCount;
-	}
-
-	public String getDiskPath() {
-		return diskPath;
-	}
-
-	public void setDiskPath(String diskPath) {
-		this.diskPath = diskPath;
-	}
+	@Column(name="size")
+	private int size;
 	
 	
 }
