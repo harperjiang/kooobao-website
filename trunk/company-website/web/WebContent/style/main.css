@@ -149,7 +149,7 @@ div.banner {
 
 div.word_subtitle {
 	font-family: Times New Roman, 宋体;
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: bold;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -162,7 +162,7 @@ div.word_content {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	margin-left: 20px;
-	width: 60%;
+	width: 90%;
 }
 
 .formLayout {

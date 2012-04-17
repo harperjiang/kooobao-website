@@ -12,23 +12,21 @@
 }
 
 .loginLayout label,.loginLayout input,.loginLayout select {
-	display: block;
 	height: 20px;
 	float: left;
 	margin-top: 10px;
 }
 
 .loginLayout input,.loginLayout select {
-	width: 80 px;
+	width: 90 px;
 }
 
 .loginLayout label {
-	width: 50 px;
+	width: 45 px;
 	padding-top: 3px;
-	margin-left: 4px;
+	margin-right: 2px;
 	text-align: left;
 	vertical-align: middle;
-	text-align: left;
 }
 
 td.intro {
@@ -61,35 +59,43 @@ td.intro p.title {
 }
 </style>
 
-		<div class="panel" id="fast_nav" style="width: 150px; height: 250px;">
-		<div class="panel_title">
-		<div id="tl"><img src="image/curve_topleft.gif" /></div>
-		<div id="tr"><img src="image/curve_topright.gif" /></div>
-		快速通道</div>
-		<ul>
-			<li><a href="course.htm#pre">幼儿园教材</a></li>
-			<li><a href="course.htm#primary">小学教材</a></li>
-			<li><a href="instrument.htm">互动式白板</a></li>
-			<li><a href="teaching_res.htm">外教师资</a></li>
-			<li><a href="subscribe.htm">教材订购指南</a></li>
-		</ul>
+		<div class="panel" id="fast_nav" style="width: 150px; height: 220px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				快速通道
+			</div>
+			<ul>
+				<li><a href="course.htm#pre">幼儿园教材</a></li>
+				<li><a href="course.htm#primary">小学教材</a></li>
+				<li><a href="instrument.htm">互动式白板</a></li>
+				<li><a href="teaching_res.htm">外教师资</a></li>
+				<li><a href="buy.htm">教材订购指南</a></li>
+			</ul>
 		</div>
 
-		<div class="panel" style="width: 740px; height: 220px;"><object id="Object1"
-			type="application/x-shockwave-flash" data="common/banner.swf"
-			width="740" height="220">
-			<noscript><a href="http://www.adobe.com/go/getflashplayer">Get
-			Adobe Flash Player</a></noscript>
-			<param name="movie" value="common/banner.swf" />
-			<param name="wmode" value="opaque" />
-			<param name="allowScriptAccess" value="sameDomain" />
-			<param name="quality" value="high" />
-			<param name="menu" value="hidden" />
-			<param name="autoplay" value="true" />
-			<param name="autoload" value="true" />
-			<param name="FlashVars"
-				value="pics=image/banner/soe.jpg|image/banner/3h.jpg|image/banner/getsmart.jpg|image/banner/instrument.jpg|image/banner/eno.jpg&amp;links=/course/soe.htm|/course/3h.htm|/course/get_smart.htm|/instrument/teach_tool.htm|/instrument/eno.htm&amp;texts=||||&amp;borderHeight=220&amp;borderWidth=740" />
-		</object></div>
+		<div class="panel" style="width: 740px; height: 220px;">
+			<object id="Object1" type="application/x-shockwave-flash"
+				data="common/banner.swf" width="740" height="220">
+				<noscript>
+					<a href="http://www.adobe.com/go/getflashplayer">Get Adobe
+						Flash Player</a>
+				</noscript>
+				<param name="movie" value="common/banner.swf" />
+				<param name="wmode" value="opaque" />
+				<param name="allowScriptAccess" value="sameDomain" />
+				<param name="quality" value="high" />
+				<param name="menu" value="hidden" />
+				<param name="autoplay" value="true" />
+				<param name="autoload" value="true" />
+				<param name="FlashVars"
+					value="pics=image/banner/soe.jpg|image/banner/3h.jpg|image/banner/getsmart.jpg|image/banner/instrument.jpg|image/banner/eno.jpg&amp;links=/course/soe.htm|/course/3h.htm|/course/get_smart.htm|/instrument/teach_tool.htm|/instrument/eno.htm&amp;texts=||||&amp;borderHeight=220&amp;borderWidth=740" />
+			</object>
+		</div>
 
 
 		<!-- div class="panel" style="width: 150px; height: 180px;">
@@ -102,88 +108,136 @@ td.intro p.title {
 		<p>互动式白板</p>
 		<p>外教师资</p>
 		</div-->
+		<h:form>
+			<div class="panel loginLayout"
+				style="visibility: visible; width: 150px; height: 200px;">
+				<div class="panel_title">
+					<div id="tl">
+						<img src="image/curve_topleft.gif" />
+					</div>
+					<div id="tr">
+						<img src="image/curve_topright.gif" />
+					</div>
+					会员登录
+				</div>
+				<div style="padding-left: 3px">
+					<h:outputLabel for="userName">用户名:</h:outputLabel>
+					<h:inputText id="userName" />
+					<br />
+					<h:outputLabel for="userPass">密码:</h:outputLabel>
+					<h:inputSecret id="userPass" />
+					<br />
+					<h:commandButton action="#{loginBean.login}" value="登录" />
 
-		<!-- div class="panel loginLayout"
-			style="visibility: hidden; width: 150px; height: 200px;">
-		<div class="panel_title">
-		<div id="tl"><img src="image/curve_topleft.gif" /></div>
-		<div id="tr"><img src="image/curve_topright.gif" /></div>
-		会员登录</div>
-		<h:form action="index.htm">
-			<label for="userName">用户名:</label>
-			<h:inputText id="userName" />
-			<label for="userPass">密码:</label>
-			<h:inputSecret id="userPass" />
-			<input style="margin-left: 5px;" type="submit" value="登录" />
-		</h:form> <br />
-		<br />
-		<a style="margin-left: 5px;" href="/member/register.jsp">注册新用户</a></div-->
+					<br /> <br /> <a style="margin-left: 5px;"
+						href="/member/register.jsp">注册新用户</a>
+				</div>
+			</div>
+		</h:form>
 
-		<!-- div class="blankpanel" style="width: 150px; height: 100px;" /-->
 		<div class="panel" style="width: 340px; height: 450px;">
-		<div class="panel_title">
-		<div id="tl"><img src="image/curve_topleft.gif" /></div>
-		<div id="tr"><img src="image/curve_topright.gif" /></div>
-		产品介绍</div>
-		<table>
-			<tr>
-				<td><img src="image/school.jpg" alt="原版教材" /></td>
-				<td class="intro">
-				<p class="title"><a href="/course.htm">原版教材</a></p>
-				<p><a href="course.htm#pre">幼儿园</a></p>
-				<p><a href="course.htm#primary">小学</a></p>
-				<p><a href="course.htm#adult">初高中及成人教育</a></p>
-				</td>
-			</tr>
-			<tr>
-				<td><img src="image/library.jpg" alt="Reading" /></td>
-				<td class="intro">
-				<p class="title">课外阅读</p>
-				<p>分级读物</p>
-				<p>课外活动辅助</p>
-				<p>图书馆</p>
-				</td>
-			</tr>
-			<tr>
-				<td><img src="image/instrument.jpg" alt="Instrument" /></td>
-				<td class="intro">
-				<p class="title"><a href="instrument.htm">教学设施</a></p>
-				<p><a href="instrument/eno.htm">互动式电子白板</a></p>
-				<p>可打印电子白板</p>
-				<p><a href="instrument/projector.htm">投影仪</a></p>
-				<p><a href="instrument/teach_tool.htm">玩具教具</a></p>
-				</td>
-			</tr>
-			<tr>
-				<td><img src="image/teacher.jpg" alt="外教师资" /></td>
-				<td class="intro">
-				<p class="title">外教师资</p>
-				<p>师资派遣</p>
-				<p>师资培训</p>
-				</td>
-			</tr>
-		</table>
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				产品介绍
+			</div>
+			<table>
+				<tr>
+					<td><img src="image/school.jpg" alt="原版教材" /></td>
+					<td class="intro">
+						<p class="title">
+							<a href="/course.htm">原版教材</a>
+						</p>
+						<p>
+							<a href="course.htm#pre">幼儿园</a>
+						</p>
+						<p>
+							<a href="course.htm#primary">小学</a>
+						</p>
+						<p>
+							<a href="course.htm#adult">初高中及成人教育</a>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="image/library.jpg" alt="Reading" /></td>
+					<td class="intro">
+						<p class="title">课外阅读</p>
+						<p>分级读物</p>
+						<p>课外活动辅助</p>
+						<p>图书馆</p>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="image/instrument.jpg" alt="Instrument" /></td>
+					<td class="intro">
+						<p class="title">
+							<a href="instrument.htm">教学设施</a>
+						</p>
+						<p>
+							<a href="instrument/eno.htm">互动式电子白板</a>
+						</p>
+						<p>可打印电子白板</p>
+						<p>
+							<a href="instrument/projector.htm">投影仪</a>
+						</p>
+						<p>
+							<a href="instrument/teach_tool.htm">玩具教具</a>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td><img src="image/teacher.jpg" alt="外教师资" /></td>
+					<td class="intro">
+						<p class="title">外教师资</p>
+						<p>师资派遣</p>
+						<p>师资培训</p>
+					</td>
+				</tr>
+			</table>
 
 		</div>
-		
-		<script type="text/javascript" src="/script/play_video.js"/>
+
+		<script type="text/javascript" src="/script/play_video.js" />
 
 		<div class="panel newspanel" style="width: 390px; height: 215px;">
-		<div class="panel_title">
-		<div id="tl"><img src="image/curve_topleft.gif" /></div>
-		<div id="tr"><img src="image/curve_topright.gif" /></div>
-		视频资源</div>
-		<p><a href="#this" onclick="play_youku_video('XMTY3NTcwNjE2')">2010最新原版小学教材-Spotlight on English介绍</a></p>
-		<p><a href="#this">eno白板使用视频</a></p>
-		<p><a href="#this" onclick="play_video('MM_Kostas_chunk_1.flv')">MM Publication在KOTESOL会议上的讲话</a></p>
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				视频资源
+			</div>
+			<p>
+				<a href="#this" onclick="play_youku_video('XMTY3NTcwNjE2')">2010最新原版小学教材-Spotlight
+					on English介绍</a>
+			</p>
+			<p>
+				<a href="#this">eno白板使用视频</a>
+			</p>
+			<p>
+				<a href="#this" onclick="play_video('MM_Kostas_chunk_1.flv')">MM
+					Publication在KOTESOL会议上的讲话</a>
+			</p>
 		</div>
 
 		<div class="panel newspanel" style="width: 390px; height: 225px;">
-		<div class="panel_title">
-		<div id="tl"><img src="image/curve_topleft.gif" /></div>
-		<div id="tr"><img src="image/curve_topright.gif" /></div>
-		教育资源</div>
-		<p>Love English 教师资源下载</p>
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				教育资源
+			</div>
+			<p>Love English 教师资源下载</p>
 		</div>
 
 	</ui:define>
