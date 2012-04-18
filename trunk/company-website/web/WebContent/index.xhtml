@@ -59,7 +59,7 @@ td.intro p.title {
 }
 </style>
 
-		<div class="panel" id="fast_nav" style="width: 150px; height: 220px;">
+		<div class="panel" id="fast_nav" style="width: 150px; height: 620px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -67,7 +67,7 @@ td.intro p.title {
 				<div id="tr">
 					<img src="image/curve_topright.gif" />
 				</div>
-				快速通道
+				产品列表
 			</div>
 			<ul>
 				<li><a href="course.htm#pre">幼儿园教材</a></li>
@@ -108,34 +108,81 @@ td.intro p.title {
 		<p>互动式白板</p>
 		<p>外教师资</p>
 		</div-->
-		<h:form>
-			<div class="panel loginLayout"
-				style="visibility: visible; width: 150px; height: 200px;">
-				<div class="panel_title">
-					<div id="tl">
-						<img src="image/curve_topleft.gif" />
-					</div>
-					<div id="tr">
-						<img src="image/curve_topright.gif" />
-					</div>
-					会员登录
-				</div>
-				<div style="padding-left: 3px">
-					<h:outputLabel for="userName">用户名:</h:outputLabel>
-					<h:inputText id="userName" />
-					<br />
-					<h:outputLabel for="userPass">密码:</h:outputLabel>
-					<h:inputSecret id="userPass" />
-					<br />
-					<h:commandButton action="#{loginBean.login}" value="登录" />
 
-					<br /> <br /> <a style="margin-left: 5px;"
-						href="/member/register.jsp">注册新用户</a>
+		<div class="panel" style="width: 365px; height: 250px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
 				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				新品上架
 			</div>
-		</h:form>
+			<ui:repeat var="book" value="#{indexPageBean.latestBooks}"
+				varStatus="status">
+				<div>
+					<div style="float: left;">
+						<img src="#{book.pictureUrl}" />
+					</div>
+					<div style="float: left; width: 250px; height: 100px;">
+						<div class="word_subtitle" style="color: #f4880c;">#{book.name}</div>
+						<div class="word_content">#{book.brief}</div>
+						<div style="text-align: right;">
+							<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+								value="/book/#{book.oid}.html">
+								<img alt="More Info"
+									src="http://img.kooobao.cn/storage/company_website/more.gif" />
+							</h:outputLink>
+							<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+								value="/book.html?oid=#{book.oid}">
+								<img alt="More Info"
+									src="http://img.kooobao.cn/storage/company_website/more.gif" />
+							</h:outputLink>
+						</div>
+					</div>
 
-		<div class="panel" style="width: 340px; height: 450px;">
+				</div>
+			</ui:repeat>
+		</div>
+
+		<div class="panel" style="width: 365px; height: 250px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				最受欢迎的书籍推荐
+			</div>
+			<ui:repeat var="book" value="#{indexPageBean.hotBooks}"
+				varStatus="status">
+				<div>
+					<div style="float: left;">
+						<img src="#{book.pictureUrl}" />
+					</div>
+					<div style="float: left; width: 250px; height: 100px;">
+						<div class="word_subtitle" style="color: #f4880c;">#{book.name}</div>
+						<div class="word_content">#{book.brief}</div>
+						<div style="text-align: right;">
+							<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+								value="/book/#{book.oid}.html">
+								<img alt="More Info"
+									src="http://img.kooobao.cn/storage/company_website/more.gif" />
+							</h:outputLink>
+							<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+								value="/book.html?oid=#{book.oid}">
+								<img alt="More Info"
+									src="http://img.kooobao.cn/storage/company_website/more.gif" />
+							</h:outputLink>
+						</div>
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+
+		<div class="panel" style="width: 365px; height: 450px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -204,7 +251,7 @@ td.intro p.title {
 
 		<script type="text/javascript" src="/script/play_video.js" />
 
-		<div class="panel newspanel" style="width: 390px; height: 215px;">
+		<div class="panel newspanel" style="width: 365px; height: 215px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -227,7 +274,34 @@ td.intro p.title {
 			</p>
 		</div>
 
-		<div class="panel newspanel" style="width: 390px; height: 225px;">
+		<!--h:form>
+			<div class="panel loginLayout"
+				style="visibility: visible; width: 150px; height: 200px;">
+				<div class="panel_title">
+					<div id="tl">
+						<img src="image/curve_topleft.gif" />
+					</div>
+					<div id="tr">
+						<img src="image/curve_topright.gif" />
+					</div>
+					会员登录
+				</div>
+				<div style="padding-left: 3px">
+					<h:outputLabel for="userName">用户名:</h:outputLabel>
+					<h:inputText id="userName" />
+					<br />
+					<h:outputLabel for="userPass">密码:</h:outputLabel>
+					<h:inputSecret id="userPass" />
+					<br />
+					<h:commandButton action="#{loginBean.login}" value="登录" />
+
+					<br /> <br /> <a style="margin-left: 5px;"
+						href="/member/register.jsp">注册新用户</a>
+				</div>
+			</div>
+		</h:form-->
+
+		<div class="panel newspanel" style="width: 365px; height: 225px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
