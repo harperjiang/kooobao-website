@@ -2,6 +2,8 @@ package com.kooobao.cws.domain.book;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.kooobao.common.domain.entity.VersionEntity;
@@ -19,8 +21,9 @@ public class Book extends VersionEntity {
 	@Column(name = "picture_url")
 	private String pictureUrl;
 
-	@Column(name = "category")
-	private String category;
+	@OneToOne
+	@JoinColumn(name = "category", referencedColumnName = "obj_id")
+	private Category category;
 
 	@Column(name = "content", columnDefinition = "text")
 	private String content;
@@ -49,11 +52,11 @@ public class Book extends VersionEntity {
 		this.pictureUrl = pictureUrl;
 	}
 
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 

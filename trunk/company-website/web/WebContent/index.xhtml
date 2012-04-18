@@ -70,11 +70,15 @@ td.intro p.title {
 				产品列表
 			</div>
 			<ul>
-				<li><a href="course.htm#pre">幼儿园教材</a></li>
-				<li><a href="course.htm#primary">小学教材</a></li>
-				<li><a href="instrument.htm">互动式白板</a></li>
-				<li><a href="teaching_res.htm">外教师资</a></li>
-				<li><a href="buy.htm">教材订购指南</a></li>
+				<ui:repeat>
+					<li>
+						<ul>
+							<ui:repeat>
+								<li></li>
+							</ui:repeat>
+						</ul>
+					</li>
+				</ui:repeat>
 			</ul>
 		</div>
 

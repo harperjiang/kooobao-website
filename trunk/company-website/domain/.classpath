@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache Commons"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/EclipseLink_2.1.2"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL JDBC Driver"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/kooobao-common"/>
 	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/MySQL JDBC Driver"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
