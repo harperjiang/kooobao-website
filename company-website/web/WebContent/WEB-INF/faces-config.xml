@@ -1,42 +1,37 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-      http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	version="2.0">
-	<!-- Empty for now. Your entries will go here. But even if you have no entries 
-		in faces-config.xml, you are required to have a valid faces-config.xml file 
-		with legal start and end tags. From JSF 2.0 tutorial at http://www.coreservlets.com/JSF-Tutorial/jsf2/ -->
 	<application>
-		<variable-resolver>
-			org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
+	<managed-bean>
+		<managed-bean-name>indexPageBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.index.IndexPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>bookService</property-name>
+			<value>#{bookService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>envConfigBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.common.EnvConfigBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>manageBookBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.manage.ManageBookBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>bookService</property-name>
+			<value>#{bookService}</value>
+		</managed-property>
+	</managed-bean>
 
-	<navigation-rule>
-		<from-view-id>/member/register.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/member/register_complete.jsf</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>rejected</from-outcome>
-			<to-view-id>/member/register.jsf</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>error</from-outcome>
-			<to-view-id>/error.jsf</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
-	<navigation-rule>
-		<from-view-id>/member.jsp</from-view-id>
-		<navigation-case>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/member.jsf</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>failed</from-outcome>
-			<to-view-id>/member.jsf</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+	<!-- lifecycle> <phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener> 
+		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener> 
+		</lifecycle -->
 </faces-config>

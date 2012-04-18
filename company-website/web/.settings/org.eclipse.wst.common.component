@@ -3,6 +3,15 @@
     <wb-module deploy-name="company-website">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="company-website-domain.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/company-website-domain/company-website-domain">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="kooobao-common.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-common/kooobao-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="kooobao-authcenter-client.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-authcenter-client/kooobao-authcenter-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="company-website"/>
         <property name="java-output-path" value="/company-website/build/classes"/>
     </wb-module>

@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+.formLayout {
+	background-color: #f3f3f3;
+	border: solid 1px #a1a1a1;
+	padding: 10px;
+	width: 90%;
+	overflow: auto;
+}
+
+.formLayout label,.formLayout input,.formLayout select,.formLayout textarea
+	{
+	display: block;
+	width: 400 px;
+	float: left;
+	margin-bottom: 10 px;
+}
+
+.formLayout label {
+	width: 100px;
+	padding-right: 20px;
+}
+
+.formLayout textarea {
+	height: 80px;
+}
+
+.formLayout input.submitbtn {
+	width: 500px;
+}

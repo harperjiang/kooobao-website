@@ -3,6 +3,9 @@
 	<name>company-website</name>
 	<comment></comment>
 	<projects>
+		<project>company-website-domain</project>
+		<project>kooobao-common</project>
+		<project>kooobao-authcenter-client</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
