@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kooobao.cws.domain.book.Book;
+import com.kooobao.cws.domain.book.Category;
 import com.kooobao.cws.service.book.BookService;
 
 public class DummyBookService implements BookService {
@@ -33,7 +34,7 @@ public class DummyBookService implements BookService {
 	}
 
 	@Override
-	public void addBook(Book book) {
+	public void saveBook(Book book) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -46,6 +47,12 @@ public class DummyBookService implements BookService {
 
 	@Override
 	public List<Book> findBooks(String name, String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Category> getRootCategory() {
 		// TODO Auto-generated method stub
 		return null;
 	}

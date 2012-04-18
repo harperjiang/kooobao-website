@@ -21,4 +21,16 @@ public class JpaBookDao extends AbstractJpaDao<Book> implements BookDao {
 		return null;
 	}
 
+	@Override
+	public List<Book> getByCategory(String category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<Category> getCategories() {
+		return null;
+	}
+	
+
 }

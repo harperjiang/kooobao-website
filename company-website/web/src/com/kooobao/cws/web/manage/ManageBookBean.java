@@ -2,6 +2,8 @@ package com.kooobao.cws.web.manage;
 
 import java.util.List;
 
+import javax.faces.component.UIData;
+
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.cws.domain.book.Book;
 import com.kooobao.cws.service.book.BookService;
@@ -10,8 +12,22 @@ public class ManageBookBean extends PageSearchBean {
 
 	@Override
 	public String search() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Book> books = getBookService().findBooks(getSearch().getName(),
+				getSearch().getContent());
+		setBooks(books);
+		return "success";
+	}
+
+	public String save() {
+		getBookService().saveBook(getBook());
+		return "success";
+	}
+	
+	public String edit() {
+		UIData dataTable = (UIData) getComponent("resultDataTable");
+		Book select = (Book) dataTable.getRowData();
+		setBook(select);
+		return "success";
 	}
 
 	private List<Book> books;

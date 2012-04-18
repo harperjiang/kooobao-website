@@ -8,9 +8,18 @@
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
 	<managed-bean>
+		<managed-bean-name>categoryInfoBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.common.CategoryInfoBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+		<managed-property>
+			<property-name>bookService</property-name>
+			<value>#{bookService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>indexPageBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.cws.web.index.IndexPageBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>application</managed-bean-scope>
 		<managed-property>
 			<property-name>bookService</property-name>
 			<value>#{bookService}</value>

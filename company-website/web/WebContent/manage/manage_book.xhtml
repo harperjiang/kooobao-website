@@ -7,11 +7,15 @@
 	<ui:define name="body">
 		<style type="text/css">
 .col1 {
-	width: 250px;
+	width: 200px;
 }
 
 .col2 {
 	width: 550px;
+}
+
+.col3 {
+	width: 50px;
 }
 </style>
 		<h:panelGroup layout="block"
@@ -36,7 +40,7 @@
 
 				<h:form id="resultForm">
 					<h:dataTable id="resultDataTable" width="800"
-						styleClass="dataTable" columnClasses="col1,col2"
+						styleClass="dataTable" columnClasses="col1,col2,col3"
 						value="#{manageBookBean.books}" var="record">
 						<h:column>
 							<f:facet name="header">书名</f:facet>
@@ -45,8 +49,16 @@
 							</h:commandLink>
 						</h:column>
 						<h:column>
+							<f:facet name="header">类别</f:facet>
+							<h:outputText value = "#{record.category}"/>
+						</h:column>
+						<h:column>
 							<f:facet name="header">简介</f:facet>
 							<h:outputText value="#{record.brief}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">操作</f:facet>
+							<h:commandLink value="#{manageBookBean.edit}">编辑</h:commandLink>
 						</h:column>
 					</h:dataTable>
 					<h:panelGroup style="margin-top:20px;">
@@ -59,10 +71,8 @@
 				</h:form>
 			</h:panelGroup>
 
-			<h:form id="operationPanel"
-				style="margin-top:10px;margin-bottom:10px;">
-				<h:commandButton action="#{manageBookBean.createBook}"
-					value="创建新书记录" />
+			<h:panelGroup layout="block"
+				style="font-size: 18px; margin-top: 30px;margin-bottom:20px;">新增图书记录</h:panelGroup>
 			</h:form>
 			<h:panelGroup id="newbookPanel" class="formLayout" layout="block">
 				<h:form id="newbookForm">
@@ -73,6 +83,10 @@
 					<h:outputLabel id="puLabel" for="puText" value="图片地址" />
 					<h:inputText id="puText" value="#{manageBookBean.book.pictureUrl}" />
 					<br />
+					<h:outputLabel id="categoryLabel" for="categorySelect" value="类别"/>
+					<h:selectOneMenu id="categorySelect" value="#{manageBookBean.book.category}">
+						<f:selectItems value="#{categoryInfoBean.leaves}"/>
+					</h:selectOneMenu>
 					<h:outputLabel id="briefLabel" for="briefText" value="簡介" />
 					<h:inputText id="briefText" value="#{manageBookBean.book.brief}" />
 					<br />

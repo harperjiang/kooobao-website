@@ -1,8 +1,11 @@
 package com.kooobao.cws.domain.book;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,6 +18,9 @@ public class Category extends VersionEntity {
 	@OneToOne
 	@JoinColumn(name = "parent_id", referencedColumnName = "obj_id")
 	private Category parent;
+
+	@OneToMany(mappedBy = "parent")
+	private List<Category> children;
 
 	@Column(name = "name")
 	private String name;
@@ -44,6 +50,14 @@ public class Category extends VersionEntity {
 
 	public void setParent(Category parent) {
 		this.parent = parent;
+	}
+
+	public List<Category> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Category> children) {
+		this.children = children;
 	}
 
 }
