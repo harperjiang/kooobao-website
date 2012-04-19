@@ -5,6 +5,8 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">书籍管理页面</ui:define>
 	<ui:define name="body">
+		<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+
 		<style type="text/css">
 .col1 {
 	width: 200px;
@@ -50,7 +52,7 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">类别</f:facet>
-							<h:outputText value = "#{record.category}"/>
+							<h:outputText value="#{record.category}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">简介</f:facet>
@@ -73,7 +75,7 @@
 
 			<h:panelGroup layout="block"
 				style="font-size: 18px; margin-top: 30px;margin-bottom:20px;">新增图书记录</h:panelGroup>
-			</h:form>
+
 			<h:panelGroup id="newbookPanel" class="formLayout" layout="block">
 				<h:form id="newbookForm">
 					<!-- Panel for creating new books -->
@@ -83,17 +85,22 @@
 					<h:outputLabel id="puLabel" for="puText" value="图片地址" />
 					<h:inputText id="puText" value="#{manageBookBean.book.pictureUrl}" />
 					<br />
-					<h:outputLabel id="categoryLabel" for="categorySelect" value="类别"/>
-					<h:selectOneMenu id="categorySelect" value="#{manageBookBean.book.category}">
-						<f:selectItems value="#{categoryInfoBean.leaves}"/>
+					<h:outputLabel id="categoryLabel" for="categorySelect" value="类别" />
+					<h:selectOneMenu id="categorySelect"
+						value="#{manageBookBean.book.category}">
+						<f:selectItems value="#{categoryInfoBean.leaves}" />
 					</h:selectOneMenu>
+					<br />
 					<h:outputLabel id="briefLabel" for="briefText" value="簡介" />
 					<h:inputText id="briefText" value="#{manageBookBean.book.brief}" />
 					<br />
 					<h:outputLabel id="contentLabel" for="nameText" value="详细内容" />
-					<h:inputTextarea id="contentText"
+					<h:inputTextarea id="contentText" style="height:400px;width:700px;"
 						value="#{manageBookBean.book.content}" />
 					<br />
+					<script type="text/javascript">
+						CKEDITOR.replace('newbookForm:contentText');
+					</script>
 					<h:commandButton id="newbookSubmit" class="submitbtn"
 						action="#{manageBookBean.save}" value="保存" />
 				</h:form>
