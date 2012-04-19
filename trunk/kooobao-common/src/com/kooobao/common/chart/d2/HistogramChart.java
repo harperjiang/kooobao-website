@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.math.BigDecimal;
 
+import com.kooobao.common.chart.DataSet;
 import com.kooobao.common.chart.DataVector;
 
 public class HistogramChart extends XYCoordinateChart {
@@ -13,12 +15,12 @@ public class HistogramChart extends XYCoordinateChart {
 
 	@Override
 	public void draw(Graphics2D canvas) {
-		XYDataSet ds = (XYDataSet) getDataSet();
 
 		DataRange range = getDataRange();
-
-		int typeCount = ds.getData().get(0).getValue().length - 1;
 		int buffer = 10;
+
+		int typeCount = getDataSet().length;
+
 		// Determine the width of histogram;
 		int typeWidth = (getSize().width - 2 * getPadding())
 				/ range.getStepX().intValue();
@@ -26,18 +28,27 @@ public class HistogramChart extends XYCoordinateChart {
 
 		AffineTransform transform = getTransform();
 
-		for (DataVector dv : ds.getData()) {
-			double x = dv.getValue()[0].doubleValue();
-			for (int index = 1; index < dv.getValue().length; index++) {
-				double y = dv.getValue()[index].doubleValue();
+		int counter = 0;
+		for (DataSet d : getDataSet()) {
+			XYDataSet ds = (XYDataSet) d;
+			for (DataVector dv : ds.getData()) {
+				double x;
+				if (dv.getValue()[0] instanceof BigDecimal) {
+					x = ((BigDecimal) dv.getValue()[0]).doubleValue();
+				} else {
+					x = getIndex(dv.getValue()[0]);
+				}
+				double y = ((BigDecimal) dv.getValue()[1]).doubleValue();
 				Point2D transed = transform.transform(new Point2D.Double(x, y),
 						new Point2D.Double());
-				canvas.setColor(BLOCK_COLOR[(index - 1) % BLOCK_COLOR.length]);
+				canvas.setColor(BLOCK_COLOR[counter % BLOCK_COLOR.length]);
 				int blockStart = (int) transed.getX() - typeWidth / 2 + buffer
-						+ blockWidth * (index - 1);
+						+ blockWidth * (counter);
 				canvas.fillRect(blockStart, (int) transed.getY(), blockWidth,
 						getSize().height - getPadding() - (int) transed.getY());
+
 			}
+			counter++;
 		}
 	}
 }

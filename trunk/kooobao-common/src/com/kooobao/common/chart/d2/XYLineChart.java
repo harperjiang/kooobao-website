@@ -5,7 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.math.BigDecimal;
 
+import com.kooobao.common.chart.DataSet;
 import com.kooobao.common.chart.DataVector;
 
 public class XYLineChart extends XYCoordinateChart {
@@ -18,34 +20,40 @@ public class XYLineChart extends XYCoordinateChart {
 
 	@Override
 	public void draw(Graphics2D canvas) {
-		XYDataSet xyds = (XYDataSet) getDataSet();
+		int counter = 0;
+		for (DataSet ds : getDataSet()) {
 
-		AffineTransform trans = getTransform();
+			XYDataSet xyds = (XYDataSet) ds;
 
-		int pointRadius = 4;
-		canvas.setColor(Color.BLACK);
+			AffineTransform trans = getTransform();
 
-		canvas.setStroke(new BasicStroke(2f));
-		Point2D[] previous = null;
-		for (DataVector dv : xyds.getData()) {
-			if (null == previous)
-				previous = new Point2D[dv.getValue().length - 1];
-			int x = dv.getValue()[0].intValue();
-			for (int index = 1; index < dv.getValue().length; index++) {
-				int y = dv.getValue()[index].intValue();
+			int pointRadius = 4;
+			canvas.setColor(Color.BLACK);
+
+			canvas.setStroke(new BasicStroke(2f));
+			Point2D previous = null;
+			for (DataVector dv : xyds.getData()) {
+				double x;
+				if (dv.getValue()[0] instanceof BigDecimal) {
+					x = ((BigDecimal) dv.getValue()[0]).doubleValue();
+				} else {
+					x = getIndex(dv.getValue()[0]);
+				}
+				double y = ((BigDecimal) dv.getValue()[1]).doubleValue();
 				Point2D tp = trans.transform(new Point2D.Double(x, y),
 						new Point2D.Double(0, 0));
-				if (null != previous[index - 1]) {
-					canvas.setColor(LINE_COLOR[(index - 1) % LINE_COLOR.length]);
-					canvas.drawLine((int) previous[index - 1].getX(),
-							(int) previous[index - 1].getY(), (int) tp.getX(),
+				if (null != previous) {
+					canvas.setColor(LINE_COLOR[(counter) % LINE_COLOR.length]);
+					canvas.drawLine((int) previous.getX(),
+							(int) previous.getY(), (int) tp.getX(),
 							(int) tp.getY());
 				}
-				canvas.setColor(POINT_COLOR[(index - 1) % POINT_COLOR.length]);
+				canvas.setColor(POINT_COLOR[(counter) % POINT_COLOR.length]);
 				canvas.fillOval((int) tp.getX() - pointRadius, (int) tp.getY()
 						- pointRadius, 2 * pointRadius, 2 * pointRadius);
-				previous[index - 1] = tp;
+				previous = tp;
 			}
+			counter++;
 		}
 	}
 }
