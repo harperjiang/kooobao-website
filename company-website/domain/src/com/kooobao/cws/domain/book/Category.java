@@ -50,7 +50,7 @@ public class Category extends VersionEntity {
 	public Category getParent() {
 		return parent;
 	}
-	
+
 	protected void setParent(Category parent) {
 		this.parent = parent;
 	}
@@ -63,7 +63,7 @@ public class Category extends VersionEntity {
 		this.children.add(child);
 		child.setParent(this);
 	}
-	
+
 	public void removeChild(Category child) {
 		this.children.remove(child);
 		child.setParent(null);
@@ -71,5 +71,11 @@ public class Category extends VersionEntity {
 
 	public boolean isLeaf() {
 		return CollectionUtils.isEmpty(getChildren());
+	}
+
+	public String getLayeredName() {
+		if (getParent() == null)
+			return getName();
+		return getParent().getLayeredName() + " / " + getName();
 	}
 }

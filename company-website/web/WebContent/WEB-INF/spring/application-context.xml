@@ -7,4 +7,8 @@
 	<import resource="auth.xml" />
 
 	<bean id="bookService" class="com.kooobao.cws.dummy.DummyBookService" />
+
+	<bean id="categoryInfoBean" class="com.kooobao.cws.web.book.CategoryInfoBean">
+		<property name="bookService" ref="bookService" />
+	</bean>
 </beans>

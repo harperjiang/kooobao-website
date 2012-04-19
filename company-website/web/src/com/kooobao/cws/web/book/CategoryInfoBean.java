@@ -1,36 +1,54 @@
 package com.kooobao.cws.web.book;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
+
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.common.web.bean.JSFStartupAware;
 import com.kooobao.cws.domain.book.Category;
 import com.kooobao.cws.service.book.BookService;
 
-public class CategoryInfoBean extends AbstractBean {
+public class CategoryInfoBean extends AbstractBean implements JSFStartupAware {
 
 	private List<Category> roots;
 
-	private List<Category> leaves;
+	private List<SelectItem> leaves;
 
 	public CategoryInfoBean() {
 	}
 
-	protected synchronized void init() {
-		if (null != roots)
-			return;
+	public void init() {
 		roots = getBookService().getRootCategories();
+		leaves = new ArrayList<SelectItem>();
+		for (Category category : roots) {
+			leaves.add(new SelectItem(category, category.getLayeredName()));
+		}
+		for (int i = 0; i < leaves.size(); i++) {
+			Category cat = (Category) leaves.get(i).getValue();
+			if (!cat.isLeaf()) {
+				Category current = (Category) leaves.remove(i).getValue();
+				for (Category category : current.getChildren()) {
+					leaves.add(new SelectItem(category, category
+							.getLayeredName()));
+				}
+				i--;
+			}
+		}
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+
 	}
 
 	public List<Category> getRoots() {
-		if (null == roots) {
-			init();
-		}
 		return roots;
 	}
 
-	public synchronized List<Category> getLeaves() {
-		if (null == leaves)
-			init();
+	public List<SelectItem> getLeaves() {
 		return leaves;
 	}
 
@@ -43,4 +61,5 @@ public class CategoryInfoBean extends AbstractBean {
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
 	}
+
 }
