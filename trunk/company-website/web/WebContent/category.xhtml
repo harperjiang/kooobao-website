@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">教材导览</ui:define>
+	<ui:define name="body">
+		<div class="panel" id="fast_nav" style="width: 150px; height: 620px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				产品列表
+			</div>
+			<h:panelGroup rendered="#{categoryPageBean.displayHeader}" layout="block" class="header">
+				<h:outputLink value="category.html">
+					<h:outputText value="#{categoryPageBean.header.name}" />
+					<f:param name="categoryId" value="#{categoryPageBean.headerLinkOid}" />
+				</h:outputLink>
+			</h:panelGroup>
+			<ul>
+				<ui:repeat value="#{categoryPageBean.categories}" var="category">
+					<li><h:outputLink
+							styleClass="#{(categoryPageBean.selectedCategory eq category)?'selected':''}"
+							value="/category.html?categoryId=#{category.oid}">#{category.name}</h:outputLink>
+						<h:panelGroup
+							rendered="#{categoryPageBean.selectedCategory eq category}"
+							layout="block">
+							<ul>
+								<li>A</li>
+								<li>B</li>
+								<li>C</li>
+							</ul>
+						</h:panelGroup></li>
+				</ui:repeat>
+			</ul>
+		</div>
+		<div class="blankpanel"></div>
+	</ui:define>
+</ui:composition>

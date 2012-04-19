@@ -4,7 +4,7 @@ import com.kooobao.common.web.bean.AbstractBean;
 
 public class EnvConfigBean extends AbstractBean {
 
-	private boolean rewriteUrl = true;
+	private boolean rewriteUrl = false;
 
 	public boolean isRewriteUrl() {
 		return rewriteUrl;

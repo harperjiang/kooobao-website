@@ -18,7 +18,7 @@ public class CategoryInfoBean extends AbstractBean {
 	protected synchronized void init() {
 		if (null != roots)
 			return;
-		roots = getBookService().getRootCategory();
+		roots = getBookService().getRootCategories();
 	}
 
 	public List<Category> getRoots() {

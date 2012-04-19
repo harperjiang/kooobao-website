@@ -9,7 +9,7 @@
 	</application>
 	<managed-bean>
 		<managed-bean-name>categoryInfoBean</managed-bean-name>
-		<managed-bean-class>com.kooobao.cws.web.common.CategoryInfoBean</managed-bean-class>
+		<managed-bean-class>com.kooobao.cws.web.book.CategoryInfoBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
 		<managed-property>
 			<property-name>bookService</property-name>
@@ -29,6 +29,15 @@
 		<managed-bean-name>envConfigBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.cws.web.common.EnvConfigBean</managed-bean-class>
 		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>categoryPageBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.book.CategoryPageBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>bookService</property-name>
+			<value>#{bookService}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>manageBookBean</managed-bean-name>
