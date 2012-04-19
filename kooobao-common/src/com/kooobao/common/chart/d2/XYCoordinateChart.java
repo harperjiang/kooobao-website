@@ -7,11 +7,17 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.chart.AbstractChart;
-import com.kooobao.common.chart.BigDecimalUtils;
+import com.kooobao.common.chart.DataSet;
 import com.kooobao.common.chart.DataVector;
 
 public abstract class XYCoordinateChart extends AbstractChart {
@@ -30,8 +36,8 @@ public abstract class XYCoordinateChart extends AbstractChart {
 	 * Draw Coordinates
 	 */
 	public void generate(Graphics2D canvas) {
-		Validate.isTrue(getDataSet() instanceof XYDataSet);
-		XYDataSet xyds = (XYDataSet) getDataSet();
+		Validate.isTrue(isDataSet(XYDataSet.class));
+		XYDataSet xyds = (XYDataSet) getDataSet()[0];
 		Dimension size = getSize();
 
 		// Save State
@@ -115,35 +121,103 @@ public abstract class XYCoordinateChart extends AbstractChart {
 	protected DataRange getDataRange() {
 		if (dataRange != null)
 			return dataRange;
-		XYDataSet xyds = (XYDataSet) getDataSet();
-
 		// Calculate Amplify Ratio
-
+		Map<Object, Object> distinctMap = new HashMap<Object, Object>();
+		Class<?> keyClass = null;
 		BigDecimal maxX = null;
 		BigDecimal maxY = null;
 		BigDecimal minX = null;
 		BigDecimal minY = null;
+		for (DataSet ds : getDataSet()) {
+			XYDataSet xyds = (XYDataSet) ds;
 
-		for (DataVector dv : xyds.getData()) {
-			maxX = (maxX != null && maxX.compareTo(dv.getValue()[0]) >= 0) ? maxX
-					: dv.getValue()[0];
-			maxY = (maxY != null && maxY.compareTo(BigDecimalUtils
-					.max(BigDecimalUtils.subarray(dv.getValue(), 1,
-							dv.getValue().length))) >= 0) ? maxY : dv
-					.getValue()[1];
-			minX = (minX != null && minX.compareTo(dv.getValue()[0]) <= 0) ? minX
-					: dv.getValue()[0];
-			minY = (minY != null && minY.compareTo(BigDecimalUtils
-					.min(BigDecimalUtils.subarray(dv.getValue(), 1,
-							dv.getValue().length))) <= 0) ? minY : dv
-					.getValue()[1];
+			for (DataVector dv : xyds.getData()) {
+				if (dv.getValue()[0] instanceof BigDecimal) {
+					if (null != keyClass && keyClass != BigDecimal.class) {
+						throw new IllegalArgumentException();
+					}
+					keyClass = BigDecimal.class;
+					maxX = (maxX != null && maxX.compareTo((BigDecimal) dv
+							.getValue()[0]) >= 0) ? maxX : (BigDecimal) dv
+							.getValue()[0];
+					minX = (minX != null && minX.compareTo((BigDecimal) dv
+							.getValue()[0]) <= 0) ? minX : (BigDecimal) dv
+							.getValue()[0];
+				} else {
+					if (null != keyClass
+							&& keyClass != dv.getValue()[0].getClass()) {
+						throw new IllegalArgumentException();
+					}
+					keyClass = dv.getValue()[0].getClass();
+					distinctMap.put(dv.getValue()[0], dv.getValue()[0]);
+				}
+				maxY = (maxY != null && maxY.compareTo((BigDecimal) dv
+						.getValue()[1]) >= 0) ? maxY : (BigDecimal) dv
+						.getValue()[1];
+
+				minY = (minY != null && minY.compareTo((BigDecimal) dv
+						.getValue()[1]) <= 0) ? minY : (BigDecimal) dv
+						.getValue()[1];
+			}
 		}
+
+		if (keyClass != BigDecimal.class) {
+			minX = BigDecimal.ZERO;
+			maxX = new BigDecimal(distinctMap.size());
+		}
+
 		BigDecimal[] fcx = box(minX, maxX);
 		BigDecimal[] fcy = box(minY, maxY);
-
 		dataRange = new DataRange(minX, minY, maxX, maxY, fcx[0], fcx[1],
 				fcx[2], fcy[0], fcy[1], fcy[2]);
 		return dataRange;
+	}
+
+	private Map<Object, Integer> indexMap;
+
+	private static class ComparableKey implements Comparable<ComparableKey> {
+
+		private Object key;
+
+		public ComparableKey(Object key) {
+			this.key = key;
+		}
+
+		public int compareTo(ComparableKey o) {
+			if (o.key == null || key == null)
+				throw new IllegalArgumentException();
+			if (o.key.getClass() != key.getClass())
+				throw new IllegalArgumentException();
+			if (key.getClass() == BigDecimal.class) {
+				return ((BigDecimal) key).compareTo((BigDecimal) o.key);
+			}
+			if (key.getClass() == Date.class) {
+				return ((Date) key).compareTo((Date) o.key);
+			}
+			if (key.getClass() == String.class) {
+				return ((String) key).compareTo((String) o.key);
+			}
+			throw new IllegalArgumentException();
+		}
+
+	}
+
+	public int getIndex(Object key) {
+		if (null == indexMap) {
+			indexMap = new HashMap<Object, Integer>();
+			List<ComparableKey> data = new ArrayList<ComparableKey>();
+			for (DataSet ds : getDataSet()) {
+				for (DataVector dv : ds.getData()) {
+					if (!indexMap.containsKey(dv.getValue()[0])) {
+						indexMap.put(dv.getValue()[0], 0);
+						data.add(new ComparableKey(dv.getValue()[0]));
+					}
+				}
+			}
+			// Sort
+			Collections.sort(data);
+		}
+		return indexMap.get(key);
 	}
 
 	private BigDecimal[] box(BigDecimal min, BigDecimal max) {

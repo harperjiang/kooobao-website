@@ -7,7 +7,7 @@ public interface Chart {
 
 	public Dimension getSize();
 
-	public DataSet getDataSet();
+	public DataSet[] getDataSet();
 
 	public void generate(Graphics2D canvas);
 }

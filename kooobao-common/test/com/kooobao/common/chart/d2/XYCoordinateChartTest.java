@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.kooobao.common.chart.DataSet;
 import com.kooobao.common.chart.DataVector;
 import com.kooobao.common.chart.DefaultDataVector;
 
@@ -42,7 +43,7 @@ public class XYCoordinateChartTest {
 		dvs.add(new DefaultDataVector(new BigDecimal(80), new BigDecimal(90),
 				new BigDecimal(70)));
 		ds.setData(dvs);
-		chart.setDataSet(ds);
+		chart.setDataSet(new DataSet[]{ds});
 		chart.setSize(new Dimension(980, 580));
 
 		JPanel panel = new JPanel() {
