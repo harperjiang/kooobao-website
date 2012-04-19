@@ -5,6 +5,21 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">教材导览-Spotlight on English</ui:define>
 	<ui:define name="body">
-		
+		<div class="panel" id="fast_nav" style="width: 150px; height: 620px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				产品列表
+			</div>
+			<ul>
+				<ui:repeat value="#{categoryInfoBean.roots}" var="category">
+					<li><h:outputLink value="/category.html?id=#{category.oid}">#{category.name}</h:outputLink></li>
+				</ui:repeat>
+			</ul>
+		</div>
 	</ui:define>
 </ui:composition>

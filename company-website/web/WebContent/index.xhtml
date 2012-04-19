@@ -70,14 +70,15 @@ td.intro p.title {
 				产品列表
 			</div>
 			<ul>
-				<ui:repeat>
-					<li>
-						<ul>
-							<ui:repeat>
-								<li></li>
-							</ui:repeat>
-						</ul>
-					</li>
+				<ui:repeat value="#{categoryInfoBean.roots}" var="category">
+					<li><h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+							value="/category.html">
+							<h:outputText value="#{category.name}" />
+							<f:param name="categoryId" value="#{category.oid}" />
+						</h:outputLink> <h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+							value="/category/category_#{category.oid}.html">
+							<h:outputText value="#{category.name}" />
+						</h:outputLink></li>
 				</ui:repeat>
 			</ul>
 		</div>

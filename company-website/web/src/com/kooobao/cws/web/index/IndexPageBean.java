@@ -8,6 +8,14 @@ import com.kooobao.cws.service.book.BookService;
 
 public class IndexPageBean extends AbstractBean {
 
+	public String accessCategory() {
+		return "success";
+	}
+	
+	public String accessBook() {
+		return "success";
+	}
+	
 	public List<Book> getLatestBooks() {
 		return getBookService().getLatestBooks();
 	}
