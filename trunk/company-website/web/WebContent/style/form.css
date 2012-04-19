@@ -1,9 +1,8 @@
 @CHARSET "UTF-8";
 
 .formLayout {
-	background-color: #f3f3f3;
-	border: solid 1px #a1a1a1;
-	padding: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	width: 90%;
 	overflow: auto;
 }
@@ -27,4 +26,27 @@
 
 .formLayout input.submitbtn {
 	width: 500px;
+}
+
+.loginLayout {
+	background-color: #f3f3f3;
+	border: solid 1px #a1a1a1;
+}
+
+.loginLayout label,.loginLayout input,.loginLayout select {
+	height: 20px;
+	float: left;
+	margin-top: 10px;
+}
+
+.loginLayout input,.loginLayout select {
+	width: 90 px;
+}
+
+.loginLayout label {
+	width: 45 px;
+	padding-top: 3px;
+	margin-right: 2px;
+	text-align: left;
+	vertical-align: middle;
 }
