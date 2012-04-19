@@ -34,8 +34,8 @@
 
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.html</url-pattern>
 		<url-pattern>*.htm</url-pattern>
+		<url-pattern>*.html</url-pattern>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 	<context-param>

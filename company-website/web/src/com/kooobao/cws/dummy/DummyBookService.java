@@ -83,6 +83,7 @@ public class DummyBookService implements BookService {
 		book.setName("这是一本书");
 		book.setCategory(sub1);
 		book.setBrief("这是关于这本书的一个Brief，大家随便看看就可以了，不要太在意");
+		book.setContent("<b>一二三四五六七</b>");
 		books.add(book);
 
 		book = new Book();
@@ -91,7 +92,7 @@ public class DummyBookService implements BookService {
 		book.setName("这是另一本书");
 		book.setCategory(sub2);
 		book.setBrief("这是关于另一本书的一个Brief，大家随便看看就可以了，不要太在意。如果太长了怎么办呢？太长了就得戒掉一块");
-		books.add(book);
+		book.setContent("<b>气流无私三而已</b>");books.add(book);
 	}
 
 	@Override

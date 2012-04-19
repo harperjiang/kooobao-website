@@ -5,7 +5,7 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">教材导览</ui:define>
 	<ui:define name="body">
-		<div class="panel" id="fast_nav" style="width: 150px; height: 620px;">
+		<div class="panel" id="fast_nav" style="width: 150px; height: 950px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -15,13 +15,12 @@
 				</div>
 				产品列表
 			</div>
-			<h:panelGroup rendered="#{bookPageBean.displayHeader}"
-				layout="block" class="header">
+			<h:panelGroup rendered="#{bookPageBean.displayHeader}" layout="block"
+				class="header">
 				<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
 					value="/book.html">
 					<h:outputText value="#{bookPageBean.header.name}" />
-					<f:param name="categoryId"
-						value="#{bookPageBean.headerLinkOid}" />
+					<f:param name="categoryId" value="#{bookPageBean.headerLinkOid}" />
 				</h:outputLink>
 				<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
 					value="/category/#{bookPageBean.headerLinkOid}.html">
@@ -40,7 +39,8 @@
 							layout="block">
 							<ul>
 								<ui:repeat value="#{bookPageBean.books}" var="book">
-									<li><h:outputLink value="">
+									<li><h:outputLink value="book.html">
+											<f:param name="bookId" value="#{book.oid}" />
 											<h:outputText value="#{book.name}" />
 										</h:outputLink></li>
 								</ui:repeat>
@@ -49,6 +49,11 @@
 				</ui:repeat>
 			</ul>
 		</div>
-		<div class="blankpanel"></div>
+		<!-- Book Info -->
+		<div class="blankpanel"
+			style="border-style: solid; border-width: 1px; width: 750px; height: 950px;">
+			<h:outputText escape="false"
+				value="#{bookPageBean.currentBook.content}" />
+		</div>
 	</ui:define>
 </ui:composition>
