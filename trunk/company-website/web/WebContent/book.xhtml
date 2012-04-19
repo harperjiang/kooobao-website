@@ -3,7 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/common/page_template.xhtml">
-	<ui:define name="title">教材导览-Spotlight on English</ui:define>
+	<ui:define name="title">教材导览</ui:define>
 	<ui:define name="body">
 		<div class="panel" id="fast_nav" style="width: 150px; height: 620px;">
 			<div class="panel_title">
@@ -15,11 +15,40 @@
 				</div>
 				产品列表
 			</div>
+			<h:panelGroup rendered="#{bookPageBean.displayHeader}"
+				layout="block" class="header">
+				<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+					value="/book.html">
+					<h:outputText value="#{bookPageBean.header.name}" />
+					<f:param name="categoryId"
+						value="#{bookPageBean.headerLinkOid}" />
+				</h:outputLink>
+				<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+					value="/category/#{bookPageBean.headerLinkOid}.html">
+					<h:outputText value="#{bookPageBean.header.name}" />
+				</h:outputLink>
+			</h:panelGroup>
 			<ul>
-				<ui:repeat value="#{categoryInfoBean.roots}" var="category">
-					<li><h:outputLink value="/category.html?id=#{category.oid}">#{category.name}</h:outputLink></li>
+				<ui:repeat value="#{bookPageBean.categories}" var="category">
+					<li><h:outputLink
+							styleClass="#{(bookPageBean.selectedCategory eq category)?'selected':''}"
+							value="/book.html">
+							<f:param name="categoryId" value="#{category.oid}" />
+							<h:outputText value="#{category.name}" />
+						</h:outputLink> <h:panelGroup
+							rendered="#{bookPageBean.selectedCategory eq category}"
+							layout="block">
+							<ul>
+								<ui:repeat value="#{bookPageBean.books}" var="book">
+									<li><h:outputLink value="">
+											<h:outputText value="#{book.name}" />
+										</h:outputLink></li>
+								</ui:repeat>
+							</ul>
+						</h:panelGroup></li>
 				</ui:repeat>
 			</ul>
 		</div>
+		<div class="blankpanel"></div>
 	</ui:define>
 </ui:composition>

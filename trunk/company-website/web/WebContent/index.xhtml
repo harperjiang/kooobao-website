@@ -72,12 +72,12 @@ td.intro p.title {
 			<ul>
 				<ui:repeat value="#{categoryInfoBean.roots}" var="category">
 					<li><h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
-							value="/category.html">
+							value="/book.html">
 							<h:outputText value="#{category.name}" />
 							<f:param name="categoryId" value="#{category.oid}" />
-						</h:outputLink> <h:outputLink rendered="#{envConfigBean.rewriteUrl}"
-							value="/category/category_#{category.oid}.html">
-							<h:outputText value="#{category.name}" />
+						</h:outputLink> <h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+							value="/book.html">
+							<f:param name="bookId" value="#{book.oid}" />
 						</h:outputLink></li>
 				</ui:repeat>
 			</ul>
@@ -140,7 +140,8 @@ td.intro p.title {
 									src="http://img.kooobao.cn/storage/company_website/more.gif" />
 							</h:outputLink>
 							<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
-								value="/book.html?oid=#{book.oid}">
+								value="/book.html">
+								<f:param name="bookId" value="#{book.oid}" />
 								<img alt="More Info"
 									src="http://img.kooobao.cn/storage/company_website/more.gif" />
 							</h:outputLink>

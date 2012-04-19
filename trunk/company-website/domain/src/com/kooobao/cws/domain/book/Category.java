@@ -1,5 +1,6 @@
 package com.kooobao.cws.domain.book;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import com.kooobao.common.domain.entity.VersionEntity;
 
@@ -20,7 +23,7 @@ public class Category extends VersionEntity {
 	private Category parent;
 
 	@OneToMany(mappedBy = "parent")
-	private List<Category> children;
+	private List<Category> children = new ArrayList<Category>();
 
 	@Column(name = "name")
 	private String name;
@@ -47,8 +50,8 @@ public class Category extends VersionEntity {
 	public Category getParent() {
 		return parent;
 	}
-
-	public void setParent(Category parent) {
+	
+	protected void setParent(Category parent) {
 		this.parent = parent;
 	}
 
@@ -56,8 +59,17 @@ public class Category extends VersionEntity {
 		return children;
 	}
 
-	public void setChildren(List<Category> children) {
-		this.children = children;
+	public void addChild(Category child) {
+		this.children.add(child);
+		child.setParent(this);
+	}
+	
+	public void removeChild(Category child) {
+		this.children.remove(child);
+		child.setParent(null);
 	}
 
+	public boolean isLeaf() {
+		return CollectionUtils.isEmpty(getChildren());
+	}
 }
