@@ -31,8 +31,8 @@
 		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>categoryPageBean</managed-bean-name>
-		<managed-bean-class>com.kooobao.cws.web.book.CategoryPageBean</managed-bean-class>
+		<managed-bean-name>bookPageBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.book.BookPageBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 		<managed-property>
 			<property-name>bookService</property-name>
@@ -49,7 +49,7 @@
 		</managed-property>
 	</managed-bean>
 
-	<!-- lifecycle> <phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener> 
-		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener> 
-		</lifecycle -->
+	<lifecycle>
+		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
+	</lifecycle>
 </faces-config>

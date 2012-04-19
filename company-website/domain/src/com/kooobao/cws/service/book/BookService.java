@@ -8,14 +8,28 @@ import com.kooobao.cws.domain.book.Category;
 public interface BookService {
 
 	List<Book> getLatestBooks();
-	
+
 	List<Book> getHotBooks();
+
+	List<Book> findBooks(String name, String keyword);
+
+	List<Book> getBooksUnderCategory(Category category);
 	
-	List<Book> findBooks(String name,String keyword);
-	
+	Book getBook(long bookOid);
+
+	/**
+	 * Get the first book under given category, supporting sub categories
+	 * 
+	 * @param category
+	 * @return
+	 */
+	Book getFirstBookUnderCategory(Category category);
+
 	void saveBook(Book book);
-	
+
 	void removeBook(Book book);
-	
-	List<Category> getRootCategory();
+
+	List<Category> getRootCategories();
+
+	Category getCategory(long oid);
 }

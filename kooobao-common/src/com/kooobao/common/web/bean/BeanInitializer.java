@@ -5,8 +5,11 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.kooobao.common.util.ConfigLoader;
 
 public class BeanInitializer implements PhaseListener {
 
@@ -16,10 +19,19 @@ public class BeanInitializer implements PhaseListener {
 	private static final long serialVersionUID = 6532863584930774568L;
 
 	public void afterPhase(PhaseEvent phaseEvent) {
+
+	}
+
+	public void beforePhase(PhaseEvent phaseEvent) {
+		process(phaseEvent);
+	}
+
+	protected void process(PhaseEvent phaseEvent) {
 		FacesContext facesContext = phaseEvent.getFacesContext();
 		String viewId = phaseEvent.getFacesContext().getViewRoot().getViewId();
 		Log log = LogFactory.getLog(getClass());
-		if (viewId.endsWith(".xhtml")) {
+		if (viewId.endsWith(".xhtml") || viewId.endsWith(".html")
+				|| viewId.endsWith(".htm")) {
 			String[] managedBeanName = getManagedBeanNameFromView(viewId);
 			Object object = null;
 			for (int i = 0; i < managedBeanName.length; i++) {
@@ -44,12 +56,8 @@ public class BeanInitializer implements PhaseListener {
 		}
 	}
 
-	public void beforePhase(PhaseEvent phaseEvent) {
-
-	}
-
 	public PhaseId getPhaseId() {
-		return PhaseId.APPLY_REQUEST_VALUES;
+		return PhaseId.RENDER_RESPONSE;
 	}
 
 	protected String[] getManagedBeanNameFromView(String viewId) {
@@ -64,6 +72,11 @@ public class BeanInitializer implements PhaseListener {
 				sb.setCharAt(index, (char) (sb.charAt(index) - ('a' - 'A')));
 			}
 		}
-		return new String[] { sb.toString(), sb.toString() + "Bean" };
+		String key = sb.toString();
+		String value = ConfigLoader.getInstance().load("page_load", key);
+		if (StringUtils.isEmpty(value)) {
+			value = key + "Bean";
+		}
+		return new String[] { key, value };
 	}
 }
