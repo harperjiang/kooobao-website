@@ -6,7 +6,6 @@
 	<ui:define name="title">欢迎光临酷宝英语教育-提供少儿英语教育一揽子解决方案</ui:define>
 	<ui:define name="body">
 		<style type="text/css">
-
 td.intro {
 	text-align: left;
 	vertical-align: top;
@@ -16,7 +15,7 @@ td.intro {
 
 td.intro p {
 	font-family: 宋体;
-	font-size: 14px;
+	font-size: 12px;
 	color: 004FB0;
 }
 
@@ -32,7 +31,7 @@ td.intro p.title a,td.intro p.title a:hover,td.intro p.title a:link,td.intro p.t
 
 td.intro p.title {
 	font-family: 宋体;
-	font-size: 16px;
+	font-size: 14px;
 	color: #C74D03;
 }
 
@@ -192,7 +191,7 @@ td.intro p.title {
 			</ui:repeat>
 		</div>
 
-		<div class="panel" style="width: 365px; height: 450px;">
+		<div class="panel" style="width: 365px; height: 455px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -269,19 +268,28 @@ td.intro p.title {
 				<div id="tr">
 					<img src="image/curve_topright.gif" />
 				</div>
-				视频资源
+				视频与教育资源
 			</div>
-			<p>
-				<a href="#this" onclick="play_youku_video('XMTY3NTcwNjE2')">2010最新原版小学教材-Spotlight
-					on English介绍</a>
-			</p>
-			<p>
-				<a href="#this">eno白板使用视频</a>
-			</p>
-			<p>
-				<a href="#this" onclick="play_video('MM_Kostas_chunk_1.flv')">MM
-					Publication在KOTESOL会议上的讲话</a>
-			</p>
+			<ui:repeat var="video" value="#{indexPageBean.latestResources}"
+				varStatus="status">
+				<p>
+					<h:outputLink rendered="#{video.type == 'VIDEO'}"
+						onclick="play_youku_video('#{video.videoId}')">
+						<h:outputText value="#{video.title}" />
+					</h:outputLink>
+					<h:outputLink
+						rendered="#{video.type != 'VIDEO' and !envConfigBean.rewriteUrl}"
+						value="article.html">
+						<f:param name="articleId" value="#{video.oid}" />
+						<h:outputText value="#{video.title}" />
+					</h:outputLink>
+					<h:outputLink
+						rendered="#{video.type != 'VIDEO' and envConfigBean.rewriteUrl}"
+						value="resource/#{video.oid}.html">
+						<h:outputText value="#{video.title}" />
+					</h:outputLink>
+				</p>
+			</ui:repeat>
 		</div>
 
 
@@ -293,9 +301,22 @@ td.intro p.title {
 				<div id="tr">
 					<img src="image/curve_topright.gif" />
 				</div>
-				教育资源
+				教育新闻
 			</div>
-			<p>Love English 教师资源下载</p>
+			<ui:repeat var="news" value="#{indexPageBean.latestNews}"
+				varStatus="status">
+				<p>
+					<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+						value="article.html">
+						<f:param name="articleId" value="#{news.oid}" />
+						<h:outputText value="#{news.title}" />
+					</h:outputLink>
+					<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+						value="news/#{news.oid}.html">
+						<h:outputText value="#{news.title}" />
+					</h:outputLink>
+				</p>
+			</ui:repeat>
 		</div>
 
 	</ui:define>

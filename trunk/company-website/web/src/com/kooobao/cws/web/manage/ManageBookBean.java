@@ -12,8 +12,7 @@ public class ManageBookBean extends PageSearchBean {
 
 	@Override
 	public String search() {
-		List<Book> books = getBookService().findBooks(getSearch().getName(),
-				getSearch().getContent());
+		List<Book> books = getBookService().findBooks(getSearch().getKeyword());
 		setBooks(books);
 		return "success";
 	}
@@ -22,7 +21,7 @@ public class ManageBookBean extends PageSearchBean {
 		getBookService().saveBook(getBook());
 		return "success";
 	}
-	
+
 	public String edit() {
 		UIData dataTable = (UIData) getComponent("resultDataTable");
 		Book select = (Book) dataTable.getRowData();
@@ -73,23 +72,14 @@ public class ManageBookBean extends PageSearchBean {
 	}
 
 	public static class SearchBookBean {
-		private String name;
-		private String content;
+		private String keyword;
 
-		public String getName() {
-			return name;
+		public String getKeyword() {
+			return keyword;
 		}
 
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		public String getContent() {
-			return content;
-		}
-
-		public void setContent(String content) {
-			this.content = content;
+		public void setKeyword(String keyword) {
+			this.keyword = keyword;
 		}
 
 	}
