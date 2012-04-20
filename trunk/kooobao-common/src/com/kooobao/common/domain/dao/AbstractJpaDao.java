@@ -36,6 +36,11 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 		}
 		return getEntityManager().merge(entity);
 	}
+	
+	public T remove(T entity) {
+		getEntityManager().remove(entity);
+		return entity;
+	}
 
 	public T find(long oid) {
 		return getEntityManager().find(getParamClass(), oid);
