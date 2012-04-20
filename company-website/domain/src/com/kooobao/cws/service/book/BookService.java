@@ -11,7 +11,7 @@ public interface BookService {
 
 	List<Book> getHotBooks();
 
-	List<Book> findBooks(String name, String keyword);
+	List<Book> findBooks(String keyword);
 
 	List<Book> getBooksUnderCategory(Category category);
 	

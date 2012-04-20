@@ -1,10 +1,11 @@
 @CHARSET "UTF-8";
 
 #fast_nav div.header {
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: bold;
 	padding-left: 15px;
-	padding-top: 10px;
+	padding-top: 9px;
+	padding-bottom: 8px;
 }
 
 #fast_nav ul {
@@ -47,7 +48,7 @@
 }
 
 #fast_nav a.selected {
-	font-weight: bold;
+	
 }
 
 #fast_nav a:link,#fast_nav a:visited {
@@ -56,5 +57,5 @@
 }
 
 #fast_nav a:hover,#fast_nav a:active {
-	font-weight: bold;
+	color: #004F01;
 }

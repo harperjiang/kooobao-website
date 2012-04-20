@@ -92,7 +92,8 @@ public class DummyBookService implements BookService {
 		book.setName("这是另一本书");
 		book.setCategory(sub2);
 		book.setBrief("这是关于另一本书的一个Brief，大家随便看看就可以了，不要太在意。如果太长了怎么办呢？太长了就得戒掉一块");
-		book.setContent("<b>气流无私三而已</b>");books.add(book);
+		book.setContent("<b>气流无私三而已</b>");
+		books.add(book);
 	}
 
 	@Override
@@ -118,7 +119,7 @@ public class DummyBookService implements BookService {
 	}
 
 	@Override
-	public List<Book> findBooks(String name, String keyword) {
+	public List<Book> findBooks(String keyword) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -185,10 +186,10 @@ public class DummyBookService implements BookService {
 	}
 
 	protected boolean under(Category me, Category parent) {
-		if(me.equals(parent))
+		if (me.equals(parent))
 			return true;
-		if(me.getParent()==null)
+		if (me.getParent() == null)
 			return false;
-		return under(me.getParent(),parent);
+		return under(me.getParent(), parent);
 	}
 }

@@ -28,14 +28,9 @@
 			<h:panelGroup layout="block" id="searchPanel" class="formLayout">
 				<h:form id="searchForm">
 					<br />
-					<h:outputLabel id="nameLabel" for="nameText" value="书名关键字" />
-					<h:inputText id="nameText" value="#{manageBookBean.search.name}" />
+					<h:outputLabel id="nameLabel" for="nameText" value="关键字" />
+					<h:inputText id="nameText" value="#{manageBookBean.search.keyword}" />
 					<br />
-					<h:outputLabel id="keywordLabel" for="keywordText" value="内容关键字" />
-					<h:inputText id="keywordText"
-						value="#{manageBookBean.search.content}" />
-					<br />
-
 					<h:commandButton value="查询" action="#{manageBookBean.search}"
 						styleClass="submitlongbutton" />
 				</h:form>

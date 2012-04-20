@@ -21,15 +21,10 @@
 		<managed-bean-scope>application</managed-bean-scope> <managed-property> <property-name>bookService</property-name> 
 		<value>#{bookService}</value> </managed-property> </managed-bean -->
 
-	<managed-bean>
-		<managed-bean-name>indexPageBean</managed-bean-name>
-		<managed-bean-class>com.kooobao.cws.web.index.IndexPageBean</managed-bean-class>
-		<managed-bean-scope>application</managed-bean-scope>
-		<managed-property>
-			<property-name>bookService</property-name>
-			<value>#{bookService}</value>
-		</managed-property>
-	</managed-bean>
+	<!-- managed-bean> <managed-bean-name>indexPageBean</managed-bean-name> 
+		<managed-bean-class>com.kooobao.cws.web.index.IndexPageBean</managed-bean-class> 
+		<managed-bean-scope>application</managed-bean-scope> <managed-property> <property-name>bookService</property-name> 
+		<value>#{bookService}</value> </managed-property> </managed-bean -->
 	<managed-bean>
 		<managed-bean-name>envConfigBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.cws.web.common.EnvConfigBean</managed-bean-class>
@@ -38,10 +33,19 @@
 	<managed-bean>
 		<managed-bean-name>bookPageBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.cws.web.book.BookPageBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>application</managed-bean-scope>
 		<managed-property>
 			<property-name>bookService</property-name>
 			<value>#{bookService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>articlePageBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.article.ArticlePageBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+		<managed-property>
+			<property-name>articleService</property-name>
+			<value>#{articleService}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>

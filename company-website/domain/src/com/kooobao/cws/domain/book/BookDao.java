@@ -6,11 +6,13 @@ import com.kooobao.common.domain.dao.Dao;
 
 public interface BookDao extends Dao<Book> {
 
-	List<Book> getLatestBooks();
+	int UNLIMITED = -1;
 
-	List<Book> getHotBooks();
+	List<Book> getLatestBooks(int LIMIT);
 
-	List<Book> getByCategory(String category);
+	List<Book> getHotBooks(int LIMIT);
 
-	List<Category> getCategories();
+	List<Book> getByCategory(Category category, int limit);
+
+	List<Book> findBooks(String keyword);
 }
