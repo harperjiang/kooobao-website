@@ -29,6 +29,8 @@ public class BeanInitializer implements PhaseListener {
 	protected void process(PhaseEvent phaseEvent) {
 		FacesContext facesContext = phaseEvent.getFacesContext();
 		String viewId = phaseEvent.getFacesContext().getViewRoot().getViewId();
+		if (StringUtils.isEmpty(viewId))
+			return;
 		Log log = LogFactory.getLog(getClass());
 		if (viewId.endsWith(".xhtml") || viewId.endsWith(".html")
 				|| viewId.endsWith(".htm")) {

@@ -1,5 +1,8 @@
 package com.kooobao.authcenter.listener;
 
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.regex.Pattern;
@@ -19,6 +22,14 @@ import com.kooobao.common.spring.ApplicationContextHolder;
 import com.kooobao.common.util.ConfigLoader;
 import com.kooobao.common.web.bean.AbstractBean;
 
+/**
+ * Revision History: <br/>
+ * version 1.1 2012-04-21 <br/>
+ * Support multiple systems
+ * 
+ * @author jianghao
+ * @version 1.1
+ */
 public class LoginAuthorizer implements PhaseListener {
 
 	/**
@@ -26,8 +37,15 @@ public class LoginAuthorizer implements PhaseListener {
 	 */
 	private static final long serialVersionUID = -3841769738586236647L;
 
-	public LoginAuthorizer() {
+	public static Map<String, ValidatePattern> patterns;
 
+	static {
+		patterns = new ConcurrentHashMap<String, ValidatePattern>();
+		initPatterns(patterns);
+	}
+
+	public LoginAuthorizer() {
+		init();
 	}
 
 	public void beforePhase(PhaseEvent event) {
@@ -44,7 +62,7 @@ public class LoginAuthorizer implements PhaseListener {
 			if (!(token instanceof Token)
 					|| !getAuthService().validate((Token) token)) {
 				// Log URL
-				ssn.setAttribute(Constants.JUMP_URL, parseUrlFromViewId(viewId));
+				ssn.setAttribute(Constants.JUMP_URL, viewId);
 				// Validate Failed, require login
 				event.getFacesContext()
 						.getApplication()
@@ -63,41 +81,45 @@ public class LoginAuthorizer implements PhaseListener {
 		}
 	}
 
-	protected Object parseUrlFromViewId(String viewId) {
-		if (viewId.startsWith("/")) {
-			return viewId.substring(1);
-		}
-		return viewId;
-	}
-
 	public PhaseId getPhaseId() {
 		return PhaseId.RESTORE_VIEW;
 	}
 
+	private void init() {
+	}
+
+	public static void initPatterns(Map<String, ValidatePattern> patterns) {
+		String multiSys = ConfigLoader.getInstance().load("auth_list",
+				"multi_system");
+		if (multiSys != null && Boolean.valueOf(multiSys)) {
+			String[] system = ConfigLoader.getInstance()
+					.load("auth_list", "system").split(",");
+			for (String sys : system) {
+				patterns.put(
+						sys,
+						new ValidatePattern(ConfigLoader.getInstance().load(
+								"auth_list", sys + ".include"), ConfigLoader
+								.getInstance().load("auth_list",
+										sys + ".exclude")));
+			}
+		} else {
+			String system = ConfigLoader.getInstance().load("auth_list",
+					"system");
+			patterns.put(system, new ValidatePattern(ConfigLoader.getInstance()
+					.load("auth_list", "include"), ConfigLoader.getInstance()
+					.load("auth_list", "exclude")));
+		}
+	}
+
 	protected boolean needValidate(String viewId) {
-		String includePageStr = ConfigLoader.getInstance().load("auth_list",
-				"include");
-		String excludePageStr = ConfigLoader.getInstance().load("auth_list",
-				"exclude");
-		boolean include = false;
-		boolean exclude = false;
-		if (!StringUtils.isEmpty(includePageStr)) {
-			String[] includes = includePageStr.split(",");
-			for (String includePage : includes)
-				if (Pattern.matches(includePage, viewId)) {
-					include = true;
-					break;
-				}
+		if (StringUtils.isEmpty(viewId))
+			return false;
+		for (Entry<String, ValidatePattern> pattern : patterns.entrySet()) {
+			if (pattern.getValue().validate(viewId)) {
+				return true;
+			}
 		}
-		if (!StringUtils.isEmpty(excludePageStr)) {
-			String[] excludes = excludePageStr.split(",");
-			for (String excludePage : excludes)
-				if (Pattern.matches(excludePage, viewId)) {
-					exclude = true;
-					break;
-				}
-		}
-		return include && !exclude;
+		return false;
 	}
 
 	private AuthenticateService authService;
@@ -119,6 +141,41 @@ public class LoginAuthorizer implements PhaseListener {
 
 	public void setAuthService(AuthenticateService authService) {
 		this.authService = authService;
+	}
+
+	public static class ValidatePattern {
+
+		private String includeStr;
+
+		private String excludeStr;
+
+		ValidatePattern(String includeStr, String excludeStr) {
+			this.includeStr = includeStr;
+			this.excludeStr = excludeStr;
+		}
+
+		public boolean validate(String viewId) {
+			boolean include = false;
+			boolean exclude = false;
+			if (!StringUtils.isEmpty(includeStr)) {
+				String[] includes = includeStr.split(",");
+				for (String includePage : includes)
+					if (Pattern.matches(includePage, viewId)) {
+						include = true;
+						break;
+					}
+			}
+			if (!StringUtils.isEmpty(excludeStr)) {
+				String[] excludes = excludeStr.split(",");
+				for (String excludePage : excludes)
+					if (Pattern.matches(excludePage, viewId)) {
+						exclude = true;
+						break;
+					}
+			}
+			return include && !exclude;
+		}
+
 	}
 
 }
