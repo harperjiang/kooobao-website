@@ -65,6 +65,14 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
+		<display-name>login_failed</display-name>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
 		<display-name>logout</display-name>
 		<navigation-case>
 			<from-action>#{loginBean.logout}</from-action>
