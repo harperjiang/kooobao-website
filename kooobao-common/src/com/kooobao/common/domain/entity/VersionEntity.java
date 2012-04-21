@@ -15,25 +15,11 @@ public class VersionEntity extends SimpleEntity {
 	@Version
 	private long version;
 
-	@Column(name = "create_time", columnDefinition = "datetime")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createTime;
-
 	public long getVersion() {
 		return version;
 	}
 
 	public void setVersion(long version) {
 		this.version = version;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	
+	}	
 }

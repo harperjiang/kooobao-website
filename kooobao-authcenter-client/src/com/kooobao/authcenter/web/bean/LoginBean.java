@@ -2,6 +2,7 @@ package com.kooobao.authcenter.web.bean;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map.Entry;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -15,6 +16,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.LogFactory;
 
 import com.kooobao.authcenter.Constants;
+import com.kooobao.authcenter.listener.LoginAuthorizer;
+import com.kooobao.authcenter.listener.LoginAuthorizer.ValidatePattern;
 import com.kooobao.authcenter.service.AuthenticateService;
 import com.kooobao.authcenter.service.Token;
 import com.kooobao.common.util.ConfigLoader;
@@ -65,12 +68,20 @@ public class LoginBean extends AbstractBean {
 				"index_page");
 		if (null == indexPage)
 			indexPage = "index.xhtml";
-		previousUrl = null == previousUrl ? indexPage : previousUrl;
+		previousUrl = null == previousUrl ? indexPage
+				: parseUrlFromViewId(String.valueOf(previousUrl));
 		try {
 			response.sendRedirect(String.valueOf(previousUrl));
 		} catch (IOException e) {
 			LogFactory.getLog(getClass()).error("Failed to redirect page");
 		}
+	}
+
+	protected Object parseUrlFromViewId(String viewId) {
+		if (viewId.startsWith("/")) {
+			return viewId.substring(1);
+		}
+		return viewId;
 	}
 
 	protected static HttpSession getSession() {
@@ -87,7 +98,22 @@ public class LoginBean extends AbstractBean {
 	}
 
 	private Token validateLogin() {
-		String system = ConfigLoader.getInstance().load("auth_list", "system");
+		// Trying to match system based on jump url
+		String system = null;
+		javax.servlet.http.HttpServletResponse response = (HttpServletResponse) javax.faces.context.FacesContext
+				.getCurrentInstance().getExternalContext().getResponse();
+		String jumpUrl = String.valueOf(getSession().getAttribute(
+				Constants.JUMP_URL));
+		if (!StringUtils.isEmpty(jumpUrl))
+			for (Entry<String, ValidatePattern> entry : LoginAuthorizer.patterns
+					.entrySet()) {
+				if (entry.getValue().validate(jumpUrl)) {
+					system = entry.getKey();
+					break;
+				}
+			}
+		if (StringUtils.isEmpty(system))
+			system = ConfigLoader.getInstance().load("auth_list", "default");
 		if (StringUtils.isEmpty(system)) {
 			LogFactory.getLog(getClass()).warn(
 					"System name Not Found, cannot validate login");
@@ -140,7 +166,7 @@ public class LoginBean extends AbstractBean {
 
 	public static String getCurrentUser() {
 		LoginBean loginBean = findBean("loginBean");
-		if(null == loginBean)
+		if (null == loginBean)
 			return null;
 		return loginBean.getUserId();
 	}

@@ -1,8 +1,12 @@
 package com.kooobao.common.domain.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @MappedSuperclass
 public class SimpleEntity {
@@ -17,6 +21,18 @@ public class SimpleEntity {
 
 	public void setOid(long oid) {
 		this.oid = oid;
+	}
+
+	@Column(name = "create_time", columnDefinition = "datetime")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createTime;
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	protected static final String extend(long number, int extendTo) {
