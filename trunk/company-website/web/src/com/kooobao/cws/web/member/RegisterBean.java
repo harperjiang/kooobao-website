@@ -1,5 +1,9 @@
 package com.kooobao.cws.web.member;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
+
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.common.web.bean.JSFLifecycleAware;
 import com.kooobao.cws.domain.customer.Contact;
@@ -16,13 +20,18 @@ public class RegisterBean extends AbstractBean implements JSFLifecycleAware {
 
 	public String register() {
 		Customer customer = new Customer();
+		customer.setEmail(getEmail());
 		customer.setCompanyUser("i".equals(memberType));
-		customer.addContact(new Contact(ContactType.PERSON,getName()));
-		customer.addContact(new Contact(ContactType.EMAIL,getEmail()));
+		customer.addContact(new Contact(ContactType.PERSON, getName()));
+		customer.addContact(new Contact(ContactType.EMAIL, getEmail()));
 		// Register Customer
-		getCustomerService().register(customer);
-
-		return "success";
+		if (getCustomerService().register(customer))
+			return "success";
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Duplicate Email Address", "Duplicate Email Address"));
+		return "failed";
 	}
 
 	private String memberType;
@@ -75,5 +84,4 @@ public class RegisterBean extends AbstractBean implements JSFLifecycleAware {
 		this.customerService = customerService;
 	}
 
-	
 }

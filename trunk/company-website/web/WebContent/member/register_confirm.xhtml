@@ -3,8 +3,25 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/common/page_template.xhtml">
-	<ui:define name="title">酷宝原版少儿英语-注册确认</ui:define>
+	<ui:define name="title">酷宝原版少儿英语-账户激活</ui:define>
 	<ui:define name="body">
-		
+		<div class="titlebar">
+			<div class="title">激活成功！</div>
+			<div class="titledesc">您的账户已激活，现在即可使用Email账户登录。请补充您的信息，方便我们为您推荐合适的教学参考。</div>
+		</div>
+		<div class="content formLayout"
+			style="width: 90%; margin-left: 10px; padding-left: 20px; padding-top: 20px;">
+			<h:form id="infoForm">
+				<h:outputLabel id="ageLabel" for="ageSelect">您感兴趣的幼儿英语教育年龄是:</h:outputLabel>
+				<h:selectOneMenu id="ageSelect" value="">
+					<f:selectItem itemLabel="胎教及早期教育(0-12个月)" itemValue="" />
+					<f:selectItem itemLabel="家庭期幼儿教育(1-3岁)" itemValue="" />
+					<f:selectItem itemLabel="幼儿园教育(3-6岁)" itemValue="" />
+					<f:selectItem itemLabel="小学教育(6-12岁)" itemValue="" />
+					<f:selectItem itemLabel="中学教育(12岁以上)" itemValue="" />
+				</h:selectOneMenu>
+			</h:form>
+		</div>
+
 	</ui:define>
 </ui:composition>
