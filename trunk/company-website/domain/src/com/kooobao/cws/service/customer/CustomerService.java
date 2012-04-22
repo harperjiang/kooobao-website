@@ -4,7 +4,7 @@ import com.kooobao.cws.domain.customer.Customer;
 
 public interface CustomerService {
 
-	void register(Customer customer);
+	boolean register(Customer customer);
 	
 	void confirm(String uuid);
 }

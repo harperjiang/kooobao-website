@@ -19,8 +19,11 @@ import com.kooobao.common.domain.entity.VersionEntity;
 @Table(name = "cws_customer")
 public class Customer extends VersionEntity {
 
-	@Column(name = "id")
-	private String id;
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "status")
+	private String status;
 
 	@Column(name = "last_login_time")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -33,18 +36,26 @@ public class Customer extends VersionEntity {
 	private boolean receiveUpdate;
 
 	@ElementCollection
-	@CollectionTable(name = "cws_customer_contact", joinColumns = { @JoinColumn(name = "customer_id", referencedColumnName = "obj_id", table = "cws_customer") })
+	@CollectionTable(name = "cws_customer_contact", joinColumns = { @JoinColumn(name = "customer_id", referencedColumnName = "obj_id") })
 	private Set<Contact> contacts = new HashSet<Contact>();
 
-	@Column(name="level")
+	@Column(name = "level")
 	private int level;
 
-	public String getId() {
-		return id;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Date getLastLoginTime() {
@@ -97,5 +108,9 @@ public class Customer extends VersionEntity {
 
 	public void setReceiveUpdate(boolean receiveUpdate) {
 		this.receiveUpdate = receiveUpdate;
+	}
+
+	public static enum Status {
+		NEW, VALID
 	}
 }
