@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>酷宝少儿英语-注册确认</title>
+	<link href="${website}style/main.css" rel="stylesheet" type="text/css" /></head><body>
+	<style type="text/css">
+		p.mail_body {
+		margin-top:10px;margin-bottom:10px;
+		font-size:14px;
+		}
+	</style>
+	<div class="body">
+		<div align="center" style="margin: 0px; padding: 0px; padding-left: 0px; margin-left: -10px; text-align: center">
+			<img src="${website}image/logo_long.gif" />
+		</div>
+		
+		<div class="panel" style="width: 900px; height: 250px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="${website}image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="${website}image/curve_topright.gif" />
+				</div>
+				<div style="text-align: center; font-size: 16px;">注册确认邮件</div>
+			</div>
+			<div style="padding:10px;">
+			<p class="mail_body">
+			亲爱的${name}:
+			</p>
+			<p class="mail_body">
+			感谢您注册成为酷宝原版少儿英语网站会员。确认注册并填写注册信息后，您就可以访问最新的少儿英语教育参考资料。
+			</p>
+			<p class="mail_body">
+			请点击下列链接完成注册(如果不能点击，请将链接复制到浏览器中访问):
+			</p>
+			<p class="mail_body">
+			<a href="${website}member/register_confim.html?uuid=${uuid}">
+			${website}member/register_confim.html?uuid=${uuid}</a>
+			</p>
+			<p class="mail_body">
+			感謝您的注册！
+			</p>
+			<p class="mail_body">
+			酷宝原版少儿英语
+			</p>
+			</div>
+		</div>	
+	</div>
+	<div class="bottom">酷宝教育 2005-2012 沪ICP备09094888号</div>
+	<div id="javax_faces_developmentstage_messages"></div></body>
+</html>

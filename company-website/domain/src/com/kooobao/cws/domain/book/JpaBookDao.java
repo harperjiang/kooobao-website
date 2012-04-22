@@ -3,9 +3,6 @@ package com.kooobao.cws.domain.book;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;

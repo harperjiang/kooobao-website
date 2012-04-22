@@ -9,7 +9,9 @@
 		pk-column-name="name" value-column-name="count" pk-column-value="cws_book_category" />
 	<table-generator name="articleTG" table="cws_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="cws_article" />
-
+	<table-generator name="customerTG" table="cws_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="cws_customer" />
+		
 	<entity class="com.kooobao.cws.domain.book.Book">
 		<primary-key>
 			<column name="obj_id" />
@@ -42,6 +44,18 @@
 			<basic name="oid">
 				<column name="obj_id" />
 				<generated-value generator="articleTG" />
+			</basic>
+		</attributes>
+	</entity>
+	
+	<entity class="com.kooobao.cws.domain.customer.Customer">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="customerTG" />
 			</basic>
 		</attributes>
 	</entity>
