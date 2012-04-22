@@ -7,6 +7,7 @@
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
+
 	<managed-bean>
 		<managed-bean-name>loginBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.authcenter.web.bean.LoginBean</managed-bean-class>
@@ -21,10 +22,6 @@
 		<managed-bean-scope>application</managed-bean-scope> <managed-property> <property-name>bookService</property-name> 
 		<value>#{bookService}</value> </managed-property> </managed-bean -->
 
-	<!-- managed-bean> <managed-bean-name>indexPageBean</managed-bean-name> 
-		<managed-bean-class>com.kooobao.cws.web.index.IndexPageBean</managed-bean-class> 
-		<managed-bean-scope>application</managed-bean-scope> <managed-property> <property-name>bookService</property-name> 
-		<value>#{bookService}</value> </managed-property> </managed-bean -->
 	<managed-bean>
 		<managed-bean-name>envConfigBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.cws.web.common.EnvConfigBean</managed-bean-class>
@@ -57,6 +54,15 @@
 			<value>#{bookService}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>registerBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.member.RegisterBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>customerService</property-name>
+			<value>#{customerService}</value>
+		</managed-property>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>require_login</display-name>
 		<navigation-case>
@@ -80,8 +86,22 @@
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/member/register.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{registerBean.register}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/member/register_complete.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<lifecycle>
 		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>
 	</lifecycle>
+	<validator>
+    	<validator-id>com.kooobao.validator.Email</validator-id>
+    	<validator-class>
+      		com.kooobao.common.web.validator.EmailValidator
+    	</validator-class>
+  	</validator>
 </faces-config>
