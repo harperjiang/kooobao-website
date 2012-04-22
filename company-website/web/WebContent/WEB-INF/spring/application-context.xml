@@ -6,8 +6,23 @@
 	<import resource="env.xml" />
 	<import resource="auth.xml" />
 
+	<bean id="customerDao" class="com.kooobao.cws.domain.customer.JpaCustomerDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
 	<bean id="bookService" class="com.kooobao.cws.dummy.DummyBookService" />
 	<bean id="articleService" class="com.kooobao.cws.dummy.DummyArticleService" />
+	<bean id="customerService" class="com.kooobao.cws.service.customer.DefaultCustomerService">
+		<property name="mailSender">
+			<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
+				<property name="host" value="smtp.exmail.qq.com" />
+				<property name="port" value="25" />
+				<property name="username" value="info@kooobao.cn" />
+				<property name="password" value="debbie1984" />
+			</bean>
+		</property>
+		<property name="customerDao" ref="customerDao" />
+	</bean>
 
 	<bean id="categoryInfoBean" class="com.kooobao.cws.web.book.CategoryInfoBean">
 		<property name="bookService" ref="bookService" />

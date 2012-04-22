@@ -5,27 +5,53 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">会员专区</ui:define>
 	<ui:define name="body">
+		<style type="text/css">
+input,select {
+	width: 100px;
+}
+
+input.checkbox {
+	width: 50px;
+}
+
+label.registerForm {
+	width: 80px;
+}
+</style>
 		<div class="titlebar">
-		<div class="title">注册会员</div>
-		<div class="titledesc">申请为会员后，登录即可享受会员专属资源。</div>
+			<div class="title">注册会员</div>
+			<div class="titledesc">申请为会员后，登录即可享受会员专属资源。</div>
 		</div>
 		<h:form id="register">
 			<div id="register" class="part formLayout"
-				style="width: 80%; display: block" align="center">
+				style="width: 98%; display: block" align="center">
 
-			<fieldset><legend>填写会员信息</legend> <label for="">会员类型：</label>
-			<h:selectOneMenu  value="#{registerBean.memberType}">
-				<f:selectItem itemLabel="个人用户" itemValue="p" />
-				<f:selectItem itemLabel="机构用户" itemValue="i" />
-			</h:selectOneMenu> <br />
-			<label for="register_name"> 会员名称：</label> <h:inputText
-				id="register_name" name="name" value="#{registerBean.name}" />
-			(机构会员请提供机构注册名称，个人会员请填写姓名) <br />
-			<label>Email：</label> <h:inputText name="email"
-				value="#{registerBean.email}" /> (提交注册信息后您将收到一封注册信件，请按照信件指示完成注册) <br />
-			<label>联系人电话：</label> <h:inputText name="phone"
-				value="#{registerBean.phone}" /> <br />
-			<h:commandButton value="注册" action="#{registerBean.register}" /></fieldset>
+				<fieldset style="padding: 20px;">
+					<legend>填写会员信息</legend>
+					<h:messages errorStyle="color:#ff0000" />
+					<h:outputLabel styleClass="registerForm" for="memberType">会员类型：</h:outputLabel>
+					<h:selectOneMenu id="memberType" value="#{registerBean.memberType}">
+						<f:selectItem itemLabel="个人用户" itemValue="p" />
+						<f:selectItem itemLabel="机构用户" itemValue="i" />
+					</h:selectOneMenu>
+					<br />
+					<h:outputLabel styleClass="registerForm" for="register_name"> 会员名称：</h:outputLabel>
+					<h:inputText id="register_name" name="name"
+						value="#{registerBean.name}" required="true"
+						requiredMessage="请填写会员名称" />
+					(机构会员请提供机构注册名称，个人会员请填写姓名) <br />
+					<h:outputLabel styleClass="registerForm" jfor="email">Email：</h:outputLabel>
+					<h:inputText name="email" value="#{registerBean.email}"
+						required="true" requiredMessage="请填写电子邮件地址">
+						<f:validator validatorId="com.kooobao.validator.Email" />
+					</h:inputText>
+					(提交注册信息后您将收到一封注册信件，请按照信件指示完成注册) <br />
+					<h:selectBooleanCheckbox style="width:30px;margin-left:100px;"
+						value="#{registerBean.receiveUpdate}" />
+					<h:outputLabel style="width:160px;">我同意接受教育新闻邮件</h:outputLabel>
+					<br />
+					<h:commandButton value="注册" action="#{registerBean.register}" />
+				</fieldset>
 			</div>
 		</h:form>
 	</ui:define>
