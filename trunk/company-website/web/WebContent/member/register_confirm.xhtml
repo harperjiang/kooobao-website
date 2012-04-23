@@ -5,6 +5,11 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">酷宝原版少儿英语-账户激活</ui:define>
 	<ui:define name="body">
+		<style type="text/css">
+table.favouriteTable input {
+	width: 30px;
+}
+</style>
 		<div class="titlebar">
 			<div class="title">激活成功！</div>
 			<div class="titledesc">您的账户已激活，现在即可使用Email账户登录。请补充您的信息，方便我们为您推荐合适的教学参考。</div>
@@ -12,14 +17,23 @@
 		<div class="content formLayout"
 			style="width: 90%; margin-left: 10px; padding-left: 20px; padding-top: 20px;">
 			<h:form id="infoForm">
-				<h:outputLabel id="ageLabel" for="ageSelect">您感兴趣的幼儿英语教育年龄是:</h:outputLabel>
+				<h:outputLabel id="ageLabel" for="ageSelect">您感兴趣的英语教育年龄是:</h:outputLabel>
 				<h:selectOneMenu id="ageSelect" value="">
-					<f:selectItem itemLabel="胎教及早期教育(0-12个月)" itemValue="" />
-					<f:selectItem itemLabel="家庭期幼儿教育(1-3岁)" itemValue="" />
-					<f:selectItem itemLabel="幼儿园教育(3-6岁)" itemValue="" />
-					<f:selectItem itemLabel="小学教育(6-12岁)" itemValue="" />
-					<f:selectItem itemLabel="中学教育(12岁以上)" itemValue="" />
+					<f:selectItems value="#{suppDataBean.ages}" />
 				</h:selectOneMenu>
+				<br />
+				<h:outputLabel id="areaLabel" for="areaSelect">您所在的地区是:</h:outputLabel>
+				<h:selectOneMenu id="areaSelect" value="">
+					<f:selectItems value="#{suppDataBean.areas}" />
+				</h:selectOneMenu>
+				<br />
+				<h:outputLabel id="favouriteLabel">您感兴趣的英文教育资源:</h:outputLabel>
+				<h:selectManyCheckbox id="favouriteTable" class="favouriteTable"
+					layout="pageDirection">
+					<f:selectItems value="#{suppDataBean.interests}" />
+				</h:selectManyCheckbox>
+				<br />
+				<h:commandButton action="#{registerConfirmBean.update}" value="保存" />
 			</h:form>
 		</div>
 

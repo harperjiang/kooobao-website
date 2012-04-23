@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">酷宝原版少儿英语-账户激活</ui:define>
+	<ui:define name="body">
+		<div class="titlebar">
+			<div class="title">激活成功！</div>
+			<div class="titledesc">您的信息已保存，我们将根据您的喜好为您推荐合适的资源。</div>
+		</div>
+		<div class="content"
+			style="margin-left: 10px; padding-left: 20px; padding-top: 20px;">现在将跳转到会员专属页面...</div>
+		<script type="text/javascript">
+			function jump() {
+				window.location = "/member.html";
+			}
+			setTimeout("jump()", 3000);
+		</script>
+	</ui:define>
+</ui:composition>

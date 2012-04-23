@@ -63,6 +63,15 @@
 			<value>#{customerService}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>registerConfirmBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.member.RegisterConfirmBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>customerService</property-name>
+			<value>#{customerService}</value>
+		</managed-property>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>require_login</display-name>
 		<navigation-case>
@@ -97,6 +106,14 @@
 			<from-action>#{registerBean.register}</from-action>
 			<from-outcome>failed</from-outcome>
 			<to-view-id>/member/register.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/member/register_confirm.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{registerConfirmBean.update}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/member/register_confirm_jump.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<lifecycle>
