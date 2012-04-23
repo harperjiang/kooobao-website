@@ -16,4 +16,6 @@ public interface UserDao {
 	public User findUser(String userId, Authority auth);
 	
 	public List<User> findUsers(String system, List<Authority> auths);
+
+	public User findUser(String id);
 }

@@ -28,6 +28,13 @@ public class JpaUserDao implements UserDao {
 		return new ArrayList<User>();
 	}
 
+	public User findUser(String userid) {
+		TypedQuery<User> query = getEntityManager().createQuery(
+				"select u from User u where u.id = :id", User.class);
+		query.setParameter("id", userid);
+		return query.getSingleResult();
+	}
+
 	public User findUser(String system, String userId) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", userId);
