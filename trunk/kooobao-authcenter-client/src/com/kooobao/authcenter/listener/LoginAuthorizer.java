@@ -1,5 +1,6 @@
 package com.kooobao.authcenter.listener;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,15 +55,17 @@ public class LoginAuthorizer implements PhaseListener {
 
 	public void afterPhase(PhaseEvent event) {
 		String viewId = event.getFacesContext().getViewRoot().getViewId();
-
-		if (needValidate(viewId)) {
+		ValidatePattern pattern = null;
+		if (null != (pattern = needValidate(viewId))) {
 			HttpSession ssn = (HttpSession) event.getFacesContext()
 					.getExternalContext().getSession(true);
-			Object token = ssn.getAttribute(Constants.TOKEN);
-			if (!(token instanceof Token)
-					|| !getAuthService().validate((Token) token)) {
+
+			Token token = getToken(ssn,pattern.getSystem());
+			if (token == null || !getAuthService().validate((Token) token)) {
+				// Validation Failed, need re-login
 				// Log URL
 				ssn.setAttribute(Constants.JUMP_URL, viewId);
+				ssn.setAttribute(Constants.LOGIN_SYSTEM, pattern.getSystem());
 				// Validate Failed, require login
 				event.getFacesContext()
 						.getApplication()
@@ -72,13 +75,24 @@ public class LoginAuthorizer implements PhaseListener {
 			} else {
 				// Validate the existence of Login Bean
 				Token yesToken = (Token) token;
-				LoginBean loginBean = AbstractBean.findBean("loginBean");
+				// In case that the login bean had been discarded while token is
+				// still alive
+				LoginBean loginBean = getLoginBean(pattern.getSystem());
 				if (!yesToken.getUserId().equals(loginBean.getUserId())) {
 					loginBean.setUserId(yesToken.getUserId());
 					loginBean.setLoggedIn(true);
 				}
 			}
 		}
+	}
+
+	private LoginBean getLoginBean(String system) {
+		String loginBeanName = ConfigLoader.getInstance().load("auth_list",
+				system + ".loginBean");
+		if (StringUtils.isEmpty(loginBeanName)) {
+			loginBeanName = "loginBean";
+		}
+		return AbstractBean.findBean(loginBeanName);
 	}
 
 	public PhaseId getPhaseId() {
@@ -97,29 +111,49 @@ public class LoginAuthorizer implements PhaseListener {
 			for (String sys : system) {
 				patterns.put(
 						sys,
-						new ValidatePattern(ConfigLoader.getInstance().load(
-								"auth_list", sys + ".include"), ConfigLoader
-								.getInstance().load("auth_list",
+						new ValidatePattern(sys, ConfigLoader.getInstance()
+								.load("auth_list", sys + ".include"),
+								ConfigLoader.getInstance().load("auth_list",
 										sys + ".exclude")));
 			}
 		} else {
 			String system = ConfigLoader.getInstance().load("auth_list",
 					"system");
-			patterns.put(system, new ValidatePattern(ConfigLoader.getInstance()
-					.load("auth_list", "include"), ConfigLoader.getInstance()
-					.load("auth_list", "exclude")));
+			patterns.put(system, new ValidatePattern(system, ConfigLoader
+					.getInstance().load("auth_list", "include"), ConfigLoader
+					.getInstance().load("auth_list", "exclude")));
 		}
 	}
 
-	protected boolean needValidate(String viewId) {
+	public static Token getToken(HttpSession ssn,String system) {
+		Map<String, Token> tokens = (Map<String, Token>) ssn
+				.getAttribute(Constants.TOKEN);
+		if (null == tokens) {
+			tokens = new HashMap<String, Token>();
+			ssn.setAttribute(Constants.TOKEN, tokens);
+		}
+		return tokens.get(system);
+	}
+
+	public static void setToken(HttpSession ssn,String system, Token token) {
+		Map<String, Token> tokens = (Map<String, Token>) ssn
+				.getAttribute(Constants.TOKEN);
+		if (null == tokens) {
+			tokens = new HashMap<String, Token>();
+			ssn.setAttribute(Constants.TOKEN, tokens);
+		}
+		tokens.put(system, token);
+	}
+
+	protected ValidatePattern needValidate(String viewId) {
 		if (StringUtils.isEmpty(viewId))
-			return false;
+			return null;
 		for (Entry<String, ValidatePattern> pattern : patterns.entrySet()) {
 			if (pattern.getValue().validate(viewId)) {
-				return true;
+				return pattern.getValue();
 			}
 		}
-		return false;
+		return null;
 	}
 
 	private AuthenticateService authService;
@@ -145,11 +179,14 @@ public class LoginAuthorizer implements PhaseListener {
 
 	public static class ValidatePattern {
 
+		private String system;
+
 		private String includeStr;
 
 		private String excludeStr;
 
-		ValidatePattern(String includeStr, String excludeStr) {
+		ValidatePattern(String system, String includeStr, String excludeStr) {
+			this.system = system;
 			this.includeStr = includeStr;
 			this.excludeStr = excludeStr;
 		}
@@ -174,6 +211,10 @@ public class LoginAuthorizer implements PhaseListener {
 					}
 			}
 			return include && !exclude;
+		}
+
+		public String getSystem() {
+			return system;
 		}
 
 	}
