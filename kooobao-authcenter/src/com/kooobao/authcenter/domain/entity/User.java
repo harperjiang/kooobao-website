@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
@@ -49,7 +50,7 @@ public class User {
 	@CollectionTable(name = "auc_user_system", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
 	@MapKeyColumn(name = "system_name")
 	@Column(name = "system_name", columnDefinition = "varchar(25)")
-	private Map<String, String> systems;
+	private Map<String, String> systems = new HashMap<String,String>();
 
 	public String getEncryptedPass() {
 		return encryptedPass;

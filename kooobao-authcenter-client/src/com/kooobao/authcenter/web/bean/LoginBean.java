@@ -2,7 +2,6 @@ package com.kooobao.authcenter.web.bean;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Map.Entry;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,7 +16,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.kooobao.authcenter.Constants;
 import com.kooobao.authcenter.listener.LoginAuthorizer;
-import com.kooobao.authcenter.listener.LoginAuthorizer.ValidatePattern;
 import com.kooobao.authcenter.service.AuthenticateService;
 import com.kooobao.authcenter.service.Token;
 import com.kooobao.common.util.ConfigLoader;
@@ -90,30 +88,24 @@ public class LoginBean extends AbstractBean {
 	}
 
 	private void putTokenInSession(Token token) {
-		getSession().setAttribute(Constants.TOKEN, token);
+		LoginAuthorizer.setToken(getSession(), system, token);
 	}
 
 	private Token getTokenFromSession() {
-		return (Token) getSession().getAttribute(Constants.TOKEN);
+		return (Token) LoginAuthorizer.getToken(getSession(), system);
+	}
+
+	private String system = getSystem();
+
+	protected String getSystem() {
+		String val = ConfigLoader.getInstance().load("auth_list", "default");
+		if (StringUtils.isEmpty(val))
+			val = ConfigLoader.getInstance().load("auth_list", "system");
+		return val;
 	}
 
 	private Token validateLogin() {
 		// Trying to match system based on jump url
-		String system = null;
-		javax.servlet.http.HttpServletResponse response = (HttpServletResponse) javax.faces.context.FacesContext
-				.getCurrentInstance().getExternalContext().getResponse();
-		String jumpUrl = String.valueOf(getSession().getAttribute(
-				Constants.JUMP_URL));
-		if (!StringUtils.isEmpty(jumpUrl))
-			for (Entry<String, ValidatePattern> entry : LoginAuthorizer.patterns
-					.entrySet()) {
-				if (entry.getValue().validate(jumpUrl)) {
-					system = entry.getKey();
-					break;
-				}
-			}
-		if (StringUtils.isEmpty(system))
-			system = ConfigLoader.getInstance().load("auth_list", "default");
 		if (StringUtils.isEmpty(system)) {
 			LogFactory.getLog(getClass()).warn(
 					"System name Not Found, cannot validate login");
