@@ -26,4 +26,21 @@ public class DefaultUserService implements UserService {
 		this.userDao = userDao;
 	}
 
+	public void register(String system, String id, String pass) {
+		User user = new User();
+		user.setId(id);
+		user.getSystems().put(system, system);
+		user.setEncryptedPass(User.encryptPass(pass));
+		getUserDao().store(user);
+	}
+
+	public void modifyPass(String system, String id, String oldPass,
+			String newPass) {
+		User user = getUserDao().findUser(system, id);
+		if (user != null
+				&& user.getEncryptedPass().equals(User.encryptPass(oldPass))) {
+			user.setEncryptedPass(User.encryptPass(newPass));
+		}
+	}
+
 }

@@ -45,6 +45,11 @@ public class DefaultAuthenticateServiceTest {
 				// TODO Auto-generated method stub
 				return null;
 			}
+
+			public User findUser(String id) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		});
 	}
 
