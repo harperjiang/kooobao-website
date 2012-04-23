@@ -26,5 +26,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring Framework 3.1"/>
 	<classpathentry kind="lib" path="/kooobao-shared-libs/java-mail/mail.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kooobao-authcenter-client"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

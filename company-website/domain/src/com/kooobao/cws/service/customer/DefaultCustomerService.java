@@ -8,6 +8,8 @@ import javax.persistence.NoResultException;
 
 import org.springframework.mail.javamail.JavaMailSender;
 
+import com.kooobao.authcenter.service.UserService;
+import com.kooobao.common.web.Utilities;
 import com.kooobao.common.web.email.TemplateMailMessage;
 import com.kooobao.cws.domain.customer.Contact;
 import com.kooobao.cws.domain.customer.ContactType;
@@ -20,14 +22,16 @@ public class DefaultCustomerService implements CustomerService {
 	public boolean register(Customer customer) {
 		customer.setStatus(Customer.Status.NEW.name());
 		String regNo = UUID.randomUUID().toString();
+		String initPass = Utilities.randomPass(9);
 		customer.addContact(new Contact(ContactType.REGNO, regNo));
 		try {
 			getCustomerDao().findByEmail(customer.getEmail());
 			return false;
 		} catch (NoResultException e) {
+			getUserService().register("website", customer.getEmail(), initPass);
 			getCustomerDao().store(customer);
 			// Send Mail
-			sendRegMail(customer);
+			sendRegMail(customer, initPass);
 			return true;
 		}
 	}
@@ -35,14 +39,15 @@ public class DefaultCustomerService implements CustomerService {
 	@Override
 	public void confirm(String uuid) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void sendRegMail(Customer customer) {
+	public void sendRegMail(Customer customer, String initPass) {
 		Map<String, Object> context = new HashMap<String, Object>();
 		context.put("name", customer.getContact(ContactType.PERSON).getValue());
 		context.put("uuid", customer.getContact(ContactType.REGNO).getValue());
 		context.put("website", "http://www.kooobao.cn/");
+		context.put("initPass", initPass);
 		TemplateMailMessage message = new TemplateMailMessage(
 				"/com/kooobao/cws/service/customer/reg_mail.vm", context);
 		message.setSubject("酷宝原版少儿英语-注册确认邮件");
@@ -71,6 +76,16 @@ public class DefaultCustomerService implements CustomerService {
 
 	public void setMailSender(JavaMailSender mailSender) {
 		this.mailSender = mailSender;
+	}
+
+	private UserService userService;
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 }

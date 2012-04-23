@@ -22,6 +22,7 @@
 			</bean>
 		</property>
 		<property name="customerDao" ref="customerDao" />
+		<property name="userService" ref="userService" />
 	</bean>
 
 	<bean id="categoryInfoBean" class="com.kooobao.cws.web.book.CategoryInfoBean">
@@ -32,4 +33,6 @@
 		<property name="bookService" ref="bookService" />
 		<property name="articleService" ref="articleService" />
 	</bean>
+	
+	<bean id="suppDataBean" class="com.kooobao.cws.web.supp.SuppDataBean"/>
 </beans>

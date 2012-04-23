@@ -2,7 +2,6 @@ package com.kooobao.cws.web.member;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.common.web.bean.JSFLifecycleAware;

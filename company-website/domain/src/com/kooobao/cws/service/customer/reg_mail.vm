@@ -38,6 +38,9 @@
 			${website}member/register_confim.html?uuid=${uuid}</a>
 			</p>
 			<p class="mail_body">
+			您的初始密码为${initPass}，账户激活后即可使用您的email账户及密码登录
+			</p>
+			<p class="mail_body">
 			感謝您的注册！
 			</p>
 			<p class="mail_body">
