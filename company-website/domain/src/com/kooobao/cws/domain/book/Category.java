@@ -31,6 +31,9 @@ public class Category extends VersionEntity {
 	@Column(name = "brief")
 	private String brief;
 
+	@Column(name = "sequence")
+	private int sequence;
+
 	public String getName() {
 		return name;
 	}
@@ -71,6 +74,14 @@ public class Category extends VersionEntity {
 
 	public boolean isLeaf() {
 		return CollectionUtils.isEmpty(getChildren());
+	}
+
+	public int getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
 	}
 
 	public String getLayeredName() {
