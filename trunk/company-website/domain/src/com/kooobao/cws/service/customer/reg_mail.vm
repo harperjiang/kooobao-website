@@ -34,7 +34,7 @@
 			请点击下列链接完成注册(如果不能点击，请将链接复制到浏览器中访问):
 			</p>
 			<p class="mail_body">
-			<a href="${website}member/register_confim.html?uuid=${uuid}">
+			<a href="${website}member/register_confirm.html?uuid=${uuid}&initpass=${base64initPass}">
 			${website}member/register_confim.html?uuid=${uuid}</a>
 			</p>
 			<p class="mail_body">
@@ -48,7 +48,5 @@
 			</p>
 			</div>
 		</div>	
-	</div>
-	<div class="bottom">酷宝教育 2005-2012 沪ICP备09094888号</div>
-	<div id="javax_faces_developmentstage_messages"></div></body>
+	</div></body>
 </html>

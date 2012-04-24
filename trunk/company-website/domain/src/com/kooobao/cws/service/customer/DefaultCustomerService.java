@@ -15,6 +15,7 @@ import com.kooobao.cws.domain.customer.Contact;
 import com.kooobao.cws.domain.customer.ContactType;
 import com.kooobao.cws.domain.customer.Customer;
 import com.kooobao.cws.domain.customer.CustomerDao;
+import com.sun.mail.util.BASE64EncoderStream;
 
 public class DefaultCustomerService implements CustomerService {
 
@@ -28,7 +29,6 @@ public class DefaultCustomerService implements CustomerService {
 			getCustomerDao().findByEmail(customer.getEmail());
 			return false;
 		} catch (NoResultException e) {
-			getUserService().register("website", customer.getEmail(), initPass);
 			getCustomerDao().store(customer);
 			// Send Mail
 			sendRegMail(customer, initPass);
@@ -37,9 +37,12 @@ public class DefaultCustomerService implements CustomerService {
 	}
 
 	@Override
-	public void confirm(String uuid) {
+	public void confirm(String uuid,String initPass) {
 		// TODO Auto-generated method stub
-
+		Customer customer = getCustomerDao().findByRegId(uuid);
+		customer.setStatus(Customer.Status.VALID.name());
+		customer.removeContact(customer.getContact(ContactType.REGNO));
+		getUserService().register("website", customer.getEmail(), initPass);
 	}
 
 	public void sendRegMail(Customer customer, String initPass) {
@@ -48,6 +51,7 @@ public class DefaultCustomerService implements CustomerService {
 		context.put("uuid", customer.getContact(ContactType.REGNO).getValue());
 		context.put("website", "http://www.kooobao.cn/");
 		context.put("initPass", initPass);
+		context.put("base64initpass", new String(BASE64EncoderStream.encode(initPass.getBytes())));
 		TemplateMailMessage message = new TemplateMailMessage(
 				"/com/kooobao/cws/service/customer/reg_mail.vm", context);
 		message.setSubject("酷宝原版少儿英语-注册确认邮件");

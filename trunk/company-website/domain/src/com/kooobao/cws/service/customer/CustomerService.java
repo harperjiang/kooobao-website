@@ -6,5 +6,5 @@ public interface CustomerService {
 
 	boolean register(Customer customer);
 	
-	void confirm(String uuid);
+	void confirm(String uuid,String initpass);
 }
