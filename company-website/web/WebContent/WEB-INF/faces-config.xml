@@ -17,6 +17,15 @@
 			<value>#{authenticateService}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>memberBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.member.MemberBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>authService</property-name>
+			<value>#{authenticateService}</value>
+		</managed-property>
+	</managed-bean>
 	<!-- managed-bean> <managed-bean-name>categoryInfoBean</managed-bean-name> 
 		<managed-bean-class>com.kooobao.cws.web.book.CategoryInfoBean </managed-bean-class> 
 		<managed-bean-scope>application</managed-bean-scope> <managed-property> <property-name>bookService</property-name> 
@@ -93,6 +102,24 @@
 			<from-action>#{loginBean.logout}</from-action>
 			<from-outcome>true</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>member_login_failed</display-name>
+		<from-view-id>/member.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{memberBean.login}</from-action>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/member.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>member_logout</display-name>
+		<from-view-id>/member.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{memberBean.logout}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/member.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
