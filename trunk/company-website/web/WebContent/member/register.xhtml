@@ -22,7 +22,7 @@ label.registerForm {
 			<div class="title">注册会员</div>
 			<div class="titledesc">申请为会员后，登录即可享受会员专属资源。</div>
 		</div>
-		<h:form id="register">
+		<h:form id="register" rendered="false">
 			<div id="register" class="part formLayout"
 				style="width: 98%; display: block" align="center">
 
@@ -54,6 +54,12 @@ label.registerForm {
 				</fieldset>
 			</div>
 		</h:form>
+		<div id="register" class="part formLayout"
+			style="width: 98%; display: block; text-align: center">
+			会员注册功能暂时不对外开放，请发邮件至<a href="mailto:info@kooobao.cn">info@kooobao.cn</a>申请注册
+
+
+		</div>
 	</ui:define>
 </ui:composition>
 

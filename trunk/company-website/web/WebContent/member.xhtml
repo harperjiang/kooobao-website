@@ -5,7 +5,27 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">会员专区</ui:define>
 	<ui:define name="body">
-		<div class="panel" style="width: 120px; height: 250px;">
+		<style type="text/css">
+.loginForm {
+	padding: 5px;
+}
+
+.loginForm label,.loginForm input,.loginForm select,.loginForm textarea
+	{
+	display: block;
+	float: left;
+	margin-top: 5px;
+}
+
+.loginForm label {
+	width: 65px;
+}
+
+.loginForm input {
+	width: 110px;
+}
+</style>
+		<div class="panel" style="width: 200px; height: 250px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -15,8 +35,40 @@
 				</div>
 				会员信息
 			</div>
+			<h:panelGroup layout="block" style="margin:5px;">
+				<h:panelGroup rendered="#{!memberBean.loggedIn}">
+					<div class="title">会员登录</div>
+					<div class="loginForm">
+						<h:form id="memberLoginForm">
+							<h:messages errorStyle="color:#FF0000" />
+							<h:outputLabel id="userIdLabel" for="userIdText">用户名</h:outputLabel>
+							<h:inputText id="userIdText" value="#{memberBean.userId}" />
+							<br />
+							<h:outputLabel id="passLabel" for="passText">密码</h:outputLabel>
+							<h:inputSecret id="passText" value="#{memberBean.plainPass}" />
+							<br />
+							<h:commandButton value="登录" action="#{memberBean.login}" />
+							<br />
+						</h:form>
+						<h:outputLink value="/member/register.html">注册新会员</h:outputLink>
+					</div>
+				</h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{memberBean.loggedIn}" style="margin:5px;">
+				<div class="title">会员信息</div>
+				<div style="padding: 10px;">
+					欢迎会员：
+					<h:outputText value="#{memberBean.userId}" />
+					<br />
+					<br /> 您的等级：X级<br />
+					<br />
+					<h:form>
+						<h:commandLink action="#{memberBean.logout}" value="退出登录" />
+					</h:form>
+				</div>
+			</h:panelGroup>
 		</div>
-		
+
 		<div class="panel" style="width: 300px; height: 250px;">
 			<div class="panel_title">
 				<div id="tl">
@@ -28,7 +80,7 @@
 				Love English课件
 			</div>
 		</div>
-		
+
 		<div class="panel" style="width: 300px; height: 250px;">
 			<div class="panel_title">
 				<div id="tl">
