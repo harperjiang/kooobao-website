@@ -42,6 +42,8 @@ public class ManageBookBean extends PageSearchBean {
 	private SearchBookBean search;
 
 	public SearchBookBean getSearch() {
+		if (null == search)
+			search = new SearchBookBean();
 		return search;
 	}
 

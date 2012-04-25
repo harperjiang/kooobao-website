@@ -2,6 +2,8 @@ package com.kooobao.cws.service.book;
 
 import java.util.List;
 
+import org.springframework.util.CollectionUtils;
+
 import com.kooobao.cws.domain.book.Book;
 import com.kooobao.cws.domain.book.BookDao;
 import com.kooobao.cws.domain.book.Category;
@@ -13,7 +15,8 @@ public class DefaultBookService implements BookService {
 
 	@Override
 	public List<Book> getLatestBooks() {
-		return getBookDao().getLatestBooks(LIMIT);
+		List<Book> values= getBookDao().getLatestBooks(LIMIT);
+		return values;
 	}
 
 	@Override
@@ -42,10 +45,15 @@ public class DefaultBookService implements BookService {
 	@Override
 	public Book getFirstBookUnderCategory(Category category) {
 		Category current = category;
-		while(!current.isLeaf()) {
+		if (current == null)
+			return null;
+		while (!current.isLeaf()) {
 			current = current.getChildren().get(0);
 		}
-		return getBookDao().getByCategory(current, 1).get(0);
+		List<Book> books = getBookDao().getByCategory(current, 1);
+		if (!CollectionUtils.isEmpty(books))
+			return books.get(0);
+		return null;
 	}
 
 	@Override

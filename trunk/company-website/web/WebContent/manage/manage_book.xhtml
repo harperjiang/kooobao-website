@@ -9,15 +9,19 @@
 
 		<style type="text/css">
 .col1 {
-	width: 200px;
+	width: 100px;
 }
 
 .col2 {
-	width: 550px;
+	width: 200px;
 }
 
 .col3 {
-	width: 50px;
+	width: 450px;
+}
+
+.col4 {
+	width: 30px;
 }
 </style>
 		<h:panelGroup layout="block"
@@ -37,7 +41,7 @@
 
 				<h:form id="resultForm">
 					<h:dataTable id="resultDataTable" width="800"
-						styleClass="dataTable" columnClasses="col1,col2,col3"
+						styleClass="dataTable" columnClasses="col1,col2,col3,col4"
 						value="#{manageBookBean.books}" var="record">
 						<h:column>
 							<f:facet name="header">书名</f:facet>
@@ -47,7 +51,7 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">类别</f:facet>
-							<h:outputText value="#{record.category}" />
+							<h:outputText value="#{record.category.layeredName}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">简介</f:facet>
@@ -55,10 +59,10 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">操作</f:facet>
-							<h:commandLink value="#{manageBookBean.edit}">编辑</h:commandLink>
+							<h:commandLink action="#{manageBookBean.edit}">编辑</h:commandLink>
 						</h:column>
 					</h:dataTable>
-					<h:panelGroup style="margin-top:20px;">
+					<h:panelGroup layout="block" style="margin-top:20px;">
 						<h:commandLink value="上一页" action="#{manageBookBean.prevPage}" />
 						<h:outputText
 							value="共#{manageBookBean.pageCount}页  第#{manageBookBean.currentPage}页"
@@ -72,6 +76,7 @@
 				style="font-size: 18px; margin-top: 30px;margin-bottom:20px;">新增图书记录</h:panelGroup>
 
 			<h:panelGroup id="newbookPanel" class="formLayout" layout="block">
+				<h:messages />
 				<h:form id="newbookForm">
 					<!-- Panel for creating new books -->
 					<h:outputLabel id="bnLabel" for="bnText" value="书名" />
@@ -82,14 +87,15 @@
 					<br />
 					<h:outputLabel id="categoryLabel" for="categorySelect" value="类别" />
 					<h:selectOneMenu id="categorySelect"
-						value="#{manageBookBean.book.category}">
+						value="#{manageBookBean.book.category}"
+						converter="categoryConverter">
 						<f:selectItems value="#{categoryInfoBean.leaves}" />
 					</h:selectOneMenu>
 					<br />
 					<h:outputLabel id="briefLabel" for="briefText" value="簡介" />
 					<h:inputText id="briefText" value="#{manageBookBean.book.brief}" />
 					<br />
-					<h:outputLabel id="contentLabel" for="nameText" value="详细内容" />
+					<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
 					<h:inputTextarea id="contentText" style="height:400px;width:700px;"
 						value="#{manageBookBean.book.content}" />
 					<br />

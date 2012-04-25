@@ -60,6 +60,8 @@ public class BookPageBean extends AbstractBean implements JSFLifecycleAware {
 	private Book currentBook;
 
 	public Book getCurrentBook() {
+		if(null == currentBook)
+			currentBook = new Book();
 		return currentBook;
 	}
 

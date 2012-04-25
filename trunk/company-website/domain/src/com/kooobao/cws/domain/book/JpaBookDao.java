@@ -14,16 +14,18 @@ public class JpaBookDao extends AbstractJpaDao<Book> implements BookDao {
 	@Override
 	public List<Book> getLatestBooks(int limit) {
 		TypedQuery<Book> bookQuery = getEntityManager().createQuery(
-				"select b from Book order by createTime desc", Book.class)
-				.setMaxResults(limit);
+				"select b from Book b order by b.createTime desc", Book.class);
+		if (limit != UNLIMITED)
+			bookQuery.setMaxResults(limit);
 		return bookQuery.getResultList();
 	}
 
 	@Override
 	public List<Book> getHotBooks(int limit) {
 		TypedQuery<Book> bookQuery = getEntityManager().createQuery(
-				"select b from Book order by level desc", Book.class)
-				.setMaxResults(limit);
+				"select b from Book b order by b.level desc", Book.class);
+		if (limit != UNLIMITED)
+			bookQuery.setMaxResults(limit);
 		return bookQuery.getResultList();
 	}
 
@@ -31,18 +33,21 @@ public class JpaBookDao extends AbstractJpaDao<Book> implements BookDao {
 	public List<Book> getByCategory(Category category, int limit) {
 		TypedQuery<Book> bookQuery = getEntityManager()
 				.createQuery(
-						"select b from Book where category = :category order by oid",
-						Book.class).setParameter("category", category)
-				.setMaxResults(limit);
+						"select b from Book b where b.category = :category order by b.oid",
+						Book.class).setParameter("category", category);
+		if (limit != UNLIMITED)
+			bookQuery.setMaxResults(limit);
 		return bookQuery.getResultList();
 	}
 
 	@Override
 	public List<Book> findBooks(String keyword) {
 		Validate.isTrue(!StringUtils.isEmpty(keyword));
-		TypedQuery<Book> bookQuery = getEntityManager().createQuery(
-				"select b from Book where name like :keyword "
-						+ "or brief like :keyword order by oid", Book.class)
+		TypedQuery<Book> bookQuery = getEntityManager()
+				.createQuery(
+						"select b from Book b where b.name like :keyword "
+								+ "or b.brief like :keyword order by b.oid",
+						Book.class)
 				.setParameter("keyword", "%" + keyword + "%");
 		return bookQuery.getResultList();
 	}
