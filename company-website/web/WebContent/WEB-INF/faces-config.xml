@@ -143,6 +143,22 @@
 			<to-view-id>/member/register_confirm_jump.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/manage/manage_book.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{manageBookBean.save}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/manage/manage_book.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/manage/manage_book.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{manageBookBean.edit}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/manage/manage_book.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<lifecycle>
 		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>
@@ -153,4 +169,8 @@
       		com.kooobao.common.web.validator.EmailValidator
     	</validator-class>
   	</validator>
+  	<converter>  
+   	 	<converter-id>categoryConverter</converter-id>  
+    	<converter-class>com.kooobao.cws.web.manage.CategoryConverter</converter-class>  
+	</converter>  
 </faces-config>

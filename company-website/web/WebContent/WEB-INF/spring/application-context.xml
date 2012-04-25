@@ -9,9 +9,20 @@
 	<bean id="customerDao" class="com.kooobao.cws.domain.customer.JpaCustomerDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
+	<bean id="bookDao" class="com.kooobao.cws.domain.book.JpaBookDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="categoryDao" class="com.kooobao.cws.domain.book.JpaCategoryDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
 
-	<bean id="bookService" class="com.kooobao.cws.dummy.DummyBookService" />
+	<bean id="bookService" class="com.kooobao.cws.service.book.DefaultBookService">
+		<property name="bookDao" ref="bookDao" />
+		<property name="categoryDao" ref="categoryDao" />
+	</bean>
+	
 	<bean id="articleService" class="com.kooobao.cws.dummy.DummyArticleService" />
+	
 	<bean id="customerService" class="com.kooobao.cws.service.customer.DefaultCustomerService">
 		<property name="mailSender">
 			<bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -33,6 +44,6 @@
 		<property name="bookService" ref="bookService" />
 		<property name="articleService" ref="articleService" />
 	</bean>
-	
-	<bean id="suppDataBean" class="com.kooobao.cws.web.supp.SuppDataBean"/>
+
+	<bean id="suppDataBean" class="com.kooobao.cws.web.supp.SuppDataBean" />
 </beans>

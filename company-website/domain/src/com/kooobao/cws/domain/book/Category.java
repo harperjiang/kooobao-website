@@ -3,6 +3,7 @@ package com.kooobao.cws.domain.book;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -22,7 +23,7 @@ public class Category extends VersionEntity {
 	@JoinColumn(name = "parent_id", referencedColumnName = "obj_id")
 	private Category parent;
 
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL })
 	private List<Category> children = new ArrayList<Category>();
 
 	@Column(name = "name")
@@ -31,7 +32,7 @@ public class Category extends VersionEntity {
 	@Column(name = "brief")
 	private String brief;
 
-	@Column(name = "sequence")
+	@Column(name = "seq")
 	private int sequence;
 
 	public String getName() {
