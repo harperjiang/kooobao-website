@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+.tabheader {
+	padding: 10px;
+	margin: 5px;
+}
+
+.tabheader a {
+	display: block;
+	text-decoration: none;
+}
+
+.tabheader a:link,.tabheader a:visited {
+	color: #004FBD;
+	text-decoration: none;
+}
