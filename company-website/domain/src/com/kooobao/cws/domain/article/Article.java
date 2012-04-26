@@ -19,6 +19,9 @@ public abstract class Article extends VersionEntity {
 	@Column(name = "title")
 	private String title;
 
+	@Column(name = "abstract")
+	private String articleAbstract;
+
 	@Column(name = "content", columnDefinition = "text")
 	private String content;
 
@@ -36,6 +39,14 @@ public abstract class Article extends VersionEntity {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getArticleAbstract() {
+		return articleAbstract;
+	}
+
+	public void setArticleAbstract(String articleAbstract) {
+		this.articleAbstract = articleAbstract;
 	}
 
 	public abstract String getType();

@@ -43,12 +43,11 @@ public class JpaBookDao extends AbstractJpaDao<Book> implements BookDao {
 	@Override
 	public List<Book> findBooks(String keyword) {
 		Validate.isTrue(!StringUtils.isEmpty(keyword));
-		TypedQuery<Book> bookQuery = getEntityManager()
-				.createQuery(
-						"select b from Book b where b.name like :keyword "
-								+ "or b.brief like :keyword order by b.oid",
-						Book.class)
-				.setParameter("keyword", "%" + keyword + "%");
+		TypedQuery<Book> bookQuery = getEntityManager().createQuery(
+				"select b from Book b where upper(b.name) like :keyword "
+						+ "or upper(b.brief) like :keyword order by b.oid",
+				Book.class).setParameter("keyword",
+				"%" + keyword.toUpperCase() + "%");
 		return bookQuery.getResultList();
 	}
 }
