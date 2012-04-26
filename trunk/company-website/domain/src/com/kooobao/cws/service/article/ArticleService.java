@@ -11,4 +11,7 @@ public interface ArticleService {
 
 	Article getArticle(long articleId);
 
+	Article saveArticle(Article article);
+
+	List<Article> findArticles(String keyword);
 }
