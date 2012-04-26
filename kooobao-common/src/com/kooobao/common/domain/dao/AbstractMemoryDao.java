@@ -1,5 +1,6 @@
 package com.kooobao.common.domain.dao;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public abstract class AbstractMemoryDao<T extends VersionEntity> implements
 			entity.setOid(count++);
 		}
 		storage.put(entity.getOid(), entity);
+		entity.setCreateTime(new Date());
 		return entity;
 	}
 	
