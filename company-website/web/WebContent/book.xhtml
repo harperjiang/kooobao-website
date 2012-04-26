@@ -48,10 +48,19 @@
 						</h:panelGroup></li>
 				</ui:repeat>
 			</ul>
+			<ul>
+				<ui:repeat rendered="#{bookPageBean.selectedCategory.leaf}"
+					value="#{bookPageBean.books}" var="book">
+					<li><h:outputLink value="book.html">
+							<f:param name="bookId" value="#{book.oid}" />
+							<h:outputText value="#{book.name}" />
+						</h:outputLink></li>
+				</ui:repeat>
+			</ul>
 		</div>
 		<!-- Book Info -->
 		<div class="blankpanel"
-			style="border-style: solid; border-width: 1px; width: 750px; height: 950px;">
+			style="border-style: solid; border-width: 1px; width: 730px; height: 930px; padding: 10px;">
 			<h:outputText escape="false"
 				value="#{bookPageBean.currentBook.content}" />
 		</div>

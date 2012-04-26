@@ -10,7 +10,7 @@ import com.kooobao.cws.domain.article.Video;
 import com.kooobao.cws.service.article.ArticleService;
 
 public class DummyArticleService implements ArticleService {
-
+	
 	@Override
 	public <T extends Article> List<T> getLatestArticle(
 			int limit,Class<T> articleClass) {
@@ -75,6 +75,18 @@ public class DummyArticleService implements ArticleService {
 
 	@Override
 	public Article getArticle(long articleId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Article saveArticle(Article article) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Article> findArticles(String keyword) {
 		// TODO Auto-generated method stub
 		return null;
 	}

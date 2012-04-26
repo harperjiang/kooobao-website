@@ -33,7 +33,8 @@
 				<h:form id="searchForm">
 					<br />
 					<h:outputLabel id="nameLabel" for="nameText" value="关键字" />
-					<h:inputText id="nameText" value="#{manageBookBean.search.keyword}" />
+					<h:inputText id="nameText" value="#{manageBookBean.search.keyword}"
+						required="true" />
 					<br />
 					<h:commandButton value="查询" action="#{manageBookBean.search}"
 						styleClass="submitlongbutton" />
@@ -45,7 +46,7 @@
 						value="#{manageBookBean.books}" var="record">
 						<h:column>
 							<f:facet name="header">书名</f:facet>
-							<h:commandLink action="#{manageBookBean.view}">
+							<h:commandLink action="#{manageBookBean.edit}">
 								<h:outputText value="#{record.name}" />
 							</h:commandLink>
 						</h:column>
@@ -56,10 +57,6 @@
 						<h:column>
 							<f:facet name="header">简介</f:facet>
 							<h:outputText value="#{record.brief}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">操作</f:facet>
-							<h:commandLink action="#{manageBookBean.edit}">编辑</h:commandLink>
 						</h:column>
 					</h:dataTable>
 					<h:panelGroup layout="block" style="margin-top:20px;">
@@ -96,7 +93,7 @@
 					<h:inputText id="briefText" value="#{manageBookBean.book.brief}" />
 					<br />
 					<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
-					<h:inputTextarea id="contentText" style="height:400px;width:700px;"
+					<h:inputTextarea id="contentText" style="height:400px;width:730px;"
 						value="#{manageBookBean.book.content}" />
 					<br />
 					<script type="text/javascript">

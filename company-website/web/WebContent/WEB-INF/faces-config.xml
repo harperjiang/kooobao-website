@@ -64,6 +64,15 @@
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>manageArticleBean</managed-bean-name>
+		<managed-bean-class>com.kooobao.cws.web.manage.ManageArticleBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>articleService</property-name>
+			<value>#{articleService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>registerBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.cws.web.member.RegisterBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>

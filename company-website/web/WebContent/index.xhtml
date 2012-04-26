@@ -125,7 +125,9 @@ td.intro p.title {
 								<h:outputText value="#{book.name}" />
 							</h:outputLink>
 						</div>
-						<div class="word_content" style="height: 55px;">#{book.brief}</div>
+						<div class="word_content" style="height: 55px;">
+							<h:outputText value="#{book.brief}" />
+						</div>
 						<div style="text-align: right;">
 							<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
 								value="/book/#{book.oid}.html">
@@ -173,7 +175,9 @@ td.intro p.title {
 								<h:outputText value="#{book.name}" />
 							</h:outputLink>
 						</div>
-						<div class="word_content" style="height: 55px;">#{book.brief}</div>
+						<div class="word_content" style="height: 55px;">
+							<h:outputText value="#{book.brief}" />
+						</div>
 						<div style="text-align: right;">
 							<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
 								value="/book/#{book.oid}.html">

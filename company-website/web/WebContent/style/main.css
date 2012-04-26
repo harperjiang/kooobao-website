@@ -16,6 +16,8 @@
 
 @import "form.css";
 
+@import "tab_div.css";
+
 body {
 	text-align: center;
 }

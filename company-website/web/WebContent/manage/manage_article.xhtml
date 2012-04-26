@@ -1,0 +1,209 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/common/page_template.xhtml">
+	<ui:define name="title">文章管理页面</ui:define>
+	<ui:define name="body">
+		<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+
+		<style type="text/css">
+.col1 {
+	width: 100px;
+}
+
+.col2 {
+	width: 200px;
+}
+
+.col3 {
+	width: 450px;
+}
+
+.col4 {
+	width: 30px;
+}
+</style>
+		<h:panelGroup layout="block"
+			style="margin-top: 25px;margin-left:20px;">
+			<h:panelGroup layout="block"
+				style="font-size: 18px; margin-top: 30px;margin-bottom:20px;">查找文章</h:panelGroup>
+
+			<h:panelGroup layout="block" id="searchPanel" class="formLayout">
+				<h:form id="searchForm">
+					<br />
+					<h:outputLabel id="nameLabel" for="nameText" value="关键字" />
+					<h:inputText id="nameText"
+						value="#{manageArticleBean.search.keyword}" required="true" />
+					<br />
+					<h:commandButton value="查询" action="#{manageArticleBean.search}"
+						styleClass="submitlongbutton" />
+				</h:form>
+
+				<h:form id="resultForm">
+					<h:dataTable id="resultDataTable" width="800"
+						styleClass="dataTable" columnClasses="col1,col2,col3,col4"
+						value="#{manageArticleBean.books}" var="record">
+						<h:column>
+							<f:facet name="header">文章标题</f:facet>
+							<h:commandLink action="#{manageArticleBean.edit}">
+								<h:outputText value="#{record.name}" />
+							</h:commandLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">类别</f:facet>
+							<h:outputText value="#{record.category.layeredName}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">摘要</f:facet>
+							<h:outputText value="#{record.brief}" />
+						</h:column>
+					</h:dataTable>
+					<h:panelGroup layout="block" style="margin-top:20px;">
+						<h:commandLink value="上一页" action="#{manageArticleBean.prevPage}" />
+						<h:outputText
+							value="共#{manageArticleBean.pageCount}页  第#{manageArticleBean.currentPage}页"
+							style="margin-left:20px;margin-right:20px;" />
+						<h:commandLink value="下一页" action="#{manageArticleBean.nextPage}" />
+					</h:panelGroup>
+				</h:form>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block"
+				rendered="#{manageArticleBean.article.oid == 0}">
+				<script type="text/javascript">
+					var visibleTab = 'newstab';
+
+					function changetab(tabid) {
+						if (tabid == visibleTab)
+							return;
+						document.getElementById(visibleTab).style.display = 'none';
+						document.getElementById(tabid).style.display = 'block';
+						document.getElementById(visibleTab + "header").style.backgroundColor = "#DDDDDD";
+						document.getElementById(tabid + "header").style.backgroundColor = "#FFFFFF";
+						visibleTab = tabid;
+					}
+				</script>
+				<div style="display: block; width: 90%; margin-bottom: 15px;">
+					<h:panelGroup id="newstabheader" layout="block"
+						styleClass="tabheader"
+						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
+						<a href="#" onclick="changetab('newstab')">新增新闻文章</a>
+					</h:panelGroup>
+					<h:panelGroup id="videotabheader" layout="block"
+						styleClass="tabheader"
+						style="background-color:#dddddd;font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
+						<a href="#" onclick="changetab('videotab')">新增视频资源</a>
+					</h:panelGroup>
+				</div>
+				<h:panelGroup id="newstab" class="formLayout" layout="block">
+					<h:messages />
+					<h:form id="newArticleForm">
+						<!-- Panel for creating new news -->
+						<h:outputLabel id="bnLabel" for="bnText" value="文章标题" />
+						<h:inputText id="bnText" value="#{manageArticleBean.book.name}" />
+						<br />
+						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
+						<h:inputText id="briefText"
+							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
+						<h:inputTextarea id="contentText"
+							style="height:400px;width:730px;"
+							value="#{manageArticleBean.article.content}" />
+						<br />
+						<script type="text/javascript">
+							CKEDITOR.replace('newArticleForm:contentText');
+						</script>
+						<h:commandButton id="newArticleSubmit" class="submitbtn"
+							action="#{manageArticleBean.save}" value="保存" />
+						<h:inputHidden id="articleType" value="NEWS" />
+					</h:form>
+				</h:panelGroup>
+				<h:panelGroup id="videotab" class="formLayout" style="display:none;"
+					layout="block">
+					<h:messages />
+					<h:form id="newVideoForm">
+						<!-- Panel for creating new video -->
+						<h:outputLabel id="bnLabel" for="bnText" value="视频标题" />
+						<h:inputText id="bnText" value="#{manageArticleBean.book.name}" />
+						<br />
+						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
+						<h:inputText id="briefText"
+							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="contentLabel" for="briefText" value="优酷视频ID" />
+						<h:inputText id="contentText"
+							value="#{manageArticleBean.article.content}" />
+						<br />
+						<h:commandButton id="newVideoSubmit" class="submitbtn"
+							action="#{manageArticleBean.save}" value="保存" />
+						<h:inputHidden id="articleType" value="VIDEO" />
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
+			<!-- Edit Panel -->
+			<h:panelGroup layout="block"
+				rendered="#{manageArticleBean.article.oid != 0}">
+			
+				<div style="display: block; width: 90%; margin-bottom: 15px;">
+					<h:panelGroup id="newstabheader" layout="block"
+						styleClass="tabheader" rendered="#{manageArticleBean.article.type=='NEWS'}"
+						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
+						<a href="#" onclick="changetab('newstab')">编辑新闻文章</a>
+					</h:panelGroup>
+					<h:panelGroup id="videotabheader" layout="block"
+						styleClass="tabheader" rendered="#{manageArticleBean.article.type=='VIDEO'}"
+						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
+						<a href="#" onclick="changetab('videotab')">编辑视频资源</a>
+					</h:panelGroup>
+				</div>
+				<h:panelGroup id="newstab" class="formLayout" layout="block" rendered="#{manageArticleBean.article.type=='NEWS'}">
+					<h:messages />
+					<h:form id="newArticleForm">
+						<!-- Panel for creating new news -->
+						<h:outputLabel id="bnLabel" for="bnText" value="文章标题" />
+						<h:inputText id="bnText" value="#{manageArticleBean.book.name}" />
+						<br />
+						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
+						<h:inputText id="briefText"
+							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
+						<h:inputTextarea id="contentText"
+							style="height:400px;width:730px;"
+							value="#{manageArticleBean.article.content}" />
+						<br />
+						<script type="text/javascript">
+							CKEDITOR.replace('newArticleForm:contentText');
+						</script>
+						<h:commandButton id="newArticleSubmit" class="submitbtn"
+							action="#{manageArticleBean.save}" value="保存" />
+						<h:inputHidden id="articleType" value="NEWS" />
+					</h:form>
+				</h:panelGroup>
+				<h:panelGroup id="videotab" class="formLayout" rendered="#{manageArticleBean.article.type=='VIDEO'}"
+					layout="block">
+					<h:messages />
+					<h:form id="newVideoForm">
+						<!-- Panel for creating new video -->
+						<h:outputLabel id="bnLabel" for="bnText" value="视频标题" />
+						<h:inputText id="bnText" value="#{manageArticleBean.book.name}" />
+						<br />
+						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
+						<h:inputText id="briefText"
+							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="contentLabel" for="briefText" value="优酷视频ID" />
+						<h:inputText id="contentText"
+							value="#{manageArticleBean.article.content}" />
+						<br />
+						<h:commandButton id="newVideoSubmit" class="submitbtn"
+							action="#{manageArticleBean.save}" value="保存" />
+						<h:inputHidden id="articleType" value="VIDEO" />
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>
