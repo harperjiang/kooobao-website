@@ -95,6 +95,11 @@
 						style="background-color:#dddddd;font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
 						<a href="#" onclick="changetab('videotab')">新增视频资源</a>
 					</h:panelGroup>
+					<h:panelGroup id="resourcetabheader" layout="block"
+						styleClass="tabheader"
+						style="background-color:#dddddd;font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
+						<a href="#" onclick="changetab('resourcetab')">新增下载资源</a>
+					</h:panelGroup>
 				</div>
 				<h:panelGroup id="newstab" class="formLayout" layout="block">
 					<h:messages />
@@ -125,6 +130,37 @@
 						<h:commandButton id="newArticleSubmit" class="submitbtn"
 							action="#{manageArticleBean.save}" value="保存" />
 						<h:inputHidden id="articleType" value="NEWS" />
+					</h:form>
+				</h:panelGroup>
+				<h:panelGroup id="resourcetab" class="formLayout" layout="block">
+					<h:messages />
+					<h:form id="newResourceForm">
+						<!-- Panel for creating new news -->
+						<h:outputLabel id="bnLabel" for="bnText" value="资源标题" />
+						<h:inputText id="bnText"
+							value="#{manageArticleBean.article.title}" />
+						<br />
+						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
+						<h:inputText id="briefText"
+							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
+						<h:selectOneMenu id="typeText"
+							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							<f:selectItems value="#{sectionInfoBean.resSection}" />
+						</h:selectOneMenu>
+						<br />
+						<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
+						<h:inputTextarea id="contentText"
+							style="height:400px;width:730px;"
+							value="#{manageArticleBean.article.content}" />
+						<br />
+						<script type="text/javascript">
+							CKEDITOR.replace('newResourceForm:contentText');
+						</script>
+						<h:commandButton id="newArticleSubmit" class="submitbtn"
+							action="#{manageArticleBean.save}" value="保存" />
+						<h:inputHidden id="articleType" value="RESOURCE" />
 					</h:form>
 				</h:panelGroup>
 				<h:panelGroup id="videotab" class="formLayout" style="display:none;"
@@ -165,13 +201,19 @@
 						styleClass="tabheader"
 						rendered="#{manageArticleBean.article.articleType=='NEWS'}"
 						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
-						<a href="#" onclick="changetab('newstab')">编辑新闻文章</a>
+						编辑新闻文章
+					</h:panelGroup>
+					<h:panelGroup id="resourceedittabheader" layout="block"
+						styleClass="tabheader"
+						rendered="#{manageArticleBean.article.articleType=='RESOURCE'}"
+						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
+						编辑下载资源
 					</h:panelGroup>
 					<h:panelGroup id="videoedittabheader" layout="block"
 						styleClass="tabheader"
 						rendered="#{manageArticleBean.article.articleType=='VIDEO'}"
 						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
-						<a href="#" onclick="changetab('videotab')">编辑视频资源</a>
+						编辑视频资源
 					</h:panelGroup>
 				</div>
 				<h:panelGroup id="newsedittab" class="formLayout" layout="block"
@@ -204,7 +246,38 @@
 						</script>
 						<h:commandButton id="newArticleSubmit" class="submitbtn"
 							action="#{manageArticleBean.save}" value="保存" />
-						<h:inputHidden id="articleType" value="NEWS" />
+					</h:form>
+				</h:panelGroup>
+				<h:panelGroup id="resourceedittab" class="formLayout" layout="block"
+					rendered="#{manageArticleBean.article.articleType=='RESOURCE'}">
+					<h:messages />
+					<h:form id="editResourceForm">
+						<!-- Panel for creating new news -->
+						<h:outputLabel id="bnLabel" for="bnText" value="资源标题" />
+						<h:inputText id="bnText"
+							value="#{manageArticleBean.article.title}" />
+						<br />
+						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
+						<h:inputText id="briefText"
+							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
+
+						<h:selectOneMenu id="typeText"
+							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							<f:selectItems value="#{sectionInfoBean.resSection}" />
+						</h:selectOneMenu>
+						<br />
+						<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
+						<h:inputTextarea id="contentText"
+							style="height:400px;width:730px;"
+							value="#{manageArticleBean.article.content}" />
+						<br />
+						<script type="text/javascript">
+							CKEDITOR.replace('editResourceForm:contentText');
+						</script>
+						<h:commandButton id="newArticleSubmit" class="submitbtn"
+							action="#{manageArticleBean.save}" value="保存" />
 					</h:form>
 				</h:panelGroup>
 				<h:panelGroup id="videoedittab" class="formLayout"
@@ -233,7 +306,6 @@
 						<br />
 						<h:commandButton id="newVideoSubmit" class="submitbtn"
 							action="#{manageArticleBean.save}" value="保存" />
-						<h:inputHidden id="articleType" value="VIDEO" />
 					</h:form>
 				</h:panelGroup>
 			</h:panelGroup>

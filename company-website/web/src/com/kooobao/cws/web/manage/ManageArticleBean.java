@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.cws.domain.article.Article;
 import com.kooobao.cws.domain.article.News;
+import com.kooobao.cws.domain.article.Resource;
+import com.kooobao.cws.domain.article.Video;
 import com.kooobao.cws.service.article.ArticleService;
 
 public class ManageArticleBean extends PageSearchBean {
@@ -22,6 +24,26 @@ public class ManageArticleBean extends PageSearchBean {
 	}
 
 	public String save() {
+		if (getArticle().getOid() == 0) {
+			// New Article, verify the hidden type
+			String type = getArticleType();
+			Article newArticle = null;
+			if (Video.getType().equals(type)) {
+				newArticle = new Video();
+			}
+			if (Resource.getType().equals(type)) {
+				newArticle = new Resource();
+			}
+			if (null != newArticle) {
+				newArticle.setTitle(getArticle().getTitle());
+				newArticle
+						.setArticleAbstract(getArticle().getArticleAbstract());
+				newArticle.setContent(getArticle().getContent());
+				newArticle.setSection(getArticle().getSection());
+				setArticle(newArticle);
+			}
+		}
+
 		getArticleService().saveArticle(getArticle());
 		setArticle(new News());
 		FacesContext.getCurrentInstance().addMessage(
@@ -92,7 +114,6 @@ public class ManageArticleBean extends PageSearchBean {
 		public void setKeyword(String keyword) {
 			this.keyword = keyword;
 		}
-
 	}
 
 	public String getArticleType() {
