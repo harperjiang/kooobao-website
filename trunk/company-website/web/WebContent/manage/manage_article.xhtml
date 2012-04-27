@@ -42,7 +42,7 @@
 
 				<h:form id="resultForm">
 					<h:dataTable id="resultDataTable" width="800"
-						styleClass="dataTable" columnClasses="col1,col2,col3,col4"
+						styleClass="dataTable" columnClasses="col1,col2,col3"
 						value="#{manageArticleBean.articles}" var="record">
 						<h:column>
 							<f:facet name="header">文章标题</f:facet>
@@ -52,7 +52,7 @@
 						</h:column>
 						<h:column>
 							<f:facet name="header">类型</f:facet>
-							<h:outputText value="#{record.type}" />
+							<h:outputText value="#{record.articleType}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">摘要</f:facet>
@@ -101,11 +101,18 @@
 					<h:form id="newArticleForm">
 						<!-- Panel for creating new news -->
 						<h:outputLabel id="bnLabel" for="bnText" value="文章标题" />
-						<h:inputText id="bnText" value="#{manageArticleBean.article.title}" />
+						<h:inputText id="bnText"
+							value="#{manageArticleBean.article.title}" />
 						<br />
 						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
 						<h:inputText id="briefText"
 							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
+						<h:selectOneMenu id="typeText"
+							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							<f:selectItems value="#{sectionInfoBean.newsSection}" />
+						</h:selectOneMenu>
 						<br />
 						<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
 						<h:inputTextarea id="contentText"
@@ -126,11 +133,18 @@
 					<h:form id="newVideoForm">
 						<!-- Panel for creating new video -->
 						<h:outputLabel id="bnLabel" for="bnText" value="视频标题" />
-						<h:inputText id="bnText" value="#{manageArticleBean.article.title}" />
+						<h:inputText id="bnText"
+							value="#{manageArticleBean.article.title}" />
 						<br />
 						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
 						<h:inputText id="briefText"
 							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
+						<h:selectOneMenu id="typeText"
+							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							<f:selectItems value="#{sectionInfoBean.videoSection}" />
+						</h:selectOneMenu>
 						<br />
 						<h:outputLabel id="contentLabel" for="briefText" value="优酷视频ID" />
 						<h:inputText id="contentText"
@@ -145,29 +159,40 @@
 			<!-- Edit Panel -->
 			<h:panelGroup layout="block"
 				rendered="#{manageArticleBean.article.oid != 0}">
-			
+
 				<div style="display: block; width: 90%; margin-bottom: 15px;">
 					<h:panelGroup id="newsedittabheader" layout="block"
-						styleClass="tabheader" rendered="#{manageArticleBean.article.type=='NEWS'}"
+						styleClass="tabheader"
+						rendered="#{manageArticleBean.article.articleType=='NEWS'}"
 						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
 						<a href="#" onclick="changetab('newstab')">编辑新闻文章</a>
 					</h:panelGroup>
 					<h:panelGroup id="videoedittabheader" layout="block"
-						styleClass="tabheader" rendered="#{manageArticleBean.article.type=='VIDEO'}"
+						styleClass="tabheader"
+						rendered="#{manageArticleBean.article.articleType=='VIDEO'}"
 						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
 						<a href="#" onclick="changetab('videotab')">编辑视频资源</a>
 					</h:panelGroup>
 				</div>
-				<h:panelGroup id="newsedittab" class="formLayout" layout="block" rendered="#{manageArticleBean.article.type=='NEWS'}">
+				<h:panelGroup id="newsedittab" class="formLayout" layout="block"
+					rendered="#{manageArticleBean.article.articleType=='NEWS'}">
 					<h:messages />
 					<h:form id="editArticleForm">
 						<!-- Panel for creating new news -->
 						<h:outputLabel id="bnLabel" for="bnText" value="文章标题" />
-						<h:inputText id="bnText" value="#{manageArticleBean.article.title}" />
+						<h:inputText id="bnText"
+							value="#{manageArticleBean.article.title}" />
 						<br />
 						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
 						<h:inputText id="briefText"
 							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
+
+						<h:selectOneMenu id="typeText"
+							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							<f:selectItems value="#{sectionInfoBean.newsSection}" />
+						</h:selectOneMenu>
 						<br />
 						<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
 						<h:inputTextarea id="contentText"
@@ -175,24 +200,32 @@
 							value="#{manageArticleBean.article.content}" />
 						<br />
 						<script type="text/javascript">
-							CKEDITOR.replace('newArticleForm:contentText');
+							CKEDITOR.replace('editArticleForm:contentText');
 						</script>
 						<h:commandButton id="newArticleSubmit" class="submitbtn"
 							action="#{manageArticleBean.save}" value="保存" />
 						<h:inputHidden id="articleType" value="NEWS" />
 					</h:form>
 				</h:panelGroup>
-				<h:panelGroup id="videoedittab" class="formLayout" rendered="#{manageArticleBean.article.type=='VIDEO'}"
+				<h:panelGroup id="videoedittab" class="formLayout"
+					rendered="#{manageArticleBean.article.articleType=='VIDEO'}"
 					layout="block">
 					<h:messages />
 					<h:form id="editVideoForm">
 						<!-- Panel for creating new video -->
 						<h:outputLabel id="bnLabel" for="bnText" value="视频标题" />
-						<h:inputText id="bnText" value="#{manageArticleBean.article.title}" />
+						<h:inputText id="bnText"
+							value="#{manageArticleBean.article.title}" />
 						<br />
 						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
 						<h:inputText id="briefText"
 							value="#{manageArticleBean.article.articleAbstract}" />
+						<br />
+						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
+						<h:selectOneMenu id="typeText"
+							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							<f:selectItems value="#{sectionInfoBean.newsSection}" />
+						</h:selectOneMenu>
 						<br />
 						<h:outputLabel id="contentLabel" for="briefText" value="优酷视频ID" />
 						<h:inputText id="contentText"

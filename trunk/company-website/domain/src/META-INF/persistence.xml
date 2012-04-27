@@ -13,6 +13,7 @@
 		<class>com.kooobao.cws.domain.article.Video</class>
 		<class>com.kooobao.cws.domain.customer.Customer</class>
 		<class>com.kooobao.cws.domain.customer.Contact</class>
+		<class>com.kooobao.cws.domain.article.Section</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

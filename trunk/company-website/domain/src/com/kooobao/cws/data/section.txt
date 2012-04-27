@@ -1,0 +1,5 @@
+VIDEO	教材介绍
+VIDEO	会议直播
+NEWS	教育新闻
+NEWS	业界动态
+RES	教育资源

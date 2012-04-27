@@ -5,14 +5,15 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("VIDEO")
-public class Video extends Resource {
+public class Video extends Article {
 
 	public String getVideoId() {
 		return getContent();
 	}
 
-	@Override
-	public String getType() {
+	public static String getType() {
 		return "VIDEO";
+	}public String getArticleType() {
+		return getType();
 	}
 }

@@ -6,6 +6,8 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.kooobao.common.domain.entity.VersionEntity;
@@ -24,6 +26,10 @@ public abstract class Article extends VersionEntity {
 
 	@Column(name = "content", columnDefinition = "text")
 	private String content;
+
+	@OneToOne
+	@JoinColumn(name = "section", referencedColumnName = "obj_id")
+	private Section section;
 
 	public String getTitle() {
 		return title;
@@ -49,5 +55,11 @@ public abstract class Article extends VersionEntity {
 		this.articleAbstract = articleAbstract;
 	}
 
-	public abstract String getType();
+	public Section getSection() {
+		return section;
+	}
+
+	public void setSection(Section section) {
+		this.section = section;
+	}
 }

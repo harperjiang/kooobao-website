@@ -179,5 +179,9 @@
   	<converter>  
    	 	<converter-id>categoryConverter</converter-id>  
     	<converter-class>com.kooobao.cws.web.manage.CategoryConverter</converter-class>  
-	</converter>  
+	</converter> 
+	<converter>  
+   	 	<converter-id>sectionConverter</converter-id>  
+    	<converter-class>com.kooobao.cws.web.article.SectionConverter</converter-class>  
+	</converter>   
 </faces-config>
