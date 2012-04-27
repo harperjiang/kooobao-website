@@ -155,17 +155,15 @@
 	<navigation-rule>
 		<from-view-id>/manage/manage_book.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{manageBookBean.save}</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/manage/manage_book.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/manage/manage_book.xhtml</from-view-id>
+		<navigation-rule>
+		<from-view-id>/manage/manage_article.xhtml</from-view-id>
 		<navigation-case>
-			<from-action>#{manageBookBean.edit}</from-action>
 			<from-outcome>success</from-outcome>
-			<to-view-id>/manage/manage_book.xhtml</to-view-id>
+			<to-view-id>/manage/manage_article.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<lifecycle>

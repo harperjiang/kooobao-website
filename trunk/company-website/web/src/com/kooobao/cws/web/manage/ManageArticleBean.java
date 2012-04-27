@@ -2,6 +2,7 @@ package com.kooobao.cws.web.manage;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 
@@ -23,6 +24,10 @@ public class ManageArticleBean extends PageSearchBean {
 	public String save() {
 		getArticleService().saveArticle(getArticle());
 		setArticle(new News());
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Article Saved",
+						"Article Saved"));
 		return "success";
 	}
 

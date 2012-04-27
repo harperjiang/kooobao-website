@@ -81,9 +81,10 @@ table.dataTable {
 }
 
 table.dataTable th {
-	text-align: left;
+	
 }
 
-table.dataTable th td {
-	
+table.dataTable th,table.dataTable td {
+	text-align: left;
+	padding: 10px;
 }

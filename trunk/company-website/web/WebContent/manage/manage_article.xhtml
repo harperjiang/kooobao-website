@@ -43,20 +43,20 @@
 				<h:form id="resultForm">
 					<h:dataTable id="resultDataTable" width="800"
 						styleClass="dataTable" columnClasses="col1,col2,col3,col4"
-						value="#{manageArticleBean.books}" var="record">
+						value="#{manageArticleBean.articles}" var="record">
 						<h:column>
 							<f:facet name="header">文章标题</f:facet>
 							<h:commandLink action="#{manageArticleBean.edit}">
-								<h:outputText value="#{record.name}" />
+								<h:outputText value="#{record.title}" />
 							</h:commandLink>
 						</h:column>
 						<h:column>
-							<f:facet name="header">类别</f:facet>
-							<h:outputText value="#{record.category.layeredName}" />
+							<f:facet name="header">类型</f:facet>
+							<h:outputText value="#{record.type}" />
 						</h:column>
 						<h:column>
 							<f:facet name="header">摘要</f:facet>
-							<h:outputText value="#{record.brief}" />
+							<h:outputText value="#{record.articleAbstract}" />
 						</h:column>
 					</h:dataTable>
 					<h:panelGroup layout="block" style="margin-top:20px;">
@@ -101,7 +101,7 @@
 					<h:form id="newArticleForm">
 						<!-- Panel for creating new news -->
 						<h:outputLabel id="bnLabel" for="bnText" value="文章标题" />
-						<h:inputText id="bnText" value="#{manageArticleBean.book.name}" />
+						<h:inputText id="bnText" value="#{manageArticleBean.article.title}" />
 						<br />
 						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
 						<h:inputText id="briefText"
@@ -126,7 +126,7 @@
 					<h:form id="newVideoForm">
 						<!-- Panel for creating new video -->
 						<h:outputLabel id="bnLabel" for="bnText" value="视频标题" />
-						<h:inputText id="bnText" value="#{manageArticleBean.book.name}" />
+						<h:inputText id="bnText" value="#{manageArticleBean.article.title}" />
 						<br />
 						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
 						<h:inputText id="briefText"
@@ -147,23 +147,23 @@
 				rendered="#{manageArticleBean.article.oid != 0}">
 			
 				<div style="display: block; width: 90%; margin-bottom: 15px;">
-					<h:panelGroup id="newstabheader" layout="block"
+					<h:panelGroup id="newsedittabheader" layout="block"
 						styleClass="tabheader" rendered="#{manageArticleBean.article.type=='NEWS'}"
 						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
 						<a href="#" onclick="changetab('newstab')">编辑新闻文章</a>
 					</h:panelGroup>
-					<h:panelGroup id="videotabheader" layout="block"
+					<h:panelGroup id="videoedittabheader" layout="block"
 						styleClass="tabheader" rendered="#{manageArticleBean.article.type=='VIDEO'}"
 						style="font-size: 18px; margin-top: 30px;margin-bottom:20px; float:left; width:150px;">
 						<a href="#" onclick="changetab('videotab')">编辑视频资源</a>
 					</h:panelGroup>
 				</div>
-				<h:panelGroup id="newstab" class="formLayout" layout="block" rendered="#{manageArticleBean.article.type=='NEWS'}">
+				<h:panelGroup id="newsedittab" class="formLayout" layout="block" rendered="#{manageArticleBean.article.type=='NEWS'}">
 					<h:messages />
-					<h:form id="newArticleForm">
+					<h:form id="editArticleForm">
 						<!-- Panel for creating new news -->
 						<h:outputLabel id="bnLabel" for="bnText" value="文章标题" />
-						<h:inputText id="bnText" value="#{manageArticleBean.book.name}" />
+						<h:inputText id="bnText" value="#{manageArticleBean.article.title}" />
 						<br />
 						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
 						<h:inputText id="briefText"
@@ -182,13 +182,13 @@
 						<h:inputHidden id="articleType" value="NEWS" />
 					</h:form>
 				</h:panelGroup>
-				<h:panelGroup id="videotab" class="formLayout" rendered="#{manageArticleBean.article.type=='VIDEO'}"
+				<h:panelGroup id="videoedittab" class="formLayout" rendered="#{manageArticleBean.article.type=='VIDEO'}"
 					layout="block">
 					<h:messages />
-					<h:form id="newVideoForm">
+					<h:form id="editVideoForm">
 						<!-- Panel for creating new video -->
 						<h:outputLabel id="bnLabel" for="bnText" value="视频标题" />
-						<h:inputText id="bnText" value="#{manageArticleBean.book.name}" />
+						<h:inputText id="bnText" value="#{manageArticleBean.article.title}" />
 						<br />
 						<h:outputLabel id="briefLabel" for="briefText" value="摘要" />
 						<h:inputText id="briefText"
