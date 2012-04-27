@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.kooobao.cws.domain.article.Article;
 import com.kooobao.cws.domain.article.ArticleDao;
+import com.kooobao.cws.domain.article.Section;
+import com.kooobao.cws.domain.article.SectionDao;
 
 public class DefaultArticleService implements ArticleService {
 
@@ -36,6 +38,21 @@ public class DefaultArticleService implements ArticleService {
 
 	public void setArticleDao(ArticleDao articleDao) {
 		this.articleDao = articleDao;
+	}
+
+	private SectionDao sectionDao;
+
+	public SectionDao getSectionDao() {
+		return sectionDao;
+	}
+
+	public void setSectionDao(SectionDao sectionDao) {
+		this.sectionDao = sectionDao;
+	}
+
+	@Override
+	public List<Section> getSections(String type) {
+		return getSectionDao().getSections(type);
 	}
 
 }

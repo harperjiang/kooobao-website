@@ -15,7 +15,13 @@
 	<bean id="categoryDao" class="com.kooobao.cws.domain.book.JpaCategoryDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
-	<bean id="articleDao" class="com.kooobao.cws.domain.article.MemoryArticleDao" />
+	<bean id="articleDao" class="com.kooobao.cws.domain.article.JpaArticleDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
+	<bean id="sectionDao" class="com.kooobao.cws.domain.article.JpaSectionDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
 
 	<bean id="bookService" class="com.kooobao.cws.service.book.DefaultBookService">
 		<property name="bookDao" ref="bookDao" />
@@ -24,6 +30,7 @@
 
 	<bean id="articleService" class="com.kooobao.cws.service.article.DefaultArticleService">
 		<property name="articleDao" ref="articleDao" />
+		<property name="sectionDao" ref="sectionDao" />
 	</bean>
 
 	<bean id="customerService" class="com.kooobao.cws.service.customer.DefaultCustomerService">
@@ -41,6 +48,10 @@
 
 	<bean id="categoryInfoBean" class="com.kooobao.cws.web.book.CategoryInfoBean">
 		<property name="bookService" ref="bookService" />
+	</bean>
+
+	<bean id="sectionInfoBean" class="com.kooobao.cws.web.article.SectionInfoBean">
+		<property name="articleService" ref="articleService" />
 	</bean>
 
 	<bean id="indexPageBean" class="com.kooobao.cws.web.index.IndexPageBean">

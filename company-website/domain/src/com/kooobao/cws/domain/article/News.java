@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 @DiscriminatorValue("NEWS")
 public class News extends Article {
 
-	@Override
-	public String getType() {
+	public static String getType() {
 		return "NEWS";
 	}
 
+	public String getArticleType() {
+		return getType();
+	}
 }
