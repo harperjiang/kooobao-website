@@ -69,10 +69,14 @@ public class LoginBean extends AbstractBean {
 		previousUrl = null == previousUrl ? indexPage
 				: parseUrlFromViewId(String.valueOf(previousUrl));
 		try {
-			response.sendRedirect(String.valueOf(previousUrl));
+			response.sendRedirect(formatUrl(previousUrl));
 		} catch (IOException e) {
 			LogFactory.getLog(getClass()).error("Failed to redirect page");
 		}
+	}
+
+	private String formatUrl(Object previousUrl) {
+		return String.valueOf(previousUrl).replaceFirst("xhtml$", "html");
 	}
 
 	protected Object parseUrlFromViewId(String viewId) {
