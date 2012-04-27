@@ -2,7 +2,7 @@ package com.kooobao.cws.domain.article;
 
 import java.util.List;
 
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -33,10 +33,10 @@ public class JpaArticleDao extends AbstractJpaDao<Article> implements
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		TypedQuery<T> query = getEntityManager()
-				.createQuery(
-						"select a from Article a where a.type = :type order by a.createTime desc",
-						articleClass).setParameter("type", "type");
+		Query query = getEntityManager()
+				.createNativeQuery(
+						"select * from cws_article a where a.type = ? order by a.create_time desc")
+				.setParameter(1, "type");
 		if (limit != BookDao.UNLIMITED)
 			query.setMaxResults(limit);
 		return query.getResultList();
