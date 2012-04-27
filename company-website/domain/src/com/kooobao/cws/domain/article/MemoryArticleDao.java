@@ -40,6 +40,6 @@ public class MemoryArticleDao extends AbstractMemoryDao<Article> implements
 				vals.add(article);
 		}
 		Collections.sort(vals, dateComparator);
-		return (List<T>) vals.subList(0, limit);
+		return (List<T>) (vals.size() > limit ? vals.subList(0, limit) : vals);
 	}
 }
