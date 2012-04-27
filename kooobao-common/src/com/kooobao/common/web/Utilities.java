@@ -1,8 +1,18 @@
 package com.kooobao.common.web;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
+
+import javax.faces.model.SelectItem;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.springframework.beans.PropertyAccessorUtils;
+import org.springframework.util.CollectionUtils;
 
 public class Utilities {
 
@@ -55,6 +65,23 @@ public class Utilities {
 			sb.append(PASSCHAR[result]);
 		}
 		return sb.toString();
+	}
+
+	public static <T> List<SelectItem> wrap(List<T> data, String attr) {
+		if (CollectionUtils.isEmpty(data))
+			return (List<SelectItem>) Collections.EMPTY_LIST;
+
+		try {
+			List<SelectItem> items = new ArrayList<SelectItem>();
+			for (T element : data) {
+				items.add(new SelectItem(element, (String) PropertyUtils
+						.getProperty(element, attr)));
+			}
+			return items;
+		} catch (Exception e1) {
+			throw new RuntimeException(e1);
+		}
+
 	}
 
 }
