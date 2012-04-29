@@ -73,9 +73,10 @@ td.intro p.title {
 							value="/book.html">
 							<h:outputText value="#{category.name}" />
 							<f:param name="categoryId" value="#{category.oid}" />
-						</h:outputLink> <h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
-							value="/book.html">
-							<f:param name="bookId" value="#{book.oid}" />
+						</h:outputLink> 
+						<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+							value="/category/#{category.oid}.html">
+							<h:outputText value="#{category.name}" />
 						</h:outputLink></li>
 				</ui:repeat>
 			</ul>

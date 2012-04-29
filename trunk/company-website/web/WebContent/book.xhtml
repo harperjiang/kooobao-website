@@ -14,7 +14,7 @@
 	padding-top: 5px;
 }
 </style>
-		<h:panelGroup rendered="#{bookPageBean.selected == null}">
+		<h:panelGroup rendered="#{bookPageBean.currentBook == null}">
 			<script type="text/javascript">
 			<!--
 				window.location = "404.html";
@@ -25,10 +25,10 @@
 		<div class="panel" id="fast_nav" style="width: 150px; height: 950px;">
 			<div class="panel_title">
 				<div id="tl">
-					<img src="image/curve_topleft.gif" />
+					<img src="/image/curve_topleft.gif" />
 				</div>
 				<div id="tr">
-					<img src="image/curve_topright.gif" />
+					<img src="/image/curve_topright.gif" />
 				</div>
 				产品列表
 			</div>
