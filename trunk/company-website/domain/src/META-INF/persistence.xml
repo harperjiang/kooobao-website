@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="company-website-domain"
 		transaction-type="RESOURCE_LOCAL">
-		<!-- non-jta-data-source>java:/comp/env/jdbc/KooobaoAppDS</non-jta-data-source -->
+		<non-jta-data-source>java:/comp/env/jdbc/KooobaoAppDS</non-jta-data-source>
 		<class>com.kooobao.cws.domain.book.Book</class>
 		<class>com.kooobao.cws.domain.book.Category</class>
 		<class>com.kooobao.cws.domain.article.Article</class>
@@ -16,10 +16,10 @@
 		<class>com.kooobao.cws.domain.article.Section</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC" />
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<!-- property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cws_test" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="jieninan" />
+			<property name="javax.persistence.jdbc.password" value="jieninan" /-->
 			<property name="eclipselink.jdbc.bind-parameters" value="true" />
 		</properties>
 	</persistence-unit>
