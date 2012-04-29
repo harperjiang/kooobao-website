@@ -37,6 +37,7 @@ public class LoginBean extends AbstractBean {
 	private AuthenticateService authService;
 
 	public String login() {
+		refreshSystem();
 		Token token = validateLogin();
 		if (token == null) {
 			addMessage(FacesMessage.SEVERITY_ERROR, "登录失败");
@@ -47,6 +48,10 @@ public class LoginBean extends AbstractBean {
 		putTokenInSession(token);
 		jumpUrl();
 		return "true";
+	}
+
+	private void refreshSystem() {
+		system = getSystem();
 	}
 
 	public String logout() {
@@ -63,7 +68,7 @@ public class LoginBean extends AbstractBean {
 
 		// Jump to previous URL, index.htm if null
 		String indexPage = ConfigLoader.getInstance().load("auth_list",
-				"index_page");
+				system+".index_page");
 		if (null == indexPage)
 			indexPage = "index.xhtml";
 		previousUrl = null == previousUrl ? indexPage
@@ -88,7 +93,7 @@ public class LoginBean extends AbstractBean {
 
 	protected static HttpSession getSession() {
 		return (HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(false);
+				.getExternalContext().getSession(true);
 	}
 
 	private void putTokenInSession(Token token) {
@@ -102,7 +107,11 @@ public class LoginBean extends AbstractBean {
 	private String system = getSystem();
 
 	protected String getSystem() {
-		String val = ConfigLoader.getInstance().load("auth_list", "default");
+		String val = (String) ((HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(true))
+				.getAttribute(Constants.LOGIN_SYSTEM);
+		if (StringUtils.isEmpty(val))
+			val = ConfigLoader.getInstance().load("auth_list", "default");
 		if (StringUtils.isEmpty(val))
 			val = ConfigLoader.getInstance().load("auth_list", "system");
 		return val;
