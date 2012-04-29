@@ -11,17 +11,15 @@ import com.kooobao.cws.domain.book.CategoryDao;
 
 public class DefaultBookService implements BookService {
 
-	private int LIMIT = 10;
-
 	@Override
-	public List<Book> getLatestBooks() {
-		List<Book> values= getBookDao().getLatestBooks(LIMIT);
+	public List<Book> getLatestBooks(int limit) {
+		List<Book> values = getBookDao().getLatestBooks(limit);
 		return values;
 	}
 
 	@Override
-	public List<Book> getHotBooks() {
-		return getBookDao().getHotBooks(LIMIT);
+	public List<Book> getHotBooks(int limit) {
+		return getBookDao().getHotBooks(limit);
 	}
 
 	@Override
@@ -57,8 +55,8 @@ public class DefaultBookService implements BookService {
 	}
 
 	@Override
-	public void saveBook(Book book) {
-		getBookDao().store(book);
+	public Book saveBook(Book book) {
+		return getBookDao().store(book);
 	}
 
 	@Override

@@ -3,10 +3,8 @@ Pre-K教育
 	数学/Math
 	艺术/Music & Art
 幼儿园教育
-	语言/Language
-	Love English
-	Yippee
 	综合类教材
+	语言/Language
 	阅读/Reading
 	科学/Science
 	数学/Math

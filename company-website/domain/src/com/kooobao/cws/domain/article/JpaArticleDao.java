@@ -18,7 +18,7 @@ public class JpaArticleDao extends AbstractJpaDao<Article> implements
 		Validate.isTrue(!StringUtils.isEmpty(keyword));
 		return getEntityManager()
 				.createQuery(
-						"select a from Article a where upper(a.name) like :keyword or upper(a.articleAbstract) like :keyword",
+						"select a from Article a where upper(a.title) like :keyword or upper(a.articleAbstract) like :keyword",
 						Article.class)
 				.setParameter("keyword", "%" + keyword.toUpperCase() + "%")
 				.getResultList();
@@ -27,16 +27,17 @@ public class JpaArticleDao extends AbstractJpaDao<Article> implements
 	@Override
 	public <T extends Article> List<T> getLatest(Class<T> articleClass,
 			int limit) {
+		String type =null;
 		try {
-			String type = (String) articleClass.getDeclaredMethod("getType",
+			type = (String) articleClass.getDeclaredMethod("getType",
 					null).invoke(null, null);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		Query query = getEntityManager()
 				.createNativeQuery(
-						"select * from cws_article a where a.type = ? order by a.create_time desc")
-				.setParameter(1, "type");
+						"select * from cws_article a where a.type = ? order by a.create_time desc",
+						articleClass).setParameter(1, type);
 		if (limit != BookDao.UNLIMITED)
 			query.setMaxResults(limit);
 		return query.getResultList();

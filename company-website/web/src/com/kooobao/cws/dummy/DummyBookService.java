@@ -97,19 +97,19 @@ public class DummyBookService implements BookService {
 	}
 
 	@Override
-	public List<Book> getLatestBooks() {
+	public List<Book> getLatestBooks(int limit) {
 		return books;
 	}
 
 	@Override
-	public List<Book> getHotBooks() {
-		return getLatestBooks();
+	public List<Book> getHotBooks(int limit) {
+		return getLatestBooks(limit);
 	}
 
 	@Override
-	public void saveBook(Book book) {
+	public Book saveBook(Book book) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
