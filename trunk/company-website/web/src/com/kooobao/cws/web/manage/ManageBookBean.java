@@ -19,7 +19,8 @@ public class ManageBookBean extends PageSearchBean {
 
 	public String save() {
 		getBookService().saveBook(getBook());
-		return "success";
+		setBook(new Book());
+		return search();
 	}
 
 	public String edit() {

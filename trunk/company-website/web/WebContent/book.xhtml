@@ -5,6 +5,23 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">教材导览</ui:define>
 	<ui:define name="body">
+		<style type="text/css">
+.bookpanel {
+	width: 730px;
+	height: auto !important;
+	min-height: 930px;
+	padding-left: 10px;
+	padding-top: 5px;
+}
+</style>
+		<h:panelGroup rendered="#{bookPageBean.selected == null}">
+			<script type="text/javascript">
+			<!--
+				window.location = "404.html";
+			//-->
+			</script>
+		</h:panelGroup>
+
 		<div class="panel" id="fast_nav" style="width: 150px; height: 950px;">
 			<div class="panel_title">
 				<div id="tl">
@@ -39,7 +56,7 @@
 							layout="block">
 							<ul>
 								<ui:repeat value="#{bookPageBean.books}" var="book">
-									<li><h:outputLink value="book.html">
+									<li class="book"><h:outputLink value="book.html">
 											<f:param name="bookId" value="#{book.oid}" />
 											<h:outputText value="#{book.name}" />
 										</h:outputLink></li>
@@ -49,9 +66,10 @@
 				</ui:repeat>
 			</ul>
 			<ul>
-				<ui:repeat rendered="#{bookPageBean.selectedCategory.leaf}"
+				<ui:repeat
+					rendered="#{bookPageBean.selectedCategory.leaf and bookPageBean.selectedCategory.parent == null}"
 					value="#{bookPageBean.books}" var="book">
-					<li><h:outputLink value="book.html">
+					<li class="book"><h:outputLink value="book.html">
 							<f:param name="bookId" value="#{book.oid}" />
 							<h:outputText value="#{book.name}" />
 						</h:outputLink></li>
@@ -59,8 +77,7 @@
 			</ul>
 		</div>
 		<!-- Book Info -->
-		<div class="blankpanel"
-			style="border-style: solid; border-width: 1px; width: 730px; height: 930px; padding: 10px;">
+		<div class="blankpanel bookpanel">
 			<h:outputText escape="false"
 				value="#{bookPageBean.currentBook.content}" />
 		</div>

@@ -35,7 +35,7 @@
 }
 
 #fast_nav li li {
-	width: 95px;
+	width: 115px;
 	font-size: 12px;
 	padding-top: 2px;
 	padding-bottom: 2px;
@@ -58,4 +58,9 @@
 
 #fast_nav a:hover,#fast_nav a:active {
 	color: #004F01;
+}
+
+#fast_nav li li.book a {
+	background-color: #13A7C1;
+	color: #EEEEEE;
 }

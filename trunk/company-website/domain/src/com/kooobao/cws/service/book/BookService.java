@@ -7,9 +7,9 @@ import com.kooobao.cws.domain.book.Category;
 
 public interface BookService {
 
-	List<Book> getLatestBooks();
+	List<Book> getLatestBooks(int limit);
 
-	List<Book> getHotBooks();
+	List<Book> getHotBooks(int limit);
 
 	List<Book> findBooks(String keyword);
 
@@ -25,7 +25,7 @@ public interface BookService {
 	 */
 	Book getFirstBookUnderCategory(Category category);
 
-	void saveBook(Book book);
+	Book saveBook(Book book);
 
 	void removeBook(Book book);
 

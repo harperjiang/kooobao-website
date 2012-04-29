@@ -20,8 +20,8 @@ public class IndexPageBean extends SelfRefreshBean {
 	private List<Resource> latestResources;
 
 	protected void refresh() {
-		latestBooks = getBookService().getLatestBooks();
-		hotBooks = getBookService().getLatestBooks();
+		latestBooks = getBookService().getLatestBooks(2);
+		hotBooks = getBookService().getLatestBooks(2);
 		latestNews = getArticleService().getLatestArticle(10, News.class);
 		latestResources = getArticleService().getLatestArticle(10,Resource.class);
 	}

@@ -35,10 +35,25 @@ td.intro p.title {
 	color: #C74D03;
 }
 
-.word_subtitle a {
+.book_title a {
+	font-weight: bold;
+	font-face: Calibri, 黑体;
+	font-size: 14px;
+	text-decoration: none;
 	color: #f4880c;
 	display: block;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+.news {
+	margin: 10px;
+}
+
+.news a {
+	display: inline;
 	text-decoration: none;
+	color: #1215dd;
 }
 </style>
 
@@ -97,7 +112,7 @@ td.intro p.title {
 		<p>外教师资</p>
 		</div-->
 
-		<div class="panel" style="width: 365px; height: 290px;">
+		<div class="panel" style="width: 365px; height: 300px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -109,12 +124,20 @@ td.intro p.title {
 			</div>
 			<ui:repeat var="book" value="#{indexPageBean.latestBooks}"
 				varStatus="status">
-				<div style="padding-left: 5px; padding-top: 5px;">
+				<div style="margin: 5px; height: 120px;">
 					<div style="float: left; width: 120px; height: 120px;">
-						<h:graphicImage url="#{book.pictureUrl}" />
+						<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+							value="/book/#{book.oid}.html">
+							<h:graphicImage url="#{book.pictureUrl}" />
+						</h:outputLink>
+						<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+							value="/book.html">
+							<f:param name="bookId" value="#{book.oid}" />
+							<h:graphicImage url="#{book.pictureUrl}" />
+						</h:outputLink>
 					</div>
 					<div style="float: left; width: 230px; height: 120px;">
-						<div class="word_subtitle" style="color: #f4880c;">
+						<div class="book_title" style="color: #f4880c;">
 							<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
 								value="/book/#{book.oid}.html">
 								<h:outputText value="#{book.name}" />
@@ -125,7 +148,7 @@ td.intro p.title {
 								<h:outputText value="#{book.name}" />
 							</h:outputLink>
 						</div>
-						<div class="word_content" style="height: 55px;">
+						<div class="word_content" style="height: 50px;">
 							<h:outputText value="#{book.brief}" />
 						</div>
 						<div style="text-align: right;">
@@ -147,7 +170,7 @@ td.intro p.title {
 			</ui:repeat>
 		</div>
 
-		<div class="panel" style="width: 365px; height: 290px;">
+		<div class="panel" style="width: 365px; height: 300px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -159,12 +182,20 @@ td.intro p.title {
 			</div>
 			<ui:repeat var="book" value="#{indexPageBean.hotBooks}"
 				varStatus="status">
-				<div style="padding-left: 5px; padding-top: 5px;">
+				<div style="margin: 5px; height: 120px;">
 					<div style="float: left; width: 120px; height: 120px;">
-						<h:graphicImage url="#{book.pictureUrl}" />
+						<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+							value="/book/#{book.oid}.html">
+							<h:graphicImage url="#{book.pictureUrl}" />
+						</h:outputLink>
+						<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+							value="/book.html">
+							<f:param name="bookId" value="#{book.oid}" />
+							<h:graphicImage url="#{book.pictureUrl}" />
+						</h:outputLink>
 					</div>
 					<div style="float: left; width: 220px; height: 120px;">
-						<div class="word_subtitle" style="color: #f4880c;">
+						<div class="book_title" style="color: #f4880c;">
 							<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
 								value="/book/#{book.oid}.html">
 								<h:outputText value="#{book.name}" />
@@ -262,6 +293,37 @@ td.intro p.title {
 
 		</div>
 
+		<div class="panel newspanel" style="width: 365px; height: 225px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				教育新闻
+			</div>
+			<ui:repeat var="news" value="#{indexPageBean.latestNews}"
+				varStatus="status">
+				<div class="news">
+					<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
+						value="article.html">
+						<f:param name="articleId" value="#{news.oid}" />
+						<h:outputText value="#{news.title}" />
+					</h:outputLink>
+					<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+						value="news/#{news.oid}.html">
+						<h:outputText value="#{news.title}" />
+					</h:outputLink>
+					<div style="float: right">
+						<h:outputText value="#{news.createTime}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:outputText>
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+
 		<script type="text/javascript" src="/script/play_video.js" />
 
 		<div class="panel newspanel" style="width: 365px; height: 215px;">
@@ -297,31 +359,7 @@ td.intro p.title {
 		</div>
 
 
-		<div class="panel newspanel" style="width: 365px; height: 225px;">
-			<div class="panel_title">
-				<div id="tl">
-					<img src="image/curve_topleft.gif" />
-				</div>
-				<div id="tr">
-					<img src="image/curve_topright.gif" />
-				</div>
-				教育新闻
-			</div>
-			<ui:repeat var="news" value="#{indexPageBean.latestNews}"
-				varStatus="status">
-				<p>
-					<h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
-						value="article.html">
-						<f:param name="articleId" value="#{news.oid}" />
-						<h:outputText value="#{news.title}" />
-					</h:outputLink>
-					<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
-						value="news/#{news.oid}.html">
-						<h:outputText value="#{news.title}" />
-					</h:outputLink>
-				</p>
-			</ui:repeat>
-		</div>
+
 
 	</ui:define>
 </ui:composition>

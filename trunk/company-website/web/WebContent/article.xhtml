@@ -3,11 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/common/page_template.xhtml">
-	<ui:define name="title">酷宝原版少儿英语-文章阅读:#{articlePageBean.selected==null?''articlePageBean.selected.title}</ui:define>
+	<ui:define name="title">酷宝原版少儿英语-文章阅读:#{articlePageBean.selected==null?'':articlePageBean.selected.title}</ui:define>
 	<ui:define name="body">
-		
-		
-		
 		<h:panelGroup rendered="#{articlePageBean.selected == null}">
 			<script type="text/javascript">
 			<!--
@@ -15,5 +12,40 @@
 			//-->
 			</script>
 		</h:panelGroup>
+		<style type="text/css">
+.article_body {
+	width: 70%;
+	background-color: #EEFFEE;
+	overflow: auto;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	padding-right: 20px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
+
+.article_title {
+	margin-top: 30px;
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 24px;
+	display: block;
+}
+</style>
+		<div class="article_body">
+			<div class="article_title">
+				<h:outputText value="#{articlePageBean.selected.title}" />
+			</div>
+			<div style="text-align: center">
+				<h:outputText value="日期" />
+				<h:outputText value="#{articlePageBean.selected.createTime}">
+					<f:convertDateTime pattern="yyyy-MM-dd" />
+				</h:outputText>
+			</div>
+			<div>
+				<h:outputText value="#{articlePageBean.selected.content}"
+					escape="false" />
+			</div>
+		</div>
 	</ui:define>
 </ui:composition>

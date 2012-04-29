@@ -50,7 +50,7 @@ public class ManageArticleBean extends PageSearchBean {
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Article Saved",
 						"Article Saved"));
-		return "success";
+		return search();
 	}
 
 	public String edit() {

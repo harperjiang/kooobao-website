@@ -5,27 +5,8 @@
 	template="/common/page_template.xhtml">
 	<ui:define name="title">会员专区</ui:define>
 	<ui:define name="body">
-		<style type="text/css">
-.loginForm {
-	padding: 5px;
-}
 
-.loginForm label,.loginForm input,.loginForm select,.loginForm textarea
-	{
-	display: block;
-	float: left;
-	margin-top: 5px;
-}
-
-.loginForm label {
-	width: 65px;
-}
-
-.loginForm input {
-	width: 110px;
-}
-</style>
-		<div class="panel" style="width: 200px; height: 250px;">
+		<div class="panel" style="width: 200px; height: 200px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -33,35 +14,14 @@
 				<div id="tr">
 					<img src="image/curve_topright.gif" />
 				</div>
-				会员信息
+				我的酷宝
 			</div>
-			<h:panelGroup layout="block" style="margin:5px;">
-				<h:panelGroup rendered="#{!memberBean.loggedIn}">
-					<div class="title">会员登录</div>
-					<div class="loginForm">
-						<h:form id="memberLoginForm">
-							<h:messages errorStyle="color:#FF0000" />
-							<h:outputLabel id="userIdLabel" for="userIdText">用户名</h:outputLabel>
-							<h:inputText id="userIdText" value="#{memberBean.userId}" />
-							<br />
-							<h:outputLabel id="passLabel" for="passText">密码</h:outputLabel>
-							<h:inputSecret id="passText" value="#{memberBean.plainPass}" />
-							<br />
-							<h:commandButton value="登录" action="#{memberBean.login}" />
-							<br />
-						</h:form>
-						<h:outputLink value="/member/register.html">注册新会员</h:outputLink>
-					</div>
-				</h:panelGroup>
-			</h:panelGroup>
 			<h:panelGroup rendered="#{memberBean.loggedIn}" style="margin:5px;">
-				<div class="title">会员信息</div>
+				<div class="title" style="margin-top: 15px;">会员信息</div>
 				<div style="padding: 10px;">
 					欢迎会员：
 					<h:outputText value="#{memberBean.userId}" />
-					<br />
-					<br /> 您的等级：X级<br />
-					<br />
+					<br /> <br /> 您的等级：X级<br /> <br />
 					<h:form>
 						<h:commandLink action="#{memberBean.logout}" value="退出登录" />
 					</h:form>
@@ -69,7 +29,7 @@
 			</h:panelGroup>
 		</div>
 
-		<div class="panel" style="width: 300px; height: 250px;">
+		<div class="panel" style="width: 700px; height: 340px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -77,11 +37,13 @@
 				<div id="tr">
 					<img src="image/curve_topright.gif" />
 				</div>
-				Love English课件
+				个人信息
 			</div>
 		</div>
 
-		<div class="panel" style="width: 300px; height: 250px;">
+		<div class="blankpanel" style="width: 200px; height: 250px;" />
+
+		<div class="panel" style="width: 345px; height: 600px;">
 			<div class="panel_title">
 				<div id="tl">
 					<img src="image/curve_topleft.gif" />
@@ -89,8 +51,21 @@
 				<div id="tr">
 					<img src="image/curve_topright.gif" />
 				</div>
-				Love English课件
+				会员新闻
 			</div>
 		</div>
+
+		<div class="panel" style="width: 345px; height: 600px;">
+			<div class="panel_title">
+				<div id="tl">
+					<img src="image/curve_topleft.gif" />
+				</div>
+				<div id="tr">
+					<img src="image/curve_topright.gif" />
+				</div>
+				资源推荐
+			</div>
+		</div>
+
 	</ui:define>
 </ui:composition>

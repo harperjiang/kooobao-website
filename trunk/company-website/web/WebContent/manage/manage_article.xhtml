@@ -9,20 +9,17 @@
 
 		<style type="text/css">
 .col1 {
-	width: 100px;
+	width: 250px;
 }
 
 .col2 {
-	width: 200px;
+	width: 50px;
 }
 
 .col3 {
 	width: 450px;
 }
 
-.col4 {
-	width: 30px;
-}
 </style>
 		<h:panelGroup layout="block"
 			style="margin-top: 25px;margin-left:20px;">
@@ -115,7 +112,8 @@
 						<br />
 						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
 						<h:selectOneMenu id="typeText"
-							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							value="#{manageArticleBean.article.section}"
+							converter="sectionConverter">
 							<f:selectItems value="#{sectionInfoBean.newsSection}" />
 						</h:selectOneMenu>
 						<br />
@@ -132,7 +130,8 @@
 						<h:inputHidden id="articleType" value="NEWS" />
 					</h:form>
 				</h:panelGroup>
-				<h:panelGroup id="resourcetab" class="formLayout" layout="block">
+				<h:panelGroup id="resourcetab" class="formLayout" layout="block"
+					style="display:none">
 					<h:messages />
 					<h:form id="newResourceForm">
 						<!-- Panel for creating new news -->
@@ -146,7 +145,8 @@
 						<br />
 						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
 						<h:selectOneMenu id="typeText"
-							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							value="#{manageArticleBean.article.section}"
+							converter="sectionConverter">
 							<f:selectItems value="#{sectionInfoBean.resSection}" />
 						</h:selectOneMenu>
 						<br />
@@ -178,7 +178,8 @@
 						<br />
 						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
 						<h:selectOneMenu id="typeText"
-							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							value="#{manageArticleBean.article.section}"
+							converter="sectionConverter">
 							<f:selectItems value="#{sectionInfoBean.videoSection}" />
 						</h:selectOneMenu>
 						<br />
@@ -232,7 +233,8 @@
 						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
 
 						<h:selectOneMenu id="typeText"
-							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							value="#{manageArticleBean.article.section}"
+							converter="sectionConverter">
 							<f:selectItems value="#{sectionInfoBean.newsSection}" />
 						</h:selectOneMenu>
 						<br />
@@ -264,7 +266,8 @@
 						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
 
 						<h:selectOneMenu id="typeText"
-							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							value="#{manageArticleBean.article.section}"
+							converter="sectionConverter">
 							<f:selectItems value="#{sectionInfoBean.resSection}" />
 						</h:selectOneMenu>
 						<br />
@@ -296,7 +299,8 @@
 						<br />
 						<h:outputLabel id="typeLabel" for="typeText" value="类型" />
 						<h:selectOneMenu id="typeText"
-							value="#{manageArticleBean.article.section}" converter="sectionConverter">
+							value="#{manageArticleBean.article.section}"
+							converter="sectionConverter">
 							<f:selectItems value="#{sectionInfoBean.newsSection}" />
 						</h:selectOneMenu>
 						<br />
