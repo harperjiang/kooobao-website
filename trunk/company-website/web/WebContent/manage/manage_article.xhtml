@@ -19,7 +19,6 @@
 .col3 {
 	width: 450px;
 }
-
 </style>
 		<h:panelGroup layout="block"
 			style="margin-top: 25px;margin-left:20px;">
@@ -149,6 +148,23 @@
 							converter="sectionConverter">
 							<f:selectItems value="#{sectionInfoBean.resSection}" />
 						</h:selectOneMenu>
+						<br />
+						<h:outputLabel id="fileNameLabel" for="filNameText" value="资源文件名" />
+						<h:inputText id="fileNameText"
+							value="#{manageArticleBean.fileInfo.fileName}" />
+						<br />
+						<h:outputLabel id="scoreLabel" for="scoreText" value="分值" />
+						<h:inputText id="scoreText"
+							value="#{manageArticleBean.fileInfo.score}">
+							<f:convertNumber />
+						</h:inputText>
+						<br />
+						<label id="fileLabel" for="fileText">上传文件</label>
+						<input id="fileText" type="file" />
+						<br />
+						<h:outputLabel id="fileNameLabel" for="filNameText" value="资源文件名" />
+						<h:inputText id="fileNameText"
+							value="#{manageArticleBean.fileInfo.fileName}" />
 						<br />
 						<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
 						<h:inputTextarea id="contentText"

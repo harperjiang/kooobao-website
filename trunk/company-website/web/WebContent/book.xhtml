@@ -46,20 +46,31 @@
 			</h:panelGroup>
 			<ul>
 				<ui:repeat value="#{bookPageBean.categories}" var="category">
-					<li><h:outputLink
+					<li><h:outputLink rendered="#{!envConfigBean.rewriteUrl}"
 							styleClass="#{(bookPageBean.selectedCategory eq category)?'selected':''}"
 							value="/book.html">
 							<f:param name="categoryId" value="#{category.oid}" />
 							<h:outputText value="#{category.name}" />
-						</h:outputLink> <h:panelGroup
+						</h:outputLink> 
+						<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+							styleClass="#{(bookPageBean.selectedCategory eq category)?'selected':''}"
+							value="/category/#{category.oid}.html">
+							<h:outputText value="#{category.name}" />
+						</h:outputLink> 
+						<h:panelGroup
 							rendered="#{bookPageBean.selectedCategory eq category}"
 							layout="block">
 							<ul>
 								<ui:repeat value="#{bookPageBean.books}" var="book">
-									<li class="book"><h:outputLink value="book.html">
+									<li class="book">
+										<h:outputLink rendered="#{!envConfigBean.rewriteUrl}" value="/book.html">
 											<f:param name="bookId" value="#{book.oid}" />
 											<h:outputText value="#{book.name}" />
-										</h:outputLink></li>
+										</h:outputLink>
+										<h:outputLink rendered="#{envConfigBean.rewriteUrl}" value="/book/#{book.oid}.html">
+											<h:outputText value="#{book.name}" />
+										</h:outputLink>
+									</li>
 								</ui:repeat>
 							</ul>
 						</h:panelGroup></li>
@@ -69,10 +80,16 @@
 				<ui:repeat
 					rendered="#{bookPageBean.selectedCategory.leaf and bookPageBean.selectedCategory.parent == null}"
 					value="#{bookPageBean.books}" var="book">
-					<li class="book"><h:outputLink value="book.html">
+					<li class="book">
+						<h:outputLink rendered="#{!envConfigBean.rewriteUrl}" value="/book.html">
 							<f:param name="bookId" value="#{book.oid}" />
 							<h:outputText value="#{book.name}" />
-						</h:outputLink></li>
+						</h:outputLink>
+						<h:outputLink rendered="#{envConfigBean.rewriteUrl}" value="/book/#{book.oid}.html">
+							<f:param name="bookId" value="#{book.oid}" />
+							<h:outputText value="#{book.name}" />
+						</h:outputLink>
+					</li>
 				</ui:repeat>
 			</ul>
 		</div>

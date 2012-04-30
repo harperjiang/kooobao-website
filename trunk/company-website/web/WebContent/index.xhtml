@@ -35,6 +35,10 @@ td.intro p.title {
 	color: #C74D03;
 }
 
+.book_title {
+	padding-left: 10px;
+}
+
 .book_title a {
 	font-weight: bold;
 	font-face: Calibri, 黑体;
@@ -42,8 +46,15 @@ td.intro p.title {
 	text-decoration: none;
 	color: #f4880c;
 	display: block;
-	margin-left: 5px;
 	margin-bottom: 5px;
+}
+
+.book_content {
+	font-family: Calibri, 宋体;
+	font-size: 12px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
 }
 
 .news {
@@ -73,8 +84,7 @@ td.intro p.title {
 							value="/book.html">
 							<h:outputText value="#{category.name}" />
 							<f:param name="categoryId" value="#{category.oid}" />
-						</h:outputLink> 
-						<h:outputLink rendered="#{envConfigBean.rewriteUrl}"
+						</h:outputLink> <h:outputLink rendered="#{envConfigBean.rewriteUrl}"
 							value="/category/#{category.oid}.html">
 							<h:outputText value="#{category.name}" />
 						</h:outputLink></li>
@@ -149,7 +159,7 @@ td.intro p.title {
 								<h:outputText value="#{book.name}" />
 							</h:outputLink>
 						</div>
-						<div class="word_content" style="height: 50px;">
+						<div class="book_content" style="height: 50px;">
 							<h:outputText value="#{book.brief}" />
 						</div>
 						<div style="text-align: right;">
@@ -207,7 +217,7 @@ td.intro p.title {
 								<h:outputText value="#{book.name}" />
 							</h:outputLink>
 						</div>
-						<div class="word_content" style="height: 55px;">
+						<div class="book_content" style="height: 55px;">
 							<h:outputText value="#{book.brief}" />
 						</div>
 						<div style="text-align: right;">
