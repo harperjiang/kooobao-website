@@ -1,5 +1,6 @@
 package com.kooobao.cws.web.manage;
 
+import java.io.File;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -7,10 +8,13 @@ import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 
 import com.kooobao.common.web.bean.PageSearchBean;
+import com.kooobao.common.web.fileupload.FileBean;
+import com.kooobao.common.web.fileupload.MultipartRequestWrapper;
 import com.kooobao.cws.domain.article.Article;
 import com.kooobao.cws.domain.article.News;
 import com.kooobao.cws.domain.article.Resource;
 import com.kooobao.cws.domain.article.Video;
+import com.kooobao.cws.domain.resource.FileInfo;
 import com.kooobao.cws.service.article.ArticleService;
 
 public class ManageArticleBean extends PageSearchBean {
@@ -32,7 +36,10 @@ public class ManageArticleBean extends PageSearchBean {
 				newArticle = new Video();
 			}
 			if (Resource.getType().equals(type)) {
-				newArticle = new Resource();
+				Resource resource = new Resource();
+				resource.setFile(getFileInfo());
+				extractFileInfo(resource.getFile());
+				newArticle = resource;
 			}
 			if (null != newArticle) {
 				newArticle.setTitle(getArticle().getTitle());
@@ -45,12 +52,30 @@ public class ManageArticleBean extends PageSearchBean {
 		}
 
 		getArticleService().saveArticle(getArticle());
-		setArticle(new News());
+		reset();
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, "Article Saved",
 						"Article Saved"));
 		return search();
+	}
+
+	private void extractFileInfo(FileInfo file) {
+		FileBean fb = ((MultipartRequestWrapper) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest())
+				.getFile("fileText");
+		if(null == fb)
+			return;
+		file.setContentType(fb.getContentType());
+		file.setFileName(fb.getOriginName());
+		file.setUuid(fb.getPath().substring(
+				fb.getPath().lastIndexOf(File.separatorChar)));
+		file.setPath(fb.getPath());
+	}
+
+	private void reset() {
+		setArticle(new News());
+		fileInfo = null;
 	}
 
 	public String edit() {
@@ -80,6 +105,14 @@ public class ManageArticleBean extends PageSearchBean {
 
 	public void setSearch(SearchArticleBean search) {
 		this.search = search;
+	}
+
+	private FileInfo fileInfo;
+
+	public FileInfo getFileInfo() {
+		if (null == fileInfo)
+			fileInfo = new FileInfo();
+		return fileInfo;
 	}
 
 	private Article article;
