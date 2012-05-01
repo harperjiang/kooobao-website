@@ -347,21 +347,21 @@ td.intro p.title {
 				</div>
 				视频与教育资源
 			</div>
-			<ui:repeat var="video" value="#{indexPageBean.latestResources}"
+			<ui:repeat var="video" value="#{indexPageBean.latestVideo}"
 				varStatus="status">
 				<p>
-					<h:outputLink rendered="#{video.type == 'VIDEO'}"
+					<h:outputLink rendered="#{video.articleType eq 'VIDEO'}"
 						onclick="play_youku_video('#{video.videoId}')">
 						<h:outputText value="#{video.title}" />
 					</h:outputLink>
 					<h:outputLink
-						rendered="#{video.type != 'VIDEO' and !envConfigBean.rewriteUrl}"
+						rendered="#{video.articleType != 'VIDEO' and !envConfigBean.rewriteUrl}"
 						value="article.html">
 						<f:param name="articleId" value="#{video.oid}" />
 						<h:outputText value="#{video.title}" />
 					</h:outputLink>
 					<h:outputLink
-						rendered="#{video.type != 'VIDEO' and envConfigBean.rewriteUrl}"
+						rendered="#{video.articleType != 'VIDEO' and envConfigBean.rewriteUrl}"
 						value="resource/#{video.oid}.html">
 						<h:outputText value="#{video.title}" />
 					</h:outputLink>

@@ -7,6 +7,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIData;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.kooobao.common.web.Utilities;
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.fileupload.FileBean;
 import com.kooobao.common.web.fileupload.MultipartRequestWrapper;
@@ -21,9 +24,11 @@ public class ManageArticleBean extends PageSearchBean {
 
 	@Override
 	public String search() {
-		List<Article> books = getArticleService().findArticles(
-				getSearch().getKeyword());
-		setArticles(books);
+		if (!StringUtils.isEmpty(getSearch().getKeyword())) {
+			List<Article> books = getArticleService().findArticles(
+					getSearch().getKeyword());
+			setArticles(books);
+		}
 		return "success";
 	}
 
@@ -32,14 +37,16 @@ public class ManageArticleBean extends PageSearchBean {
 			// New Article, verify the hidden type
 			String type = getArticleType();
 			Article newArticle = null;
-			if (Video.getType().equals(type)) {
-				newArticle = new Video();
-			}
-			if (Resource.getType().equals(type)) {
-				Resource resource = new Resource();
-				resource.setFile(getFileInfo());
-				extractFileInfo(resource.getFile());
-				newArticle = resource;
+			if (!StringUtils.isEmpty(type)) {
+				if (Video.getType().equals(type)) {
+					newArticle = new Video();
+				}
+				if (Resource.getType().equals(type)) {
+					Resource resource = new Resource();
+					resource.setFile(getFileInfo());
+					extractFileInfo(resource.getFile());
+					newArticle = resource;
+				}
 			}
 			if (null != newArticle) {
 				newArticle.setTitle(getArticle().getTitle());
@@ -64,7 +71,7 @@ public class ManageArticleBean extends PageSearchBean {
 		FileBean fb = ((MultipartRequestWrapper) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest())
 				.getFile("fileText");
-		if(null == fb)
+		if (null == fb)
 			return;
 		file.setContentType(fb.getContentType());
 		file.setFileName(fb.getOriginName());
@@ -150,8 +157,10 @@ public class ManageArticleBean extends PageSearchBean {
 	}
 
 	public String getArticleType() {
-		return FacesContext.getCurrentInstance().getExternalContext()
-				.getRequestParameterMap().get("articleType");
+		return Utilities.nvl(FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get("newArticleForm:articleType"),FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get("newVideoForm:articleType"),FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get("newResourceForm:articleType"));
 	}
 
 }

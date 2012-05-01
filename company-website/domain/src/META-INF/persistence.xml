@@ -18,35 +18,22 @@
 		<class>com.kooobao.cws.domain.resource.FileInfo</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC" />
-			<!-- property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cws_test" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="jieninan" /-->
 			<property name="eclipselink.jdbc.bind-parameters" value="true" />
-			<property name="eclipselink.logging.level.event" value="SEVERE"/>
-			<property name="eclipselink.logging.level.sql" value="ALL"/>
+			<property name="eclipselink.logging.level.event" value="SEVERE" />
+			<property name="eclipselink.logging.level.sql" value="ALL" />
 		</properties>
 	</persistence-unit>
-	<persistence-unit name="company-website-domain-local"
-		transaction-type="RESOURCE_LOCAL">
-		<class>com.kooobao.cws.domain.book.Book</class>
-		<class>com.kooobao.cws.domain.book.Category</class>
-		<class>com.kooobao.cws.domain.article.Article</class>
-		<class>com.kooobao.cws.domain.article.News</class>
-		<class>com.kooobao.cws.domain.article.Resource</class>
-		<class>com.kooobao.cws.domain.article.Video</class>
-		<class>com.kooobao.cws.domain.customer.Customer</class>
-		<class>com.kooobao.cws.domain.customer.Contact</class>
-		<class>com.kooobao.cws.domain.article.Section</class>
-		<properties>
-			<property name="eclipselink.jdbc.batch-writing" value="JDBC" />
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cws_test" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="J1eninan" />
-			<property name="eclipselink.jdbc.bind-parameters" value="true" />
-			<property name="eclipselink.logging.level.event" value="SEVERE"/>
-			<property name="eclipselink.logging.level.sql" value="ALL"/>
-		</properties>
-	</persistence-unit>
+	<!-- persistence-unit name="company-website-domain-local" transaction-type="RESOURCE_LOCAL"> 
+		<class>com.kooobao.cws.domain.book.Book</class> <class>com.kooobao.cws.domain.book.Category</class> 
+		<class>com.kooobao.cws.domain.article.Article</class> <class>com.kooobao.cws.domain.article.News</class> 
+		<class>com.kooobao.cws.domain.article.Resource</class> <class>com.kooobao.cws.domain.article.Video</class> 
+		<class>com.kooobao.cws.domain.customer.Customer</class> <class>com.kooobao.cws.domain.customer.Contact</class> 
+		<class>com.kooobao.cws.domain.article.Section</class> <properties> <property 
+		name="eclipselink.jdbc.batch-writing" value="JDBC" /> <property name="javax.persistence.jdbc.driver" 
+		value="com.mysql.jdbc.Driver" /> <property name="javax.persistence.jdbc.url" 
+		value="jdbc:mysql://localhost:3306/cws_test" /> <property name="javax.persistence.jdbc.user" 
+		value="root" /> <property name="javax.persistence.jdbc.password" value="J1eninan" 
+		/> <property name="eclipselink.jdbc.bind-parameters" value="true" /> <property 
+		name="eclipselink.logging.level.event" value="SEVERE"/> <property name="eclipselink.logging.level.sql" 
+		value="ALL"/> </properties> </persistence-unit -->
 </persistence>
