@@ -1,6 +1,5 @@
 package com.kooobao.common.web;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -11,7 +10,7 @@ import java.util.Random;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.springframework.beans.PropertyAccessorUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 public class Utilities {
@@ -82,6 +81,13 @@ public class Utilities {
 			throw new RuntimeException(e1);
 		}
 
+	}
+
+	public static String nvl(String... vals) {
+		for(String val:vals)
+			if(!StringUtils.isEmpty(val))
+				return val;
+		return null;
 	}
 
 }
