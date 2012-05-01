@@ -19,6 +19,9 @@ import com.kooobao.cws.domain.resource.CustomerScore.CustomerScorePK;
 public class CustomerScore {
 
 	@Id
+	@Column(name = "customer_id", updatable = false, insertable = false)
+	private long customerId;
+
 	@OneToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "obj_id")
 	private Customer customer;
@@ -33,6 +36,7 @@ public class CustomerScore {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+		this.customerId = customer.getOid();
 	}
 
 	public int getScore() {
@@ -42,14 +46,13 @@ public class CustomerScore {
 	public void setScore(int score) {
 		this.score = score;
 	}
-	
+
 	public static class CustomerScorePK implements Serializable {
-		
-		private Customer customer;
+
+		private long customerId;
 
 		private int score;
-		
-		
+
 	}
 
 }

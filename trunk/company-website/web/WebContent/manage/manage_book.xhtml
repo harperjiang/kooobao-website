@@ -70,7 +70,7 @@
 			</h:panelGroup>
 
 			<h:panelGroup layout="block"
-				style="font-size: 18px; margin-top: 30px;margin-bottom:20px;">新增图书记录</h:panelGroup>
+				style="font-size: 18px; margin-top: 30px;margin-bottom:20px;">新增/编辑图书记录</h:panelGroup>
 
 			<h:panelGroup id="newbookPanel" class="formLayout" layout="block">
 				<h:messages />
@@ -91,6 +91,11 @@
 					<br />
 					<h:outputLabel id="briefLabel" for="briefText" value="簡介" />
 					<h:inputText id="briefText" value="#{manageBookBean.book.brief}" />
+					<br />
+					<h:outputLabel id="levelLabel" for="levelText" value="级别" />
+					<h:inputText id="levelText" value="#{manageBookBean.book.level}">
+						<f:convertNumber />
+					</h:inputText>
 					<br />
 					<h:outputLabel id="contentLabel" for="contentText" value="详细内容" />
 					<h:inputTextarea id="contentText" style="height:400px;width:730px;"

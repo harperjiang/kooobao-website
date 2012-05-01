@@ -13,7 +13,9 @@ public class Video extends Article {
 
 	public static String getType() {
 		return "VIDEO";
-	}public String getArticleType() {
+	}
+
+	public String getArticleType() {
 		return getType();
 	}
 }

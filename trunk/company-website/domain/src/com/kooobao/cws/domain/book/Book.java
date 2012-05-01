@@ -20,6 +20,9 @@ public class Book extends VersionEntity {
 
 	@Column(name = "picture_url")
 	private String pictureUrl;
+	
+	@Column(name = "level")
+	private int level;
 
 	@OneToOne
 	@JoinColumn(name = "category", referencedColumnName = "obj_id")
@@ -66,6 +69,14 @@ public class Book extends VersionEntity {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 }
