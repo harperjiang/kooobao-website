@@ -8,6 +8,10 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.web.fileupload.FileBean;
 
@@ -21,6 +25,26 @@ public abstract class AbstractBean implements JSFLifecycleAware {
 		FacesContext context = FacesContext.getCurrentInstance();
 		return (T) context.getApplication().evaluateExpressionGet(context,
 				"#{" + beanName + "}", Object.class);
+	}
+
+	public String getParameter(String paramName) {
+		return FacesContext.getCurrentInstance().getExternalContext()
+				.getRequestParameterMap().get(paramName);
+	}
+	
+	public Cookie getCookie(String name) {
+		if(StringUtils.isEmpty(name))
+			return null;
+		Cookie[] cookies = ((HttpServletRequest) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest())
+				.getCookies();
+		if(null == cookies)
+			return null;
+		for(Cookie cookie:cookies) {
+			if(name.equals(cookie.getName()))
+				return cookie;
+		}
+		return null;
 	}
 
 	public UIComponent getComponent(String id) {
@@ -46,9 +70,8 @@ public abstract class AbstractBean implements JSFLifecycleAware {
 				new FacesMessage(severity, message, message));
 
 	}
-	
-	protected List<FileBean> fileBeans;
 
+	protected List<FileBean> fileBeans;
 
 	public AbstractBean() {
 		super();
