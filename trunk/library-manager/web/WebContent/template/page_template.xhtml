@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="title" /></title>
+	<link href="/style/main.css" rel="stylesheet" type="text/css" />
+	<script type='text/javascript' src='/dwr/engine.js' />
+	<script type='text/javascript' src='/dwr/util.js' />
+	<script type="text/javascript" src="/dwr/interface/cart_manager.js" />
+	<script type="text/javascript" src="/js/cart.js" />
+</h:head>
+<h:body>
+	<div class="header">
+		<div
+			style="float: left; width: 300px; height: 100px; border-style: solid; border-width: 1px;">
+			<img src="" />
+		</div>
+		<h:panelGroup rendered="#{!loginBean.loggedIn and displayLogin}"
+			layout="block" style="float: right; margin-right: 40px;">
+			<h:outputLink value="/login.html">[登录]</h:outputLink>
+			<h:outputLink value="/register.html">[注册]</h:outputLink>
+			<h:outputLink value="/cart.html">我的借书篮</h:outputLink>
+		</h:panelGroup>
+
+		<h:panelGroup rendered="#{loginBean.loggedIn and displayLogin}"
+			layout="block" style="float:right;margin-right:40px;">
+			<h:form>
+				<h:outputLink value="/my.html">我的图书馆</h:outputLink>
+				<h:outputLink value="/cart.html">我的借书篮</h:outputLink>
+				<h:commandLink action="#{loginBean.logout}">[注销]</h:commandLink>
+			</h:form>
+		</h:panelGroup>
+		<div class="clearer" />
+	</div>
+	<h:panelGroup layout="block" styleClass="search">
+		<h:form id="searchForm">
+			<h:outputLabel for="searchText" value="搜一搜:" />
+			<h:inputText id="searchText" value="#{searchBookBean.keyword}"
+				style="width:250px;" />
+			<h:commandButton id="searchButton" value="搜索"
+				action="#{searchBookBean.search}" />
+			<div style="display: inline;">热搜词:</div>
+			<div style="margin-left: 5px; display: inline;">
+				<h:commandLink id="hotWord1" action="#{hotSearchBean.hotSearch}"
+					value="#{hotSearchBean.hotWord1}">
+					<f:param name="word" value="#{hotSearchBean.hotWord1}" />
+				</h:commandLink>
+				<h:commandLink id="hotWord2" action="#{hotSearchBean.hotSearch}"
+					value="#{hotSearchBean.hotWord2}">
+					<f:param name="word" value="#{hotSearchBean.hotWord2}" />
+				</h:commandLink>
+			</div>
+		</h:form>
+	</h:panelGroup>
+
+	<div class="body">
+		<ui:insert name="body" />
+	</div>
+	<div class="footer"></div>
+</h:body>
+</html>

@@ -9,6 +9,21 @@ public class Adjust extends SimpleEntity {
 
 	private int adjustCount;
 
-	private Operation operation;
+	public Book getBook() {
+		return book;
+	}
 
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public int getAdjustCount() {
+		return adjustCount;
+	}
+
+	public void setAdjustCount(int adjustCount) {
+		this.adjustCount = adjustCount;
+	}
+
+	
 }

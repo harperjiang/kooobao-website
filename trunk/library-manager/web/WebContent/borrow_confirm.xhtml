@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-借阅确认</ui:define>
+	<ui:define name="body">
+		<style type="text/css">
+.block {
+	margin-left: 10px;
+	margin-top: 10px;
+	float: left;
+	width: 270px;
+	height: 150px;
+}
+
+.block div {
+	margin-top: 3px;
+}
+
+.block_header {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+
+.table_header {
+	float: left;
+	font-weight: bold;
+}
+</style>
+		<h:panelGroup layout="block" style="margin:5px;">
+			<div class="page_title">确认订单信息：</div>
+			<div>
+				<div class="block">
+					<div class="block_header">派送地址:</div>
+					<div>张三</div>
+					<div>张三村李四乡王五场子张三村李四乡王五场子张三村李四乡王五场子张三村李四乡王五场子</div>
+					<div>200120</div>
+					<div>电话：13414131131</div>
+					<div>
+						<a href="#">修改地址</a>
+					</div>
+				</div>
+				<div class="block">
+					<div class="block_header">运送方式:</div>
+					<div>
+						<h:selectOneMenu style="width:60%">
+							<f:selectItem itemLabel="快递" itemValue="" />
+							<f:selectItem itemLabel="自取" itemValue="" />
+						</h:selectOneMenu>
+					</div>
+					<div>如果您的地址距离图书馆较近，为了减少碳排放。我们鼓励您自行前来取书。您将获得10个豆丁的奖励</div>
+				</div>
+				<div class="block">
+					<div class="block_header">留言:</div>
+					<div>
+						如果有特殊需求，请在此留言，我们会尽量协调
+						<h:inputTextarea style="width:250;height:95;"></h:inputTextarea>
+					</div>
+				</div>
+				<div class="clearer" />
+			</div>
+			<div style="margin-left: 10px;">
+				<div class="block_header">书籍信息:</div>
+				<div>
+					<div style="margin-bottom: 10px;">
+						<div class="table_header" style="width: 100px;">书名</div>
+						<div class="table_header"
+							style="width: 120px; margin-left: 200px;">还书日期</div>
+						<div class="table_header" style="margin-left: 200px;">逾期</div>
+					</div>
+					<ui:repeat var="book" value="#{borrowConfirmBean.borrowed}">
+						<div style="margin-bottom: 5px;">
+							<div style="float: left; width: 100px; font-size: 12px;">
+								<h:outputText value="#{book.name}" />
+							</div>
+							<div style="float: left; width: 120px; margin-left: 200px;">2012-05-01</div>
+							<div style="float: left; margin-left: 200px;">1豆丁/天</div>
+
+						</div>
+					</ui:repeat>
+					<div class="clearer" />
+				</div>
+			</div>
+			<div>
+				<h:outputLink value="#">确认</h:outputLink>
+			</div>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="library-manager-web">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="kooobao-common.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-common/kooobao-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="kooobao-authcenter-client.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kooobao-authcenter-client/kooobao-authcenter-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="library-manager-domain.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/library-manager-domain/library-manager-domain">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/library-manager-web/build/classes"/>
+        <property name="context-root" value="library-manager-web"/>
+    </wb-module>
+</project-modules>

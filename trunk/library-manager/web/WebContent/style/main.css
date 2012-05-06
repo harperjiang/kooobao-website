@@ -1,0 +1,83 @@
+@CHARSET "utf-8";
+
+@IMPORT "word.css";
+
+body {
+	text-align: center;
+}
+
+div {
+	text-align: left;
+	font-size: 12px;
+	font-family: Calibri, Simsun;
+	border-width: 1px;
+	border-style: solid;
+	overflow: auto;
+}
+
+div.header {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 1000px;
+}
+
+div.footer {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 1000px;
+}
+
+div.header a {
+	text-decoration: none;
+	color: #0012DF;
+	margin-left: 5px;
+	margin-right: 5px;
+	font-size: 12px;
+}
+
+div.search {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+div.search label {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+div.search a {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+div.clearer {
+	clear: left;
+	line-height: 0;
+	height: 0;
+}
+
+div.body {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+	height: auto;
+	width: 1000px;
+	overflow: auto;
+	background-image: url("/image/left-bg.gif");
+}
+
+div.body div.column {
+	float: left;
+	margin: 5px;
+}
+
+form {
+	margin-bottom: 0px;
+}
