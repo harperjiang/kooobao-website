@@ -7,6 +7,8 @@
 	<import resource="auth.xml" />
 
 	<bean id="bookService" class="com.kooobao.lm.book.DummyBookService" />
+	<bean id="profileService" class="com.kooobao.lm.profile.DummyProfileService" />
+	<bean id="transactionService" class="com.kooobao.lm.bizflow.DummyTransactionService" />
 
 	<bean id="hotSearchBean" class="com.kooobao.lm.book.HotSearchBean">
 		<property name="bookService" ref="bookService" />

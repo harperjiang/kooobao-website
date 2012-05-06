@@ -1,8 +1,10 @@
 package com.kooobao.lm.bizflow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kooobao.common.domain.entity.VersionEntity;
+import com.kooobao.lm.profile.Address;
 import com.kooobao.lm.profile.Library;
 import com.kooobao.lm.profile.Visitor;
 
@@ -40,9 +42,13 @@ public class Transaction extends VersionEntity {
 
 	private Visitor visitor;
 
-	private List<TransactionItem> items;
+	private List<TransactionItem> items = new ArrayList<TransactionItem>();
 
 	private String state;
+
+	private Address address;
+
+	private String delivery;
 
 	public Library getLibrary() {
 		return library;
@@ -88,6 +94,22 @@ public class Transaction extends VersionEntity {
 
 	public void setState(State state) {
 		this.state = state.name();
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public String getDelivery() {
+		return delivery;
+	}
+
+	public void setDelivery(String delivery) {
+		this.delivery = delivery;
 	}
 
 	public static enum State {

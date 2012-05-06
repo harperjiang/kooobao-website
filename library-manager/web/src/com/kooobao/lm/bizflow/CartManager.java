@@ -69,6 +69,8 @@ public class CartManager {
 	public void clearExpired() {
 		try {
 			lock.lock();
+			if(cartExpireQueue.isEmpty())
+				return;
 			long threshold = System.currentTimeMillis() - EXPIRE_THRESHOLD;
 			while (cartExpireQueue.peek().getUpdateTime().getTime() < threshold) {
 				Cart expired = cartExpireQueue.poll();

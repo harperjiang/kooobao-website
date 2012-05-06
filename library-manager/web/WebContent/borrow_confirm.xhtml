@@ -23,6 +23,11 @@
 	margin-top: 5px;
 	margin-bottom: 5px;
 	font-size: 14px;
+	font-weight: block;
+}
+
+.block table tr td label {
+	font-size: 12px;
 }
 
 .table_header {
@@ -30,35 +35,60 @@
 	font-weight: bold;
 }
 </style>
+		<script type="text/javascript">
+			function switch_address_panel() {
+				document.getElementById("addressPanel").style.display = "none";
+				document.getElementById("addressPanelInner").style.display = "inline";
+			}
+		</script>
 		<h:panelGroup layout="block" style="margin:5px;">
 			<div class="page_title">确认订单信息：</div>
 			<div>
-				<div class="block">
+				<div id="addressPanel" class="block" style="width: 450px;">
 					<div class="block_header">派送地址:</div>
-					<div>张三</div>
-					<div>张三村李四乡王五场子张三村李四乡王五场子张三村李四乡王五场子张三村李四乡王五场子</div>
-					<div>200120</div>
-					<div>电话：13414131131</div>
 					<div>
-						<a href="#">修改地址</a>
+						<h:outputText value="#{borrowConfirmBean.address.name}" />
 					</div>
+					<div>
+						<h:outputText value="#{borrowConfirmBean.address.location}" />
+					</div>
+					<div>
+						电话：
+						<h:outputText value="#{borrowConfirmBean.address.phone}" />
+					</div>
+					<div>
+						<a href="#" onclick="switch_address_panel()">修改地址</a>
+					</div>
+				</div>
+				<div id="addressPanelInner" class="block"
+					style="width: 450px; display: none;">
+					<div class="block_header">派送地址:</div>
+					<h:form>
+						<h:selectOneRadio layout="pageDirection"
+							value="#{borrowConfirmBean.address}"
+							converter="selectItemConverter">
+							<f:selectItems
+								value="#{borrowConfirmBean.currentVisitor.availableAddresses}" />
+						</h:selectOneRadio>
+						<h:commandButton action="#{borrowConfirmBean.changeAddress}"
+							value="确认" />
+					</h:form>
 				</div>
 				<div class="block">
 					<div class="block_header">运送方式:</div>
 					<div>
-						<h:selectOneMenu style="width:60%">
-							<f:selectItem itemLabel="快递" itemValue="" />
-							<f:selectItem itemLabel="自取" itemValue="" />
+						<h:selectOneMenu style="width:60%"
+							value="#{borrowConfirmBean.delivery}">
+							<f:selectItem itemLabel="快递" itemValue="EXPRESS" />
+							<f:selectItem itemLabel="自取" itemValue="PICKUP" />
 						</h:selectOneMenu>
 					</div>
 					<div>如果您的地址距离图书馆较近，为了减少碳排放。我们鼓励您自行前来取书。您将获得10个豆丁的奖励</div>
 				</div>
-				<div class="block">
-					<div class="block_header">留言:</div>
-					<div>
-						如果有特殊需求，请在此留言，我们会尽量协调
-						<h:inputTextarea style="width:250;height:95;"></h:inputTextarea>
-					</div>
+				<div>
+					<h:form>
+						<h:commandLink action="#{borrowConfirmBean.confirm}">确认</h:commandLink>
+					</h:form>
 				</div>
 				<div class="clearer" />
 			</div>
@@ -84,9 +114,14 @@
 					<div class="clearer" />
 				</div>
 			</div>
-			<div>
-				<h:outputLink value="#">确认</h:outputLink>
+			<div class="block" style="width: 450px;">
+				<div class="block_header">留言:</div>
+				<div>
+					如果有特殊需求，请在此留言，我们会尽量协调
+					<h:inputTextarea style="width:440;height:95;"></h:inputTextarea>
+				</div>
 			</div>
+
 		</h:panelGroup>
 	</ui:define>
 </ui:composition>
