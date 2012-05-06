@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13361415361610" configfile="/library-manager-web/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="cart.xhtml" x="119" y="46" id="pf13362220596101" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13362220596112" path="/cart.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="borrow_confirm.xhtml" x="372" y="46" id="pf13362220596113" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13362220596112" path="/borrow_confirm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="114" y="168" id="pf13362392495174" outlinks="pf13362392495175" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="search.xhtml" x="399" y="168" id="pf13362392495176" inlinks="pf13362392495175" path="/search.xhtml"/>
+  <links id="pf13362220596112" target="pf13362220596113" source="pf13362220596101" outcome="success" redirect="true" fromaction="#{cartBean.confirm}"/>
+  <links id="pf13362392495175" target="pf13362392495176" source="pf13362392495174" outcome="success" redirect="true" fromaction="#{searchBookBean.search}"/>
+</pageflow:Pageflow>
