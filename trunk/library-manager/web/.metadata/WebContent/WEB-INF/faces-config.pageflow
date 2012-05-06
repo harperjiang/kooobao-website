@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13361415361610" configfile="/library-manager-web/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="cart.xhtml" x="119" y="46" id="pf13362220596101" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13362220596112" path="/cart.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="borrow_confirm.xhtml" x="372" y="46" id="pf13362220596113" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13362220596112" path="/borrow_confirm.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="114" y="168" id="pf13362392495174" outlinks="pf13362392495175" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="search.xhtml" x="399" y="168" id="pf13362392495176" inlinks="pf13362392495175" path="/search.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="cart.xhtml" x="122" y="178" id="pf13362220596101" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13362220596112" path="/cart.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="borrow_confirm.xhtml" x="338" y="178" id="pf13362220596113" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf13363184086253" inlinks="pf13362220596112" path="/borrow_confirm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="562" id="pf13362392495174" path="/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="search.xhtml" x="338" y="946" id="pf13362392495176" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13363135125000 pf13363135125001" path="/search.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="search" x="122" y="946" id="pf13363135125002" outlinks="pf13363135125000 pf13363135125001" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="borrow_finish.xhtml" x="345" y="312" id="pf13363184086254" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf13363184086253" path="/borrow_finish.xhtml"/>
   <links id="pf13362220596112" target="pf13362220596113" source="pf13362220596101" outcome="success" redirect="true" fromaction="#{cartBean.confirm}"/>
-  <links id="pf13362392495175" target="pf13362392495176" source="pf13362392495174" outcome="success" redirect="true" fromaction="#{searchBookBean.search}"/>
+  <links id="pf13363135125000" target="pf13362392495176" source="pf13363135125002" outcome="success" redirect="true" fromaction="#{searchBookBean.search}"/>
+  <links id="pf13363135125001" target="pf13362392495176" source="pf13363135125002" outcome="success" redirect="true" fromaction="#{hotSearchBean.hotSearch}"/>
+  <links id="pf13363184086253" target="pf13363184086254" source="pf13362220596113" outcome="success" redirect="true" fromaction="#{borrowConfirmBean.confirm}"/>
 </pageflow:Pageflow>

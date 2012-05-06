@@ -1,6 +1,8 @@
 package com.kooobao.lm.profile;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Visitor {
 
@@ -11,6 +13,10 @@ public class Visitor {
 	private String status;
 
 	private BigDecimal deposit;
+
+	private Address address;
+
+	private List<Address> availableAddresses = new ArrayList<Address>();
 
 	public String getId() {
 		return id;
@@ -42,6 +48,22 @@ public class Visitor {
 
 	public void setDeposit(BigDecimal deposit) {
 		this.deposit = deposit;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public List<Address> getAvailableAddresses() {
+		return availableAddresses;
+	}
+
+	public void setAvailableAddresses(List<Address> availableAddresses) {
+		this.availableAddresses = availableAddresses;
 	}
 
 	public static enum Status {

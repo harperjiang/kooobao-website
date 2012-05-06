@@ -7,6 +7,10 @@
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
+	<converter>
+		<converter-id>selectItemConverter</converter-id>
+		<converter-class>com.kooobao.common.web.converter.SelectItemConverter</converter-class>
+	</converter>
 
 	<managed-bean>
 		<managed-bean-name>loginBean</managed-bean-name>
@@ -43,6 +47,23 @@
 			<from-outcome>success</from-outcome>
 			<to-view-id>/search.xhtml</to-view-id>
 			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>borrow_confirm.xhtml</display-name>
+		<from-view-id>/borrow_confirm.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{borrowConfirmBean.confirm}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/borrow_finish.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+		<navigation-rule>
+		<display-name>500.xhtml</display-name>
+		<navigation-case>
+			<from-outcome>failed</from-outcome>
+			<to-view-id>/500.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<lifecycle>

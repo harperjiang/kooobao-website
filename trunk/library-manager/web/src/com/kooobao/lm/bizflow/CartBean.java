@@ -8,6 +8,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Cookie;
 
+import org.springframework.util.CollectionUtils;
+
 import com.kooobao.common.spring.ApplicationContextHolder;
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.lm.book.Book;
@@ -25,9 +27,9 @@ public class CartBean extends AbstractBean {
 			CartManager cm = ApplicationContextHolder.getInstance()
 					.getApplicationContext().getBean(CartManager.class);
 			Cart cart = cm.getCart(cartId);
-			books = cart.getBooks();
-		}
-		else {
+			if (null != cart)
+				books = cart.getBooks();
+		} else {
 			books = new ArrayList<Book>();
 		}
 	}
@@ -65,6 +67,8 @@ public class CartBean extends AbstractBean {
 	}
 
 	public int getSize() {
+		if (CollectionUtils.isEmpty(getBooks()))
+			return 0;
 		return getBooks().size();
 	}
 
