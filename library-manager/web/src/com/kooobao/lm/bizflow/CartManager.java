@@ -33,8 +33,9 @@ public class CartManager {
 		if (0 == oid)
 			return null;
 		try {
-			Book book = getBookService().getBook(oid);
 			lock.lock();
+			Book book = getBookService().getBook(oid);
+
 			if (StringUtils.isEmpty(cartId) || !carts.containsKey(cartId)) {
 				// New comer, construct a cart
 				String newId = UUID.randomUUID().toString();
@@ -69,7 +70,7 @@ public class CartManager {
 	public void clearExpired() {
 		try {
 			lock.lock();
-			if(cartExpireQueue.isEmpty())
+			if (cartExpireQueue.isEmpty())
 				return;
 			long threshold = System.currentTimeMillis() - EXPIRE_THRESHOLD;
 			while (cartExpireQueue.peek().getUpdateTime().getTime() < threshold) {
