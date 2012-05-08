@@ -43,13 +43,21 @@ div.search {
 	margin-left: auto;
 	margin-right: auto;
 	width: 1000px;
+	height: 26px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
 
 div.search label {
+	height: 18px;
 	margin-left: 5px;
 	margin-right: 5px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+div.search div {
+	height: 18px;
 }
 
 div.search a {
