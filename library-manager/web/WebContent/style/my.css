@@ -1,0 +1,27 @@
+@CHARSET "utf-8";
+
+div.part {
+	float: left;
+	margin-top: 5px;
+	width: 86%;
+}
+
+div.part_header {
+	margin: 6px;
+	font-size: 14px;
+}
+
+div.part_body {
+	margin: 6px;
+}
+
+div.part_item {
+	margin-top: 6px;
+	margin-bottom: 6px;
+}
+
+div.part_item label {
+	display: block;
+	float: left;
+	width: 80px;
+}

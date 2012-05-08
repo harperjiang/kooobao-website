@@ -7,55 +7,40 @@
 	<ui:define name="title">酷宝图书馆-我的图书馆</ui:define>
 	<ui:define name="body">
 		<ui:decorate template="my_menu.xhtml" />
-		<style type="text/css">
-div.part_header {
-	margin: 6px;
-	font-size: 14px;
-}
 
-div.part_item {
-	margin-top: 6px;
-	margin-bottom: 6px;
-}
-
-div.part_item label {
-	display: block;
-	float: left;
-	width: 80px;
-}
-</style>
-		<div style="float: left; margin-top: 5px; width: 86%">
+		<div class="part">
 			<div>
 				<div class="part_header">会员信息</div>
-				<div style="float: left; margin-left: 6px; width: 400px;">
-					<div class="part_item">
-						<label>会员名：</label>harper
+				<div class="part_body">
+					<div style="float: left; width: 400px;">
+						<div class="part_item">
+							<label>会员名：</label>harper
+						</div>
+						<div class="part_item">
+							<label>会员等级：</label>豆子会员
+						</div>
+						<div class="part_item">
+							<label>豆丁数：</label>128豆丁
+						</div>
 					</div>
-					<div class="part_item">
-						<label>会员等级：</label>豆子会员
-					</div>
-					<div class="part_item">
-						<label>豆丁数：</label>128豆丁
-					</div>
-				</div>
-				<div style="float: left; margin-left: 6px; width: 360px;">
-					<div class="part_item">
-						<label>借阅中的书：</label>128豆丁
-					</div>
-					<div class="part_item">
-						<label>已逾期的书：</label>128豆丁
+
+					<div style="float: left; margin-left: 6px; width: 360px;">
+						<div class="part_item">
+							<label>借阅中的书：</label>128豆丁
+						</div>
+						<div class="part_item">
+							<label>已逾期的书：</label>128豆丁
+						</div>
 					</div>
 				</div>
 			</div>
 			<div>
 				<div class="part_header">尚未归还的书</div>
-				<div style="margin: 6px;">
-				
-				</div>
+				<div class="part_body"></div>
 			</div>
 			<div>
 				<div class="part_header">最近的借阅记录</div>
-				<div style="margin: 6px;"></div>
+				<div class="part_body"></div>
 			</div>
 		</div>
 	</ui:define>
