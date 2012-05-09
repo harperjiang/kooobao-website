@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-我的图书馆</ui:define>
+	<ui:define name="body">
+		<ui:decorate template="my_menu.xhtml" />
+
+		<div class="part">
+			<div>
+				<div class="part_header">会员信息</div>
+				<div class="part_body">
+					<div style="float: left; width: 400px;">
+						<div class="part_item">
+							<label>会员名：</label>
+							<h:outputText value="#{myIndexBean.visitor.name}" />
+						</div>
+						<div class="part_item">
+							<label>会员等级：</label>
+							<h:outputText value="#{myIndexBean.visitor.level}" />
+						</div>
+						<div class="part_item">
+							<label>豆丁数：</label>
+							<h:outputText value="#{myIndexBean.visitor.deposit}豆丁" />
+						</div>
+					</div>
+
+					<div style="float: left; margin-left: 6px; width: 360px;">
+						<div class="part_item">
+							<label>借阅中的书：</label>
+							<h:outputText value="#{myIndexBean.borrowedBookCount}本" />
+
+						</div>
+						<div class="part_item">
+							<label>已逾期的书：</label>
+							<h:outputText value="#{myIndexBean.expiredBookCount}本" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="part_header">借阅中的书</div>
+				<div class="part_body">
+					<div class="table_header">
+						<div class="table_header_col" style="width: 350px;">书籍名</div>
+						<div class="table_header_col">订单号</div>
+						<div class="table_header_col">应还日期</div>
+						<div class="table_header_col">当前状态</div>
+					</div>
+					<div>
+						<h:form>
+							<ui:repeat var="tran" value="#{myIndexBean.activeTransactions}">
+								<div class="table_row">
+									<div class="table_cell" style="width: 350px;">
+										<h:outputText value="#{tran.book.name}" />
+									</div>
+									<div class="table_cell">
+										<h:outputText value="#{tran.id}" />
+									</div>
+									<div class="table_cell">应还日期</div>
+									<div class="table_cell">逾期</div>
+								</div>
+							</ui:repeat>
+						</h:form>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="part_header">可能喜欢</div>
+				<div class="part_body">
+					<div style="padding-bottom:10px;">
+						<ui:repeat var="book" value="#{myIndexBean.recommendBooks}">
+							<div style="float:left;margin:10px;">
+								<div style="width: 80px; height: 100px;"></div>
+								<div style="width: 80px;margin-top:5px;">
+									<h:outputText value="#{book.name}" />
+								</div>
+							</div>
+						</ui:repeat>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</ui:define>
+</ui:composition>

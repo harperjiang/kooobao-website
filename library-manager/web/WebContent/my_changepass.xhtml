@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-我的图书馆</ui:define>
+	<ui:define name="body">
+		<ui:decorate template="my_menu.xhtml" />
+		<div class="part">
+			<div class="part_header">修改密码</div>
+			<div class="part_body form">
+				<h:form>
+					<div style="width:600px;">
+						<h:outputLabel for="oldPass" id="oldPassLabel">旧密码</h:outputLabel>
+						<h:inputSecret id="oldPass" />
+						<br />
+						<h:outputLabel for="newPass1" id="newPass1Label">输入新密码</h:outputLabel>
+						<h:inputSecret id="newPass1" />
+						<br />
+						<h:outputLabel for="newPass2" id="newPass2Label">再次输入新密码</h:outputLabel>
+						<h:inputSecret id="newPass2" />
+						<br />
+						<h:commandButton value="确认" />
+					</div>
+				</h:form>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

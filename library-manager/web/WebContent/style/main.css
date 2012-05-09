@@ -4,6 +4,8 @@
 
 @IMPORT "my.css";
 
+@IMPORT "button.css";
+
 body {
 	text-align: center;
 }
@@ -12,8 +14,8 @@ div {
 	text-align: left;
 	font-size: 12px;
 	font-family: Calibri, Simsun;
-	border-width: 1px;
-	border-style: solid;
+	border-style:solid;
+	border-width:1px;
 	overflow: auto;
 }
 
@@ -45,9 +47,14 @@ div.search {
 	margin-left: auto;
 	margin-right: auto;
 	width: 1000px;
-	height: 26px;
+	height: 30px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	padding-top:6px;
+	border-style:solid;
+	border-width:1px;
+	border-color:#f1f1f1;
+	background-color:#F9F9F9;
 }
 
 div.search label {

@@ -14,8 +14,7 @@
 </h:head>
 <h:body>
 	<div class="header">
-		<div
-			style="float: left; width: 250px; height: 70px;">
+		<div style="float: left; width: 250px; height: 70px;">
 			<img src="" />
 		</div>
 		<h:panelGroup rendered="#{!loginBean.loggedIn and displayLogin}"
@@ -28,7 +27,7 @@
 		<h:panelGroup rendered="#{loginBean.loggedIn and displayLogin}"
 			layout="block" style="float:right;margin-right:40px;">
 			<h:form>
-				<h:outputLink value="/my.html">我的图书馆</h:outputLink>
+				<h:outputLink value="/my_index.html">我的图书馆</h:outputLink>
 				<h:outputLink value="/cart.html">我的借书篮</h:outputLink>
 				<h:commandLink action="#{loginBean.logout}">[注销]</h:commandLink>
 			</h:form>
@@ -37,21 +36,23 @@
 	</div>
 	<h:panelGroup layout="block" styleClass="search">
 		<h:form id="searchForm">
-			<h:outputLabel for="searchText" value="搜一搜:" />
-			<h:inputText id="searchText" value="#{searchBookBean.keyword}"
-				style="width:250px;" />
-			<h:commandButton id="searchButton" value="搜索"
-				action="#{searchBookBean.search}" />
-			<div style="display: inline;">热搜词:</div>
-			<div style="margin-left: 5px; display: inline;">
-				<h:commandLink id="hotWord1" action="#{hotSearchBean.hotSearch}"
-					value="#{hotSearchBean.hotWord1}">
-					<f:param name="word" value="#{hotSearchBean.hotWord1}" />
-				</h:commandLink>
-				<h:commandLink id="hotWord2" action="#{hotSearchBean.hotSearch}"
-					value="#{hotSearchBean.hotWord2}">
-					<f:param name="word" value="#{hotSearchBean.hotWord2}" />
-				</h:commandLink>
+			<div style="display: block; float: left; height: auto;">
+				<h:outputLabel for="searchText" value="搜一搜:" />
+				<h:inputText id="searchText" value="#{searchBookBean.keyword}"
+					style="width:250px;" />
+			</div>
+			<h:commandLink id="searchButton" styleClass="btn_positive"
+				action="#{searchBookBean.search}">搜索</h:commandLink>
+			<div style="display: block; float: left; padding-top:5px;">
+				<span style="margin-left: 25px;">热搜词:</span> <span> <h:commandLink
+						id="hotWord1" action="#{hotSearchBean.hotSearch}"
+						value="#{hotSearchBean.hotWord1}">
+						<f:param name="word" value="#{hotSearchBean.hotWord1}" />
+					</h:commandLink> <h:commandLink id="hotWord2" action="#{hotSearchBean.hotSearch}"
+						value="#{hotSearchBean.hotWord2}">
+						<f:param name="word" value="#{hotSearchBean.hotWord2}" />
+					</h:commandLink>
+				</span>
 			</div>
 		</h:form>
 	</h:panelGroup>
