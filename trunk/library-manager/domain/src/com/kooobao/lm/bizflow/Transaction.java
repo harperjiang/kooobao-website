@@ -1,9 +1,10 @@
 package com.kooobao.lm.bizflow;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
+import com.kooobao.lm.book.Book;
 import com.kooobao.lm.profile.Address;
 import com.kooobao.lm.profile.Library;
 import com.kooobao.lm.profile.Visitor;
@@ -38,17 +39,29 @@ public class Transaction extends VersionEntity {
 		adjust(bookPacks);
 	}
 
+	private String id;
+
 	private Library library;
 
 	private Visitor visitor;
-
-	private List<TransactionItem> items = new ArrayList<TransactionItem>();
 
 	private String state;
 
 	private Address address;
 
 	private String delivery;
+
+	private Book book;
+
+	private int count;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public Library getLibrary() {
 		return library;
@@ -66,16 +79,20 @@ public class Transaction extends VersionEntity {
 		this.visitor = visitor;
 	}
 
-	public List<TransactionItem> getItems() {
-		return items;
+	public Book getBook() {
+		return book;
 	}
 
-	public void addItem(TransactionItem item) {
-		this.items.add(item);
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
-	public void removeItem(TransactionItem item) {
-		this.items.remove(item);
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	private List<Operation> operations;
@@ -88,12 +105,16 @@ public class Transaction extends VersionEntity {
 		this.operations.add(operation);
 	}
 
-	public State getState() {
-		return State.valueOf(this.state);
+	public TransactionState getState() {
+		return TransactionState.valueOf(this.state);
 	}
 
-	public void setState(State state) {
+	public void setState(TransactionState state) {
 		this.state = state.name();
+	}
+
+	public String getStateText() {
+		return StatusUtils.text(getState());
 	}
 
 	public Address getAddress() {
@@ -112,7 +133,5 @@ public class Transaction extends VersionEntity {
 		this.delivery = delivery;
 	}
 
-	public static enum State {
-		BORROW_REQUESTED, BORROW_SENT, BORROW_RECEIVED, RETURN_SENT, RETURN_EXPIRED, RETURN_RECEIVED, CANCELLED
-	}
+	
 }

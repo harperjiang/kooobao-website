@@ -12,6 +12,8 @@ public class Visitor {
 
 	private String status;
 
+	private String level;
+
 	private BigDecimal deposit;
 
 	private Address address;
@@ -64,6 +66,14 @@ public class Visitor {
 
 	public void setAvailableAddresses(List<Address> availableAddresses) {
 		this.availableAddresses = availableAddresses;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 
 	public static enum Status {

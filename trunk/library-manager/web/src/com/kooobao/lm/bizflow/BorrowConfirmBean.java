@@ -35,18 +35,16 @@ public class BorrowConfirmBean extends AbstractBean {
 		if (null == getCurrentVisitor()
 				|| CollectionUtils.isEmpty(getBorrowed()))
 			return "failed";
-		Transaction transaction = new Transaction();
-		// Fill transaction object
-		transaction.setVisitor(getCurrentVisitor());
 		for (Book book : borrowed) {
-			TransactionItem item = new TransactionItem();
-			item.setBook(book);
-			item.setCount(1);
-			transaction.addItem(item);
+			Transaction transaction = new Transaction();
+			// Fill transaction object
+			transaction.setVisitor(getCurrentVisitor());
+			transaction.setBook(book);
+			transaction.setCount(1);
+			transaction.setDelivery(getDelivery());
+			transaction.setAddress(address);
+			getTransactionService().createTransaction(transaction);
 		}
-		transaction.setDelivery(getDelivery());
-		transaction.setAddress(address);
-		getTransactionService().createTransaction(transaction);
 		reset();
 		return "success";
 	}
