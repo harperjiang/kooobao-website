@@ -13,6 +13,8 @@
 	<bean id="hotSearchBean" class="com.kooobao.lm.book.HotSearchBean">
 		<property name="bookService" ref="bookService" />
 	</bean>
+	<bean id="suppDataBean" class="com.kooobao.lm.common.SuppDataBean">
+	</bean>
 
 	<bean id="cartManager" class="com.kooobao.lm.bizflow.CartManager">
 		<property name="bookService" ref="bookService" />

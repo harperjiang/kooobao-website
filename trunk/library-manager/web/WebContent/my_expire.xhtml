@@ -9,6 +9,64 @@
 		<ui:decorate template="my_menu.xhtml" />
 		<div class="part">
 			<div class="part_header">逾期记录查询</div>
+			<div class="part_body">
+				<h:form>
+					<div class="onerow_form">
+						<h:outputLabel for="fromDateText" id="fromDateLabel">起始日期</h:outputLabel>
+						<h:inputText id="fromDateText" />
+						<h:outputLabel for="toDateText" id="toDateLabel">结束日期</h:outputLabel>
+						<h:inputText id="toDateText" />
+						<h:commandLink styleClass="btn_positive" style="float:left;"
+							action="#{myExpireBean.search}">查询
+						</h:commandLink>
+					</div>
+				</h:form>
+				<div class="table_header">
+					<div class="table_header_col" style="width: 230px;">书籍名</div>
+					<div class="table_header_col">订单号</div>
+					<div class="table_header_col">应还日期</div>
+					<div class="table_header_col">实际归还日期</div>
+					<div class="table_header_col" style="width: 120px;">逾期扣款</div>
+				</div>
+				<div>
+					<h:form>
+						<ui:repeat var="record" value="#{myExpireBean.result}">
+							<div class="table_row">
+								<div class="table_cell" style="width: 230px;">
+									<h:outputText value="#{record.transaction.book.name}" />
+								</div>
+								<div class="table_cell">
+									<h:outputText value="#{record.transaction.id}" />
+								</div>
+								<div class="table_cell">
+									<h:outputText value="#{record.dueDate}">
+										<f:convertDateTime pattern="#{envSettingBean.datePattern}" />
+									</h:outputText>
+								</div>
+								<div class="table_cell">
+									<h:outputText value="#{record.returnDate}">
+										<f:convertDateTime pattern="#{envSettingBean.datePattern}" />
+									</h:outputText>
+								</div>
+								<div class="table_cell" style="width: 120px;">
+									<h:outputText value="#{record.penalty}" />
+								</div>
+							</div>
+						</ui:repeat>
+						<div style="float: right; margin-right: 150px;">
+							<h:form>
+								<h:commandLink styleClass="btn"
+									action="#{myExpireBean.prevPage}">上一页</h:commandLink>
+								<h:outputText
+									style="display:block;float:left;padding-top:6px;margin-right:5px;"
+									value="第#{myExpireBean.currentPage}页，共#{myExpireBean.pageCount}页" />
+								<h:commandLink styleClass="btn"
+									action="#{myExpireBean.nextPage}">下一页</h:commandLink>
+							</h:form>
+						</div>
+					</h:form>
+				</div>
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>

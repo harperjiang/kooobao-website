@@ -7,7 +7,51 @@
 	<ui:define name="title">酷宝图书馆-我的收藏</ui:define>
 	<ui:define name="body">
 		<ui:decorate template="my_menu.xhtml" />
-
-
+		<div class="part">
+			<div class="part_header">我的收藏</div>
+			<div class="part_body">
+				<div class="table_header">
+					<div class="table_header_col" style="width: 450px;">书籍名</div>
+					<div class="table_header_col" style="width: 300px;">操作</div>
+				</div>
+				<div>
+					<h:form>
+						<ui:repeat var="fav" value="#{myFavBean.result}">
+							<div class="table_row">
+								<div class="table_cell" style="width: 400px;">
+									<h:outputLink value="/book.xhtml"
+										rendered="#{!envConfigBean.rewriteUrl}">
+										<h:outputText value="#{fav.favorite.name}" />
+										<f:param name="book_id" value="#{fav.favorite.oid}" />
+									</h:outputLink>
+									<h:outputLink value="/book_#{fav.favorite.oid}.xhtml"
+										rendered="#{envConfigBean.rewriteUrl}">
+										<h:outputText value="#{fav.favorite.name}" />
+									</h:outputLink>
+								</div>
+								<div class="table_cell">
+									<h:outputLink styleClass="btn_regular"
+										onclick="add_to_cart(#{fav.favorite.oid})">加入借阅车</h:outputLink>
+									<h:commandLink action="#{myFavBean.delete}"
+										styleClass="btn_negative">
+										<h:outputText value="删除" />
+										<f:param name="book_id" value="#{fav.favorite.oid}" />
+									</h:commandLink>
+								</div>
+							</div>
+						</ui:repeat>
+					</h:form>
+					<div style="float: right; margin-right: 150px;">
+						<h:form>
+							<h:commandLink styleClass="btn" action="#{myFavBean.prevPage}">上一页</h:commandLink>
+							<h:outputText
+								style="display:block;float:left;padding-top:6px;margin-right:5px;"
+								value="第#{myFavBean.currentPage}页，共#{myFavBean.pageCount}页" />
+							<h:commandLink styleClass="btn" action="#{myFavBean.nextPage}">下一页</h:commandLink>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</ui:define>
 </ui:composition>
