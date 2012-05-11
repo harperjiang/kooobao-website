@@ -8,6 +8,6 @@ public interface UserService {
 
 	public void register(String system, String id, String pass);
 
-	public void modifyPass(String system, String id, String oldPass,
+	public boolean modifyPass(String system, String id, String oldPass,
 			String newPass);
 }
