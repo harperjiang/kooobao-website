@@ -14,13 +14,15 @@
 					<div style="width: 500px">
 						<div style="margin-top: 10px; margin-bottom: 10px;">请完善您的个人信息，我们将根据这些信息为您提供最合适的教育资源</div>
 						<h:outputLabel for="genderRadio" id="genderLabel">您的性別</h:outputLabel>
-						<h:selectOneRadio id="genderRadio" layout="lineDirection">
+						<h:selectOneRadio id="genderRadio" layout="lineDirection"
+							value="#{myPersonBean.personalInfo.gender}">
 							<f:selectItem itemLabel="男" itemValue="M" />
 							<f:selectItem itemLabel="女" itemValue="F" />
 						</h:selectOneRadio>
 						<br />
 						<h:outputLabel for="yearMenu" id="yearLabel">出生年份</h:outputLabel>
-						<h:selectOneMenu id="yearMenu">
+						<h:selectOneMenu id="yearMenu"
+							value="#{myPersonBean.personalInfo.bornYear}">
 							<f:selectItem itemLabel="1970" itemValue="1970" />
 							<f:selectItem itemLabel="1980" itemValue="1980" />
 							<f:selectItem itemLabel="1990" itemValue="1990" />
@@ -28,7 +30,8 @@
 						</h:selectOneMenu>
 						<br />
 						<h:outputLabel for="eduSelect" id="eduLabel">您的教育程度</h:outputLabel>
-						<h:selectOneMenu id="eduSelect">
+						<h:selectOneMenu id="eduSelect"
+							value="#{myPersonBean.personalInfo.education}">
 							<f:selectItem itemLabel="大专及以下" itemValue="1" />
 							<f:selectItem itemLabel="本科" itemValue="2" />
 							<f:selectItem itemLabel="硕士" itemValue="3" />
@@ -36,20 +39,24 @@
 						</h:selectOneMenu>
 						<br />
 						<h:outputLabel for="kidCountSelect" id="kidSelectMenu">您有几个孩子</h:outputLabel>
-						<h:selectOneMenu id="kidCountSelect">
+						<h:selectOneMenu id="kidCountSelect"
+							value="#{myPersonBean.personalInfo.kidCount}">
 							<f:selectItem itemLabel="一个" itemValue="1" />
 							<f:selectItem itemLabel="两个" itemValue="2" />
 							<f:selectItem itemLabel="两个以上" itemValue="3" />
 						</h:selectOneMenu>
 						<br />
 						<h:outputLabel for="olderKidYear" id="olderKidYearLabel">最大孩子的出生年份</h:outputLabel>
-						<h:inputText id="olderKidYear" />
+						<h:inputText id="olderKidYear"
+							value="#{myPersonBean.personalInfo.olderChildBornYear}" />
 						<br />
 						<h:outputLabel for="youngerKidYear" id="youngerKidYearLabel">最小孩子的出生年份</h:outputLabel>
-						<h:inputText id="youngerKidYear" />
+						<h:inputText id="youngerKidYear"
+							value="#{myPersonBean.personalInfo.youngerChildBornYear}" />
 						<br />
 						<h:outputLabel for="likeChoose" id="likeLabel">您对以下哪些方面的内容感兴趣:</h:outputLabel>
-						<h:selectManyCheckbox id="likeChoose" layout="pageDirection">
+						<h:selectManyCheckbox id="likeChoose" layout="pageDirection"
+							value="#{myPersonBean.likes}">
 							<f:selectItem itemLabel="美国原版教材" itemValue="A" />
 							<f:selectItem itemLabel="美国教育软件" itemValue="B" />
 							<f:selectItem itemLabel="益智玩具" itemValue="C" />
@@ -57,7 +64,10 @@
 							<f:selectItem itemLabel="外教活动" itemValue="E" />
 							<f:selectItem itemLabel="亲子互动活动" itemValue="F" />
 						</h:selectManyCheckbox>
-						<h:commandButton value="保存" />
+						<div style="width: 300px; padding-left:140px;">
+							<h:commandLink styleClass="btn_positive"
+								action="#{myPersonBean.save}">保存</h:commandLink>
+						</div>
 					</div>
 				</h:form>
 			</div>

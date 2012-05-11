@@ -44,10 +44,26 @@
 						<ui:repeat var="tran" value="#{myQueryBean.result}">
 							<div class="table_row">
 								<div class="table_cell" style="width: 350px;">
-									<h:outputText value="#{tran.book.name}" />
+									<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+										value="/book.html">
+										<f:param name="book_id" value="#{tran.book.oid}" />
+										<h:outputText value="#{tran.book.name}" />
+									</h:outputLink>
+									<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+										value="/book_#{tran.book.oid}.html">
+										<h:outputText value="#{tran.book.name}" />
+									</h:outputLink>
 								</div>
 								<div class="table_cell">
-									<h:outputText value="#{tran.id}" />
+									<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+										value="/transaction.html">
+										<f:param name="tran_id" value="#{tran.oid}" />
+										<h:outputText value="#{tran.id}" />
+									</h:outputLink>
+									<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+										value="/transaction_#{tran.oid}.html">
+										<h:outputText value="#{tran.id}" />
+									</h:outputLink>
 								</div>
 								<div class="table_cell">
 									<h:outputText value="#{tran.createTime}">

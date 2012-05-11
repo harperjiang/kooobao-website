@@ -54,13 +54,36 @@
 							<ui:repeat var="tran" value="#{myIndexBean.activeTransactions}">
 								<div class="table_row">
 									<div class="table_cell" style="width: 350px;">
-										<h:outputText value="#{tran.book.name}" />
+										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+											value="/book.html">
+											<f:param name="book_id" value="#{tran.book.oid}" />
+											<h:outputText value="#{tran.book.name}" />
+										</h:outputLink>
+										<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+											value="/book_#{tran.book.oid}.html">
+											<h:outputText value="#{tran.book.name}" />
+										</h:outputLink>
 									</div>
 									<div class="table_cell">
-										<h:outputText value="#{tran.id}" />
+										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+											value="/transaction.html">
+											<f:param name="tran_id" value="#{tran.oid}" />
+											<h:outputText value="#{tran.id}" />
+										</h:outputLink>
+										<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+											value="/transaction_#{tran.oid}.html">
+											<h:outputText value="#{tran.id}" />
+										</h:outputLink>
 									</div>
-									<div class="table_cell">应还日期</div>
-									<div class="table_cell">逾期</div>
+									<div class="table_cell">
+										<h:outputText value="#{tran.dueTime}">
+											<f:convertDateTime pattern="yyyy-MM-dd" />
+										</h:outputText>
+									</div>
+									<div class="table_cell">
+										<h:outputText
+											value="#{tran.dueTime ge suppDataBean.currentTime ? '未到期':'逾期'}" />
+									</div>
 								</div>
 							</ui:repeat>
 						</h:form>
@@ -70,11 +93,11 @@
 			<div>
 				<div class="part_header">可能喜欢</div>
 				<div class="part_body">
-					<div style="padding-bottom:10px;">
+					<div style="padding-bottom: 10px;">
 						<ui:repeat var="book" value="#{myIndexBean.recommendBooks}">
-							<div style="float:left;margin:10px;">
+							<div style="float: left; margin: 10px;">
 								<div style="width: 80px; height: 100px;"></div>
-								<div style="width: 80px;margin-top:5px;">
+								<div style="width: 80px; margin-top: 5px;">
 									<h:outputText value="#{book.name}" />
 								</div>
 							</div>

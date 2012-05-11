@@ -1,6 +1,7 @@
 package com.kooobao.lm.common;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -34,5 +35,9 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	public void setTransactionStates(List<SelectItem> transactionStates) {
 		this.transactionStates = transactionStates;
+	}
+	
+	public Date getCurrentTime() {
+		return new Date();
 	}
 }

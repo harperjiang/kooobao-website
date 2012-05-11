@@ -19,12 +19,12 @@
 						<ui:repeat var="fav" value="#{myFavBean.result}">
 							<div class="table_row">
 								<div class="table_cell" style="width: 400px;">
-									<h:outputLink value="/book.xhtml"
+									<h:outputLink value="/book.html"
 										rendered="#{!envConfigBean.rewriteUrl}">
 										<h:outputText value="#{fav.favorite.name}" />
 										<f:param name="book_id" value="#{fav.favorite.oid}" />
 									</h:outputLink>
-									<h:outputLink value="/book_#{fav.favorite.oid}.xhtml"
+									<h:outputLink value="/book_#{fav.favorite.oid}.html"
 										rendered="#{envConfigBean.rewriteUrl}">
 										<h:outputText value="#{fav.favorite.name}" />
 									</h:outputLink>
