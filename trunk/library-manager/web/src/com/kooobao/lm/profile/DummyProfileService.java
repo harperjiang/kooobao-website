@@ -1,13 +1,16 @@
 package com.kooobao.lm.profile;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+
 
 public class DummyProfileService implements ProfileService {
 
 	public Visitor getVisitor(String id) {
 		Visitor v = new Visitor();
 		v.setId(id);
+		v.setName("赵无敌");
+		v.setLevel("圣斗士");
+		v.setDeposit(new BigDecimal("37"));
 		Address addr = new Address();
 		addr.setName("张三");
 		addr.setLocation("大猪头大傻瓜你脑子有问题吗没有没有问题");
@@ -24,5 +27,23 @@ public class DummyProfileService implements ProfileService {
 		v.getAvailableAddresses().add(addr2);
 
 		return v;
+	}
+
+	@Override
+	public PersonalInfo getPersonalInfo(Visitor visitor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PersonalInfo savePersonalInfo(PersonalInfo personalInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Visitor saveVisitor(Visitor visitor) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

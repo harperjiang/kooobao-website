@@ -1,6 +1,7 @@
 package com.kooobao.lm.bizflow;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.kooobao.common.web.bean.PageSearchResult;
@@ -31,10 +32,12 @@ public class DummyTransactionService implements TransactionService {
 		List<Transaction> trans = new ArrayList<Transaction>();
 
 		Transaction tran = new Transaction();
+	
 		tran.setId("XN12321resd");
 		Book book = new Book();
 		book.setName("Book1");
 		tran.setBook(book);
+		tran.setDueTime(new Date());
 		tran.setCount(1);
 
 		Transaction tran2 = new Transaction();
@@ -43,6 +46,7 @@ public class DummyTransactionService implements TransactionService {
 		book3.setName("Book 3");
 		tran2.setBook(book3);
 		tran2.setCount(1);
+		tran2.setDueTime(new Date());
 
 		trans.add(tran);
 		trans.add(tran2);

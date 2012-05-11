@@ -33,10 +33,26 @@
 						<ui:repeat var="record" value="#{myExpireBean.result}">
 							<div class="table_row">
 								<div class="table_cell" style="width: 230px;">
-									<h:outputText value="#{record.transaction.book.name}" />
+									<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+										value="/book.html">
+										<f:param name="book_id" value="#{record.transaction.book.oid}" />
+										<h:outputText value="#{record.transaction.book.name}" />
+									</h:outputLink>
+									<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+										value="/book_#{record.transaction.book.oid}.html">
+										<h:outputText value="#{record.transaction.book.name}" />
+									</h:outputLink>
 								</div>
 								<div class="table_cell">
-									<h:outputText value="#{record.transaction.id}" />
+									<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+										value="/transaction.html">
+										<f:param name="tran_id" value="#{record.transaction.oid}" />
+										<h:outputText value="#{record.transaction.id}" />
+									</h:outputLink>
+									<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+										value="/transaction_#{record.transaction.oid}.html">
+										<h:outputText value="#{record.transaction.id}" />
+									</h:outputLink>
 								</div>
 								<div class="table_cell">
 									<h:outputText value="#{record.dueDate}">

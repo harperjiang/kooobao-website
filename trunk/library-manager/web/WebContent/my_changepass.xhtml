@@ -11,17 +11,25 @@
 			<div class="part_header">修改密码</div>
 			<div class="part_body form">
 				<h:form>
-					<div style="width:600px;">
+					<div style="width: 600px;">
 						<h:outputLabel for="oldPass" id="oldPassLabel">旧密码</h:outputLabel>
-						<h:inputSecret id="oldPass" />
+						<h:inputSecret id="oldPass" required="true"
+							requiredMessage="输入不能为空" value="#{myChangePassBean.oldPass}" />
 						<br />
 						<h:outputLabel for="newPass1" id="newPass1Label">输入新密码</h:outputLabel>
-						<h:inputSecret id="newPass1" />
+						<h:inputSecret id="newPass1" required="true"
+							requiredMessage="输入不能为空" value="#{myChangePassBean.newPass1}" />
 						<br />
 						<h:outputLabel for="newPass2" id="newPass2Label">再次输入新密码</h:outputLabel>
-						<h:inputSecret id="newPass2" />
+						<h:inputSecret id="newPass2" required="true"
+							requiredMessage="输入不能为空" value="#{myChangePassBean.newPass2}" />
 						<br />
-						<h:commandButton value="确认" />
+						<h:messages />
+						<div style="width: 300px; padding-left: 60px;">
+							<h:commandLink styleClass="btn_positive"
+								action="#{myChangePassBean.save}">确认</h:commandLink>
+						</div>
+
 					</div>
 				</h:form>
 
