@@ -34,13 +34,15 @@ public class DefaultUserService implements UserService {
 		getUserDao().store(user);
 	}
 
-	public void modifyPass(String system, String id, String oldPass,
+	public boolean modifyPass(String system, String id, String oldPass,
 			String newPass) {
 		User user = getUserDao().findUser(system, id);
 		if (user != null
 				&& user.getEncryptedPass().equals(User.encryptPass(oldPass))) {
 			user.setEncryptedPass(User.encryptPass(newPass));
+			return true;
 		}
+		return false;
 	}
 
 }
