@@ -1,5 +1,6 @@
 package com.kooobao.lm.bizflow;
 
+import java.util.Date;
 import java.util.List;
 
 import com.kooobao.common.domain.entity.StatusUtils;
@@ -54,6 +55,8 @@ public class Transaction extends VersionEntity {
 	private Book book;
 
 	private int count;
+
+	private Date dueTime;
 
 	public String getId() {
 		return id;
@@ -133,5 +136,12 @@ public class Transaction extends VersionEntity {
 		this.delivery = delivery;
 	}
 
-	
+	public Date getDueTime() {
+		return dueTime;
+	}
+
+	public void setDueTime(Date dueTime) {
+		this.dueTime = dueTime;
+	}
+
 }
