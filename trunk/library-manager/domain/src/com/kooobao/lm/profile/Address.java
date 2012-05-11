@@ -1,6 +1,8 @@
 package com.kooobao.lm.profile;
 
-public class Address {
+import com.kooobao.common.domain.entity.SimpleEntity;
+
+public class Address extends SimpleEntity {
 
 	private String name;
 
