@@ -10,13 +10,23 @@
 	<bean id="profileService" class="com.kooobao.lm.profile.DummyProfileService" />
 	<bean id="transactionService" class="com.kooobao.lm.bizflow.DummyTransactionService" />
 
+
+	<bean id="indexPageBean" class="com.kooobao.lm.IndexPageBean">
+		<property name="bookService" ref="bookService" />
+	</bean>
 	<bean id="hotSearchBean" class="com.kooobao.lm.book.HotSearchBean">
 		<property name="bookService" ref="bookService" />
 	</bean>
 	<bean id="suppDataBean" class="com.kooobao.lm.common.SuppDataBean">
+		<property name="bookService" ref="bookService" />
 	</bean>
 
 	<bean id="cartManager" class="com.kooobao.lm.bizflow.CartManager">
 		<property name="bookService" ref="bookService" />
+	</bean>
+
+	<bean id="favManager" class="com.kooobao.lm.bizflow.FavManager">
+		<property name="profileService" ref="profileService" />
+		<property name="transactionService" ref="transactionService" />
 	</bean>
 </beans>

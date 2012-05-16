@@ -16,18 +16,26 @@
 	margin-right: 30px;
 }
 </style>
-		<div style="float: left; margin: 5px; width: 785px;">
-			<div style="font-size: 18px; margin-top: 20px; margin-bottom: 10px;">搜索结果</div>
+		<div style="float: left; margin: 5px; width: 765px;">
+			<div style="font-size: 18px; margin-top: 10px; margin-bottom: 10px;">搜索结果</div>
+
 			<h:panelGroup layout="block">
 				<ui:repeat var="book" value="#{searchBookBean.searched}">
 					<div style="margin-bottom: 10px;">
-						<div style="width: 140; height: 160; float: left;">
-							<h:graphicImage value="#{book.pictureUrl}" />
+						<div style="width: 120px; height: 140px; float: left;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:graphicImage style="width:115px;height:135px;"
+									value="#{book.pictureUrl}" />
+							</h:outputLink>
 						</div>
 						<div style="float: left; margin-left: 10px; width: 600px;">
 							<div
 								style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">
-								<h:outputText value="#{book.name}" />
+								<h:outputLink value="/book.html">
+									<f:param name="book_id" value="#{book.oid}" />
+									<h:outputText value="#{book.name}" />
+								</h:outputLink>
 							</div>
 							<div>
 								<h:outputText value="#{book.brief}" />
@@ -63,17 +71,23 @@
 
 		</div>
 		<div
-			style="float: left; width: 190px; margin-right: 5px; margin-top: 5px;">
-			<div>您可能还喜欢</div>
+			style="float: left; width: 200px; margin-right: 5px; margin-top: 5px;">
+			<div style="margin-top: 5px; margin-bottom: 5px; font-size: 14px;">您可能还喜欢</div>
 			<ui:repeat var="book" value="#{searchBookBean.recommend}"
 				varStatus="status">
 				<h:panelGroup layout="block" rendered="#{status.index == 0}">
-					<div style="float: left; width: 60px; height: 70px;">
-						<h:graphicImage url="#{book.pictureUrl}" width="60" height="70" />
+					<div style="float: left; width: 64px; height: 74px;">
+						<h:outputLink value="/book.html">
+							<f:param name="book_id" value="#{book.oid}" />
+							<h:graphicImage url="#{book.pictureUrl}" width="60" height="70" />
+						</h:outputLink>
 					</div>
 					<div style="float: left; margin-left: 5px;">
 						<div style="margin-bottom: 10px;">
-							<h:outputText value="#{book.name}" />
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:outputText value="#{book.displayName}" />
+							</h:outputLink>
 						</div>
 						<div>
 							<h:outputText style="margin-right:10px;" value="作　者:" />

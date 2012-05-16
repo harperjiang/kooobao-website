@@ -2,10 +2,133 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kf="http://kooobao.com/jsf/func"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
-	<ui:define name="title">酷宝图书馆-新用户注册</ui:define>
+	<ui:define name="title">酷宝图书馆-#{bookBean.book.displayName}</ui:define>
 	<ui:define name="body">
-		
+		<style type="text/css">
+.book_intro label {
+	width: 100px;
+	font-weight: bold;
+	display: block;
+	float: left;
+}
+
+.book_intro div {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.book_intro div div {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.book_content {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.book_content_header {
+	font-size: 16px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+
+.book_content_section {
+	
+}
+</style>
+		<div
+			style="float: left; width: 190px; margin-right: 5px; margin-top: 5px; height: 300px;">
+			<div style="margin-top: 5px; margin-bottom: 5px; font-size: 14px;">您可能还喜欢</div>
+			<ui:repeat var="book" value="#{bookBean.recommendBooks}"
+				varStatus="status">
+				<h:panelGroup layout="block" rendered="#{status.index == 0}">
+					<div style="float: left; width: 64px; height: 74px;">
+						<h:graphicImage url="#{book.pictureUrl}" width="60" height="70" />
+					</div>
+					<div style="float: left; margin-left: 5px;width:115px;">
+						<div style="margin-bottom: 10px;">
+							<h:outputText value="#{book.displayName}" />
+						</div>
+						<div>
+							<h:outputText style="margin-right:10px;" value="作　者:" />
+							<h:outputText value="#{book.author}" />
+						</div>
+						<div>
+							<h:outputText style="margin-right:10px;" value="出版社:" />
+							<h:outputText value="#{book.publisher}" />
+						</div>
+					</div>
+					<div class="clearer" />
+				</h:panelGroup>
+
+				<h:panelGroup layout="block" rendered="#{status.index != 0}"
+					style="margin-top:5px;margin-bottom:5px;">
+					<h:outputText value="#{book.name}" />
+				</h:panelGroup>
+			</ui:repeat>
+		</div>
+		<div
+			style="margin-top: 5px; margin-bottom: 5px; margin-right: 5px; float: left; width: 790px;">
+			<div class="book_big_title"
+				style="margin-top: 5px; margin-bottom: 5px;">
+				<h:outputText value="#{bookBean.book.name}" />
+			</div>
+			<div style="width: 140px; height: 160px; float: left;">
+				<h:graphicImage url="#{bookBean.book.pictureUrl}" />
+			</div>
+			<div class="book_intro"
+				style="float: left; margin-left: 5px; width: 620px;">
+				<div style="float: right;">
+					<h:outputLink styleClass="btn_regular" value="#"
+						onclick="add_to_cart(#{bookBean.book.oid})">加入借书篮</h:outputLink>
+					<h:outputLink styleClass="btn_regular" value="#"
+						onclick="add_to_fav(#{bookBean.book.oid})">加入收藏</h:outputLink>
+				</div>
+				<div>
+					<h:outputLabel id="authorLabel" for="authorText" value="作者" />
+					<h:outputText id="authorText" value="#{bookBean.book.author}" />
+				</div>
+				<div>
+					<h:outputLabel id="publisherLabel" for="publisherText" value="出版社" />
+					<h:outputText id="publisherText" value="#{bookBean.book.author}" />
+				</div>
+				<div>
+					<h:outputLabel id="rateLabel" for="rateText" value="读者评级" />
+					<h:panelGroup id="rateText">
+						<kf:for repeat="#{bookBean.book.rating}">
+							<h:graphicImage url="/image/star.gif" />
+						</kf:for>
+					</h:panelGroup>
+				</div>
+
+				<div>
+					<h:outputLabel id="briefLabel" for="briefText" value="简介" />
+					<div>
+						<h:outputText id="briefText" value="#{bookBean.book.brief}" />
+					</div>
+				</div>
+			</div>
+			<div class="clearer" />
+		</div>
+		<div class="book_content" style="float: left;width:780px;">
+			<div class="book_content_header">内容摘要</div>
+			<div class="book_content_section">
+				<h:outputText value="#{bookBean.book.abstract}" escape="true" />
+			</div>
+			<div class="book_content_header">编辑推荐</div>
+			<div class="book_content_section">
+				<h:outputText value="#{bookBean.book.editorComment}" escape="true" />
+			</div>
+			<div class="book_content_header">内页预览</div>
+			<div class="book_content_section">
+				<h:outputText value="#{bookBean.book.textContent}" escape="true" />
+			</div>
+
+		</div>
 	</ui:define>
 </ui:composition>

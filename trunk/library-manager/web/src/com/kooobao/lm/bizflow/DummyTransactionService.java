@@ -102,6 +102,12 @@ public class DummyTransactionService implements TransactionService {
 	}
 
 	@Override
+	public void addFavorite(Visitor visitor, long bookOid) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	@Override
 	public void deleteFavorite(Visitor visitor, long bookOid) {
 		// TODO Auto-generated method stub
 
