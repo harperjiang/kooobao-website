@@ -1,6 +1,8 @@
 package com.kooobao.lm.book;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
@@ -9,21 +11,27 @@ public class Book extends SimpleEntity {
 
 	private String isbn;
 
+	private List<Category> tags;
+
 	private String pictureUrl;
 
 	private String name;
 
-	private String brief;
-
-	private String content;
+	private int rating;
 
 	private BigDecimal listPrice;
 
-	private String author;
+	private Map<String, String> attributes = new HashMap<String, String>();
 
-	private String publisher;
+	private Map<String, String> content = new HashMap<String, String>();
 
-	private Map<String, String> attributes;
+	public List<Category> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<Category> tags) {
+		this.tags = tags;
+	}
 
 	public String getIsbn() {
 		return isbn;
@@ -37,16 +45,71 @@ public class Book extends SimpleEntity {
 		return name;
 	}
 
+	private String displayName;
+
+	static final int NAME_SIZE = 10;
+
+	public String getDisplayName() {
+		if (null != displayName)
+			return displayName;
+		if (name.length() > NAME_SIZE) {
+			displayName = name.substring(0, NAME_SIZE) + "...";
+		} else {
+			displayName = name;
+		}
+		return displayName;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	protected void setContent(BookContent contentType, String value) {
+		content.put(contentType.name(), value);
+	}
+
+	protected String getContent(BookContent contentType) {
+		return content.get(contentType.name());
+	}
+
 	public String getBrief() {
-		return brief;
+		return getContent(BookContent.BRIEF);
 	}
 
 	public void setBrief(String brief) {
-		this.brief = brief;
+		setContent(BookContent.BRIEF, brief);
+	}
+
+	public String getAbstract() {
+		return getContent(BookContent.ABSTRACT);
+	}
+
+	public void setAbstract(String abs) {
+		setContent(BookContent.ABSTRACT, abs);
+	}
+
+	public String getEditorComment() {
+		return getContent(BookContent.EDITOR_COMMENT);
+	}
+
+	public void setEditorComment(String editorComment) {
+		setContent(BookContent.EDITOR_COMMENT, editorComment);
+	}
+
+	public String getTextContent() {
+		return getContent(BookContent.TEXT_CONTENT);
+	}
+
+	public void setTextContent(String textContent) {
+		setContent(BookContent.TEXT_CONTENT, textContent);
+	}
+
+	public String getOther() {
+		return getContent(BookContent.OTHER);
+	}
+
+	public void setOther(String other) {
+		setContent(BookContent.OTHER, other);
 	}
 
 	public BigDecimal getListPrice() {
@@ -65,28 +128,28 @@ public class Book extends SimpleEntity {
 		this.pictureUrl = pictureUrl;
 	}
 
-	public String getContent() {
-		return content;
+	protected void setAttribute(String key, String value) {
+		this.attributes.put(key, value);
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	protected String getAttribute(String key) {
+		return this.attributes.get(key);
 	}
 
 	public String getAuthor() {
-		return author;
+		return getAttribute(BookAttribute.AUTHOR.name());
 	}
 
 	public void setAuthor(String author) {
-		this.author = author;
+		setAttribute(BookAttribute.AUTHOR.name(), author);
 	}
 
 	public String getPublisher() {
-		return publisher;
+		return getAttribute(BookAttribute.PUBLISHER.name());
 	}
 
 	public void setPublisher(String publisher) {
-		this.publisher = publisher;
+		setAttribute(BookAttribute.PUBLISHER.name(), publisher);
 	}
 
 	public Map<String, String> getAttributes() {
@@ -96,4 +159,13 @@ public class Book extends SimpleEntity {
 	public void setAttributes(Map<String, String> attributes) {
 		this.attributes = attributes;
 	}
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
 }

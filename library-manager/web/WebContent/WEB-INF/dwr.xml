@@ -5,5 +5,8 @@
 		<create creator="spring" javascript="cart_manager">
 			<param name="beanName" value="cartManager" />
 		</create>
+		<create creator="spring" javascript="fav_manager">
+			<param name="beanName" value="favManager" />
+		</create>
 	</allow>
 </dwr>  

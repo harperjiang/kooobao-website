@@ -35,6 +35,8 @@ public interface TransactionService {
 	public List<FavoriteRecord> searchFavoriteRecords(
 			Visitor visitor);
 	
+	public void addFavorite(Visitor visitor, long bookOid);
+	
 	public void deleteFavorite(Visitor visitor, long bookOid);
 	
 	public static class SearchBean {

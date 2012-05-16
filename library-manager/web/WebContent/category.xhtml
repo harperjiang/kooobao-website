@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true" />
+	<ui:define name="title">酷宝图书馆-#{categoryBean.selectedCategory.name}</ui:define>
+	<ui:define name="body">
+		<div style="width: 180px; float: left; margin: 5px;">
+			<div class="title">书籍分类</div>
+			<ui:repeat var="category" value="#{suppDataBean.categories}">
+				<div id="category_#{category.oid}" class="category">
+					<div class="category_title">
+						<h:outputLink style="display:block;text-decoration:none;"
+							onclick="category_switch(#{category.oid})" value="#">
+							<h:outputText value="#{category.name}" />
+						</h:outputLink>
+					</div>
+					<div id="category_content_#{category.oid}">
+						<ui:repeat var="child" value="#{category.children}"
+							varStatus="status">
+							<div class="category_content">
+								<h:outputLink value="/category.html">
+									<h:outputText value="#{child.name}" />
+									<f:param name="category_id" value="#{child.oid}" />
+								</h:outputLink>
+							</div>
+						</ui:repeat>
+					</div>
+				</div>
+			</ui:repeat>
+		</div>
+		<h:panelGroup layout="block"
+			style="float:left;margin-top:5px;margin-bottom:5px;">
+			<ui:repeat var="book" value="#{categoryBean.categoryBooks}">
+				<div style="margin-bottom: 10px;">
+					<div style="width: 120px; height: 140px; float: left;">
+						<h:outputLink value="/book.html">
+							<f:param name="book_id" value="#{book.oid}" />
+							<h:graphicImage
+								style="width:115px;height:135px;border-style:none;"
+								value="#{book.pictureUrl}" />
+						</h:outputLink>
+					</div>
+					<div style="float: left; margin-left: 10px; width: 600px;">
+						<div
+							style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">
+							<h:outputLink value="/book.html" style="text-decoration:none;">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:outputText value="#{book.name}" />
+							</h:outputLink>
+						</div>
+						<div>
+							<h:outputText value="#{book.brief}" />
+						</div>
+						<div style="margin-top: 5px;">
+							<div class="attr">
+								<h:outputLabel id="authorLabel" for="authorText" value="作　者:" />
+								<h:outputText id="authorText" value="#{book.author}" />
+							</div>
+							<div class="attr">
+								<h:outputLabel id="publisherLabel" for="publisherText"
+									value="出版社:" />
+								<h:outputText id="publisherText" value="#{book.publisher}" />
+							</div>
+						</div>
+					</div>
+					<div style="display: block; margin-left: 400px; float: left;">
+						<h:form>
+							<h:commandLink action="#">
+									借阅
+								</h:commandLink>
+						</h:form>
+
+						<h:outputLink value="#" onclick="add_to_cart(#{book.oid})">加入借书篮</h:outputLink>
+					</div>
+				</div>
+			</ui:repeat>
+			<div class="clearer" />
+		</h:panelGroup>
+		<div class="clearer" />
+	</ui:define>
+</ui:composition>

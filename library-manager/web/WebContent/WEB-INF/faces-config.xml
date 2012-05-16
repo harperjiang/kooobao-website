@@ -7,6 +7,11 @@
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
+	<component>
+		<display-name>FuncFor</display-name>
+		<component-type>com.kooobao.jsf.func.for</component-type>
+		<component-class>com.kooobao.common.web.tag.FuncFor</component-class>
+	</component>
 	<converter>
 		<converter-id>selectItemConverter</converter-id>
 		<converter-class>com.kooobao.common.web.converter.SelectItemConverter</converter-class>
@@ -66,6 +71,14 @@
 			<to-view-id>/500.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+		<render-kit>
+			<display-name>KooobaoRenderKit</display-name>
+			<renderer>
+				<component-family>com.kooobao.jsf.func.for</component-family>
+				<renderer-type>com.kooobao.jsf.func.for</renderer-type>
+				<renderer-class>com.kooobao.common.web.tag.FuncForRender</renderer-class>
+			</renderer>
+		</render-kit>
 	<lifecycle>
 		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>

@@ -6,6 +6,8 @@
 
 @IMPORT "button.css";
 
+@IMPORT "category.css";
+
 body {
 	text-align: center;
 }
@@ -14,9 +16,10 @@ div {
 	text-align: left;
 	font-size: 12px;
 	font-family: Calibri, Simsun;
-	border-style:solid;
-	border-width:1px;
-	overflow: auto;
+	border-style: solid;
+	border-width: 1px;
+	overflow: visible;
+	white-space:normal;
 }
 
 div.header {
@@ -50,11 +53,11 @@ div.search {
 	height: 30px;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	padding-top:6px;
-	border-style:solid;
-	border-width:1px;
-	border-color:#f1f1f1;
-	background-color:#F9F9F9;
+	padding-top: 6px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #f1f1f1;
+	background-color: #F9F9F9;
 }
 
 div.search label {
@@ -97,4 +100,17 @@ div.body div.column {
 
 form {
 	margin-bottom: 0px;
+}
+
+a {
+	text-decoration: none;
+	color: #1199EE;
+}
+
+a:hover,a:visited {
+	color: #1199EE;
+}
+
+a img {
+	border-style: none;
 }

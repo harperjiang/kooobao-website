@@ -1,6 +1,19 @@
 @CHARSET "utf-8";
 
-
 .page_title {
 	font-size: 18px;
+}
+
+.book_title {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.book_title a {
+	text-decoration: none;
+}
+
+.book_big_title {
+	font-size: 22px;
+	font-weight: bolder;
 }

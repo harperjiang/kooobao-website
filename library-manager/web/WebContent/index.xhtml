@@ -7,14 +7,154 @@
 	<ui:define name="title">酷宝图书馆</ui:define>
 	<ui:define name="body">
 		<div class="column" style="width: 220px;">
-			<div class="fast_nav"></div>
+			<div>
+				<div class="title">书籍分类</div>
+				<ui:repeat var="category" value="#{suppDataBean.categories}">
+					<div id="category_#{category.oid}" class="category">
+						<div class="category_title">
+							<h:outputLink style="display:block;text-decoration:none;"
+								onclick="category_switch(#{category.oid})" value="#">
+								<h:outputText value="#{category.name}" />
+							</h:outputLink>
+						</div>
+						<div id="category_content_#{category.oid}">
+							<ui:repeat var="child" value="#{category.children}"
+								varStatus="status">
+								<div class="category_content">
+									<h:outputLink value="/category.html">
+										<h:outputText value="#{child.name}" />
+										<f:param name="category_id" value="#{child.oid}" />
+									</h:outputLink>
+								</div>
+							</ui:repeat>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
 		</div>
 		<div class="column" style="width: 500px;">
 			<div style="height: 250px;"></div>
-			<div style="height: 600px;"></div>
+			<div>
+				<div class="title">最受欢迎的</div>
+				<ui:repeat var="book" value="#{indexPageBean.popularBooks}">
+					<div style="float: left; margin: 5px;">
+						<div style="width: 100px; height: 120px;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:graphicImage url="#{book.pictureUrl}" />
+							</h:outputLink>
+						</div>
+						<div class="book_title"
+							style="margin-top: 5px; margin-bottom: 5px;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:outputText value="#{book.displayName}" />
+							</h:outputLink>
+						</div>
+						<div>
+							<h:outputLink value="#" styleClass="btn_positive"
+								onclick="add_to_cart(#{book.oid})">
+								<h:graphicImage
+									style="height:16px;width:16px;border-style:none;"
+									url="/image/basket.png" />
+								<h:outputText value="加入借书篮" />
+							</h:outputLink>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+			<div>
+				<div class="title">新书上架</div>
+				<ui:repeat var="book" value="#{indexPageBean.newBooks}">
+					<div style="float: left; margin: 5px;">
+						<div style="width: 100px; height: 120px;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:graphicImage url="#{book.pictureUrl}" />
+							</h:outputLink>
+						</div>
+						<div class="book_title"
+							style="margin-top: 5px; margin-bottom: 5px;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:outputText value="#{book.displayName}" />
+							</h:outputLink>
+						</div>
+						<div>
+							<h:outputLink value="#" styleClass="btn_positive"
+								onclick="add_to_cart(#{book.oid})">
+								<h:graphicImage
+									style="height:16px;width:16px;border-style:none;"
+									url="/image/basket.png" />
+								<h:outputText value="加入借书篮" />
+							</h:outputLink>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+			<div>
+				<div class="title">主编推荐</div>
+				<ui:repeat var="book" value="#{indexPageBean.editorRecommendBooks}">
+					<div style="float: left; margin: 5px;">
+						<div style="width: 100px; height: 120px;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:graphicImage url="#{book.pictureUrl}" />
+							</h:outputLink>
+						</div>
+						<div class="book_title"
+							style="margin-top: 5px; margin-bottom: 5px;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:outputText value="#{book.displayName}" />
+							</h:outputLink>
+						</div>
+						<div>
+							<h:outputLink value="#" styleClass="btn_positive"
+								onclick="add_to_cart(#{book.oid})">
+								<h:graphicImage
+									style="height:16px;width:16px;border-style:none;"
+									url="/image/basket.png" />
+								<h:outputText value="加入借书篮" />
+							</h:outputLink>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+			<div>
+				<div class="title">大家都在借什么?</div>
+				<ui:repeat var="book" value="#{indexPageBean.otherBorrowBooks}">
+					<div style="float: left; margin: 5px;">
+						<div style="width: 100px; height: 120px;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:graphicImage url="#{book.pictureUrl}" />
+							</h:outputLink>
+						</div>
+						<div class="book_title"
+							style="margin-top: 5px; margin-bottom: 5px;">
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:outputText value="#{book.displayName}" />
+							</h:outputLink>
+						</div>
+						<div>
+							<h:outputLink value="#" styleClass="btn_positive"
+								onclick="add_to_cart(#{book.oid})">
+								<h:graphicImage
+									style="height:16px;width:16px;border-style:none;"
+									url="/image/basket.png" />
+								<h:outputText value="加入借书篮" />
+							</h:outputLink>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
 		</div>
 		<div class="column" style="width: 240px;">
-			<div style="height: 400px;"></div>
+			<div style="height: 400px;">
+				<div class="title">热门书讯</div>
+			</div>
 		</div>
 		<div class="clearer" />
 	</ui:define>

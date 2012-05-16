@@ -10,7 +10,9 @@
 	<script type='text/javascript' src='/dwr/engine.js' />
 	<script type='text/javascript' src='/dwr/util.js' />
 	<script type="text/javascript" src="/dwr/interface/cart_manager.js" />
+	<script type="text/javascript" src="/dwr/interface/fav_manager.js" />
 	<script type="text/javascript" src="/js/cart.js" />
+	<script type="text/javascript" src="/js/category.js" />
 </h:head>
 <h:body>
 	<div class="header">
@@ -43,7 +45,7 @@
 			</div>
 			<h:commandLink id="searchButton" styleClass="btn_positive"
 				action="#{searchBookBean.search}">搜索</h:commandLink>
-			<div style="display: block; float: left; padding-top:5px;">
+			<div style="display: block; float: left; padding-top: 5px;">
 				<span style="margin-left: 25px;">热搜词:</span> <span> <h:commandLink
 						id="hotWord1" action="#{hotSearchBean.hotSearch}"
 						value="#{hotSearchBean.hotWord1}">

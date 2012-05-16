@@ -28,3 +28,14 @@ function add_to_cart(book_oid) {
 	cart_id = getCookie("lm_cart_id");
 	cart_manager.addToCart(cart_id, book_oid, add_to_cart_success);
 }
+
+function add_to_fav_success(success) {
+	if (success)
+		window.alert("已添加到收藏夹!");
+	else
+		window.alert("添加到收藏夹失败，请先登录!");
+}
+
+function add_to_fav(book_oid) {
+	fav_manager.addToFav(book_oid, add_to_fav_success);
+}
