@@ -1,4 +1,4 @@
-package com.kooobao.lm.bizflow;
+package com.kooobao.lm.bizflow.entity;
 
 import java.util.ArrayList;
 import java.util.List;

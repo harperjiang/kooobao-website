@@ -1,6 +1,6 @@
-package com.kooobao.lm.bizflow;
+package com.kooobao.lm.bizflow.entity;
 
-import com.kooobao.lm.book.Book;
+import com.kooobao.lm.book.entity.Book;
 
 public class BookPack {
 

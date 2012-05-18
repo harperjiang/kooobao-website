@@ -1,8 +1,8 @@
-package com.kooobao.lm.bizflow;
+package com.kooobao.lm.bizflow.entity;
 
 import com.kooobao.common.domain.entity.VersionEntity;
-import com.kooobao.lm.book.Book;
-import com.kooobao.lm.profile.Visitor;
+import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.profile.entity.Visitor;
 
 public class FavoriteRecord extends VersionEntity {
 

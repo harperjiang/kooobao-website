@@ -2,8 +2,10 @@ package com.kooobao.lm.bizflow;
 
 import java.util.List;
 
-import com.kooobao.lm.profile.Library;
-import com.kooobao.lm.profile.Visitor;
+import com.kooobao.lm.bizflow.entity.BookPack;
+import com.kooobao.lm.bizflow.entity.Transaction;
+import com.kooobao.lm.profile.entity.Library;
+import com.kooobao.lm.profile.entity.Visitor;
 
 public interface BusinessService {
 
