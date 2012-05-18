@@ -26,5 +26,7 @@ public interface BookService {
 
 	public List<Book> getBooksInCategory(Category selectedCategory);
 
+	public Category getCategory(long categoryOid);
+
 	
 }

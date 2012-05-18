@@ -48,11 +48,17 @@
 				varStatus="status">
 				<h:panelGroup layout="block" rendered="#{status.index == 0}">
 					<div style="float: left; width: 64px; height: 74px;">
-						<h:graphicImage url="#{book.pictureUrl}" width="60" height="70" />
+						<h:outputLink value="/book.html">
+							<f:param name="book_id" value="#{book.oid}" />
+							<h:graphicImage url="#{book.pictureUrl}" width="60" height="70" />
+						</h:outputLink>
 					</div>
-					<div style="float: left; margin-left: 5px;width:115px;">
+					<div style="float: left; margin-left: 5px; width: 115px;">
 						<div style="margin-bottom: 10px;">
-							<h:outputText value="#{book.displayName}" />
+							<h:outputLink value="/book.html">
+								<f:param name="book_id" value="#{book.oid}" />
+								<h:outputText value="#{book.displayName}" />
+							</h:outputLink>
 						</div>
 						<div>
 							<h:outputText style="margin-right:10px;" value="作　者:" />
@@ -68,7 +74,10 @@
 
 				<h:panelGroup layout="block" rendered="#{status.index != 0}"
 					style="margin-top:5px;margin-bottom:5px;">
-					<h:outputText value="#{book.name}" />
+					<h:outputLink value="/book.html">
+						<f:param name="book_id" value="#{book.oid}" />
+						<h:outputText value="#{book.displayName}" />
+					</h:outputLink>
 				</h:panelGroup>
 			</ui:repeat>
 		</div>
@@ -108,14 +117,14 @@
 
 				<div>
 					<h:outputLabel id="briefLabel" for="briefText" value="简介" />
-					<div>
+					<div style="width:515px;">
 						<h:outputText id="briefText" value="#{bookBean.book.brief}" />
 					</div>
 				</div>
 			</div>
 			<div class="clearer" />
 		</div>
-		<div class="book_content" style="float: left;width:780px;">
+		<div class="book_content" style="float: left; width: 780px;">
 			<div class="book_content_header">内容摘要</div>
 			<div class="book_content_section">
 				<h:outputText value="#{bookBean.book.abstract}" escape="true" />

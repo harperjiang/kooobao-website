@@ -5,6 +5,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import com.kooobao.common.web.bean.AbstractBean;
 
@@ -14,8 +15,20 @@ public class CategoryBean extends AbstractBean {
 
 	@Override
 	public void onPageLoad() {
-		selectedCategory = null;
-		categoryBooks = getBookService().getBooksInCategory(selectedCategory);
+		try {
+			long categoryOid = Long.parseLong(getParameter("category_id"));
+			selectedCategory = getBookService().getCategory(categoryOid);
+			categoryBooks = getBookService().getBooksInCategory(
+					selectedCategory);
+		} catch (NumberFormatException e) {
+			FacesContext
+					.getCurrentInstance()
+					.getApplication()
+					.getNavigationHandler()
+					.handleNavigation(FacesContext.getCurrentInstance(), null,
+							"not_found");
+		}
+
 	}
 
 	private List<Book> categoryBooks;
