@@ -1,7 +1,7 @@
-package com.kooobao.lm.book;
+package com.kooobao.lm.book.entity;
 
 import com.kooobao.common.domain.entity.VersionEntity;
-import com.kooobao.lm.profile.Library;
+import com.kooobao.lm.profile.entity.Library;
 
 public class Stock extends VersionEntity {
 

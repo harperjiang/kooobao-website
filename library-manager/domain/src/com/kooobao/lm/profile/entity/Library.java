@@ -1,4 +1,4 @@
-package com.kooobao.lm.profile;
+package com.kooobao.lm.profile.entity;
 
 public class Library {
 

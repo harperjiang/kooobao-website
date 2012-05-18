@@ -1,4 +1,4 @@
-package com.kooobao.lm.book;
+package com.kooobao.lm.book.entity;
 
 public enum BookContent {
 

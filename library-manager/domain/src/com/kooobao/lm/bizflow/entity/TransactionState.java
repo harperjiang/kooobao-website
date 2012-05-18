@@ -1,4 +1,4 @@
-package com.kooobao.lm.bizflow;
+package com.kooobao.lm.bizflow.entity;
 
 public enum TransactionState {
 

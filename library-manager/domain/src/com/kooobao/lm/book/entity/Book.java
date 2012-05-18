@@ -1,4 +1,4 @@
-package com.kooobao.lm.book;
+package com.kooobao.lm.book.entity;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
