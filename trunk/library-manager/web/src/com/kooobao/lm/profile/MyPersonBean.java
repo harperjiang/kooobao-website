@@ -12,13 +12,13 @@ import com.kooobao.lm.profile.entity.PersonalInfo;
 
 @ManagedBean(name = "myPersonBean")
 @SessionScoped
-public class MyPerson extends AbstractBean {
+public class MyPersonBean extends AbstractBean {
 
 	public void onPageLoad() {
 		MyIndexBean myInfoBean = findBean("myIndexBean");
 		this.personalInfo = getProfileService().getPersonalInfo(
 				myInfoBean.getVisitor());
-		if(null == personalInfo)
+		if (null == personalInfo)
 			personalInfo = new PersonalInfo();
 		for (int i = 0; i < 6; i++) {
 			if ((personalInfo.getLike() ^ (1 << i)) > 0)
@@ -32,6 +32,8 @@ public class MyPerson extends AbstractBean {
 			like |= likeStr.charAt(0) - 'A';
 		}
 		personalInfo.setLike(like);
+		MyIndexBean myInfoBean = findBean("myIndexBean");
+		personalInfo.setVisitor(myInfoBean.getVisitor());
 		personalInfo = getProfileService().savePersonalInfo(personalInfo);
 		return "success";
 	}
