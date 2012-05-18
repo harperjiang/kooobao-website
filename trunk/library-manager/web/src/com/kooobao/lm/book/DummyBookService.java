@@ -152,4 +152,9 @@ public class DummyBookService implements BookService {
 	public List<Book> findRecommend(Book book) {
 		return books;
 	}
+
+	@Override
+	public Category getCategory(long categoryOid) {
+		return getRootCategories().get(0);
+	}
 }

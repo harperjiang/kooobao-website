@@ -64,21 +64,28 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-		<navigation-rule>
+	<navigation-rule>
 		<display-name>500.xhtml</display-name>
 		<navigation-case>
 			<from-outcome>failed</from-outcome>
 			<to-view-id>/500.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-		<render-kit>
-			<display-name>KooobaoRenderKit</display-name>
-			<renderer>
-				<component-family>com.kooobao.jsf.func.for</component-family>
-				<renderer-type>com.kooobao.jsf.func.for</renderer-type>
-				<renderer-class>com.kooobao.common.web.tag.FuncForRender</renderer-class>
-			</renderer>
-		</render-kit>
+	<navigation-rule>
+		<display-name>404.xhtml</display-name>
+		<navigation-case>
+			<from-outcome>not_found</from-outcome>
+			<to-view-id>/404.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<render-kit>
+		<display-name>KooobaoRenderKit</display-name>
+		<renderer>
+			<component-family>com.kooobao.jsf.func.for</component-family>
+			<renderer-type>com.kooobao.jsf.func.for</renderer-type>
+			<renderer-class>com.kooobao.common.web.tag.FuncForRender</renderer-class>
+		</renderer>
+	</render-kit>
 	<lifecycle>
 		<phase-listener>com.kooobao.common.web.bean.BeanInitializer</phase-listener>
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>

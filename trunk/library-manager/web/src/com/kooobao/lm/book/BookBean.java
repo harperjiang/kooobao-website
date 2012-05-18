@@ -5,6 +5,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import com.kooobao.common.web.bean.AbstractBean;
 
@@ -14,11 +15,20 @@ public class BookBean extends AbstractBean {
 
 	@Override
 	public void onPageLoad() {
-		// FIXIT for test only
-		book = getBookService().getPopularBooks().get(0);
-		recommendBooks = getBookService().findRecommend(book);
+		try {
+			long bookOid = Integer.parseInt(getParameter("book_id"));
+			book = getBookService().getBook(bookOid);
+			recommendBooks = getBookService().findRecommend(book);
+		} catch (NumberFormatException e) {
+			FacesContext
+					.getCurrentInstance()
+					.getApplication()
+					.getNavigationHandler()
+					.handleNavigation(FacesContext.getCurrentInstance(), null,
+							"not_found");
+		}
 	}
-	
+
 	private Book book;
 
 	private List<Book> recommendBooks;
@@ -45,6 +55,5 @@ public class BookBean extends AbstractBean {
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
 	}
-	
-	
+
 }

@@ -30,10 +30,10 @@
 				</div>
 			</ui:repeat>
 		</div>
-		<h:panelGroup layout="block"
-			style="float:left;margin-top:5px;margin-bottom:5px;">
+		<div
+			style="margin-top: 5px; margin-bottom: 5px; width: 790px; float: left;">
 			<ui:repeat var="book" value="#{categoryBean.categoryBooks}">
-				<div style="margin-bottom: 10px;">
+				<div style="margin-bottom: 10px; float: left;">
 					<div style="width: 120px; height: 140px; float: left;">
 						<h:outputLink value="/book.html">
 							<f:param name="book_id" value="#{book.oid}" />
@@ -42,7 +42,7 @@
 								value="#{book.pictureUrl}" />
 						</h:outputLink>
 					</div>
-					<div style="float: left; margin-left: 10px; width: 600px;">
+					<div style="float: left; margin-left: 10px; width: 640px;">
 						<div
 							style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">
 							<h:outputLink value="/book.html" style="text-decoration:none;">
@@ -75,9 +75,9 @@
 						<h:outputLink value="#" onclick="add_to_cart(#{book.oid})">加入借书篮</h:outputLink>
 					</div>
 				</div>
+				<div class="clearer" />
 			</ui:repeat>
-			<div class="clearer" />
-		</h:panelGroup>
+		</div>
 		<div class="clearer" />
 	</ui:define>
 </ui:composition>

@@ -21,7 +21,7 @@
 
 			<h:panelGroup layout="block">
 				<ui:repeat var="book" value="#{searchBookBean.searched}">
-					<div style="margin-bottom: 10px;">
+					<div style="margin-bottom: 10px; float: left;">
 						<div style="width: 120px; height: 140px; float: left;">
 							<h:outputLink value="/book.html">
 								<f:param name="book_id" value="#{book.oid}" />
