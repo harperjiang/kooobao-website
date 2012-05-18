@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.book.entity.Category;
+
 public class DummyBookService implements BookService {
 
 	private List<Book> books = initBooks();

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.kooobao.authcenter.listener.LoginAuthorizer;
 import com.kooobao.authcenter.service.Token;
 import com.kooobao.lm.profile.ProfileService;
-import com.kooobao.lm.profile.Visitor;
+import com.kooobao.lm.profile.entity.Visitor;
 
 public class FavManager {
 

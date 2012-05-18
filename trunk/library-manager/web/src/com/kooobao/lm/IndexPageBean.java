@@ -3,8 +3,8 @@ package com.kooobao.lm;
 import java.util.List;
 
 import com.kooobao.common.web.bean.SelfRefreshBean;
-import com.kooobao.lm.book.Book;
 import com.kooobao.lm.book.BookService;
+import com.kooobao.lm.book.entity.Book;
 
 public class IndexPageBean extends SelfRefreshBean {
 

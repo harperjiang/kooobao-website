@@ -10,9 +10,10 @@ import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.authcenter.web.bean.LoginBean;
 import com.kooobao.common.web.bean.AbstractBean;
-import com.kooobao.lm.bizflow.Transaction;
 import com.kooobao.lm.bizflow.TransactionService;
-import com.kooobao.lm.book.Book;
+import com.kooobao.lm.bizflow.entity.Transaction;
+import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.profile.entity.Visitor;
 
 @ManagedBean(name = "myIndexBean")
 @SessionScoped

@@ -2,6 +2,10 @@ package com.kooobao.lm.profile;
 
 import java.math.BigDecimal;
 
+import com.kooobao.lm.profile.entity.Address;
+import com.kooobao.lm.profile.entity.PersonalInfo;
+import com.kooobao.lm.profile.entity.Visitor;
+
 
 public class DummyProfileService implements ProfileService {
 

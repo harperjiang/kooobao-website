@@ -10,8 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.kooobao.lm.book.Book;
 import com.kooobao.lm.book.BookService;
+import com.kooobao.lm.book.entity.Book;
 
 public class CartManager {
 
