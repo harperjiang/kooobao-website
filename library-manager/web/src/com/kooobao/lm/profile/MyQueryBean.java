@@ -8,9 +8,9 @@ import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.bean.PageSearchResult;
-import com.kooobao.lm.bizflow.Transaction;
 import com.kooobao.lm.bizflow.TransactionService;
 import com.kooobao.lm.bizflow.TransactionService.SearchBean;
+import com.kooobao.lm.bizflow.entity.Transaction;
 
 @ManagedBean(name = "myQueryBean")
 @SessionScoped

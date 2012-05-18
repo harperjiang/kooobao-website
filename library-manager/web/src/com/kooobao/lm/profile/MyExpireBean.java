@@ -8,9 +8,9 @@ import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.bean.PageSearchResult;
-import com.kooobao.lm.bizflow.ExpireRecord;
 import com.kooobao.lm.bizflow.TransactionService;
 import com.kooobao.lm.bizflow.TransactionService.ExpireRecordSearchBean;
+import com.kooobao.lm.bizflow.entity.ExpireRecord;
 
 @ManagedBean(name = "myExpireBean")
 @SessionScoped

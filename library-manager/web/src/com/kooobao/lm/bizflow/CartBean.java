@@ -12,8 +12,8 @@ import org.springframework.util.CollectionUtils;
 
 import com.kooobao.common.spring.ApplicationContextHolder;
 import com.kooobao.common.web.bean.AbstractBean;
-import com.kooobao.lm.book.Book;
 import com.kooobao.lm.book.BookService;
+import com.kooobao.lm.book.entity.Book;
 
 @SessionScoped
 @ManagedBean(name = "cartBean")

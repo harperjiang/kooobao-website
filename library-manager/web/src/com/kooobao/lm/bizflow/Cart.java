@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.kooobao.lm.book.Book;
+import com.kooobao.lm.book.entity.Book;
 
 public class Cart {
 

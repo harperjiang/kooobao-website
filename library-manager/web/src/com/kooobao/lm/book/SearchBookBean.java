@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.lm.book.entity.Book;
 
 @ManagedBean(name = "searchBookBean")
 @SessionScoped

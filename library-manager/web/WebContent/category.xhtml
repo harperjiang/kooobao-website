@@ -71,8 +71,12 @@
 									借阅
 								</h:commandLink>
 						</h:form>
-
-						<h:outputLink value="#" onclick="add_to_cart(#{book.oid})">加入借书篮</h:outputLink>
+						<h:outputLink value="#" styleClass="btn_positive"
+							onclick="add_to_cart(#{book.oid})">
+							<h:graphicImage style="height:16px;width:16px;"
+								url="/image/basket.png" />
+							<h:outputText value="加入借书篮" />
+						</h:outputLink>
 					</div>
 				</div>
 				<div class="clearer" />

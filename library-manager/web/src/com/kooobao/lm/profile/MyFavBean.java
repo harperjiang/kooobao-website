@@ -3,8 +3,8 @@ package com.kooobao.lm.profile;
 import java.util.List;
 
 import com.kooobao.common.web.bean.PageSearchBean;
-import com.kooobao.lm.bizflow.FavoriteRecord;
 import com.kooobao.lm.bizflow.TransactionService;
+import com.kooobao.lm.bizflow.entity.FavoriteRecord;
 
 public class MyFavBean extends PageSearchBean {
 

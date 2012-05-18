@@ -7,6 +7,8 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.lm.profile.entity.Address;
+import com.kooobao.lm.profile.entity.Visitor;
 
 @ManagedBean(name = "myManageAddrBean")
 @SessionScoped

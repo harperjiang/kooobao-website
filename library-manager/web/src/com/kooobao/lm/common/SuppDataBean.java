@@ -9,9 +9,9 @@ import javax.faces.model.SelectItem;
 import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.common.web.bean.JSFStartupAware;
-import com.kooobao.lm.bizflow.TransactionState;
+import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.BookService;
-import com.kooobao.lm.book.Category;
+import com.kooobao.lm.book.entity.Category;
 
 public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 

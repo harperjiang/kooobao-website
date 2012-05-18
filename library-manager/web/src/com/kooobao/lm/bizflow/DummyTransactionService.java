@@ -5,9 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.kooobao.common.web.bean.PageSearchResult;
-import com.kooobao.lm.book.Book;
-import com.kooobao.lm.profile.Library;
-import com.kooobao.lm.profile.Visitor;
+import com.kooobao.lm.bizflow.entity.ExpireRecord;
+import com.kooobao.lm.bizflow.entity.FavoriteRecord;
+import com.kooobao.lm.bizflow.entity.Transaction;
+import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.profile.entity.Library;
+import com.kooobao.lm.profile.entity.Visitor;
 
 public class DummyTransactionService implements TransactionService {
 

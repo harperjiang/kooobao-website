@@ -6,17 +6,24 @@ a.btn,button,a.btn_negative,a.btn_positive,a.btn_regular {
 	float: left;
 	margin: 0 7px 0 0;
 	background-color: #f5f5f5;
-	border: 1px solid #dedede;
+	border: 1px solid #5e5e5e;
 	border-top: 1px solid #eee;
 	border-left: 1px solid #eee;
 	font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
 	font-size: 12px;
-	line-height: 130%;
 	text-decoration: none;
 	font-weight: bold;
 	color: #565656;
 	cursor: pointer;
-	padding: 5px 7px 3px 7px; /* Links */
+	padding-top: 5px;
+	padding-bottom: 6px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 10px;
+}
+
+a.btn img,a.btn_regular img,a.btn_positive img {
+	float: left;
 }
 
 button.btn {
