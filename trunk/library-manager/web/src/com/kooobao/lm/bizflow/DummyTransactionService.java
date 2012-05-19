@@ -9,7 +9,6 @@ import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.FavoriteRecord;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.book.entity.Book;
-import com.kooobao.lm.profile.entity.Library;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public class DummyTransactionService implements TransactionService {
@@ -35,7 +34,7 @@ public class DummyTransactionService implements TransactionService {
 		List<Transaction> trans = new ArrayList<Transaction>();
 
 		Transaction tran = new Transaction();
-	
+
 		tran.setId("XN12321resd");
 		Book book = new Book();
 		book.setName("Book1");
@@ -79,12 +78,6 @@ public class DummyTransactionService implements TransactionService {
 	}
 
 	@Override
-	public List<Transaction> findTransactions(Library library, Visitor visitor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Transaction saveTransaction(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return null;
@@ -109,7 +102,7 @@ public class DummyTransactionService implements TransactionService {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	@Override
 	public void deleteFavorite(Visitor visitor, long bookOid) {
 		// TODO Auto-generated method stub
@@ -118,6 +111,12 @@ public class DummyTransactionService implements TransactionService {
 
 	@Override
 	public List<FavoriteRecord> searchFavoriteRecords(Visitor visitor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Transaction> findTransactions(Visitor visitor) {
 		// TODO Auto-generated method stub
 		return null;
 	}
