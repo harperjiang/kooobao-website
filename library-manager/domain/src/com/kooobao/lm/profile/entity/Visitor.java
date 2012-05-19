@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Visitor {
+import com.kooobao.common.domain.entity.VersionEntity;
+
+public class Visitor extends VersionEntity {
 
 	private String id;
 
