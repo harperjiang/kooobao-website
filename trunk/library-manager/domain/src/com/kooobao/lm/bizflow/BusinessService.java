@@ -4,13 +4,11 @@ import java.util.List;
 
 import com.kooobao.lm.bizflow.entity.BookPack;
 import com.kooobao.lm.bizflow.entity.Transaction;
-import com.kooobao.lm.profile.entity.Library;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public interface BusinessService {
 
-	public Transaction borrow(Library library, Visitor visitor,
-			List<BookPack> books);
+	public Transaction borrow(Visitor visitor, List<BookPack> books);
 
 	public void expireTransactions();
 

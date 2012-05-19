@@ -9,14 +9,13 @@ import com.kooobao.lm.bizflow.entity.FavoriteRecord;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.entity.Book;
-import com.kooobao.lm.profile.entity.Library;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public interface TransactionService {
 
 	public Transaction getTransaction(long transId);
 
-	public List<Transaction> findTransactions(Library library, Visitor visitor);
+	public List<Transaction> findTransactions(Visitor visitor);
 
 	public Transaction saveTransaction(Transaction transaction);
 
@@ -36,13 +35,12 @@ public interface TransactionService {
 	public PageSearchResult<ExpireRecord> searchExpiredRecords(Visitor visitor,
 			ExpireRecordSearchBean searchBean);
 
-	public List<FavoriteRecord> searchFavoriteRecords(
-			Visitor visitor);
-	
+	public List<FavoriteRecord> searchFavoriteRecords(Visitor visitor);
+
 	public void addFavorite(Visitor visitor, long bookOid);
-	
+
 	public void deleteFavorite(Visitor visitor, long bookOid);
-	
+
 	public static class SearchBean {
 
 		private Date fromDate;
@@ -136,7 +134,5 @@ public interface TransactionService {
 		}
 
 	}
-
-	
 
 }

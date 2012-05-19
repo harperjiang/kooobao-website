@@ -1,7 +1,11 @@
 package com.kooobao.lm.profile.entity;
 
-public class PersonalInfo {
+import com.kooobao.common.domain.entity.SimpleEntity;
 
+public class PersonalInfo extends SimpleEntity {
+
+	private Visitor visitor;
+	
 	private String gender;
 
 	private String bornYear;
@@ -70,6 +74,14 @@ public class PersonalInfo {
 
 	public void setLike(int like) {
 		this.like = like;
+	}
+
+	public Visitor getVisitor() {
+		return visitor;
+	}
+
+	public void setVisitor(Visitor visitor) {
+		this.visitor = visitor;
 	}
 
 }

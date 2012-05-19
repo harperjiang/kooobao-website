@@ -7,7 +7,6 @@ import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.profile.entity.Address;
-import com.kooobao.lm.profile.entity.Library;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public class Transaction extends VersionEntity {
@@ -42,8 +41,6 @@ public class Transaction extends VersionEntity {
 
 	private String id;
 
-	private Library library;
-
 	private Visitor visitor;
 
 	private String state;
@@ -64,14 +61,6 @@ public class Transaction extends VersionEntity {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public Library getLibrary() {
-		return library;
-	}
-
-	public void setLibrary(Library library) {
-		this.library = library;
 	}
 
 	public Visitor getVisitor() {
