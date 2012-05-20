@@ -32,6 +32,12 @@
 		</div>
 		<div
 			style="margin-top: 5px; margin-bottom: 5px; width: 790px; float: left;">
+			<div>
+				<h:form>
+					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
+					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
+				</h:form>
+			</div>
 			<ui:repeat var="book" value="#{categoryBean.categoryBooks}">
 				<div style="margin-bottom: 10px; float: left;">
 					<div style="width: 120px; height: 140px; float: left;">
@@ -81,6 +87,12 @@
 				</div>
 				<div class="clearer" />
 			</ui:repeat>
+			<div>
+				<h:form>
+					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
+					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
+				</h:form>
+			</div>
 		</div>
 		<div class="clearer" />
 	</ui:define>

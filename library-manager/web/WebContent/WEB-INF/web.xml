@@ -65,5 +65,13 @@
 		<url-pattern>*.xhtml</url-pattern>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
-
+	<servlet>
+		<servlet-name>VerifyCode Servlet</servlet-name>
+		<servlet-class>com.kooobao.common.web.verifycode.VerifyCodeServlet</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VerifyCode Servlet</servlet-name>
+		<url-pattern>/image/verifycode.jpg</url-pattern>
+	</servlet-mapping>
 </web-app>

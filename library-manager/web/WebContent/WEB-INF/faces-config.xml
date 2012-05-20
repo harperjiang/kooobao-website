@@ -19,11 +19,15 @@
 
 	<managed-bean>
 		<managed-bean-name>loginBean</managed-bean-name>
-		<managed-bean-class>com.kooobao.authcenter.web.bean.LoginBean</managed-bean-class>
+		<managed-bean-class>com.kooobao.lm.profile.LoginBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 		<managed-property>
 			<property-name>authService</property-name>
 			<value>#{authenticateService}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>profileService</property-name>
+			<value>#{profileService}</value>
 		</managed-property>
 	</managed-bean>
 	<navigation-rule>
@@ -41,7 +45,7 @@
 		<navigation-case>
 			<from-action>#{searchBookBean.search}</from-action>
 			<from-outcome>success</from-outcome>
-			<to-view-id>/search.xhtml</to-view-id>
+			<to-view-id>/search_book.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -50,7 +54,7 @@
 		<navigation-case>
 			<from-action>#{hotSearchBean.hotSearch}</from-action>
 			<from-outcome>success</from-outcome>
-			<to-view-id>/search.xhtml</to-view-id>
+			<to-view-id>/search_book.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
@@ -65,10 +69,29 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>500.xhtml</display-name>
+		<display-name>register_done.xhtml</display-name>
+		<from-view-id>/register.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>failed</from-outcome>
-			<to-view-id>/500.xhtml</to-view-id>
+			<from-action>#{registerBean.register}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/register_done.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>category.xhtml</display-name>
+		<from-view-id>/category.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{categoryBean.prevPage}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/category.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{categoryBean.nextPage}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/category.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>

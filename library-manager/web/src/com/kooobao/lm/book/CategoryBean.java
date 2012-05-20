@@ -7,22 +7,34 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import com.kooobao.common.web.bean.AbstractBean;
+import org.apache.commons.lang.StringUtils;
+
+import com.kooobao.common.web.bean.PageSearchBean;
+import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Category;
 
 @ManagedBean(name = "categoryBean")
 @SessionScoped
-public class CategoryBean extends AbstractBean {
+public class CategoryBean extends PageSearchBean {
 
 	@Override
 	public void onPageLoad() {
 		try {
-			long categoryOid = Long.parseLong(getParameter("category_id"));
-			selectedCategory = getBookService().getCategory(categoryOid);
-			categoryBooks = getBookService().getBooksInCategory(
-					selectedCategory);
-		} catch (NumberFormatException e) {
+			String categoryOidStr = getParameter("category_id");
+			if (!StringUtils.isEmpty(categoryOidStr)
+					|| null != selectedCategory) {
+				if (!StringUtils.isEmpty(categoryOidStr)) {
+					long categoryOid = Long.parseLong(categoryOidStr);
+					selectedCategory = getBookService()
+							.getCategory(categoryOid);
+					search();
+				}
+			} else {
+				selectedCategory = getBookService().getRootCategories().get(0);
+				search();
+			}
+		} catch (Exception e) {
 			FacesContext
 					.getCurrentInstance()
 					.getApplication()
@@ -30,7 +42,14 @@ public class CategoryBean extends AbstractBean {
 					.handleNavigation(FacesContext.getCurrentInstance(), null,
 							"not_found");
 		}
+	}
 
+	public String search() {
+		PageSearchResult<Book> result = getBookService().getBooksInCategory(
+				selectedCategory, getRecordStart(), getRecordStop());
+		categoryBooks = result.getResult();
+		setRecordCount(result.getPageCount());
+		return "success";
 	}
 
 	private List<Book> categoryBooks;

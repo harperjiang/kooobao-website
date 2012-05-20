@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Category;
 
@@ -36,8 +37,10 @@ public class DummyBookService implements BookService {
 	}
 
 	@Override
-	public List<Book> searchBooks(String keyword) {
-		return books;
+	public PageSearchResult<Book> searchBooks(String keyword, int start,
+			int stop) {
+		PageSearchResult<Book> result = new PageSearchResult<Book>(5, books);
+		return result;
 	}
 
 	private List<Book> initBooks() {
@@ -147,8 +150,9 @@ public class DummyBookService implements BookService {
 	}
 
 	@Override
-	public List<Book> getBooksInCategory(Category selectedCategory) {
-		return books;
+	public PageSearchResult<Book> getBooksInCategory(Category selectedCategory,
+			int start, int stop) {
+		return new PageSearchResult<Book>(10, books);
 	}
 
 	@Override
