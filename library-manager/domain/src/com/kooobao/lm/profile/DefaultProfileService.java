@@ -25,7 +25,7 @@ public class DefaultProfileService implements ProfileService {
 	}
 
 	public PersonalInfo getPersonalInfo(Visitor visitor) {
-		return getVisitorDao().findByVisitor(visitor);
+		return visitor.getInfo();
 	}
 
 	public PersonalInfo savePersonalInfo(Visitor visitor,
@@ -45,6 +45,7 @@ public class DefaultProfileService implements ProfileService {
 			return false;
 		v.setStatus(VisitorStatus.ACTIVE.name());
 		getVisitorDao().store(v);
+		getVisitorDao().removeActivationRecord(actr);
 		return true;
 	}
 
@@ -73,7 +74,7 @@ public class DefaultProfileService implements ProfileService {
 	}
 
 	public void clearInactivateVisitors() {
-		getVisitorDao().deleteInactiveVisitor(86400000l);
+		// TODO Not implemented
 	}
 
 	private VisitorDao visitorDao;
