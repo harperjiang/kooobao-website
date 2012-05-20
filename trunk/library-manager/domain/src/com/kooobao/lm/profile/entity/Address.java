@@ -1,10 +1,20 @@
 package com.kooobao.lm.profile.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Embeddable
-public class Address {
+import com.kooobao.common.domain.entity.SimpleEntity;
+
+@Entity
+@Table(name = "lm_visitor_addr")
+public class Address extends SimpleEntity {
+
+	@OneToOne
+	@JoinColumn(name = "visitor")
+	private Visitor visitor;
 
 	@Column(name = "name")
 	private String name;
@@ -43,6 +53,14 @@ public class Address {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Visitor getVisitor() {
+		return visitor;
+	}
+
+	public void setVisitor(Visitor visitor) {
+		this.visitor = visitor;
 	}
 
 }

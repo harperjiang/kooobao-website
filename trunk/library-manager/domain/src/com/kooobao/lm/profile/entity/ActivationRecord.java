@@ -6,14 +6,17 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.kooobao.lm.profile.entity.ActivationRecord.ARIdClass;
+
 @Entity
-@IdClass(IdClass.class)
-@Table(name = "lm_act_record")
+@IdClass(ARIdClass.class)
+@Table(name = "lm_visitor_actrecord")
 public class ActivationRecord {
 
-	public static class IdClass {
+	public static class ARIdClass {
+		@Id
 		private String visitorId;
-
+		@Id
 		private String activationId;
 
 		public String getVisitorId() {
