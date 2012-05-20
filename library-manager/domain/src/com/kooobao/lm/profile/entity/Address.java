@@ -1,13 +1,18 @@
 package com.kooobao.lm.profile.entity;
 
-import com.kooobao.common.domain.entity.SimpleEntity;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
-public class Address extends SimpleEntity {
+@Embeddable
+public class Address {
 
+	@Column(name = "name")
 	private String name;
 
+	@Column(name = "location")
 	private String location;
 
+	@Column(name = "phone")
 	private String phone;
 
 	public String toString() {
