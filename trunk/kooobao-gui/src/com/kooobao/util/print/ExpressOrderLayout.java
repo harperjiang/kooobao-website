@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.harper.frm.gui.swing.print.border.LineBorder;
 import org.harper.frm.gui.swing.print.comp.Container;
 import org.harper.frm.gui.swing.print.comp.TextLabel;
 
@@ -34,7 +35,6 @@ public class ExpressOrderLayout extends Container {
 
 	public ExpressOrderLayout(ExpressOrderSettingBean bean) {
 		super();
-
 
 		setPosition(new Rectangle(new Point(0, 0), bean.getSize()));
 
