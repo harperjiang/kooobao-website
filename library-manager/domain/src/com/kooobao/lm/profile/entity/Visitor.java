@@ -14,7 +14,7 @@ public class Visitor extends VersionEntity {
 
 	private String status;
 
-	private String level;
+	private int level;
 
 	private BigDecimal deposit;
 
@@ -70,15 +70,19 @@ public class Visitor extends VersionEntity {
 		this.availableAddresses = availableAddresses;
 	}
 
-	public String getLevel() {
+	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(String level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 
 	public static enum Status {
 		VALID, INVALID, LACK_BALANCE
+	}
+
+	public void setStatus(VisitorStatus status) {
+		setStatus(status.name());
 	}
 }
