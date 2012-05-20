@@ -33,8 +33,8 @@ public class MyPersonBean extends AbstractBean {
 		}
 		personalInfo.setLike(like);
 		MyIndexBean myInfoBean = findBean("myIndexBean");
-		personalInfo.setVisitor(myInfoBean.getVisitor());
-		personalInfo = getProfileService().savePersonalInfo(personalInfo);
+		personalInfo = getProfileService().savePersonalInfo(
+				myInfoBean.getVisitor(), personalInfo);
 		return "success";
 	}
 
