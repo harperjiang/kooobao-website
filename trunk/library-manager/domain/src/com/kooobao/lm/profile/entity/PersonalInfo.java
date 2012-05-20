@@ -1,21 +1,27 @@
 package com.kooobao.lm.profile.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.kooobao.common.domain.entity.SimpleEntity;
 
+@Entity
+@Table(name = "lm_visitor_info")
 public class PersonalInfo extends SimpleEntity {
-
+	@Column
 	private String gender;
-
+	@Column(name = "born_year")
 	private String bornYear;
-
+	@Column
 	private String education;
-
+	@Column(name = "kid_count")
 	private int kidCount;
-
+	@Column(name = "first_child_year")
 	private String olderChildBornYear;
-
+	@Column(name = "last_child_year")
 	private String youngerChildBornYear;
-
+	@Column
 	private int like;
 
 	public String getGender() {
