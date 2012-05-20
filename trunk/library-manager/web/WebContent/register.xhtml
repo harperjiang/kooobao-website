@@ -6,6 +6,39 @@
 	<ui:param name="displayLogin" value="false"></ui:param>
 	<ui:define name="title">酷宝图书馆-新用户注册</ui:define>
 	<ui:define name="body">
-		
+		<h:form id="registerForm">
+			<div
+				style="width: 600px; margin: 0 auto; padding: 5px; overflow: visible;"
+				class="form">
+				<h:messages errorStyle="color:#FF0000;font-weight:bold;" />
+				<h:outputLabel for="emailText" value="注册邮箱" />
+				<h:inputText id="emailText" value="#{registerBean.email}"
+					required="true" requiredMessage="email不能为空" />
+				<h:outputText style="font-size:11px;"
+					value="注册邮箱将同时作为您的登陆账号，请填写常用邮箱" />
+				<br />
+				<h:outputLabel for="passwordText" value="登录密码" />
+				<h:inputSecret id="passwordText" value="#{registerBean.password}"
+					required="true" requiredMessage="密码不能为空" />
+				<br />
+				<h:outputLabel for="repeatPassText">重复输入密码</h:outputLabel>
+				<h:inputSecret id="repeatPassText"
+					value="#{registerBean.confirmPass}" required="true"
+					requiredMessage="密码不能为空" />
+				<br />
+				<h:outputLabel for="verifyCodeText">输入验证码</h:outputLabel>
+				<h:inputText id="verifyCodeText" value="#{registerBean.verifyCode}"
+					required="true" requiredMessage="验证码不能为空" />
+				<br />
+				<div style="float: left; width: 420px; margin-left: 190px;">
+					<img id="verifycodeImg" src="/image/verifycode.jpg"
+						onclick="this.src=this.src+'?'" />
+					<h:outputText value="点击验证码刷新" />
+				</div>
+				<br />
+				<h:commandLink style="float:left;" action="#{registerBean.register}"
+					styleClass="btn_positive">注册</h:commandLink>
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>

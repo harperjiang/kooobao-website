@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="false"></ui:param>
+	<ui:define name="title">酷宝图书馆-用户激活</ui:define>
+	<ui:define name="body">
+		<h:panelGroup layout="block" style="margin: 0 auto;"
+			rendered="#{registerActivateBean.activated}">
+			<div class="title">您的账户已经激活!</div>
+			<div>现在您可以使用本站所有功能</div>
+			<div>
+				您可以： <a href="/index.html">回到首页</a>选择喜欢的书。<br /> <a
+					href="/my_person.html">完成个人信息调查</a>获得免费积分。 <br /> <a
+					href="/my_redeem.html">为账户充值积分</a>。
+			</div>
+		</h:panelGroup>
+		<h:panelGroup layout="block" style="margin: 0 auto;"
+			rendered="#{!registerActivateBean.activated}">
+			<div class="title">您的账户激活失败!</div>
+			<div>我们未能找到您的激活信息</div>
+			<div>这可能因为：1. 您还没注册 2.您已经激活过</div>
+			<div>
+				您还可以： <a href="/register.html">注册一个新账户</a>
+			</div>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

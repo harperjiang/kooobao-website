@@ -20,6 +20,12 @@
 			<div style="font-size: 18px; margin-top: 10px; margin-bottom: 10px;">搜索结果</div>
 
 			<h:panelGroup layout="block">
+				<div>
+					<h:form>
+						<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
+						<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
+					</h:form>
+				</div>
 				<ui:repeat var="book" value="#{searchBookBean.searched}">
 					<div style="margin-bottom: 10px; float: left;">
 						<div style="width: 120px; height: 140px; float: left;">
@@ -66,7 +72,12 @@
 
 				<div class="clearer" />
 
-
+				<div>
+					<h:form>
+						<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
+						<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
+					</h:form>
+				</div>
 			</h:panelGroup>
 
 		</div>

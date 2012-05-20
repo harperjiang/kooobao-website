@@ -6,14 +6,13 @@ import com.kooobao.lm.profile.entity.Address;
 import com.kooobao.lm.profile.entity.PersonalInfo;
 import com.kooobao.lm.profile.entity.Visitor;
 
-
 public class DummyProfileService implements ProfileService {
 
 	public Visitor getVisitor(String id) {
 		Visitor v = new Visitor();
 		v.setId(id);
 		v.setName("赵无敌");
-		v.setLevel("圣斗士");
+		v.setLevel(1);
 		v.setDeposit(new BigDecimal("37"));
 		Address addr = new Address();
 		addr.setName("张三");
@@ -49,5 +48,23 @@ public class DummyProfileService implements ProfileService {
 	public Visitor saveVisitor(Visitor visitor) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean activateUser(String activateId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void register(String email, String password) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void clearInactivateVisitors() {
+		// TODO Auto-generated method stub
+		
 	}
 }

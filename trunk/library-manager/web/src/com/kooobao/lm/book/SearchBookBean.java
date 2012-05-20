@@ -6,15 +6,19 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.common.web.bean.PageSearchBean;
+import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.book.entity.Book;
 
 @ManagedBean(name = "searchBookBean")
 @SessionScoped
-public class SearchBookBean extends AbstractBean {
+public class SearchBookBean extends PageSearchBean {
 
 	public String search() {
-		setSearched(getBookService().searchBooks(getKeyword()));
+		PageSearchResult<Book> result = getBookService().searchBooks(
+				getKeyword(), getRecordStart(), getRecordStop());
+		setSearched(result.getResult());
+		setRecordCount(result.getPageCount());
 		return "success";
 	}
 
