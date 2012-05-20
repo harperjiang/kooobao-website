@@ -7,6 +7,8 @@
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_visitor" />
 	<table-generator name="piTG" table="lm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_visitor_info" />
+	<table-generator name="addrTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_visitor_addr" />
 
 	<entity class="com.kooobao.lm.profile.entity.Visitor">
 		<primary-key>
@@ -16,6 +18,18 @@
 			<basic name="oid">
 				<column name="obj_id" />
 				<generated-value generator="visitorTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.lm.profile.entity.Address">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="addrTG" />
 			</basic>
 		</attributes>
 	</entity>
