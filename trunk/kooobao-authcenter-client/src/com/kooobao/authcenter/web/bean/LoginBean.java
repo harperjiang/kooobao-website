@@ -43,11 +43,22 @@ public class LoginBean extends AbstractBean {
 			addMessage(FacesMessage.SEVERITY_ERROR, "登录失败");
 			return "false";
 		}
+		if (!verify(getUserId())) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "用户未激活");
+			return "false";
+		}
 		loggedIn = true;
 		loginDate = new Date();
 		putTokenInSession(token);
 		jumpUrl();
 		return "true";
+	}
+
+	/**
+	 * Subclasses may use this method to add additional verfications
+	 */
+	protected boolean verify(String userId) {
+		return true;
 	}
 
 	private void refreshSystem() {
@@ -68,7 +79,7 @@ public class LoginBean extends AbstractBean {
 
 		// Jump to previous URL, index.htm if null
 		String indexPage = ConfigLoader.getInstance().load("auth_list",
-				system+".index_page");
+				system + ".index_page");
 		if (null == indexPage)
 			indexPage = "index.xhtml";
 		previousUrl = null == previousUrl ? indexPage
