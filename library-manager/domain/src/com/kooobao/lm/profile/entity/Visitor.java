@@ -4,14 +4,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.CollectionTable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -36,18 +33,14 @@ public class Visitor extends VersionEntity {
 	@Column(name = "deposit")
 	private BigDecimal deposit;
 
-	@Embedded
-	@AttributeOverrides({
-			@AttributeOverride(name = "name", column = @Column(name = "addr_name")),
-			@AttributeOverride(name = "location", column = @Column(name = "addr_loc")),
-			@AttributeOverride(name = "phone", column = @Column(name = "addr_phone")) })
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "default_addr")
 	private Address address;
 
-	@ElementCollection
-	@CollectionTable(name = "lm_visitor_addrs", joinColumns = { @JoinColumn(name = "visitor_id", referencedColumnName = "obj_id") })
+	@OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
 	private List<Address> availableAddresses = new ArrayList<Address>();
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "info")
 	private PersonalInfo info;
 
@@ -97,6 +90,8 @@ public class Visitor extends VersionEntity {
 
 	public void setAvailableAddresses(List<Address> availableAddresses) {
 		this.availableAddresses = availableAddresses;
+		for (Address addr : availableAddresses)
+			addr.setVisitor(this);
 	}
 
 	public int getLevel() {

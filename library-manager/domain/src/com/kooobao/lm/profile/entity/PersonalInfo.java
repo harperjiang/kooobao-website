@@ -9,11 +9,11 @@ import com.kooobao.common.domain.entity.SimpleEntity;
 @Entity
 @Table(name = "lm_visitor_info")
 public class PersonalInfo extends SimpleEntity {
-	@Column
+	@Column(name = "gender")
 	private String gender;
 	@Column(name = "born_year")
 	private String bornYear;
-	@Column
+	@Column(name = "education")
 	private String education;
 	@Column(name = "kid_count")
 	private int kidCount;
@@ -21,7 +21,7 @@ public class PersonalInfo extends SimpleEntity {
 	private String olderChildBornYear;
 	@Column(name = "last_child_year")
 	private String youngerChildBornYear;
-	@Column
+	@Column(name = "like_area")
 	private int like;
 
 	public String getGender() {
