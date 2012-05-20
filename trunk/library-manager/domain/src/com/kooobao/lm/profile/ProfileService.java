@@ -11,7 +11,7 @@ public interface ProfileService {
 
 	PersonalInfo getPersonalInfo(Visitor visitor);
 
-	PersonalInfo savePersonalInfo(PersonalInfo personalInfo);
+	PersonalInfo savePersonalInfo(Visitor visitor, PersonalInfo personalInfo);
 
 	boolean activateUser(String activateId);
 
