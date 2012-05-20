@@ -22,6 +22,8 @@ public class Visitor extends VersionEntity {
 
 	private List<Address> availableAddresses = new ArrayList<Address>();
 
+	private PersonalInfo info;
+	
 	public String getId() {
 		return id;
 	}
@@ -84,5 +86,13 @@ public class Visitor extends VersionEntity {
 
 	public void setStatus(VisitorStatus status) {
 		setStatus(status.name());
+	}
+
+	public PersonalInfo getInfo() {
+		return info;
+	}
+
+	public void setInfo(PersonalInfo info) {
+		this.info = info;
 	}
 }

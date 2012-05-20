@@ -4,8 +4,6 @@ import com.kooobao.common.domain.entity.SimpleEntity;
 
 public class PersonalInfo extends SimpleEntity {
 
-	private Visitor visitor;
-	
 	private String gender;
 
 	private String bornYear;
@@ -74,14 +72,6 @@ public class PersonalInfo extends SimpleEntity {
 
 	public void setLike(int like) {
 		this.like = like;
-	}
-
-	public Visitor getVisitor() {
-		return visitor;
-	}
-
-	public void setVisitor(Visitor visitor) {
-		this.visitor = visitor;
 	}
 
 }
