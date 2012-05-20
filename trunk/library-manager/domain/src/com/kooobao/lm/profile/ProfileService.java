@@ -13,4 +13,9 @@ public interface ProfileService {
 
 	PersonalInfo savePersonalInfo(PersonalInfo personalInfo);
 
+	boolean activateUser(String activateId);
+
+	void register(String email, String password);
+
+	void clearInactivateVisitors();
 }
