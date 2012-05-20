@@ -35,11 +35,17 @@ public class VerifyCodeManager {
 	}
 
 	public boolean verify(VerifyKey vkey, String input) {
+
 		if (StringUtils.isEmpty(input))
 			return false;
 		synchronized (vkey) {
-			return input.equals(datas.get(vkey));
+			try {
+				return input.equals(datas.get(vkey));
+			} finally {
+				datas.remove(vkey);
+			}
 		}
+
 	}
 
 	private RandomGenerator randomGen;
