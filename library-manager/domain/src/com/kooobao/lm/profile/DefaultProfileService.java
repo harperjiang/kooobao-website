@@ -8,7 +8,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import com.kooobao.authcenter.service.UserService;
 import com.kooobao.common.web.email.TemplateMailMessage;
-import com.kooobao.lm.profile.dao.PersonalInfoDao;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.ActivationRecord;
 import com.kooobao.lm.profile.entity.PersonalInfo;
@@ -26,11 +25,15 @@ public class DefaultProfileService implements ProfileService {
 	}
 
 	public PersonalInfo getPersonalInfo(Visitor visitor) {
-		return getPersonalInfoDao().findByVisitor(visitor);
+		return getVisitorDao().findByVisitor(visitor);
 	}
 
-	public PersonalInfo savePersonalInfo(PersonalInfo personalInfo) {
-		return getPersonalInfoDao().store(personalInfo);
+	public PersonalInfo savePersonalInfo(Visitor visitor,
+			PersonalInfo personalInfo) {
+		Visitor v = getVisitorDao().find(visitor.getId());
+		v.setInfo(personalInfo);
+		getVisitorDao().store(v);
+		return personalInfo;
 	}
 
 	public boolean activateUser(String activateId) {
@@ -75,8 +78,6 @@ public class DefaultProfileService implements ProfileService {
 
 	private VisitorDao visitorDao;
 
-	private PersonalInfoDao personalInfoDao;
-
 	private UserService userService;
 
 	private JavaMailSender mailSender;
@@ -87,14 +88,6 @@ public class DefaultProfileService implements ProfileService {
 
 	public void setVisitorDao(VisitorDao visitorDao) {
 		this.visitorDao = visitorDao;
-	}
-
-	public PersonalInfoDao getPersonalInfoDao() {
-		return personalInfoDao;
-	}
-
-	public void setPersonalInfoDao(PersonalInfoDao personalInfoDao) {
-		this.personalInfoDao = personalInfoDao;
 	}
 
 	public UserService getUserService() {
