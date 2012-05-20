@@ -39,12 +39,6 @@ public class DummyProfileService implements ProfileService {
 	}
 
 	@Override
-	public PersonalInfo savePersonalInfo(PersonalInfo personalInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Visitor saveVisitor(Visitor visitor) {
 		// TODO Auto-generated method stub
 		return null;
@@ -65,6 +59,13 @@ public class DummyProfileService implements ProfileService {
 	@Override
 	public void clearInactivateVisitors() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public PersonalInfo savePersonalInfo(Visitor visitor,
+			PersonalInfo personalInfo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
