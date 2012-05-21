@@ -5,31 +5,69 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import com.kooobao.common.domain.entity.SimpleEntity;
 
+@Entity
+@Table(name = "lm_book")
 public class Book extends SimpleEntity {
 
+	@Column(name = "isbn")
 	private String isbn;
 
-	private List<Category> tags;
+	@OneToOne
+	@JoinColumn(name = "category")
+	private Category category;
 
+	@ElementCollection
+	@CollectionTable(name = "lm_book_tag", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_oid"))
+	@Column(name = "tag", columnDefinition = "varchar(25)")
+	private List<String> tags;
+
+	@Column(name = "picture_url")
 	private String pictureUrl;
 
+	@Column(name = "name")
 	private String name;
 
+	@Column(name = "rating")
 	private int rating;
 
+	@Column(name = "list_price", columnDefinition = "decimal(10,2)")
 	private BigDecimal listPrice;
 
+	@ElementCollection
+	@CollectionTable(name = "lm_book_attr", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_oid"))
+	@Column(name = "attr", columnDefinition = "varchar(25)")
+	@MapKeyColumn(name = "attr")
 	private Map<String, String> attributes = new HashMap<String, String>();
 
+	@CollectionTable(name = "lm_book_content", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_oid"))
+	@Column(name = "content", columnDefinition = "text")
+	@MapKeyColumn(name = "content")
 	private Map<String, String> content = new HashMap<String, String>();
 
-	public List<Category> getTags() {
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public List<String> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<Category> tags) {
+	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
 
