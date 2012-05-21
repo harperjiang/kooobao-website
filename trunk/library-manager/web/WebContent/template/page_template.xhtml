@@ -46,14 +46,13 @@
 			<h:commandLink id="searchButton" styleClass="btn_positive"
 				action="#{searchBookBean.search}">搜索</h:commandLink>
 			<div style="display: block; float: left; padding-top: 5px;">
-				<span style="margin-left: 25px;">热搜词:</span> <span> <h:commandLink
-						id="hotWord1" action="#{hotSearchBean.hotSearch}"
-						value="#{hotSearchBean.hotWord1}">
-						<f:param name="word" value="#{hotSearchBean.hotWord1}" />
-					</h:commandLink> <h:commandLink id="hotWord2" action="#{hotSearchBean.hotSearch}"
-						value="#{hotSearchBean.hotWord2}">
-						<f:param name="word" value="#{hotSearchBean.hotWord2}" />
-					</h:commandLink>
+				<span style="margin-left: 25px;">热搜词:</span> <span> <ui:repeat
+						value="#{hotSearchBean.hotWords}" var="hotWord">
+						<h:commandLink action="#{hotSearchBean.hotSearch}"
+							value="#{hotWord}">
+							<f:param name="word" value="#{hotWord}" />
+						</h:commandLink>
+					</ui:repeat>
 				</span>
 			</div>
 		</h:form>
