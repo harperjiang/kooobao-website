@@ -3,12 +3,22 @@ package com.kooobao.lm.bizflow.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.profile.entity.Address;
 import com.kooobao.lm.profile.entity.Visitor;
 
+@Entity
+@Table(name = "lm_tran")
 public class Transaction extends VersionEntity {
 
 	public void approve() {
@@ -32,29 +42,27 @@ public class Transaction extends VersionEntity {
 
 	}
 
-	private String id;
-
+	@OneToOne
+	@JoinColumn(name = "visitor")
 	private Visitor visitor;
 
+	@Column(name = "state")
 	private String state;
 
+	@OneToOne
+	@JoinColumn(name = "addr")
 	private Address address;
 
+	@Column(name = "delivery_mthd")
 	private String delivery;
 
+	@OneToOne
+	@JoinColumn(name = "book_id")
 	private Book book;
 
-	private int count;
-
+	@Column(name="due_time")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dueTime;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public Visitor getVisitor() {
 		return visitor;
@@ -70,14 +78,6 @@ public class Transaction extends VersionEntity {
 
 	public void setBook(Book book) {
 		this.book = book;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
 	}
 
 	private List<Operation> operations;

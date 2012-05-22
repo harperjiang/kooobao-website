@@ -5,5 +5,15 @@
 		<class>com.kooobao.lm.profile.entity.ActivationRecord</class>
 		<class>com.kooobao.lm.profile.entity.PersonalInfo</class>
 		<class>com.kooobao.lm.profile.entity.Visitor</class>
+		<class>com.kooobao.lm.book.entity.Book</class>
+		<class>com.kooobao.lm.book.entity.Category</class>
+		<class>com.kooobao.lm.book.entity.Stock</class>
+		<class>com.kooobao.lm.optlog.entity.BorrowCount</class>
+		<class>com.kooobao.lm.optlog.entity.SearchLog</class>
+		<class>com.kooobao.lm.optlog.entity.SearchSummary</class>
+		<class>com.kooobao.lm.bizflow.entity.ExpireRecord</class>
+		<class>com.kooobao.lm.bizflow.entity.FavoriteRecord</class>
+		<class>com.kooobao.lm.bizflow.entity.Operation</class>
+		<class>com.kooobao.lm.bizflow.entity.Transaction</class>
 	</persistence-unit>
 </persistence>

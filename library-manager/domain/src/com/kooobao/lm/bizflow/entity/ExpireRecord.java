@@ -3,18 +3,36 @@ package com.kooobao.lm.bizflow.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import com.kooobao.common.domain.entity.VersionEntity;
 
+@Entity
+@Table(name = "lm_tran_expire_rec")
 public class ExpireRecord extends VersionEntity {
 
+	@Column(name = "active")
 	private boolean active;
 
+	@OneToOne
+	@JoinColumn(name = "transaction")
 	private Transaction transaction;
 
-	private Date dueDate;
+	@Column(name = "due_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dueTime;
 
-	private Date returnDate;
+	@Column(name = "return_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date returnTime;
 
+	@Column(name = "penalty")
 	private BigDecimal penalty;
 
 	public boolean isActive() {
@@ -41,20 +59,20 @@ public class ExpireRecord extends VersionEntity {
 		this.penalty = penalty;
 	}
 
-	public Date getDueDate() {
-		return dueDate;
+	public Date getDueTime() {
+		return dueTime;
 	}
 
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
+	public void setDueTime(Date dueTime) {
+		this.dueTime = dueTime;
 	}
 
-	public Date getReturnDate() {
-		return returnDate;
+	public Date getReturnTime() {
+		return returnTime;
 	}
 
-	public void setReturnDate(Date returnDate) {
-		this.returnDate = returnDate;
+	public void setReturnTime(Date returnTime) {
+		this.returnTime = returnTime;
 	}
 
 }

@@ -25,8 +25,11 @@ public class DefaultFavouriteService implements FavouriteService {
 	}
 
 	public void deleteFavorite(Visitor visitor, long bookOid) {
-		FavoriteRecord fr = getFavouriteDao().find(visitor, bookOid);
-		getFavouriteDao().remove(fr);
+		Book book = getBookDao().find(bookOid);
+		if (null != book) {
+			FavoriteRecord fr = getFavouriteDao().find(visitor, book);
+			getFavouriteDao().remove(fr);
+		}
 	}
 
 	private FavouriteDao favouriteDao;
