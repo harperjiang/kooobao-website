@@ -47,4 +47,9 @@ public abstract class AbstractMemoryDao<T extends VersionEntity> implements
 	protected Map<Long, T> getStorage() {
 		return storage;
 	}
+	
+	public Cursor<T> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
