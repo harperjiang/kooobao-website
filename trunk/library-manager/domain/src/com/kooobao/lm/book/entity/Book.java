@@ -21,9 +21,6 @@ import com.kooobao.common.domain.entity.SimpleEntity;
 @Table(name = "lm_book")
 public class Book extends SimpleEntity {
 
-	@Column(name = "isbn")
-	private String isbn;
-
 	@OneToOne
 	@JoinColumn(name = "category")
 	private Category category;
@@ -46,13 +43,13 @@ public class Book extends SimpleEntity {
 	private BigDecimal listPrice;
 
 	@ElementCollection
-	@CollectionTable(name = "lm_book_attr", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_oid"))
+	@CollectionTable(name = "lm_book_attr", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_id"))
 	@Column(name = "attr", columnDefinition = "varchar(25)")
 	@MapKeyColumn(name = "attr")
 	private Map<String, String> attributes = new HashMap<String, String>();
 
 	@ElementCollection
-	@CollectionTable(name = "lm_book_content", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_oid"))
+	@CollectionTable(name = "lm_book_content", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_id"))
 	@Column(name = "content", columnDefinition = "text")
 	@MapKeyColumn(name = "content")
 	private Map<String, String> content = new HashMap<String, String>();
@@ -71,14 +68,6 @@ public class Book extends SimpleEntity {
 
 	public void setTags(List<String> tags) {
 		this.tags = tags;
-	}
-
-	public String getIsbn() {
-		return isbn;
-	}
-
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
 	}
 
 	public String getName() {

@@ -4,12 +4,15 @@ import com.kooobao.common.domain.dao.Dao;
 import com.kooobao.common.domain.entity.SimpleEntity;
 import com.kooobao.lm.rule.entity.DueRule;
 import com.kooobao.lm.rule.entity.PenaltyRule;
+import com.kooobao.lm.rule.entity.VisitorLevelRule;
 
 public interface RuleDao extends Dao<SimpleEntity> {
 
 	PenaltyRule getPenaltyRule();
 
 	DueRule getDueRule();
+
+	VisitorLevelRule getVisitorLevelRule();
 
 	
 }
