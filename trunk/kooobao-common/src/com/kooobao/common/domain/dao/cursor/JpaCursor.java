@@ -45,26 +45,16 @@ public class JpaCursor<T> implements Cursor<T> {
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
-	public JpaCursor(EntityManager em, Query query) {
-		setEntityManager(em);
+	public JpaCursor(Query query) {
 		this.query = query;
 	}
 
 	private Query query;
-	
-	private int pageSize = 100;
 
-	private EntityManager entityManager;
+	private int pageSize = 100;
 
 	public int getPageSize() {
 		return pageSize;
 	}
 
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 }

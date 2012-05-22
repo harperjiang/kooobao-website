@@ -61,7 +61,7 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 	public Cursor<T> findAll() {
 		ReadAllQuery raq = new ReadAllQuery(getParamClass());
 		Query query = JpaHelper.createQuery(raq, getEntityManager());
-		JpaCursor<T> cursor = new JpaCursor<T>(getEntityManager(), query);
+		JpaCursor<T> cursor = new JpaCursor<T>(query);
 		return cursor;
 	}
 
