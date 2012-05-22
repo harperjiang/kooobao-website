@@ -5,10 +5,10 @@ import java.util.List;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.book.dao.BookDao;
 import com.kooobao.lm.book.dao.CategoryDao;
-import com.kooobao.lm.book.dao.OperationLogDao;
 import com.kooobao.lm.book.dao.RecommendDao;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Category;
+import com.kooobao.lm.optlog.dao.OperationLogDao;
 
 public class DefaultBookService implements BookService {
 
