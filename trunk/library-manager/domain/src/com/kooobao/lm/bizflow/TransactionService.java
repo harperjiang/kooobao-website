@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.entity.ExpireRecord;
-import com.kooobao.lm.bizflow.entity.FavoriteRecord;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.entity.Book;
@@ -19,27 +18,21 @@ public interface TransactionService {
 
 	public Transaction saveTransaction(Transaction transaction);
 
-	Transaction createTransaction(Transaction transaction);
+	Transaction requestBorrow(Transaction transaction);
 
-	int getExpiredBookCount(Visitor visitor);
+	Transaction confirmReturn(Transaction transaction);
+	
+	int getExpiredTransactionCount(Visitor visitor);
 
 	List<Transaction> getActiveTransactions(Visitor visitor);
 
 	List<Book> getRecommendBooks(Visitor visitor);
 
-	int getBorrowedBookCount(Visitor visitor);
-
 	PageSearchResult<Transaction> findTransaction(Visitor visitor,
 			SearchBean searchBean);
 
-	public PageSearchResult<ExpireRecord> searchExpiredRecords(Visitor visitor,
-			ExpireRecordSearchBean searchBean);
-
-	public List<FavoriteRecord> searchFavoriteRecords(Visitor visitor);
-
-	public void addFavorite(Visitor visitor, long bookOid);
-
-	public void deleteFavorite(Visitor visitor, long bookOid);
+	PageSearchResult<ExpireRecord> searchExpiredRecords(Visitor visitor,
+			SearchBean searchBean);
 
 	public static class SearchBean {
 
@@ -94,45 +87,4 @@ public interface TransactionService {
 		}
 
 	}
-
-	public static class ExpireRecordSearchBean {
-		private Date fromDate;
-		private Date toDate;
-		private int from;
-		private int to;
-
-		public Date getFromDate() {
-			return fromDate;
-		}
-
-		public void setFromDate(Date fromDate) {
-			this.fromDate = fromDate;
-		}
-
-		public Date getToDate() {
-			return toDate;
-		}
-
-		public void setToDate(Date toDate) {
-			this.toDate = toDate;
-		}
-
-		public int getFrom() {
-			return from;
-		}
-
-		public void setFrom(int from) {
-			this.from = from;
-		}
-
-		public int getTo() {
-			return to;
-		}
-
-		public void setTo(int to) {
-			this.to = to;
-		}
-
-	}
-
 }
