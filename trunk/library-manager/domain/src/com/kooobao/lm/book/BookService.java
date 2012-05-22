@@ -15,7 +15,7 @@ public interface BookService {
 	public Category getCategory(long categoryOid);
 
 	public PageSearchResult<Book> searchBooks(String keyword, int start,
-			int stop);
+			int size);
 
 	public List<Category> getRootCategories();
 

@@ -21,8 +21,8 @@ public class DefaultBookService implements BookService {
 	}
 
 	public PageSearchResult<Book> getBooksInCategory(Category selectedCategory,
-			int start, int stop) {
-		return getBookDao().findByCategory(selectedCategory, start, stop);
+			int start, int size) {
+		return getBookDao().findByCategory(selectedCategory, start, size);
 	}
 
 	public List<String> getHotWords() {
@@ -30,11 +30,11 @@ public class DefaultBookService implements BookService {
 	}
 
 	public PageSearchResult<Book> searchBooks(String keyword, int start,
-			int stop) {
+			int size) {
 		if (start == 0)
 			// Record the first search only
 			getOpLogDao().logSearch(keyword);
-		return getBookDao().findByKeyword(keyword, start, stop);
+		return getBookDao().findByKeyword(keyword, start, size);
 	}
 
 	public List<Category> getRootCategories() {
@@ -44,17 +44,17 @@ public class DefaultBookService implements BookService {
 	static int LIMIT = 4;
 
 	public List<Book> getPopularBooks() {
-		PageSearchResult<Book> psr = getBookDao().getPopularBooks(1, LIMIT);
+		PageSearchResult<Book> psr = getBookDao().getPopularBooks(0, LIMIT);
 		return psr.getResult();
 	}
 
 	public List<Book> getNewBooks() {
-		PageSearchResult<Book> psr = getBookDao().getLatestBooks(1, LIMIT);
+		PageSearchResult<Book> psr = getBookDao().getLatestBooks(0, LIMIT);
 		return psr.getResult();
 	}
 
 	public List<Book> getEditorRecommendBooks() {
-		PageSearchResult<Book> psr = getBookDao().getEditorRecommendBooks(1,
+		PageSearchResult<Book> psr = getBookDao().getEditorRecommendBooks(0,
 				LIMIT);
 		return psr.getResult();
 	}
@@ -66,11 +66,11 @@ public class DefaultBookService implements BookService {
 	static int RECOMMEND_LIMIT = 10;
 
 	public List<Book> findRecommend(List<Book> selected) {
-		return getRecommendDao().recommend(selected, RECOMMEND_LIMIT);
+		return getRecommendDao().recommend(null, selected, RECOMMEND_LIMIT);
 	}
 
 	public List<Book> findRecommend(Book book) {
-		return getRecommendDao().recommend(book, RECOMMEND_LIMIT);
+		return getRecommendDao().recommend(null, book, RECOMMEND_LIMIT);
 	}
 
 	private BookDao bookDao;
