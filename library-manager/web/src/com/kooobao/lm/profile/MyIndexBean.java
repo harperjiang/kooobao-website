@@ -32,11 +32,12 @@ public class MyIndexBean extends AbstractBean {
 		// Visitor
 		getVisitor();
 		//
-		expiredBookCount = getTransactionService().getExpiredBookCount(visitor);
-		borrowedBookCount = getTransactionService().getBorrowedBookCount(
+		expiredBookCount = getTransactionService().getExpiredTransactionCount(
 				visitor);
+
 		activeTransactions = getTransactionService().getActiveTransactions(
 				visitor);
+		borrowedBookCount = activeTransactions.size();
 		recommendBooks = getTransactionService().getRecommendBooks(visitor);
 	}
 

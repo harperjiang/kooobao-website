@@ -8,15 +8,16 @@ import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.bean.PageSearchResult;
+import com.kooobao.lm.bizflow.SearchBean;
 import com.kooobao.lm.bizflow.TransactionService;
-import com.kooobao.lm.bizflow.TransactionService.SearchBean;
+import com.kooobao.lm.bizflow.TransactionService.TransactionSearchBean;
 import com.kooobao.lm.bizflow.entity.Transaction;
 
 @ManagedBean(name = "myQueryBean")
 @SessionScoped
 public class MyQueryBean extends PageSearchBean {
 
-	private SearchBean searchBean = new SearchBean();
+	private TransactionSearchBean searchBean = new TransactionSearchBean();
 
 	private List<Transaction> result;
 
@@ -39,7 +40,7 @@ public class MyQueryBean extends PageSearchBean {
 		return searchBean;
 	}
 
-	public void setSearchBean(SearchBean searchBean) {
+	public void setSearchBean(TransactionSearchBean searchBean) {
 		this.searchBean = searchBean;
 	}
 

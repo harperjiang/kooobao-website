@@ -41,10 +41,9 @@ public class BorrowConfirmBean extends AbstractBean {
 			// Fill transaction object
 			transaction.setVisitor(getCurrentVisitor());
 			transaction.setBook(book);
-			transaction.setCount(1);
 			transaction.setDelivery(getDelivery());
 			transaction.setAddress(address);
-			getTransactionService().createTransaction(transaction);
+			getTransactionService().requestBorrow(transaction);
 		}
 		reset();
 		return "success";

@@ -16,7 +16,7 @@ public class SearchBookBean extends PageSearchBean {
 
 	public String search() {
 		PageSearchResult<Book> result = getBookService().searchBooks(
-				getKeyword(), getRecordStart(), getRecordStop());
+				getKeyword(), getRecordStart(), getPageSize());
 		setSearched(result.getResult());
 		setRecordCount(result.getPageCount());
 		return "success";
