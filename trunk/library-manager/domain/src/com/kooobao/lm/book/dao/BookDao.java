@@ -17,6 +17,4 @@ public interface BookDao extends Dao<Book> {
 	PageSearchResult<Book> getLatestBooks(int start, int stop);
 
 	PageSearchResult<Book> getEditorRecommendBooks(int start, int stop);
-
-
 }
