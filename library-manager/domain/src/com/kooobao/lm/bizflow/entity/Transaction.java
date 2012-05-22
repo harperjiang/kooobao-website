@@ -11,11 +11,10 @@ import com.kooobao.lm.profile.entity.Visitor;
 
 public class Transaction extends VersionEntity {
 
-	public void borrow(List<BookPack> bookPacks) {
-		adjust(bookPacks);
+	public void approve() {
 	}
 
-	public void borrowReceived(List<BookPack> bookPacks) {
+	public void borrowReceived() {
 
 	}
 
@@ -23,20 +22,14 @@ public class Transaction extends VersionEntity {
 
 	}
 
-	public void sendback(List<BookPack> bookPacks) {
-		adjust(bookPacks);
+	public void sendback() {
 	}
 
-	public void returnReceived(List<BookPack> bookPacks) {
-		adjust(bookPacks);
+	public void returnReceived() {
 	}
 
 	public void cancel(String reason) {
 
-	}
-
-	private void adjust(List<BookPack> bookPacks) {
-		adjust(bookPacks);
 	}
 
 	private String id;

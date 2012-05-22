@@ -7,6 +7,8 @@ import com.kooobao.common.domain.entity.VersionEntity;
 
 public class ExpireRecord extends VersionEntity {
 
+	private boolean active;
+
 	private Transaction transaction;
 
 	private Date dueDate;
@@ -14,6 +16,14 @@ public class ExpireRecord extends VersionEntity {
 	private Date returnDate;
 
 	private BigDecimal penalty;
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 	public Transaction getTransaction() {
 		return transaction;
