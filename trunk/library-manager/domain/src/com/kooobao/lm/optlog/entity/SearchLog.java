@@ -6,11 +6,11 @@ import javax.persistence.Table;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
 
-@Table
-@Entity(name = "lm_optlog_search")
+@Entity
+@Table(name = "lm_optlog_search")
 public class SearchLog extends SimpleEntity {
 
-	@Column(name="keyword")
+	@Column(name = "keyword")
 	private String keyword;
 
 	public String getKeyword() {
