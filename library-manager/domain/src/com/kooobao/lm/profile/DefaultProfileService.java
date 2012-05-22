@@ -1,5 +1,6 @@
 package com.kooobao.lm.profile;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import com.kooobao.lm.profile.entity.ActivationRecord;
 import com.kooobao.lm.profile.entity.PersonalInfo;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
+import com.kooobao.lm.rule.dao.RuleDao;
 
 public class DefaultProfileService implements ProfileService {
 
@@ -77,11 +79,21 @@ public class DefaultProfileService implements ProfileService {
 		// TODO Not implemented
 	}
 
+	public void redeem(Visitor visitor, BigDecimal amount) {
+		Visitor v = getVisitorDao().find(visitor);
+		BigDecimal resultAmount = v.getDeposit().add(amount);
+		int newLevel = getRuleDao().getVisitorLevelRule().getLevel(resultAmount);
+		v.setLevel(newLevel);
+		v.setDeposit(resultAmount);
+	}
+
 	private VisitorDao visitorDao;
 
 	private UserService userService;
 
 	private JavaMailSender mailSender;
+
+	private RuleDao ruleDao;
 
 	public VisitorDao getVisitorDao() {
 		return visitorDao;
@@ -106,4 +118,13 @@ public class DefaultProfileService implements ProfileService {
 	public void setMailSender(JavaMailSender mailSender) {
 		this.mailSender = mailSender;
 	}
+
+	public RuleDao getRuleDao() {
+		return ruleDao;
+	}
+
+	public void setRuleDao(RuleDao ruleDao) {
+		this.ruleDao = ruleDao;
+	}
+
 }
