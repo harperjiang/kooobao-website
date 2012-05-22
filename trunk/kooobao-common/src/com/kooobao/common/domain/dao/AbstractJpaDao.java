@@ -8,8 +8,10 @@ import javax.persistence.Query;
 
 import org.eclipse.persistence.jpa.JpaHelper;
 import org.eclipse.persistence.queries.QueryByExamplePolicy;
+import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReadObjectQuery;
 
+import com.kooobao.common.domain.dao.cursor.JpaCursor;
 import com.kooobao.common.domain.entity.VersionEntity;
 
 public abstract class AbstractJpaDao<T> implements Dao<T> {
@@ -36,7 +38,7 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 		}
 		return getEntityManager().merge(entity);
 	}
-	
+
 	public T remove(T entity) {
 		getEntityManager().remove(entity);
 		return entity;
@@ -54,6 +56,13 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 		// Wrap the native query in a standard JPA Query and execute it
 		Query query = JpaHelper.createQuery(q, getEntityManager());
 		return (T) query.getSingleResult();
+	}
+
+	public Cursor<T> findAll() {
+		ReadAllQuery raq = new ReadAllQuery(getParamClass());
+		Query query = JpaHelper.createQuery(raq, getEntityManager());
+		JpaCursor<T> cursor = new JpaCursor<T>(getEntityManager(), query);
+		return cursor;
 	}
 
 	@SuppressWarnings("unchecked")
