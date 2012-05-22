@@ -1,168 +1,44 @@
--- MySQL dump 10.13  Distrib 5.1.59, for Win32 (ia32)
---
--- Host: localhost    Database: lm
--- ------------------------------------------------------
--- Server version	5.1.59-community
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `lm_sequence`
---
-
-DROP TABLE IF EXISTS `lm_sequence`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lm_sequence` (
-  `name` varchar(50) NOT NULL,
-  `count` decimal(38,0) DEFAULT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lm_sequence`
---
-
-LOCK TABLES `lm_sequence` WRITE;
-/*!40000 ALTER TABLE `lm_sequence` DISABLE KEYS */;
-INSERT INTO `lm_sequence` VALUES ('lm_visitor','0'),('lm_visitor_addr','0'),('lm_visitor_info','0');
-/*!40000 ALTER TABLE `lm_sequence` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `lm_visitor`
---
-
-DROP TABLE IF EXISTS `lm_visitor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lm_visitor` (
-  `obj_id` int(10) NOT NULL,
-  `id` varchar(100) DEFAULT NULL,
-  `create_time` datetime NOT NULL,
-  `level` int(11) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `deposit` decimal(20,0) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `obj_version` decimal(10,0) DEFAULT NULL,
-  `default_addr` int(10) DEFAULT NULL,
-  `info` int(10) DEFAULT NULL,
-  PRIMARY KEY (`obj_id`),
-  KEY `FK_lm_visitor_default_addr` (`default_addr`),
-  KEY `FK_lm_visitor_info` (`info`),
-  CONSTRAINT `FK_lm_visitor_info` FOREIGN KEY (`info`) REFERENCES `lm_visitor_info` (`obj_id`),
-  CONSTRAINT `FK_lm_visitor_default_addr` FOREIGN KEY (`default_addr`) REFERENCES `lm_visitor_addr` (`obj_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lm_visitor`
---
-
-LOCK TABLES `lm_visitor` WRITE;
-/*!40000 ALTER TABLE `lm_visitor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lm_visitor` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `lm_visitor_actrecord`
---
-
-DROP TABLE IF EXISTS `lm_visitor_actrecord`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lm_visitor_actrecord` (
-  `visitor_id` varchar(100) NOT NULL,
-  `activation_id` varchar(100) NOT NULL,
-  PRIMARY KEY (`visitor_id`,`activation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lm_visitor_actrecord`
---
-
-LOCK TABLES `lm_visitor_actrecord` WRITE;
-/*!40000 ALTER TABLE `lm_visitor_actrecord` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lm_visitor_actrecord` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `lm_visitor_addr`
---
-
-DROP TABLE IF EXISTS `lm_visitor_addr`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lm_visitor_addr` (
-  `obj_id` int(10) NOT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `phone` varchar(30) DEFAULT NULL,
-  `location` varchar(500) DEFAULT NULL,
-  `name` varchar(20) DEFAULT NULL,
-  `visitor` int(10) DEFAULT NULL,
-  PRIMARY KEY (`obj_id`),
-  KEY `FK_lm_visitor_addr_visitor` (`visitor`),
-  CONSTRAINT `FK_lm_visitor_addr_visitor` FOREIGN KEY (`visitor`) REFERENCES `lm_visitor` (`obj_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lm_visitor_addr`
---
-
-LOCK TABLES `lm_visitor_addr` WRITE;
-/*!40000 ALTER TABLE `lm_visitor_addr` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lm_visitor_addr` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `lm_visitor_info`
---
-
-DROP TABLE IF EXISTS `lm_visitor_info`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `lm_visitor_info` (
-  `obj_id` int(10) NOT NULL,
-  `first_child_year` varchar(10) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `born_year` varchar(10) DEFAULT NULL,
-  `last_child_year` varchar(10) DEFAULT NULL,
-  `gender` varchar(2) DEFAULT NULL,
-  `education` varchar(20) DEFAULT NULL,
-  `like_area` int(11) DEFAULT NULL,
-  `kid_count` int(1) DEFAULT NULL,
-  PRIMARY KEY (`obj_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `lm_visitor_info`
---
-
-LOCK TABLES `lm_visitor_info` WRITE;
-/*!40000 ALTER TABLE `lm_visitor_info` DISABLE KEYS */;
-/*!40000 ALTER TABLE `lm_visitor_info` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2012-05-20 19:47:41
+CREATE TABLE lm_tran_expire_rec (obj_id int(10) NOT NULL, due_time DATETIME, create_time datetime, return_time DATETIME, active TINYINT(1) default 0, penalty DECIMAL(38), obj_version decimal(10), transaction int(10), PRIMARY KEY (obj_id))
+CREATE TABLE lm_visitor_actrecord (visitor_id VARCHAR(100) NOT NULL, activation_id VARCHAR(100) NOT NULL, PRIMARY KEY (visitor_id, activation_id))
+CREATE TABLE lm_optlog_borrowcount (borrow_count INTEGER, book_id int(10) NOT NULL, PRIMARY KEY (book_id))
+CREATE TABLE lm_tran (obj_id int(10) NOT NULL, due_time datetime, create_time datetime, state varchar(20), delivery_mthd VARCHAR(10), obj_version decimal(10), book_id int(10), visitor int(10), addr_phone VARCHAR(20), addr_loc VARCHAR(200), addr_name VARCHAR(10), PRIMARY KEY (obj_id))
+CREATE TABLE lm_optlog_searchsum (obj_id int(10) NOT NULL, create_time datetime, keyword VARCHAR(50), search_count INTEGER, PRIMARY KEY (obj_id))
+CREATE TABLE lm_visitor_info (obj_id int(10) NOT NULL, first_child_year VARCHAR(5), create_time datetime, born_year VARCHAR(5), last_child_year VARCHAR(5), gender VARCHAR(10), education VARCHAR(20), like_area INTEGER, kid_count INTEGER, PRIMARY KEY (obj_id))
+CREATE TABLE lm_tran_fav_rec (obj_id int(10) NOT NULL, create_time datetime, obj_version decimal(10), fav_book int(10), visitor int(10), PRIMARY KEY (obj_id))
+CREATE TABLE lm_visitor_addr (obj_id int(10) NOT NULL, create_time datetime, phone VARCHAR(20), location VARCHAR(200), name VARCHAR(10), visitor int(10), PRIMARY KEY (obj_id))
+CREATE TABLE lm_tran_opt (obj_id int(10) NOT NULL, from_state VARCHAR(20), create_time datetime, to_state VARCHAR(20), comment VARCHAR(255), PRIMARY KEY (obj_id))
+CREATE TABLE lm_tran_lm_tran_opt (Transaction_obj_id int(10) NOT NULL, operations_obj_id int(10) NOT NULL, PRIMARY KEY (Transaction_obj_id, operations_obj_id))
+CREATE TABLE lm_visitor (obj_id int(10) NOT NULL, id VARCHAR(255), create_time datetime, level INTEGER, status VARCHAR(20), deposit DECIMAL(10,2), name VARCHAR(10), obj_version decimal(10), default_addr int(10), info int(10), PRIMARY KEY (obj_id))
+CREATE TABLE lm_book_tag (book_id int(10) NOT NULL, tag varchar(25))
+CREATE TABLE lm_book_content (book_id int(10) NOT NULL, content text)
+CREATE TABLE lm_book_stock (obj_id int(10) NOT NULL, create_time datetime, stock_count INTEGER, avail_count INTEGER, obj_version decimal(10), book_id int(10), PRIMARY KEY (obj_id))
+CREATE TABLE lm_book_category (obj_id int(10) NOT NULL, create_time datetime, name VARCHAR(255), parent int(10), PRIMARY KEY (obj_id))
+CREATE TABLE lm_book (obj_id int(10) NOT NULL, content text, create_time datetime, picture_url VARCHAR(255), list_price decimal(10,2), name VARCHAR(255), rating INTEGER, category int(10), PRIMARY KEY (obj_id))
+CREATE TABLE lm_optlog_search (obj_id int(10) NOT NULL, create_time datetime, keyword VARCHAR(50), PRIMARY KEY (obj_id))
+CREATE TABLE lm_book_attr (book_id int(10) NOT NULL, attr varchar(50))
+ALTER TABLE lm_tran_expire_rec ADD CONSTRAINT FK_lm_tran_expire_rec_transaction FOREIGN KEY (transaction) REFERENCES lm_tran (obj_id)
+ALTER TABLE lm_optlog_borrowcount ADD CONSTRAINT FK_lm_optlog_borrowcount_book_id FOREIGN KEY (book_id) REFERENCES lm_book (obj_id)
+ALTER TABLE lm_tran ADD CONSTRAINT FK_lm_tran_visitor FOREIGN KEY (visitor) REFERENCES lm_visitor (obj_id)
+ALTER TABLE lm_tran ADD CONSTRAINT FK_lm_tran_book_id FOREIGN KEY (book_id) REFERENCES lm_book (obj_id)
+ALTER TABLE lm_tran ADD CONSTRAINT FK_lm_tran_addr FOREIGN KEY (addr) REFERENCES lm_visitor_addr (obj_id)
+ALTER TABLE lm_tran_fav_rec ADD CONSTRAINT FK_lm_tran_fav_rec_visitor FOREIGN KEY (visitor) REFERENCES lm_visitor (obj_id)
+ALTER TABLE lm_tran_fav_rec ADD CONSTRAINT FK_lm_tran_fav_rec_fav_book FOREIGN KEY (fav_book) REFERENCES lm_book (obj_id)
+ALTER TABLE lm_visitor_addr ADD CONSTRAINT FK_lm_visitor_addr_visitor FOREIGN KEY (visitor) REFERENCES lm_visitor (obj_id)
+ALTER TABLE lm_tran_lm_tran_opt ADD CONSTRAINT FK_lm_tran_lm_tran_opt_operations_obj_id FOREIGN KEY (operations_obj_id) REFERENCES lm_tran_opt (obj_id)
+ALTER TABLE lm_tran_lm_tran_opt ADD CONSTRAINT FK_lm_tran_lm_tran_opt_Transaction_obj_id FOREIGN KEY (Transaction_obj_id) REFERENCES lm_tran (obj_id)
+ALTER TABLE lm_visitor ADD CONSTRAINT FK_lm_visitor_default_addr FOREIGN KEY (default_addr) REFERENCES lm_visitor_addr (obj_id)
+ALTER TABLE lm_visitor ADD CONSTRAINT FK_lm_visitor_info FOREIGN KEY (info) REFERENCES lm_visitor_info (obj_id)
+ALTER TABLE lm_book_stock ADD CONSTRAINT FK_lm_book_stock_book_id FOREIGN KEY (book_id) REFERENCES lm_book (obj_id)
+ALTER TABLE lm_book_category ADD CONSTRAINT FK_lm_book_category_parent FOREIGN KEY (parent) REFERENCES lm_book_category (obj_id)
+ALTER TABLE lm_book ADD CONSTRAINT FK_lm_book_category FOREIGN KEY (category) REFERENCES lm_book_category (obj_id)
+CREATE TABLE lm_sequence (name VARCHAR(50) NOT NULL, count DECIMAL(38), PRIMARY KEY (name))
+INSERT INTO lm_sequence(name, count) values ('lm_visitor_info', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_tran', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_book', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_book_category', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_book_stock', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_visitor', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_tran_opt', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_tran_expire_rec', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_address', 0)
+INSERT INTO lm_sequence(name, count) values ('lm_tran_fav_rec', 0)

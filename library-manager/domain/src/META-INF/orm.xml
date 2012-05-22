@@ -17,6 +17,12 @@
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_tran_opt" />
 	<table-generator name="tranTG" table="lm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_tran" />
+	<table-generator name="bookTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_book" />
+	<table-generator name="categoryTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_book_category" />
+	<table-generator name="stockTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_book_stock" />
 
 
 	<entity class="com.kooobao.lm.profile.entity.Visitor">
@@ -63,6 +69,7 @@
 		<attributes>
 			<basic name="oid">
 				<column name="obj_id" />
+				<generated-value generator="bookTG" />
 			</basic>
 		</attributes>
 	</entity>
@@ -74,6 +81,7 @@
 		<attributes>
 			<basic name="oid">
 				<column name="obj_id" />
+				<generated-value generator="categoryTG" />
 			</basic>
 		</attributes>
 	</entity>
@@ -85,6 +93,7 @@
 		<attributes>
 			<basic name="oid">
 				<column name="obj_id" />
+				<generated-value generator="stockTG" />
 			</basic>
 		</attributes>
 	</entity>
@@ -97,16 +106,16 @@
 
 	<entity class="com.kooobao.lm.optlog.entity.SearchLog">
 		<primary-key>
-			<column name="obj_oid" />
+			<column name="obj_id" />
 		</primary-key>
 	</entity>
 
 	<entity class="com.kooobao.lm.optlog.entity.SearchSummary">
 		<primary-key>
-			<column name="obj_oid" />
+			<column name="obj_id" />
 		</primary-key>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.bizflow.entity.ExpireRecord">
 		<primary-key>
 			<column name="obj_id" />
@@ -118,7 +127,7 @@
 			</basic>
 		</attributes>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.bizflow.entity.FavoriteRecord">
 		<primary-key>
 			<column name="obj_id" />
@@ -130,7 +139,7 @@
 			</basic>
 		</attributes>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.bizflow.entity.Operation">
 		<primary-key>
 			<column name="obj_id" />
@@ -142,7 +151,7 @@
 			</basic>
 		</attributes>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.bizflow.entity.Transaction">
 		<primary-key>
 			<column name="obj_id" />
@@ -154,6 +163,5 @@
 			</basic>
 		</attributes>
 	</entity>
-	
 
 </entity-mappings>

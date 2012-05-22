@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
 
@@ -50,6 +51,7 @@ public class Book extends SimpleEntity {
 	@MapKeyColumn(name = "attr")
 	private Map<String, String> attributes = new HashMap<String, String>();
 
+	@ElementCollection
 	@CollectionTable(name = "lm_book_content", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_oid"))
 	@Column(name = "content", columnDefinition = "text")
 	@MapKeyColumn(name = "content")
@@ -83,7 +85,8 @@ public class Book extends SimpleEntity {
 		return name;
 	}
 
-	private String displayName;
+	@Transient
+	private transient String displayName;
 
 	static final int NAME_SIZE = 10;
 

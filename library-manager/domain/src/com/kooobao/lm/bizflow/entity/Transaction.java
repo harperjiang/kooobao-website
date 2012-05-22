@@ -3,7 +3,9 @@ package com.kooobao.lm.bizflow.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -15,6 +17,7 @@ import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.profile.entity.Address;
+import com.kooobao.lm.profile.entity.BasicAddress;
 import com.kooobao.lm.profile.entity.Visitor;
 
 @Entity
@@ -49,9 +52,8 @@ public class Transaction extends VersionEntity {
 	@Column(name = "state")
 	private String state;
 
-	@OneToOne
-	@JoinColumn(name = "addr")
-	private Address address;
+	@Embedded
+	private BasicAddress address;
 
 	@Column(name = "delivery_mthd")
 	private String delivery;
@@ -102,12 +104,16 @@ public class Transaction extends VersionEntity {
 		return StatusUtils.text(getState());
 	}
 
-	public Address getAddress() {
+	public BasicAddress getAddress() {
 		return address;
+	}
+	
+	public void setAddress(BasicAddress address) {
+		this.address = address;
 	}
 
 	public void setAddress(Address address) {
-		this.address = address;
+		this.address = new BasicAddress(address);
 	}
 
 	public String getDelivery() {

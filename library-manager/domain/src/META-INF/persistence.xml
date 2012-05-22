@@ -15,5 +15,6 @@
 		<class>com.kooobao.lm.bizflow.entity.FavoriteRecord</class>
 		<class>com.kooobao.lm.bizflow.entity.Operation</class>
 		<class>com.kooobao.lm.bizflow.entity.Transaction</class>
+		<class>com.kooobao.lm.profile.entity.BasicAddress</class>
 	</persistence-unit>
 </persistence>
