@@ -8,8 +8,8 @@ import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.bean.PageSearchResult;
+import com.kooobao.lm.bizflow.SearchBean;
 import com.kooobao.lm.bizflow.TransactionService;
-import com.kooobao.lm.bizflow.TransactionService.ExpireRecordSearchBean;
 import com.kooobao.lm.bizflow.entity.ExpireRecord;
 
 @ManagedBean(name = "myExpireBean")
@@ -18,7 +18,7 @@ public class MyExpireBean extends PageSearchBean {
 
 	private List<ExpireRecord> result;
 
-	private ExpireRecordSearchBean searchBean;
+	private SearchBean searchBean;
 
 	@ManagedProperty("#{transactionService}")
 	private TransactionService transactionService;
@@ -51,7 +51,7 @@ public class MyExpireBean extends PageSearchBean {
 		this.transactionService = transactionService;
 	}
 
-	public ExpireRecordSearchBean getSearchBean() {
+	public SearchBean getSearchBean() {
 		return searchBean;
 	}
 

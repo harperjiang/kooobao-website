@@ -15,7 +15,7 @@ public class FavManager {
 			return false;
 		try {
 			Visitor visitor = getProfileService().getVisitor(token.getUserId());
-			getTransactionService().addFavorite(visitor, bookOid);
+			getFavouriteService().addFavorite(visitor, bookOid);
 			return true;
 		} catch (Exception e) {
 			// TODO log
@@ -26,7 +26,7 @@ public class FavManager {
 
 	private ProfileService profileService;
 
-	private TransactionService transactionService;
+	private FavouriteService favouriteService;
 
 	public ProfileService getProfileService() {
 		return profileService;
@@ -36,12 +36,12 @@ public class FavManager {
 		this.profileService = profileService;
 	}
 
-	public TransactionService getTransactionService() {
-		return transactionService;
+	public FavouriteService getFavouriteService() {
+		return favouriteService;
 	}
 
-	public void setTransactionService(TransactionService transactionService) {
-		this.transactionService = transactionService;
+	public void setFavouriteService(FavouriteService favouriteService) {
+		this.favouriteService = favouriteService;
 	}
 
 }

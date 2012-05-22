@@ -2,10 +2,16 @@ package com.kooobao.lm.profile;
 
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
+
 import com.kooobao.common.web.bean.PageSearchBean;
-import com.kooobao.lm.bizflow.TransactionService;
+import com.kooobao.lm.bizflow.FavouriteService;
 import com.kooobao.lm.bizflow.entity.FavoriteRecord;
 
+@ManagedBean(name="myFavBean")
+@SessionScoped
 public class MyFavBean extends PageSearchBean {
 
 	@Override
@@ -16,7 +22,7 @@ public class MyFavBean extends PageSearchBean {
 	@Override
 	public String search() {
 		MyIndexBean myIndexBean = findBean("myIndexBean");
-		result = getTransactionService().searchFavoriteRecords(
+		result = getFavouriteService().searchFavoriteRecords(
 				myIndexBean.getVisitor());
 		return "success";
 	}
@@ -26,7 +32,7 @@ public class MyFavBean extends PageSearchBean {
 		long bookOid = 0;
 		try {
 			bookOid = Long.parseLong(getParameter("book_id"));
-			getTransactionService().deleteFavorite(myIndexBean.getVisitor(),
+			getFavouriteService().deleteFavorite(myIndexBean.getVisitor(),
 					bookOid);
 		} catch (Exception e) {
 			return "failed";
@@ -41,14 +47,15 @@ public class MyFavBean extends PageSearchBean {
 		return "success";
 	}
 
-	private TransactionService transactionService;
+	@ManagedProperty("#{favouriteService}")
+	private FavouriteService favouriteService;
 
-	public TransactionService getTransactionService() {
-		return transactionService;
+	public FavouriteService getFavouriteService() {
+		return favouriteService;
 	}
 
-	public void setTransactionService(TransactionService transactionService) {
-		this.transactionService = transactionService;
+	public void setFavouriteService(FavouriteService favouriteService) {
+		this.favouriteService = favouriteService;
 	}
 
 	private List<FavoriteRecord> result;
