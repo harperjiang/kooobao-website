@@ -1,6 +1,5 @@
 package com.kooobao.lm.bizflow;
 
-import java.util.Date;
 import java.util.List;
 
 import com.kooobao.common.web.bean.PageSearchResult;
@@ -21,7 +20,7 @@ public interface TransactionService {
 	Transaction requestBorrow(Transaction transaction);
 
 	Transaction confirmReturn(Transaction transaction);
-	
+
 	int getExpiredTransactionCount(Visitor visitor);
 
 	List<Transaction> getActiveTransactions(Visitor visitor);
@@ -29,38 +28,14 @@ public interface TransactionService {
 	List<Book> getRecommendBooks(Visitor visitor);
 
 	PageSearchResult<Transaction> findTransaction(Visitor visitor,
-			SearchBean searchBean);
+			TransactionSearchBean searchBean);
 
 	PageSearchResult<ExpireRecord> searchExpiredRecords(Visitor visitor,
 			SearchBean searchBean);
 
-	public static class SearchBean {
-
-		private Date fromDate;
-
-		private Date toDate;
+	public static class TransactionSearchBean extends SearchBean {
 
 		private TransactionState state;
-
-		private int from;
-
-		private int to;
-
-		public Date getFromDate() {
-			return fromDate;
-		}
-
-		public void setFromDate(Date fromDate) {
-			this.fromDate = fromDate;
-		}
-
-		public Date getToDate() {
-			return toDate;
-		}
-
-		public void setToDate(Date toDate) {
-			this.toDate = toDate;
-		}
 
 		public TransactionState getState() {
 			return state;
@@ -70,21 +45,6 @@ public interface TransactionService {
 			this.state = state;
 		}
 
-		public int getFrom() {
-			return from;
-		}
-
-		public void setFrom(int from) {
-			this.from = from;
-		}
-
-		public int getTo() {
-			return to;
-		}
-
-		public void setTo(int to) {
-			this.to = to;
-		}
-
 	}
+
 }

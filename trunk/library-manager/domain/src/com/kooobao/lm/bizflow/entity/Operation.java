@@ -1,20 +1,24 @@
 package com.kooobao.lm.bizflow.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
 
+@Entity
+@Table(name = "lm_tran_opt")
 public class Operation extends SimpleEntity {
 
+	@Column(name = "from_state")
 	private String fromState;
-
+	
+	@Column(name = "to_state")
 	private String toState;
-
+	
+	@Column(name = "comment")
 	private String comment;
 
-	private List<Adjust> adjusts = new ArrayList<Adjust>();
-	
 	public String getFromState() {
 		return fromState;
 	}
@@ -39,13 +43,4 @@ public class Operation extends SimpleEntity {
 		this.comment = comment;
 	}
 
-	public List<Adjust> getAdjusts() {
-		return adjusts;
-	}
-
-	public void addAdjust(Adjust adjust) {
-		this.adjusts.add(adjust);
-	}
-
-	
 }

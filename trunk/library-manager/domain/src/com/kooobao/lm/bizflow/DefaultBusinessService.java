@@ -23,16 +23,9 @@ public class DefaultBusinessService implements BusinessService {
 		for (Transaction expire : toExpire) {
 			expire.expire();
 			ExpireRecord er = new ExpireRecord();
-			er.setDueDate(new Date());
+			er.setDueTime(new Date());
 			er.setTransaction(expire);
 			getExpireRecordDao().store(er);
-		}
-	}
-
-	public void releaseReserved() {
-		List<Transaction> toRelease = getTransactionDao().findToRelease();
-		for (Transaction rel : toRelease) {
-			rel.cancel("Auto Release");
 		}
 	}
 
@@ -46,8 +39,8 @@ public class DefaultBusinessService implements BusinessService {
 				// Update Penalty
 				BigDecimal oldPenalty = record.getPenalty();
 				PenaltyRule rule = getRuleDao().getPenaltyRule();
-				BigDecimal penalty = rule.calculatePenalty(record
-						.getTransaction().getVisitor(), record.getDueDate(),
+				BigDecimal penalty = rule.getPenalty(record
+						.getTransaction().getVisitor(), record.getDueTime(),
 						new Date());
 				// Update User Remaining
 				Visitor visitor = record.getTransaction().getVisitor();

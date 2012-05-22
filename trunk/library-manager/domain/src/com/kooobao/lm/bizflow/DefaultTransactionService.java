@@ -14,6 +14,8 @@ import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
+import com.kooobao.lm.rule.dao.RuleDao;
+import com.kooobao.lm.rule.entity.DueRule;
 
 public class DefaultTransactionService implements TransactionService {
 
@@ -34,6 +36,10 @@ public class DefaultTransactionService implements TransactionService {
 		if (v.getStatus().equals(VisitorStatus.LOCKED.name()))
 			return null;
 		transaction.setState(TransactionState.BORROW_REQUESTED);
+		// Set Due date
+		DueRule dueRule = getRuleDao().getDueRule();
+		Date dueDate = dueRule.getDueDate(v, transaction.getBook(), new Date());
+		transaction.setDueTime(dueDate);
 		return getTransactionDao().store(transaction);
 	}
 
@@ -41,7 +47,7 @@ public class DefaultTransactionService implements TransactionService {
 		ExpireRecord expireRecord = getExpireRecordDao().findByTransaction(
 				transaction);
 		if (null != expireRecord && expireRecord.isActive()) {
-			expireRecord.setReturnDate(new Date());
+			expireRecord.setReturnTime(new Date());
 		}
 		transaction.returnReceived();
 		return getTransactionDao().store(transaction);
@@ -65,13 +71,12 @@ public class DefaultTransactionService implements TransactionService {
 	}
 
 	public PageSearchResult<Transaction> findTransaction(Visitor visitor,
-			SearchBean searchBean) {
+			TransactionSearchBean searchBean) {
 		return getTransactionDao().search(visitor, searchBean);
 	}
 
 	public PageSearchResult<ExpireRecord> searchExpiredRecords(Visitor visitor,
 			SearchBean searchBean) {
-		searchBean.setState(TransactionState.RETURN_EXPIRED);
 		return getExpireRecordDao().search(visitor, searchBean);
 	}
 
@@ -113,6 +118,16 @@ public class DefaultTransactionService implements TransactionService {
 
 	public void setVisitorDao(VisitorDao visitorDao) {
 		this.visitorDao = visitorDao;
+	}
+
+	private RuleDao ruleDao;
+
+	public RuleDao getRuleDao() {
+		return ruleDao;
+	}
+
+	public void setRuleDao(RuleDao ruleDao) {
+		this.ruleDao = ruleDao;
 	}
 
 }
