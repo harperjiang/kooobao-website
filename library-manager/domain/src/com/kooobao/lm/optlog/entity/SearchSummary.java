@@ -7,14 +7,23 @@ import javax.persistence.Table;
 import com.kooobao.common.domain.entity.SimpleEntity;
 
 @Entity
-@Table(name="lm_optlog_searchsum")
+@Table(name = "lm_optlog_searchsum")
 public class SearchSummary extends SimpleEntity {
 
-	@Column(name="keyword")
+	@Column(name = "keyword")
 	private String keyword;
-	
-	@Column(name="search_count")
+
+	@Column(name = "search_count")
 	private int searchCount;
+
+	public SearchSummary() {
+
+	}
+
+	public SearchSummary(String keyword, Long count) {
+		this.keyword = keyword;
+		this.searchCount = count.intValue();
+	}
 
 	public String getKeyword() {
 		return keyword;
