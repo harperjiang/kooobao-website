@@ -67,6 +67,7 @@ public class DefaultProfileService implements ProfileService {
 	}
 
 	public void redeem(Visitor visitor, BigDecimal amount) {
+		// TODO Make sure redeem will not fail due to concurrent modification
 		Visitor v = getVisitorDao().find(visitor);
 		BigDecimal resultAmount = v.getDeposit().add(amount);
 		int newLevel = getRuleDao().getVisitorLevelRule().getLevel(resultAmount);
