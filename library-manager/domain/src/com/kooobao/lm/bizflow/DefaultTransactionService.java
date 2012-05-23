@@ -10,7 +10,9 @@ import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.dao.RecommendDao;
+import com.kooobao.lm.book.dao.StockDao;
 import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
@@ -21,10 +23,6 @@ public class DefaultTransactionService implements TransactionService {
 
 	public Transaction getTransaction(long transId) {
 		return getTransactionDao().find(transId);
-	}
-
-	public List<Transaction> findTransactions(Visitor visitor) {
-		return getTransactionDao().findByVisitor(visitor);
 	}
 
 	public Transaction saveTransaction(Transaction transaction) {
@@ -43,6 +41,15 @@ public class DefaultTransactionService implements TransactionService {
 		return getTransactionDao().store(transaction);
 	}
 
+	public Transaction approveBorrow(Transaction transaction) {
+		// Reduce Stock
+		Stock stock = getStockDao().findByBook(transaction.getBook());
+		stock.setStock(stock.getStock() - 1);
+		//
+		transaction.approve();
+		return getTransactionDao().store(transaction);
+	}
+
 	public Transaction confirmReturn(Transaction transaction) {
 		ExpireRecord expireRecord = getExpireRecordDao().findByTransaction(
 				transaction);
@@ -50,10 +57,13 @@ public class DefaultTransactionService implements TransactionService {
 			expireRecord.setReturnTime(new Date());
 		}
 		transaction.returnReceived();
+		// Add Stock
+		Stock stock = getStockDao().findByBook(transaction.getBook());
+		stock.setStock(stock.getStock() + 1);
 		return getTransactionDao().store(transaction);
 	}
 
-	public int getExpiredTransactionCount(Visitor visitor) {
+	public long getExpiredTransactionCount(Visitor visitor) {
 		return getTransactionDao().getTransactionCount(visitor,
 				TransactionState.RETURN_EXPIRED);
 	}
@@ -130,4 +140,13 @@ public class DefaultTransactionService implements TransactionService {
 		this.ruleDao = ruleDao;
 	}
 
+	private StockDao stockDao;
+
+	public StockDao getStockDao() {
+		return stockDao;
+	}
+
+	public void setStockDao(StockDao stockDao) {
+		this.stockDao = stockDao;
+	}
 }

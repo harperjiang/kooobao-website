@@ -19,7 +19,7 @@ import com.kooobao.lm.rule.entity.PenaltyRule;
 public class DefaultBusinessService implements BusinessService {
 
 	public void expireTransactions() {
-		List<Transaction> toExpire = getTransactionDao().findToExpire();
+		List<Transaction> toExpire = getTransactionDao().findToExpire(new Date());
 		for (Transaction expire : toExpire) {
 			expire.expire();
 			ExpireRecord er = new ExpireRecord();

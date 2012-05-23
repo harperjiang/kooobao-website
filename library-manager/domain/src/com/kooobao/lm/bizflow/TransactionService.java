@@ -11,17 +11,17 @@ import com.kooobao.lm.profile.entity.Visitor;
 
 public interface TransactionService {
 
-	public Transaction getTransaction(long transId);
+	Transaction getTransaction(long transId);
 
-	public List<Transaction> findTransactions(Visitor visitor);
-
-	public Transaction saveTransaction(Transaction transaction);
+	Transaction saveTransaction(Transaction transaction);
 
 	Transaction requestBorrow(Transaction transaction);
 
+	Transaction approveBorrow(Transaction transaction);
+
 	Transaction confirmReturn(Transaction transaction);
 
-	int getExpiredTransactionCount(Visitor visitor);
+	long getExpiredTransactionCount(Visitor visitor);
 
 	List<Transaction> getActiveTransactions(Visitor visitor);
 

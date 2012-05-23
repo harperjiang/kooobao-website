@@ -9,6 +9,27 @@
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 	<bean id="ruleDao" class="com.kooobao.lm.rule.dao.FixRuleDao" />
+	<bean id="operationLogDao" class="com.kooobao.lm.optlog.dao.JpaOperationLogDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="bookDao" class="com.kooobao.lm.book.dao.JpaBookDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="categoryDao" class="com.kooobao.lm.book.dao.JpaCategoryDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="stockDao" class="com.kooobao.lm.book.dao.JpaStockDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="expireRecordDao" class="com.kooobao.lm.bizflow.dao.JpaExpireRecordDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="favouriteRecordDao" class="com.kooobao.lm.bizflow.dao.JpaFavouriteDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="transactionDao" class="com.kooobao.lm.bizflow.dao.JpaTransactionDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
 
 	<bean id="dummyUserService" class="com.kooobao.lm.profile.DummyUserService" />
 	<bean id="dummyMailSender" class="com.kooobao.lm.profile.DummyMailSender" />
@@ -18,6 +39,10 @@
 		<property name="userService" ref="dummyUserService" />
 		<property name="mailSender" ref="dummyMailSender" />
 		<property name="ruleDao" ref="ruleDao" />
+	</bean>
+
+	<bean id="optLogService" class="com.kooobao.lm.optlog.DefaultOptLogService">
+		<property name="operationLogDao" ref="operationLogDao" />
 	</bean>
 
 	<bean id="blankDataSource" class="com.kooobao.common.domain.dao.BlankDataSource" />

@@ -15,27 +15,19 @@ import com.kooobao.lm.profile.entity.Visitor;
 public class JpaTransactionDao extends AbstractJpaDao<Transaction> implements
 		TransactionDao {
 
-	public List<Transaction> findToExpire() {
+	public List<Transaction> findToExpire(Date date) {
 		return getEntityManager()
 				.createQuery(
-						"select t from Transaction where dueTime >= :currentTime",
-						Transaction.class)
-				.setParameter("currentTime", new Date()).getResultList();
-	}
-
-	public List<Transaction> findByVisitor(Visitor visitor) {
-		return getEntityManager()
-				.createQuery(
-						"select t from Transaction t where t.visitor = :visitor",
-						Transaction.class).setParameter("visitor", visitor)
+						"select t from Transaction t where t.dueTime <= :currentTime",
+						Transaction.class).setParameter("currentTime", date)
 				.getResultList();
 	}
 
-	public int getTransactionCount(Visitor visitor, TransactionState... states) {
+	public long getTransactionCount(Visitor visitor, TransactionState... states) {
 		String queryStr = "select count(t) from Transaction t where t.visitor = :visitor and t.state in "
 				+ genInExpression(states.length);
-		TypedQuery<Integer> query = getEntityManager().createQuery(queryStr,
-				Integer.class);
+		TypedQuery<Long> query = getEntityManager().createQuery(queryStr,
+				Long.class);
 		query.setParameter("visitor", visitor);
 		for (int i = 0; i < states.length; i++)
 			query.setParameter("t" + i, states[i].name());
@@ -68,10 +60,10 @@ public class JpaTransactionDao extends AbstractJpaDao<Transaction> implements
 
 	public PageSearchResult<Transaction> search(Visitor visitor,
 			TransactionSearchBean searchBean) {
-		TypedQuery<Integer> countQuery = getEntityManager()
+		TypedQuery<Long> countQuery = getEntityManager()
 				.createQuery(
 						"select count(t) from Transaction t where t.visitor = :visitor and t.createTime between :fromDate and :toDate and t.state = :state order by t.createTime",
-						Integer.class);
+						Long.class);
 		TypedQuery<Transaction> query = getEntityManager()
 				.createQuery(
 						"select t from Transaction t where t.visitor = :visitor and t.createTime between :fromDate and :toDate and t.state = :state order by t.createTime",
@@ -79,12 +71,14 @@ public class JpaTransactionDao extends AbstractJpaDao<Transaction> implements
 		countQuery.setParameter("fromDate", searchBean.getFromDate());
 		countQuery.setParameter("toDate", searchBean.getToDate());
 		countQuery.setParameter("state", searchBean.getState().name());
+		countQuery.setParameter("visitor", visitor);
 		query.setParameter("fromDate", searchBean.getFromDate());
 		query.setParameter("toDate", searchBean.getToDate());
 		query.setParameter("state", searchBean.getState().name());
+		query.setParameter("visitor", visitor);
 		query.setFirstResult(searchBean.getFrom());
 		query.setMaxResults(searchBean.getTo() - searchBean.getFrom());
-		int count = countQuery.getSingleResult();
+		long count = countQuery.getSingleResult();
 		List<Transaction> result = query.getResultList();
 		return new PageSearchResult<Transaction>(count, result);
 	}

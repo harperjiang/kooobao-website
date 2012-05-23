@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.lm.profile.entity.PersonalInfo;
+import com.kooobao.lm.profile.entity.Visitor;
 
 @ManagedBean(name = "myPersonBean")
 @SessionScoped
@@ -16,8 +17,7 @@ public class MyPersonBean extends AbstractBean {
 
 	public void onPageLoad() {
 		MyIndexBean myInfoBean = findBean("myIndexBean");
-		this.personalInfo = getProfileService().getPersonalInfo(
-				myInfoBean.getVisitor());
+		this.personalInfo = myInfoBean.getVisitor().getInfo();
 		if (null == personalInfo)
 			personalInfo = new PersonalInfo();
 		for (int i = 0; i < 6; i++) {
@@ -33,8 +33,9 @@ public class MyPersonBean extends AbstractBean {
 		}
 		personalInfo.setLike(like);
 		MyIndexBean myInfoBean = findBean("myIndexBean");
-		personalInfo = getProfileService().savePersonalInfo(
-				myInfoBean.getVisitor(), personalInfo);
+		Visitor v = myInfoBean.getVisitor();
+		v.setInfo(personalInfo);
+		personalInfo = getProfileService().saveVisitor(v).getInfo();
 		return "success";
 	}
 

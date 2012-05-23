@@ -1,4 +1,4 @@
-package com.kooobao.lm.book.dao;
+package com.kooobao.lm.optlog;
 
 import static org.junit.Assert.fail;
 
@@ -14,18 +14,20 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @TransactionConfiguration(defaultRollback = true)
 @ContextConfiguration(locations = { "/application-context.xml" })
-public class JpaRecommendDaoTest extends
+public class DefaultOptLogServiceTest extends
 		AbstractTransactionalJUnit4SpringContextTests {
 
-	JpaRecommendDao recommendDao;
+	@Resource
+	DefaultOptLogService optLogService;
 	
 	@Test
-	public void testRecommend1() {
+	public void testSumSearchKeyword() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testRecommend2() {
+	public void testCountBorrowBook() {
 		fail("Not yet implemented");
 	}
+
 }

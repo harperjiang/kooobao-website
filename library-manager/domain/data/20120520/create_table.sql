@@ -1,6 +1,6 @@
 CREATE TABLE lm_tran_expire_rec (obj_id int(10) NOT NULL, due_time DATETIME, create_time datetime, return_time DATETIME, active TINYINT(1) default 0, penalty DECIMAL(38), obj_version decimal(10), transaction int(10), PRIMARY KEY (obj_id));
 CREATE TABLE lm_visitor_actrecord (visitor_id VARCHAR(100) NOT NULL, activation_id VARCHAR(100) NOT NULL, PRIMARY KEY (visitor_id, activation_id));
-CREATE TABLE lm_optlog_borrowcount (borrow_count INTEGER, book_id int(10) NOT NULL, PRIMARY KEY (book_id));
+CREATE TABLE lm_optlog_borrowcount (borrow_count INTEGER, book_id int(10) NOT NULL, update_time datetime, PRIMARY KEY (book_id));
 CREATE TABLE lm_tran (obj_id int(10) NOT NULL, due_time datetime, create_time datetime, state varchar(20), delivery_mthd VARCHAR(10), obj_version decimal(10), book_id int(10), visitor int(10), addr_phone VARCHAR(20), addr_loc VARCHAR(200), addr_name VARCHAR(10), PRIMARY KEY (obj_id));
 CREATE TABLE lm_optlog_searchsum (obj_id int(10) NOT NULL, create_time datetime, keyword VARCHAR(50), search_count INTEGER, PRIMARY KEY (obj_id));
 CREATE TABLE lm_visitor_info (obj_id int(10) NOT NULL, first_child_year VARCHAR(5), create_time datetime, born_year VARCHAR(5), last_child_year VARCHAR(5), gender VARCHAR(10), education VARCHAR(20), like_area INTEGER, kid_count INTEGER, PRIMARY KEY (obj_id));
@@ -41,3 +41,8 @@ INSERT INTO lm_sequence(name, count) values ('lm_tran_opt', 0);
 INSERT INTO lm_sequence(name, count) values ('lm_tran_expire_rec', 0);
 INSERT INTO lm_sequence(name, count) values ('lm_address', 0);
 INSERT INTO lm_sequence(name, count) values ('lm_tran_fav_rec', 0);
+INSERT INTO lm_sequence(name, count) values ('lm_optlog_search', 0);
+INSERT INTO lm_sequence(name, count) values ('lm_optlog_searchsum', 0);
+
+create unique index uk_stock_book_id on lm_book_stock(book_id);
+create unique index uk_expire_record_tran on lm_tran_expire_rec (transaction);
