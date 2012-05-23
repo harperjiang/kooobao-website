@@ -23,6 +23,11 @@
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_book_category" />
 	<table-generator name="stockTG" table="lm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_book_stock" />
+	<table-generator name="searchLogTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_optlog_search" />
+	<table-generator name="searchSumTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_optlog_searchsum" />
+
 
 
 	<entity class="com.kooobao.lm.profile.entity.Visitor">
@@ -108,12 +113,24 @@
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="searchLogTG" />
+			</basic>
+		</attributes>
 	</entity>
 
 	<entity class="com.kooobao.lm.optlog.entity.SearchSummary">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="searchSumTG" />
+			</basic>
+		</attributes>
 	</entity>
 
 	<entity class="com.kooobao.lm.bizflow.entity.ExpireRecord">
