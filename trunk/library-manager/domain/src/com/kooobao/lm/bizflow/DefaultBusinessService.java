@@ -39,9 +39,8 @@ public class DefaultBusinessService implements BusinessService {
 				// Update Penalty
 				BigDecimal oldPenalty = record.getPenalty();
 				PenaltyRule rule = getRuleDao().getPenaltyRule();
-				BigDecimal penalty = rule.getPenalty(record
-						.getTransaction().getVisitor(), record.getDueTime(),
-						new Date());
+				BigDecimal penalty = rule.getPenalty(record.getTransaction()
+						.getVisitor(), record.getDueTime(), new Date());
 				// Update User Remaining
 				Visitor visitor = record.getTransaction().getVisitor();
 				visitor.setDeposit(visitor.getDeposit().subtract(
@@ -53,6 +52,11 @@ public class DefaultBusinessService implements BusinessService {
 				// getVisitorDao().store(visitor);
 			}
 		}
+	}
+
+	public void clearInactivateVisitors() {
+		// TODO Auto-generated method stub
+
 	}
 
 	private TransactionDao transactionDao;

@@ -11,7 +11,6 @@ import com.kooobao.authcenter.service.UserService;
 import com.kooobao.common.web.email.TemplateMailMessage;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.ActivationRecord;
-import com.kooobao.lm.profile.entity.PersonalInfo;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
 import com.kooobao.lm.rule.dao.RuleDao;
@@ -26,18 +25,6 @@ public class DefaultProfileService implements ProfileService {
 		return getVisitorDao().store(visitor);
 	}
 
-	public PersonalInfo getPersonalInfo(Visitor visitor) {
-		return visitor.getInfo();
-	}
-
-	public PersonalInfo savePersonalInfo(Visitor visitor,
-			PersonalInfo personalInfo) {
-		Visitor v = getVisitorDao().find(visitor.getId());
-		v.setInfo(personalInfo);
-		getVisitorDao().store(v);
-		return personalInfo;
-	}
-
 	public boolean activateUser(String activateId) {
 		ActivationRecord actr = getVisitorDao().getActivationRecord(activateId);
 		if (null == actr)
@@ -50,6 +37,10 @@ public class DefaultProfileService implements ProfileService {
 		getVisitorDao().removeActivationRecord(actr);
 		return true;
 	}
+	
+	protected String genActivationId() {
+		return UUID.randomUUID().toString();
+	}
 
 	public void register(String email, String password) {
 		Visitor visitor = new Visitor();
@@ -60,7 +51,7 @@ public class DefaultProfileService implements ProfileService {
 		getVisitorDao().store(visitor);
 		ActivationRecord actRecord = new ActivationRecord();
 		actRecord.setVisitorId(visitor.getId());
-		actRecord.setActivationId(UUID.randomUUID().toString());
+		actRecord.setActivationId(genActivationId());
 		getVisitorDao().store(actRecord);
 		sendRegMail(email, actRecord.getActivationId());
 	}
@@ -73,10 +64,6 @@ public class DefaultProfileService implements ProfileService {
 		tmm.setSubject("感谢注册酷宝图书馆，请激活您的账户");
 		tmm.setTo(new String[] { email });
 		getMailSender().send(tmm);
-	}
-
-	public void clearInactivateVisitors() {
-		// TODO Not implemented
 	}
 
 	public void redeem(Visitor visitor, BigDecimal amount) {
