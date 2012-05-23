@@ -6,7 +6,6 @@ import com.kooobao.common.domain.dao.AbstractJpaDao;
 import com.kooobao.common.domain.entity.SimpleEntity;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.book.entity.Book;
-import com.kooobao.lm.book.entity.Category;
 import com.kooobao.lm.optlog.entity.SearchLog;
 
 public class JpaOperationLogDao extends AbstractJpaDao<SimpleEntity> implements
@@ -22,7 +21,7 @@ public class JpaOperationLogDao extends AbstractJpaDao<SimpleEntity> implements
 		return getEntityManager()
 				.createQuery(
 						"select ss.keyword from SearchSummary ss order by ss.searchCount desc",
-						String.class).setFirstResult(1).setMaxResults(5)
+						String.class).setFirstResult(0).setMaxResults(5)
 				.getResultList();
 	}
 
@@ -30,14 +29,14 @@ public class JpaOperationLogDao extends AbstractJpaDao<SimpleEntity> implements
 
 	}
 
-	public PageSearchResult<Book> getBorrowedBooks(Category category,
-			int start, int stop) {
-		int count = 0; // Temporarily don't support paged search
+	public PageSearchResult<Book> getBorrowedBooks(int start, int stop) {
+		int count = 0; // Temporarily don't support paged search due to
+						// potentially to many records
 		List<Book> bookList = getEntityManager()
 				.createQuery(
 						"select t.book from Transaction t order by t.createTime desc",
-						Book.class).setFirstResult(start).setMaxResults(stop)
-				.getResultList();
+						Book.class).setFirstResult(start)
+				.setMaxResults(stop - start).getResultList();
 		return new PageSearchResult<Book>(count, bookList);
 	}
 

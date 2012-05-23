@@ -60,7 +60,7 @@ public class DefaultBookService implements BookService {
 	}
 
 	public List<Book> getOtherBorrowBooks() {
-		return getOpLogDao().getBorrowedBooks(null, 1, LIMIT).getResult();
+		return getOpLogDao().getBorrowedBooks(1, LIMIT).getResult();
 	}
 
 	static int RECOMMEND_LIMIT = 10;
