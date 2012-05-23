@@ -19,21 +19,23 @@ public class JpaExpireRecordDao extends AbstractJpaDao<ExpireRecord> implements
 
 	public PageSearchResult<ExpireRecord> search(Visitor visitor,
 			SearchBean searchBean) {
-		TypedQuery<Integer> countQuery = getEntityManager()
+		TypedQuery<Long> countQuery = getEntityManager()
 				.createQuery(
-						"select count(er) from ExpireRecord er where er.visitor = :visitor and er.createTime between :fromDate and :toDate order by er.createTime",
-						Integer.class);
+						"select count(er) from ExpireRecord er where er.transaction.visitor = :visitor and er.createTime between :fromDate and :toDate order by er.createTime",
+						Long.class);
 		TypedQuery<ExpireRecord> query = getEntityManager()
 				.createQuery(
 						"select er from ExpireRecord er where er.transaction.visitor = :visitor and er.createTime between :fromDate and :toDate order by er.createTime",
 						ExpireRecord.class);
 		countQuery.setParameter("fromDate", searchBean.getFromDate());
 		countQuery.setParameter("toDate", searchBean.getToDate());
+		countQuery.setParameter("visitor", visitor);
 		query.setParameter("fromDate", searchBean.getFromDate());
 		query.setParameter("toDate", searchBean.getToDate());
+		query.setParameter("visitor", visitor);
 		query.setFirstResult(searchBean.getFrom());
 		query.setMaxResults(searchBean.getTo() - searchBean.getFrom());
-		int count = countQuery.getSingleResult();
+		int count = countQuery.getSingleResult().intValue();
 		List<ExpireRecord> result = query.getResultList();
 		return new PageSearchResult<ExpireRecord>(count, result);
 	}
@@ -43,7 +45,8 @@ public class JpaExpireRecordDao extends AbstractJpaDao<ExpireRecord> implements
 			return getEntityManager()
 					.createQuery(
 							"select er from ExpireRecord er where er.transaction = :tran",
-							ExpireRecord.class).getSingleResult();
+							ExpireRecord.class)
+					.setParameter("tran", transaction).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
