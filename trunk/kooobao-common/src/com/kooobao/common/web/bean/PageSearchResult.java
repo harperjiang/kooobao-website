@@ -4,21 +4,37 @@ import java.util.List;
 
 public class PageSearchResult<T> {
 
-	private int pageCount;
+	private int count;
 
 	private List<T> result;
-	
-	public PageSearchResult(int count,List<T> result) {
-		this.pageCount = count;
+
+	public PageSearchResult(int count, List<T> result) {
+		this.count = count;
 		this.result = result;
 	}
 
+	/**
+	 * @deprecated Use {@link #getCount()} instead
+	 * @return
+	 */
 	public int getPageCount() {
-		return pageCount;
+		return count;
 	}
 
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	/**
+	 * @deprecated Use {@link #setCount(int)} instead
+	 * @param pageCount
+	 */
 	public void setPageCount(int pageCount) {
-		this.pageCount = pageCount;
+		this.count = pageCount;
 	}
 
 	public List<T> getResult() {

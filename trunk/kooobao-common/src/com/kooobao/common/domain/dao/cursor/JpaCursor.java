@@ -3,7 +3,6 @@ package com.kooobao.common.domain.dao.cursor;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.kooobao.common.domain.dao.Cursor;
@@ -36,7 +35,7 @@ public class JpaCursor<T> implements Cursor<T> {
 	}
 
 	public T next() {
-		return buffer.get(currentCount++);
+		return getBuffer().get(currentCount++);
 	}
 
 	@SuppressWarnings("unchecked")
