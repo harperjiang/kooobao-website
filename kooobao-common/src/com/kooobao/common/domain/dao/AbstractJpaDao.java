@@ -12,7 +12,7 @@ import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReadObjectQuery;
 
 import com.kooobao.common.domain.dao.cursor.JpaCursor;
-import com.kooobao.common.domain.entity.VersionEntity;
+import com.kooobao.common.domain.entity.SimpleEntity;
 
 public abstract class AbstractJpaDao<T> implements Dao<T> {
 
@@ -32,9 +32,9 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 		// return entity;
 		// }
 
-		if (entity instanceof VersionEntity
-				&& (null == ((VersionEntity) entity).getCreateTime())) {
-			((VersionEntity) entity).setCreateTime(new Date());
+		if (entity instanceof SimpleEntity
+				&& (null == ((SimpleEntity) entity).getCreateTime())) {
+			((SimpleEntity) entity).setCreateTime(new Date());
 		}
 		return getEntityManager().merge(entity);
 	}
