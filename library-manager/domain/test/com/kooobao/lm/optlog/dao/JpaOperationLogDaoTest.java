@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.book.entity.Book;
-import com.kooobao.lm.optlog.entity.BorrowCount;
 import com.kooobao.lm.optlog.entity.SearchLog;
 import com.kooobao.lm.optlog.entity.SearchSummary;
 
@@ -46,13 +46,13 @@ public class JpaOperationLogDaoTest extends
 		summary.setSearchCount(12);
 		operationLogDao.store(summary);
 
-		BorrowCount bc = new BorrowCount();
+		
 		Book book = new Book();
 		book.setOid(1000);
 		operationLogDao.getEntityManager().persist(book);
-		bc.setBook(book);
-		bc.setCount(1298);
-		operationLogDao.getEntityManager().persist(bc);
+		Transaction t = new Transaction();
+		t.setBook(book);
+		operationLogDao.getEntityManager().persist(t);
 	}
 
 	@Test
