@@ -31,7 +31,7 @@ public class MyExpireBean extends PageSearchBean {
 		PageSearchResult<ExpireRecord> pageResult = getTransactionService()
 				.searchExpiredRecords(myIndexBean.getVisitor(), searchBean);
 		setResult(pageResult.getResult());
-		setPageCount(pageResult.getPageCount());
+		setRecordCount(pageResult.getCount());
 		return null;
 	}
 

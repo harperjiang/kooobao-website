@@ -1,5 +1,6 @@
 package com.kooobao.lm.bizflow.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.kooobao.common.domain.dao.Dao;
@@ -11,11 +12,9 @@ import com.kooobao.lm.profile.entity.Visitor;
 
 public interface TransactionDao extends Dao<Transaction> {
 
-	List<Transaction> findToExpire();
+	List<Transaction> findToExpire(Date date);
 
-	List<Transaction> findByVisitor(Visitor visitor);
-
-	int getTransactionCount(Visitor visitor, TransactionState... states);
+	long getTransactionCount(Visitor visitor, TransactionState... states);
 
 	List<Transaction> getTransactions(Visitor visitor,
 			TransactionState... states);

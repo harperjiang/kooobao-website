@@ -65,7 +65,7 @@ public class MyIndexBean extends AbstractBean {
 
 	private Visitor visitor;
 
-	private int expiredBookCount;
+	private long expiredBookCount;
 
 	private int borrowedBookCount;
 
@@ -77,11 +77,11 @@ public class MyIndexBean extends AbstractBean {
 		this.visitor = visitor;
 	}
 
-	public int getExpiredBookCount() {
+	public long getExpiredBookCount() {
 		return expiredBookCount;
 	}
 
-	public void setExpiredBookCount(int expiredBookCount) {
+	public void setExpiredBookCount(long expiredBookCount) {
 		this.expiredBookCount = expiredBookCount;
 	}
 

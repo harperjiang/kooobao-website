@@ -3,7 +3,6 @@ package com.kooobao.lm.profile;
 import java.math.BigDecimal;
 
 import com.kooobao.lm.profile.entity.Address;
-import com.kooobao.lm.profile.entity.PersonalInfo;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public class DummyProfileService implements ProfileService {
@@ -33,12 +32,6 @@ public class DummyProfileService implements ProfileService {
 	}
 
 	@Override
-	public PersonalInfo getPersonalInfo(Visitor visitor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Visitor saveVisitor(Visitor visitor) {
 		// TODO Auto-generated method stub
 		return null;
@@ -57,15 +50,8 @@ public class DummyProfileService implements ProfileService {
 	}
 
 	@Override
-	public void clearInactivateVisitors() {
+	public void redeem(Visitor visitor, BigDecimal amount) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public PersonalInfo savePersonalInfo(Visitor visitor,
-			PersonalInfo personalInfo) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

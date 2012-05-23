@@ -77,25 +77,25 @@ public class DummyTransactionService implements TransactionService {
 	}
 
 	@Override
-	public List<Transaction> findTransactions(Visitor visitor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Transaction requestBorrow(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int getExpiredTransactionCount(Visitor visitor) {
+	public long getExpiredTransactionCount(Visitor visitor) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public Transaction confirmReturn(Transaction transaction) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transaction approveBorrow(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
