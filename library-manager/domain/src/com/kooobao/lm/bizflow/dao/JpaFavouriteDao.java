@@ -16,7 +16,7 @@ public class JpaFavouriteDao extends AbstractJpaDao<FavoriteRecord> implements
 		try {
 			return getEntityManager()
 					.createQuery(
-							"select fr from FavoriteRecord fr where fr.visitor = :visitor and fr.favourite = :book",
+							"select fr from FavoriteRecord fr where fr.visitor = :visitor and fr.favorite = :book",
 							FavoriteRecord.class)
 					.setParameter("visitor", visitor)
 					.setParameter("book", book).getSingleResult();
