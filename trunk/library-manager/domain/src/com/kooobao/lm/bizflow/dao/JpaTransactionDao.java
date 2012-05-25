@@ -20,7 +20,7 @@ public class JpaTransactionDao extends AbstractJpaDao<Transaction> implements
 	public List<Transaction> findToExpire(Date date) {
 		return getEntityManager()
 				.createQuery(
-						"select t from Transaction t where t.dueTime <= :currentTime",
+						"select t from Transaction t where t.state in ('RETURN_WAIT','RETURN_SENT') and t.dueTime <= :currentTime",
 						Transaction.class).setParameter("currentTime", date)
 				.getResultList();
 	}

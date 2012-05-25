@@ -54,7 +54,7 @@ public class JpaExpireRecordDao extends AbstractJpaDao<ExpireRecord> implements
 
 	public Cursor<ExpireRecord> findActivateRecords() {
 		TypedQuery<ExpireRecord> query = getEntityManager().createQuery(
-				"select er from ExpireRecord er where er.active = true",
+				"select er from ExpireRecord er where er.state = 'ACTIVE'",
 				ExpireRecord.class);
 		return new JpaCursor<ExpireRecord>(query);
 	}

@@ -34,10 +34,7 @@ public class ExpireRecord extends VersionEntity {
 	private Date returnTime;
 
 	@Column(name = "penalty")
-	private BigDecimal penalty;
-
-	@Column(name = "desc_text")
-	private String description;
+	private BigDecimal penalty = BigDecimal.ZERO;
 
 	public Transaction getTransaction() {
 		return transaction;
@@ -69,14 +66,6 @@ public class ExpireRecord extends VersionEntity {
 
 	public void setReturnTime(Date returnTime) {
 		this.returnTime = returnTime;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public ExpireRecordState getState() {

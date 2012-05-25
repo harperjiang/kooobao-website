@@ -79,8 +79,8 @@
 					<div>
 						<h:selectOneMenu style="width:60%"
 							value="#{borrowConfirmBean.delivery}">
-							<f:selectItem itemLabel="快递" itemValue="EXPRESS" />
-							<f:selectItem itemLabel="自取" itemValue="PICKUP" />
+							<f:selectItems value="#{suppDataBean.deliveryMethods}"/>
+							<f:converter converterId="selectItemConverter"/>
 						</h:selectOneMenu>
 					</div>
 					<div>如果您的地址距离图书馆较近，为了减少碳排放。我们鼓励您自行前来取书。您将获得10个豆丁的奖励</div>

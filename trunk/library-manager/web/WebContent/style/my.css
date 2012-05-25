@@ -21,8 +21,11 @@ div.part_body label {
 }
 
 div.part_item {
+	display: block;
 	margin-top: 6px;
 	margin-bottom: 6px;
+	overflow: visible;
+	min-height: 24px;
 }
 
 div.part_item label {

@@ -3,6 +3,9 @@ package com.kooobao.lm.bizflow;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
+
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.dao.ExpireRecordDao;
 import com.kooobao.lm.bizflow.dao.TransactionDao;
@@ -83,6 +86,7 @@ public class DefaultTransactionService implements TransactionService {
 	}
 
 	public Transaction cancel(Transaction tran, String reason) {
+		Validate.isTrue(!StringUtils.isEmpty(reason));
 		tran.cancel(reason);
 		// Return Funds
 		tran.getVisitor().changeDeposit(tran.getBook().getListPrice(), "");

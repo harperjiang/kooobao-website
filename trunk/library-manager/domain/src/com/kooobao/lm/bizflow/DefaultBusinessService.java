@@ -29,12 +29,17 @@ public class DefaultBusinessService implements BusinessService {
 		List<Transaction> toExpire = getTransactionDao().findToExpire(
 				new Date());
 		for (Transaction expire : toExpire) {
-			expire.expire();
-			ExpireRecord er = new ExpireRecord();
-			er.setDueTime(new Date());
-			er.setTransaction(expire);
-			getExpireRecordDao().store(er);
+			expireOneTransaction(expire);
 		}
+	}
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	protected void expireOneTransaction(Transaction expire) {
+		expire.expire();
+		ExpireRecord er = new ExpireRecord();
+		er.setDueTime(new Date());
+		er.setTransaction(expire);
+		getExpireRecordDao().store(er);
 	}
 
 	public void updateExpireRecords() {
@@ -42,22 +47,27 @@ public class DefaultBusinessService implements BusinessService {
 				.findActivateRecords();
 		while (cursor.hasNext()) {
 			ExpireRecord record = cursor.next();
-			if (TransactionState.RETURN_EXPIRED == record.getTransaction()
-					.getState()) {
-				// Update Penalty
-				BigDecimal oldPenalty = record.getPenalty();
-				PenaltyRule rule = getRuleDao().getPenaltyRule();
-				BigDecimal penalty = rule.getPenalty(record.getTransaction()
-						.getVisitor(), record.getDueTime(), new Date());
-				// Update User Remaining
-				Visitor visitor = record.getTransaction().getVisitor();
-				visitor.changeDeposit(penalty.subtract(oldPenalty).negate(), "");
-				// Update User Status
-				if (visitor.getDeposit().compareTo(BigDecimal.ZERO) < 0)
-					visitor.setStatus(VisitorStatus.LOCKED.name());
+			updateExpireRecord(record);
+		}
+	}
 
-				// getVisitorDao().store(visitor);
-			}
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	protected void updateExpireRecord(ExpireRecord record) {
+		if (TransactionState.RETURN_EXPIRED == record.getTransaction()
+				.getState()) {
+			// Update Penalty
+			BigDecimal oldPenalty = record.getPenalty();
+			PenaltyRule rule = getRuleDao().getPenaltyRule();
+			BigDecimal penalty = rule.getPenalty(record.getTransaction()
+					.getVisitor(), record.getDueTime(), new Date());
+			record.setPenalty(penalty);
+			// Update User Remaining
+			Visitor visitor = record.getTransaction().getVisitor();
+			visitor.changeDeposit(penalty.subtract(oldPenalty).negate(), "");
+			// Update User Status
+			if (visitor.getDeposit().compareTo(BigDecimal.ZERO) < 0)
+				visitor.setStatus(VisitorStatus.LOCKED.name());
+			// getVisitorDao().store(visitor);
 		}
 	}
 

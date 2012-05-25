@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.kooobao.authcenter.web.bean.LoginBean;
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.lm.bizflow.entity.DeliveryMethod;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.profile.ProfileService;
@@ -74,13 +75,13 @@ public class BorrowConfirmBean extends AbstractBean {
 		this.borrowed = borrowed;
 	}
 
-	private String delivery;
+	private DeliveryMethod delivery;
 
-	public String getDelivery() {
+	public DeliveryMethod getDelivery() {
 		return delivery;
 	}
 
-	public void setDelivery(String delivery) {
+	public void setDelivery(DeliveryMethod delivery) {
 		this.delivery = delivery;
 	}
 

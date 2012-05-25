@@ -5,7 +5,159 @@
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-查看订单</ui:define>
+	<ui:define name="css">
+		<style type="text/css">
+.label_text {
+	font-size: 14px;
+	display: block;
+	float: left;
+	width: 100px;
+	font-weight: bold;
+	border-style: solid;
+	border-width: 1px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.content_text {
+	font-size: 14px;
+	float: left;
+	width: 100px;
+	border-style: solid;
+	border-width: 1px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.small_label {
+	font-size: 13px;
+	font-weight: bold;
+	display: block;
+	float: left;
+	width: 100px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.small_content {
+	font-size: 13px;
+	display: block;
+	float: left;
+	width: 100px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+</style>
+	</ui:define>
 	<ui:define name="body">
-		
+		<ui:decorate template="my_menu.xhtml" />
+		<div
+			style="margin-top: 5px; margin-bottom: 5px; float: left; width: 850px;">
+			<div class="part">
+				<div
+					style="width: 230px; float: left; padding-top: 15px; padding-left: 10px;">
+					<h:outputText styleClass="label_text" value="订单号码:" />
+					<h:outputText styleClass="content_text"
+						value="#{transactionBean.tran.oid}" />
+					<br />
+					<h:outputText styleClass="label_text" value="当前状态:" />
+					<h:outputText styleClass="content_text"
+						value="#{transactionBean.tran.stateText}" />
+				</div>
+				<div
+					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
+					<h:outputText styleClass="small_label" value="创建日期:" />
+					<h:outputText styleClass="small_content"
+						value="#{transactionBean.tran.createTime}">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</h:outputText>
+					<br />
+					<h:outputText styleClass="small_label" value="应归还日期:" />
+					<h:outputText styleClass="small_content"
+						value="#{transactionBean.tran.createTime}">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</h:outputText>
+				</div>
+				<div
+					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
+					<h:outputText styleClass="small_label" value="是否逾期:" />
+					<h:outputText styleClass="small_content"
+						value="#{transactionBean.expireRecord == null?'否':'是'}" />
+					<br />
+					<h:outputText styleClass="small_label" value="逾期款项:" />
+					<h:outputText styleClass="small_content"
+						rendered="#{transactionBean.expireRecord != null}"
+						value="#{transactionBean.expireRecord.penalty} #{envSettingBean.moneyUnit}" />
+				</div>
+			</div>
+			<div class="part">
+				<div class="part_header">
+					<h:outputText value="图书信息" />
+				</div>
+				<div class="part_body">
+					<h:outputLink value="/book.html">
+						<h:outputText value="#{transactionBean.tran.book.name}" />
+						<f:param name="book_id" value="#{transactionBean.tran.book.oid}" />
+					</h:outputLink>
+				</div>
+			</div>
+			<div class="part">
+				<div class="part_header">
+					<h:outputText value="订单历史" />
+				</div>
+				<div class="part_body">
+					<ui:repeat var="operation"
+						value="#{transactionBean.tran.operations}">
+						<div style="margin-top: 5px; margin-bottom: 5px;">
+							<div
+								style="display: inline; margin-right: 20px; margin-top: 5px; margin-bottom: 5px;">
+								<h:outputText value="#{operation.createTime}">
+									<f:convertDateTime pattern="yyyy-MM-dd HH:mm" />
+								</h:outputText>
+							</div>
+							<div style="display: inline;">
+								<h:outputText value="#{operation.description}" />
+							</div>
+						</div>
+					</ui:repeat>
+				</div>
+			</div>
+			<div class="clearer" />
+			<div class="part">
+				<div class="part_header">
+					<h:outputText value="配送信息" />
+				</div>
+				<div class="part_body">
+					<div class="part_item">
+						<h:outputLabel for="sendText" value="配送方式" />
+						<h:outputText id="sendText"
+							value="#{transactionBean.tran.deliveryText}" />
+					</div>
+
+					<div class="part_item">
+						<h:outputLabel for="priceText" value="配送费用" />
+						<h:outputText id="priceText"
+							value="#{transactionBean.tran.deliveryFee}" />
+					</div>
+					<div class="part_item">
+						<h:outputLabel for="nameText" value="收件人" />
+						<h:outputText id="nameText"
+							value="#{transactionBean.tran.address.name}" />
+					</div>
+					<div class="part_item">
+						<h:outputLabel for="locationText" value="收件地址" />
+						<h:outputText id="locationText"
+							value="#{transactionBean.tran.address.location}" />
+					</div>
+					<div class="part_item">
+						<h:outputLabel for="phoneText" value="联系电话" />
+						<h:outputText id="phoneText"
+							value="#{transactionBean.tran.address.phone}" />
+					</div>
+				</div>
+			</div>
+			<h:commandLink styleClass="btn_negative" rendered="#{transactionBean.canCancel}"
+				action="#{transactionBean.cancel}">作废订单</h:commandLink>
+		</div>
 	</ui:define>
 </ui:composition>
