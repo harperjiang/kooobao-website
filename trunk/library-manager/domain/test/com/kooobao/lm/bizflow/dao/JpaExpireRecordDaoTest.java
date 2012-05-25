@@ -23,6 +23,7 @@ import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.SearchBean;
 import com.kooobao.lm.bizflow.entity.ExpireRecord;
+import com.kooobao.lm.bizflow.entity.ExpireRecordState;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.profile.dao.JpaVisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
@@ -59,13 +60,13 @@ public class JpaExpireRecordDaoTest extends
 
 		ExpireRecord er1 = new ExpireRecord();
 		er1.setTransaction(t);
-		er1.setActive(true);
+		er1.setState(ExpireRecordState.ACTIVE);
 		er1.setCreateTime(sdf.parse("20120301", new ParsePosition(0)));
 		expireRecordDao.store(er1);
 
 		er1 = new ExpireRecord();
 		er1.setTransaction(t1);
-		er1.setActive(false);
+		er1.setState(ExpireRecordState.INACTIVE);
 		er1.setCreateTime(sdf.parse("20120501", new ParsePosition(0)));
 		expireRecordDao.store(er1);
 	}
