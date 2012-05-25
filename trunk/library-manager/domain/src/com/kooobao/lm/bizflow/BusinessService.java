@@ -8,4 +8,14 @@ public interface BusinessService {
 	public void expireTransactions();
 	
 	public void updateExpireRecords();
+	
+	/**
+	 * Auto Reserve stock for requested transactions
+	 */
+	public void reserveStocks();
+	
+	/**
+	 * Auto assume user had received the package
+	 */
+	public void assumeReceived();
 }

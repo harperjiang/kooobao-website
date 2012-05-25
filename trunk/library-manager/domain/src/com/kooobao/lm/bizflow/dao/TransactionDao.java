@@ -3,6 +3,7 @@ package com.kooobao.lm.bizflow.dao;
 import java.util.Date;
 import java.util.List;
 
+import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.common.domain.dao.Dao;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.TransactionService.TransactionSearchBean;
@@ -21,5 +22,7 @@ public interface TransactionDao extends Dao<Transaction> {
 
 	PageSearchResult<Transaction> search(Visitor visitor,
 			TransactionSearchBean searchBean);
+
+	Cursor<Transaction> getTransactions(TransactionState borrowRequested);
 
 }

@@ -11,14 +11,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 
 @Entity
 @Table(name = "lm_tran_expire_rec")
 public class ExpireRecord extends VersionEntity {
 
-	@Column(name = "active")
-	private boolean active;
+	@Column(name = "state")
+	private String state;
 
 	@OneToOne
 	@JoinColumn(name = "transaction")
@@ -35,13 +36,8 @@ public class ExpireRecord extends VersionEntity {
 	@Column(name = "penalty")
 	private BigDecimal penalty;
 
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+	@Column(name = "desc_text")
+	private String description;
 
 	public Transaction getTransaction() {
 		return transaction;
@@ -73,6 +69,34 @@ public class ExpireRecord extends VersionEntity {
 
 	public void setReturnTime(Date returnTime) {
 		this.returnTime = returnTime;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public ExpireRecordState getState() {
+		return ExpireRecordState.valueOf(state);
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public void setState(ExpireRecordState state) {
+		this.state = state.name();
+	}
+
+	public String getStateText() {
+		return StatusUtils.text(getState());
+	}
+
+	public boolean isActive() {
+		return getState() == ExpireRecordState.ACTIVE;
 	}
 
 }

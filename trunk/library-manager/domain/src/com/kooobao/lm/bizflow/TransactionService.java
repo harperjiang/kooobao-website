@@ -19,6 +19,22 @@ public interface TransactionService {
 
 	Transaction approveBorrow(Transaction transaction);
 
+	Transaction sendBorrow(Transaction transaction, String expressInfo);
+
+	Transaction sendReturn(Transaction transaction, String expressInfo);
+
+	Transaction cancel(Transaction tran, String reason);
+
+	/**
+	 * Interrupt transaction will deactivate related expiration record.
+	 * Checked-out stocks will not be resumed.
+	 * 
+	 * @param tran
+	 * @param reason
+	 * @return
+	 */
+	Transaction interrupt(Transaction tran, String reason);
+
 	Transaction confirmReturn(Transaction transaction);
 
 	long getExpiredTransactionCount(Visitor visitor);
@@ -44,7 +60,8 @@ public interface TransactionService {
 		public void setState(TransactionState state) {
 			this.state = state;
 		}
-
 	}
+
+	ExpireRecord findExpireRecord(Transaction tran);
 
 }

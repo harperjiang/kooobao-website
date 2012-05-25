@@ -2,6 +2,8 @@ package com.kooobao.lm.rule.dao;
 
 import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.common.domain.entity.SimpleEntity;
+import com.kooobao.lm.rule.entity.DeliveryDayRule;
+import com.kooobao.lm.rule.entity.DeliveryFeeRule;
 import com.kooobao.lm.rule.entity.DueRule;
 import com.kooobao.lm.rule.entity.PenaltyRule;
 import com.kooobao.lm.rule.entity.VisitorLevelRule;
@@ -38,5 +40,13 @@ public class FixRuleDao implements RuleDao {
 
 	public VisitorLevelRule getVisitorLevelRule() {
 		return new VisitorLevelRule();
+	}
+
+	public DeliveryFeeRule getDeliveryFeeRule() {
+		return new DeliveryFeeRule();
+	}
+
+	public DeliveryDayRule getDeliveryDayRule() {
+		return new DeliveryDayRule();
 	}
 }
