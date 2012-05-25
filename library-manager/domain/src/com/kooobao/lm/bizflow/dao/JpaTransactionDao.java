@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 
 import com.kooobao.common.domain.dao.AbstractJpaDao;
+import com.kooobao.common.domain.dao.Cursor;
+import com.kooobao.common.domain.dao.cursor.JpaCursor;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.TransactionService.TransactionSearchBean;
 import com.kooobao.lm.bizflow.entity.Transaction;
@@ -81,6 +83,12 @@ public class JpaTransactionDao extends AbstractJpaDao<Transaction> implements
 		long count = countQuery.getSingleResult();
 		List<Transaction> result = query.getResultList();
 		return new PageSearchResult<Transaction>(count, result);
+	}
+
+	public Cursor<Transaction> getTransactions(TransactionState state) {
+		return new JpaCursor<Transaction>(getEntityManager().createQuery(
+				"select t from Transaction t where t.state = :state",
+				Transaction.class).setParameter("state", state.name()));
 	}
 
 }

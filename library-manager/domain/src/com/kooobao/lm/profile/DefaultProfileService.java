@@ -72,7 +72,7 @@ public class DefaultProfileService implements ProfileService {
 		BigDecimal resultAmount = v.getDeposit().add(amount);
 		int newLevel = getRuleDao().getVisitorLevelRule().getLevel(resultAmount);
 		v.setLevel(newLevel);
-		v.setDeposit(resultAmount);
+		v.changeDeposit(amount,"Redeem");
 	}
 
 	private VisitorDao visitorDao;

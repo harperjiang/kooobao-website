@@ -117,4 +117,8 @@ public class Visitor extends VersionEntity {
 	public void setInfo(PersonalInfo info) {
 		this.info = info;
 	}
+	
+	public void changeDeposit(BigDecimal change, String reason) {
+		this.setDeposit(getDeposit().add(change));
+	}
 }

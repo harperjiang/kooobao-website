@@ -7,6 +7,7 @@ import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.dao.ExpireRecordDao;
 import com.kooobao.lm.bizflow.dao.TransactionDao;
 import com.kooobao.lm.bizflow.entity.ExpireRecord;
+import com.kooobao.lm.bizflow.entity.ExpireRecordState;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.dao.RecommendDao;
@@ -31,22 +32,37 @@ public class DefaultTransactionService implements TransactionService {
 
 	public Transaction requestBorrow(Transaction transaction) {
 		Visitor v = getVisitorDao().find(transaction.getVisitor());
-		if (v.getStatus().equals(VisitorStatus.LOCKED.name()))
+		if (!v.getStatus().equals(VisitorStatus.ACTIVE.name()))
 			return null;
-		transaction.setState(TransactionState.BORROW_REQUESTED);
+		// Check User Account
+		if (v.getDeposit().compareTo(transaction.getBook().getListPrice()) < 0)
+			throw new InsufficientFundException();
+		v.changeDeposit(transaction.getBook().getListPrice().negate(), "");
+		transaction.create();
 		// Set Due date
 		DueRule dueRule = getRuleDao().getDueRule();
 		Date dueDate = dueRule.getDueDate(v, transaction.getBook(), new Date());
 		transaction.setDueTime(dueDate);
+
 		return getTransactionDao().store(transaction);
 	}
 
 	public Transaction approveBorrow(Transaction transaction) {
-		// Reduce Stock
-		Stock stock = getStockDao().findByBook(transaction.getBook());
-		stock.setStock(stock.getStock() - 1);
+		// Check stock reservation
+		if (!transaction.isStockReserved())
+			throw new IllegalStateException();
 		//
 		transaction.approve();
+		return getTransactionDao().store(transaction);
+	}
+
+	public Transaction sendBorrow(Transaction transaction, String expressInfo) {
+		transaction.sendout(expressInfo);
+		return getTransactionDao().store(transaction);
+	}
+
+	public Transaction sendReturn(Transaction transaction, String expressInfo) {
+		transaction.sendback(expressInfo);
 		return getTransactionDao().store(transaction);
 	}
 
@@ -55,12 +71,38 @@ public class DefaultTransactionService implements TransactionService {
 				transaction);
 		if (null != expireRecord && expireRecord.isActive()) {
 			expireRecord.setReturnTime(new Date());
+			expireRecord.setState(ExpireRecordState.INACTIVE);
 		}
-		transaction.returnReceived();
+		transaction.returnReceived(null == expireRecord ? null : expireRecord
+				.getPenalty());
 		// Add Stock
+		// TODO Set as async operation
 		Stock stock = getStockDao().findByBook(transaction.getBook());
-		stock.setStock(stock.getStock() + 1);
+		stock.setAvailable(stock.getAvailable() + 1);
 		return getTransactionDao().store(transaction);
+	}
+
+	public Transaction cancel(Transaction tran, String reason) {
+		tran.cancel(reason);
+		// Return Funds
+		tran.getVisitor().changeDeposit(tran.getBook().getListPrice(), "");
+		// Release Stocks
+		if (tran.isStockReserved()) {
+			Stock stock = getStockDao().findByBook(tran.getBook());
+			stock.setAvailable(stock.getAvailable() + 1);
+		}
+		return getTransactionDao().store(tran);
+	}
+
+	public Transaction interrupt(Transaction tran, String reason) {
+		tran.interrupt(reason);
+		// Deactivate Expire Records
+		ExpireRecord er = getExpireRecordDao().findByTransaction(tran);
+		if (null != er) {
+			er.setState(ExpireRecordState.INTERRUPTED);
+			er.setReturnTime(new Date());
+		}
+		return getTransactionDao().store(tran);
 	}
 
 	public long getExpiredTransactionCount(Visitor visitor) {
@@ -88,6 +130,10 @@ public class DefaultTransactionService implements TransactionService {
 	public PageSearchResult<ExpireRecord> searchExpiredRecords(Visitor visitor,
 			SearchBean searchBean) {
 		return getExpireRecordDao().search(visitor, searchBean);
+	}
+
+	public ExpireRecord findExpireRecord(Transaction tran) {
+		return getExpireRecordDao().findByTransaction(tran);
 	}
 
 	private TransactionDao transactionDao;
@@ -149,4 +195,5 @@ public class DefaultTransactionService implements TransactionService {
 	public void setStockDao(StockDao stockDao) {
 		this.stockDao = stockDao;
 	}
+
 }
