@@ -8,8 +8,8 @@
 	<ui:define name="body">
 		<ui:decorate template="my_menu.xhtml" />
 
-		<div class="part">
-			<div>
+		<div >
+			<div class="part">
 				<div class="part_header">会员信息</div>
 				<div class="part_body">
 					<div style="float: left; width: 400px;">
@@ -40,7 +40,7 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			<div class="part">
 				<div class="part_header">借阅中的书</div>
 				<div class="part_body">
 					<div class="table_header">
@@ -68,11 +68,11 @@
 										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
 											value="/transaction.html">
 											<f:param name="tran_id" value="#{tran.oid}" />
-											<h:outputText value="#{tran.id}" />
+											<h:outputText value="#{tran.oid}" />
 										</h:outputLink>
 										<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
 											value="/transaction_#{tran.oid}.html">
-											<h:outputText value="#{tran.id}" />
+											<h:outputText value="#{tran.oid}" />
 										</h:outputLink>
 									</div>
 									<div class="table_cell">
@@ -90,7 +90,7 @@
 					</div>
 				</div>
 			</div>
-			<div>
+			<div class="part">
 				<div class="part_header">可能喜欢</div>
 				<div class="part_body">
 					<div style="padding-bottom: 10px;">

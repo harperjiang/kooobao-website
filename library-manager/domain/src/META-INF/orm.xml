@@ -180,5 +180,12 @@
 			</basic>
 		</attributes>
 	</entity>
+	
+	<entity class="com.kooobao.lm.book.entity.BookRelation">
+		<primary-key>
+			<column name="from_book" />
+			<column name="to_book" />
+		</primary-key>
+	</entity>
 
 </entity-mappings>

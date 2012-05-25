@@ -102,10 +102,6 @@ public class Visitor extends VersionEntity {
 		this.level = level;
 	}
 
-	public static enum Status {
-		VALID, INVALID, LACK_BALANCE
-	}
-
 	public void setStatus(VisitorStatus status) {
 		setStatus(status.name());
 	}

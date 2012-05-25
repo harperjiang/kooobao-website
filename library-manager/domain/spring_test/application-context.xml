@@ -45,5 +45,22 @@
 		<property name="operationLogDao" ref="operationLogDao" />
 	</bean>
 
+	<bean id="transactionService" class="com.kooobao.lm.bizflow.DefaultTransactionService">
+		<property name="transactionDao" ref="transactionDao" />
+		<property name="visitorDao" ref="visitorDao" />
+		<property name="expireRecordDao" ref="expireRecordDao" />
+		<property name="ruleDao" ref="ruleDao" />
+		<property name="stockDao" ref="stockDao" />
+	</bean>
+
+	<bean id="businessService" class="com.kooobao.lm.bizflow.DefaultBusinessService">
+		<property name="transactionDao" ref="transactionDao" />
+		<property name="visitorDao" ref="visitorDao" />
+		<property name="expireRecordDao" ref="expireRecordDao" />
+		<property name="ruleDao" ref="ruleDao" />
+		<property name="stockDao" ref="stockDao" />
+	</bean>
+
+
 	<bean id="blankDataSource" class="com.kooobao.common.domain.dao.BlankDataSource" />
 </beans>

@@ -19,6 +19,16 @@ public class EnvSettingBean extends AbstractBean {
 		this.datePattern = datePattern;
 	}
 
+	private String moneyUnit = "豆丁";
+
+	public String getMoneyUnit() {
+		return moneyUnit;
+	}
+
+	public void setMoneyUnit(String moneyUnit) {
+		this.moneyUnit = moneyUnit;
+	}
+
 	private boolean rewriteUrl;
 
 	public boolean isRewriteUrl() {

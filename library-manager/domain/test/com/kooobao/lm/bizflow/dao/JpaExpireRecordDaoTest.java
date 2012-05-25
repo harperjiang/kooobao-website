@@ -52,9 +52,11 @@ public class JpaExpireRecordDaoTest extends
 		Transaction t = new Transaction();
 		t.setOid(100);
 		t.setVisitor(v);
+		transactionDao.store(t);
 		Transaction t1 = new Transaction();
 		t1.setOid(1001);
 		t1.setVisitor(v);
+		transactionDao.store(t1);
 
 		DateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 

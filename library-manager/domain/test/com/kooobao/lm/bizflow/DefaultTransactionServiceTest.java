@@ -74,7 +74,7 @@ public class DefaultTransactionServiceTest extends
 		cheapBook.setOid(2);
 		cheapBook.setListPrice(new BigDecimal(100));
 		bookDao.store(cheapBook);
-		
+
 		Stock stock = new Stock();
 		stock.setBook(cheapBook);
 		stock.setStock(5);
@@ -247,7 +247,7 @@ public class DefaultTransactionServiceTest extends
 	public void testSendBackReceived() {
 		Visitor v = visitorDao.find(2);
 		Transaction tran = new Transaction();
-//		tran.setOid(1);
+		// tran.setOid(1);
 		tran.setVisitor(v);
 		tran.setBook(bookDao.find(2));
 		transactionService.requestBorrow(tran);
@@ -260,7 +260,7 @@ public class DefaultTransactionServiceTest extends
 		transactionService.sendReturn(tran, "自送");
 		transactionService.confirmReturn(tran);
 
-//		tran = transactionService.getTransaction(1);
+		// tran = transactionService.getTransaction(1);
 
 		assertEquals(TransactionState.RETURN_RECEIVED, tran.getState());
 		assertEquals(6, tran.getOperations().size());
@@ -271,9 +271,65 @@ public class DefaultTransactionServiceTest extends
 
 	@Test
 	public void testCancelTransaction() {
-		transactionService.cancel(null, null);
+		Visitor v = visitorDao.find(2);
+		Transaction tran = new Transaction();
+		tran.setOid(1);
+		tran.setVisitor(v);
+		tran.setBook(bookDao.find(2));
+		transactionService.requestBorrow(tran);
+		transactionService.cancel(tran, "Some Reason");
+
+		tran = transactionService.getTransaction(1);
+
+		assertEquals(TransactionState.CANCELLED, tran.getState());
+		assertEquals(2, tran.getOperations().size());
+		assertEquals("您已经选择取消订单，原因:Some Reason", tran.getOperations().get(1)
+				.getDescription());
+		assertEquals(new BigDecimal(120), visitorDao.find(2).getDeposit());
 	}
 	
+	@Test
+	public void testCancelTransaction2() {
+		Visitor v = visitorDao.find(2);
+		Transaction tran = new Transaction();
+		tran.setOid(1);
+		tran.setVisitor(v);
+		tran.setBook(bookDao.find(2));
+		tran = transactionService.requestBorrow(tran);
+		tran.setStockReserved(true);
+		tran = transactionService.approveBorrow(tran);
+		tran = transactionService.cancel(tran, "Some Reason");
+
+		tran = transactionService.getTransaction(1);
+
+		assertEquals(TransactionState.CANCELLED, tran.getState());
+		assertEquals(3, tran.getOperations().size());
+		assertEquals("您已经选择取消订单，原因:Some Reason", tran.getOperations().get(2)
+				.getDescription());
+		assertEquals(new BigDecimal(120), visitorDao.find(2).getDeposit());
+	}
+	
+	@Test
+	public void testInterrupt() {
+		Visitor v = visitorDao.find(2);
+		Transaction tran = new Transaction();
+		tran.setOid(1);
+		tran.setVisitor(v);
+		tran.setBook(bookDao.find(2));
+		tran = transactionService.requestBorrow(tran);
+		tran.setStockReserved(true);
+		tran = transactionService.approveBorrow(tran);
+		tran = transactionService.interrupt(tran, "Some Reason");
+
+		tran = transactionService.getTransaction(1);
+
+		assertEquals(TransactionState.INTERRUPTED, tran.getState());
+		assertEquals(3, tran.getOperations().size());
+		assertEquals("您的订单无法完成，原因:Some Reason", tran.getOperations().get(2)
+				.getDescription());
+		assertEquals(new BigDecimal(20), visitorDao.find(2).getDeposit());
+	}
+
 	@Test
 	public void testGetExpiredTransactionCount() {
 		fail("Not yet implemented");
