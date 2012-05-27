@@ -1,6 +1,7 @@
 package com.kooobao.lm.bizflow;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -22,6 +23,10 @@ import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.ExpireRecordState;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
+import com.kooobao.lm.book.dao.BookDao;
+import com.kooobao.lm.book.dao.StockDao;
+import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
@@ -44,6 +49,12 @@ public class DefaultBusinessServiceTest extends
 	@Resource
 	VisitorDao visitorDao;
 
+	@Resource
+	BookDao bookDao;
+
+	@Resource
+	StockDao stockDao;
+
 	@Before
 	public void prepare() {
 		Visitor visitor = new Visitor();
@@ -51,6 +62,22 @@ public class DefaultBusinessServiceTest extends
 		visitor.setDeposit(new BigDecimal(100));
 		visitor.setStatus(VisitorStatus.ACTIVE);
 		visitorDao.store(visitor);
+
+		Book book = new Book();
+		book.setOid(1);
+		bookDao.store(book);
+
+		Stock stock = new Stock();
+		stock.setBook(book);
+		stock.setAvailable(5);
+		stock.setOid(5);
+		stockDao.store(stock);
+
+		Transaction notReserved = new Transaction();
+		notReserved.setState(TransactionState.BORROW_REQUESTED);
+		notReserved.setBook(book);
+		notReserved.setOid(5);
+		transactionDao.store(notReserved);
 
 		Transaction toExpire = new Transaction();
 		toExpire.setOid(10);
@@ -100,12 +127,20 @@ public class DefaultBusinessServiceTest extends
 
 	@Test
 	public void testReserveStocks() {
-		fail("Not yet implemented");
+		businessService.reserveStocks();
+		Stock stock = stockDao.find(5);
+		assertEquals(4, stock.getAvailable());
+		Transaction t = transactionDao.find(5);
+		assertTrue(t.isStockReserved());
 	}
 
 	@Test
 	public void testAssumeReceived() {
-		fail("Not yet implemented");
+		
 	}
 
+	@Test
+	public void testBuildBookRelations() {
+		fail("Not yet implemented");
+	}
 }

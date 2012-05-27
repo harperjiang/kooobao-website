@@ -24,10 +24,13 @@
 	<bean id="expireRecordDao" class="com.kooobao.lm.bizflow.dao.JpaExpireRecordDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
-	<bean id="favouriteRecordDao" class="com.kooobao.lm.bizflow.dao.JpaFavouriteDao">
+	<bean id="favouriteDao" class="com.kooobao.lm.bizflow.dao.JpaFavouriteDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 	<bean id="transactionDao" class="com.kooobao.lm.bizflow.dao.JpaTransactionDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="recommendDao" class="com.kooobao.lm.book.dao.JpaRecommendDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
@@ -50,6 +53,7 @@
 		<property name="visitorDao" ref="visitorDao" />
 		<property name="expireRecordDao" ref="expireRecordDao" />
 		<property name="ruleDao" ref="ruleDao" />
+		<property name="recommendDao" ref="recommendDao" />
 		<property name="stockDao" ref="stockDao" />
 	</bean>
 
@@ -59,6 +63,11 @@
 		<property name="expireRecordDao" ref="expireRecordDao" />
 		<property name="ruleDao" ref="ruleDao" />
 		<property name="stockDao" ref="stockDao" />
+	</bean>
+
+	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DefaultFavouriteService">
+		<property name="bookDao" ref="bookDao"/>
+		<property name="favouriteDao" ref="favouriteDao"/>
 	</bean>
 
 

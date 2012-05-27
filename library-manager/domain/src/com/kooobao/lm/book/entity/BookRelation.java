@@ -13,11 +13,11 @@ import javax.persistence.Table;
 public class BookRelation {
 
 	@OneToOne
-	@JoinColumn(name = "from_book")
+	@JoinColumn(name = "book_from")
 	private Book from;
 
 	@OneToOne
-	@JoinColumn(name = "to_book")
+	@JoinColumn(name = "book_to")
 	private Book to;
 
 	@Column(name = "score")
