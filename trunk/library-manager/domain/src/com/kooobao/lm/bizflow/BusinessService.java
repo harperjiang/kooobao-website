@@ -18,4 +18,6 @@ public interface BusinessService {
 	 * Auto assume user had received the package
 	 */
 	public void assumeReceived();
+	
+	public void buildBookAssociations();
 }

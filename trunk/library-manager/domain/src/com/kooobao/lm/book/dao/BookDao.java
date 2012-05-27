@@ -17,4 +17,8 @@ public interface BookDao extends Dao<Book> {
 	PageSearchResult<Book> getLatestBooks(int start, int size);
 
 	PageSearchResult<Book> getEditorRecommendBooks(int start, int size);
+
+	void clearAssociations();
+
+	void addAssociation(Book iBook, Book jBook, int score);
 }

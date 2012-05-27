@@ -1,9 +1,16 @@
 package com.kooobao.lm.bizflow;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +21,9 @@ import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.Operation;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
+import com.kooobao.lm.book.dao.BookDao;
 import com.kooobao.lm.book.dao.StockDao;
+import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
@@ -117,6 +126,47 @@ public class DefaultBusinessService implements BusinessService {
 			next.assumeReceived();
 	}
 
+	static int FACTOR_CATEGORY = 2;
+	static int FACTOR_TAG = 1;
+
+	public void buildBookAssociations() {
+		// 3 Scores for same category, 1 scores for each similar tag
+		// TODO Make a full recalculate now. Consider change to increasingly
+		// calculation later
+		getBookDao().clearAssociations();
+
+		Cursor<Book> books = getBookDao().findAll();
+		List<Book> bookList = new ArrayList<Book>();
+		while (books.hasNext())
+			bookList.add(books.next());
+		Collections.sort(bookList, new Comparator<Book>() {
+			public int compare(Book o1, Book o2) {
+				return Long.valueOf(o1.getOid()).compareTo(o2.getOid());
+			}
+		});
+		for (int i = 0; i < bookList.size(); i++) {
+			Book iBook = (Book) bookList.get(i);
+			for (int j = i; j < bookList.size(); j++) {
+				Book jBook = (Book) bookList.get(j);
+
+				int score = 0;
+				if (iBook.getCategory().getOid() == jBook.getCategory()
+						.getOid()) {
+					score += FACTOR_CATEGORY;
+				}
+				Set<String> tagA = new HashSet<String>();
+				tagA.addAll(iBook.getTags());
+				Set<String> tagB = new HashSet<String>();
+				tagB.addAll(jBook.getTags());
+
+				Collection result = CollectionUtils.intersection(tagA, tagB);
+				score += FACTOR_TAG * result.size();
+
+				getBookDao().addAssociation(iBook, jBook, score);
+			}
+		}
+	}
+
 	private TransactionDao transactionDao;
 
 	public TransactionDao getTransactionDao() {
@@ -165,6 +215,16 @@ public class DefaultBusinessService implements BusinessService {
 
 	public void setStockDao(StockDao stockDao) {
 		this.stockDao = stockDao;
+	}
+
+	private BookDao bookDao;
+
+	public BookDao getBookDao() {
+		return bookDao;
+	}
+
+	public void setBookDao(BookDao bookDao) {
+		this.bookDao = bookDao;
 	}
 
 }

@@ -45,7 +45,7 @@ public class JpaTransactionDaoTest extends
 		Transaction expire = new Transaction();
 		expire.setOid(125);
 		expire.setVisitor(v);
-		expire.setState(TransactionState.BORROW_APPROVED);
+		expire.setState(TransactionState.RETURN_WAIT);
 		expire.setDueTime(sdf.parse("20120501", new ParsePosition(0)));
 		transactionDao.store(expire);
 	}
@@ -62,9 +62,9 @@ public class JpaTransactionDaoTest extends
 	public void testGetTransactionCount() {
 		Visitor v = visitorDao.find(100);
 		assertEquals(1, transactionDao.getTransactionCount(v,
-				TransactionState.BORROW_APPROVED));
+				TransactionState.RETURN_WAIT));
 		assertEquals(1, transactionDao.getTransactionCount(v,
-				TransactionState.BORROW_APPROVED,
+				TransactionState.RETURN_WAIT,
 				TransactionState.BORROW_REQUESTED));
 		assertEquals(0, transactionDao.getTransactionCount(v,
 				TransactionState.BORROW_REQUESTED));
@@ -76,11 +76,11 @@ public class JpaTransactionDaoTest extends
 		assertEquals(
 				1,
 				transactionDao.getTransactions(v,
-						TransactionState.BORROW_APPROVED).size());
+						TransactionState.RETURN_WAIT).size());
 		assertEquals(
 				1,
 				transactionDao.getTransactions(v,
-						TransactionState.BORROW_APPROVED,
+						TransactionState.RETURN_WAIT,
 						TransactionState.BORROW_REQUESTED).size());
 		assertEquals(
 				0,
@@ -97,7 +97,7 @@ public class JpaTransactionDaoTest extends
 		tsb.setTo(10);
 		tsb.setFromDate(sdf.parse("20120401", new ParsePosition(0)));
 		tsb.setToDate(sdf.parse("20120601", new ParsePosition(0)));
-		tsb.setState(TransactionState.BORROW_APPROVED);
+		tsb.setState(TransactionState.RETURN_WAIT);
 		PageSearchResult<Transaction> tr = transactionDao.search(v, tsb);
 
 		assertEquals(1, tr.getCount());
