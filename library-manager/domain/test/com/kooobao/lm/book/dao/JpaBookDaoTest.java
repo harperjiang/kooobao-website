@@ -1,6 +1,7 @@
 package com.kooobao.lm.book.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -42,13 +43,20 @@ public class JpaBookDaoTest extends
 		category1 = categoryDao.store(category1);
 
 		Book book1 = new Book();
+		book1.setOid(100);
 		book1.setName("Good Book");
 		book1.setCategory(category1);
 		book1 = bookDao.store(book1);
 
 		Book book2 = new Book();
+		book2.setOid(110);
 		book2.setName("Bad Book");
 		book2 = bookDao.store(book2);
+
+		Book book3 = new Book();
+		book3.setOid(120);
+		book3.setName("Normal Book");
+		book3 = bookDao.store(book3);
 
 		BorrowCount bc = new BorrowCount();
 		bc.setBook(book1);
@@ -107,7 +115,6 @@ public class JpaBookDaoTest extends
 
 	@Test
 	public void testClearAssociations() {
-
 		List<BookRelation> brList = bookDao
 				.getEntityManager()
 				.createQuery("select br from BookRelation br",
@@ -123,7 +130,19 @@ public class JpaBookDaoTest extends
 
 	@Test
 	public void testAddAssociation() {
-		fail("Not yet implemented");
+		bookDao.addAssociation(bookDao.find(100), bookDao.find(120), 100);
+
+		List<BookRelation> brs = bookDao
+				.getEntityManager()
+				.createQuery("select br from BookRelation br",
+						BookRelation.class).getResultList();
+		assertEquals(4, brs.size());
+		BookRelation brin = null;
+		for (BookRelation br : brs) {
+			if (100 == br.getFrom().getOid() && 120 == br.getTo().getOid())
+				brin = br;
+		}
+		assertNotNull(brin);
 	}
 
 }

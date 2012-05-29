@@ -39,7 +39,7 @@ public class BeanStartuper implements ServletContextListener {
 			objects.put(key, result);
 			return result;
 		} catch (Exception e) {
-			return null;
+			throw new RuntimeException(e);
 		}
 	}
 

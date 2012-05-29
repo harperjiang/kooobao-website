@@ -60,12 +60,12 @@
 								<h:outputText value="#{book.displayName}" />
 							</h:outputLink>
 						</div>
-						<div>
-							<h:outputText style="margin-right:10px;" value="作　者:" />
+						<div class="short_attr">
+							<h:outputLabel value="作　者:" />
 							<h:outputText value="#{book.author}" />
 						</div>
-						<div>
-							<h:outputText style="margin-right:10px;" value="出版社:" />
+						<div class="short_attr">
+							<h:outputLabel value="出版社:" />
 							<h:outputText value="#{book.publisher}" />
 						</div>
 					</div>
@@ -117,7 +117,7 @@
 
 				<div>
 					<h:outputLabel id="briefLabel" for="briefText" value="简介" />
-					<div style="width:515px;">
+					<div style="display: block; float: left; width: 515px;">
 						<h:outputText id="briefText" value="#{bookBean.book.brief}" />
 					</div>
 				</div>

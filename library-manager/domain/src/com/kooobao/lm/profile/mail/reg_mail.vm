@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style class="text/css">
+body {
+	text-align: center;
+}
+
+div {
+	text-align: left;
+	font-size: 12px;
+	font-family: Calibri, Simsun;
+	overflow: visible;
+	white-space: normal;
+}
+
+div.header {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 1000px;
+}
+
+div.footer {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 1000px;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: #112211;
+	background-color: #f1f2f3;
+}
+
+div.header a {
+	text-decoration: none;
+	color: #0012DF;
+	margin-left: 5px;
+	margin-right: 5px;
+	font-size: 12px;
+}
+
+div.clearer {
+	clear: left;
+	line-height: 0;
+	height: 0;
+}
+
+div.body {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+	height: auto;
+	width: 1000px;
+	overflow: auto;
+}
+</style>
+</head>
+<body>
+	<div class="header">
+		<div style="float: left; width: 250px; height: 70px;">
+			<img src="/image/logo.gif" />
+		</div>
+		<div class="clearer"></div>
+	</div>
+	<div class="body">
+		<div
+			style="text-align: center; font-size: 18px; font-family: 黑体; margin-top: 5px; margin-bottom: 30px;">感谢您注册酷宝图书馆</div>
+		<div>
+			请点击链接完成注册: <a href="http://www.kooobao.cn/register_activate.html?uuid=${uuid}">http://www.kooobao.cn/register_activate.html</a>
+		</div>
+	</div>
+	<div class="footer">
+		上海优阁信息技术有限公司 上海酷宝原版少儿英语<br /> Copyright@ 2005-2012
+	</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<div class="component">
+	<div class="title">书籍分类</div>
+	<div style="margin-left: 5px;">
+		<ui:repeat var="category" value="#{suppDataBean.categories}">
+			<div id="category_#{category.oid}" class="category">
+				<div class="category_title">
+					<h:outputLink style="display:block;text-decoration:none;"
+						onclick="category_switch(#{category.oid})" value="#">
+						<h:outputText value="#{category.name}" />
+					</h:outputLink>
+				</div>
+				<div id="category_content_#{category.oid}">
+					<ui:repeat var="child" value="#{category.children}"
+						varStatus="status">
+						<div class="category_content">
+							<h:outputLink value="/category.html">
+								<h:outputText value="#{child.name}" />
+								<f:param name="category_id" value="#{child.oid}" />
+							</h:outputLink>
+						</div>
+					</ui:repeat>
+				</div>
+			</div>
+		</ui:repeat>
+	</div>
+</div>

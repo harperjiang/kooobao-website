@@ -1,6 +1,7 @@
 package com.kooobao.lm.book.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +27,9 @@ public class Book extends SimpleEntity {
 	private Category category;
 
 	@ElementCollection
-	@CollectionTable(name = "lm_book_tag", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_oid"))
+	@CollectionTable(name = "lm_book_tag", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_id"))
 	@Column(name = "tag", columnDefinition = "varchar(25)")
-	private List<String> tags;
+	private List<String> tags = new ArrayList<String>();
 
 	@Column(name = "picture_url")
 	private String pictureUrl;

@@ -156,8 +156,12 @@
 					</div>
 				</div>
 			</div>
-			<h:commandLink styleClass="btn_negative" rendered="#{transactionBean.canCancel}"
-				action="#{transactionBean.cancel}">作废订单</h:commandLink>
+			<div class="part">
+				<h:commandLink styleClass="btn_negative"
+					rendered="#{transactionBean.canCancel}"
+					action="#{transactionBean.cancel}">作废订单</h:commandLink>
+				评论
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>

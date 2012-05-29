@@ -27,10 +27,11 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 	}
 
 	public T store(T entity) {
-		// if (0 == entity.getOid()) {
-		// getEntityManager().persist(entity);
-		// return entity;
-		// }
+		if (entity instanceof SimpleEntity
+				&& 0 == ((SimpleEntity) entity).getOid()) {
+			getEntityManager().persist(entity);
+			return entity;
+		}
 
 		if (entity instanceof SimpleEntity
 				&& (null == ((SimpleEntity) entity).getCreateTime())) {
@@ -69,5 +70,17 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 	public Class<T> getParamClass() {
 		return (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
+	}
+
+	protected String genParamStr(int size) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("(");
+		for (int i = 0; i < size; i++) {
+			sb.append("?");
+			if (i != size - 1)
+				sb.append(",");
+		}
+		sb.append(")");
+		return sb.toString();
 	}
 }

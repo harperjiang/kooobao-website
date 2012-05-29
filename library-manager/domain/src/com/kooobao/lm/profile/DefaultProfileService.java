@@ -37,7 +37,7 @@ public class DefaultProfileService implements ProfileService {
 		getVisitorDao().removeActivationRecord(actr);
 		return true;
 	}
-	
+
 	protected String genActivationId() {
 		return UUID.randomUUID().toString();
 	}
@@ -59,7 +59,8 @@ public class DefaultProfileService implements ProfileService {
 	protected void sendRegMail(String email, String activationId) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("activation_id", activationId);
-		TemplateMailMessage tmm = new TemplateMailMessage("reg_mail.vm", model);
+		TemplateMailMessage tmm = new TemplateMailMessage(
+				"/com/kooobao/lm/profile/mail/reg_mail.vm", model);
 		tmm.setFrom("info@kooobao.cn");
 		tmm.setSubject("感谢注册酷宝图书馆，请激活您的账户");
 		tmm.setTo(new String[] { email });
@@ -70,9 +71,10 @@ public class DefaultProfileService implements ProfileService {
 		// TODO Make sure redeem will not fail due to concurrent modification
 		Visitor v = getVisitorDao().find(visitor);
 		BigDecimal resultAmount = v.getDeposit().add(amount);
-		int newLevel = getRuleDao().getVisitorLevelRule().getLevel(resultAmount);
+		int newLevel = getRuleDao().getVisitorLevelRule()
+				.getLevel(resultAmount);
 		v.setLevel(newLevel);
-		v.changeDeposit(amount,"Redeem");
+		v.changeDeposit(amount, "Redeem");
 	}
 
 	private VisitorDao visitorDao;

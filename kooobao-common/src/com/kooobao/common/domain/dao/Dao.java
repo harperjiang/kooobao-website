@@ -2,6 +2,7 @@ package com.kooobao.common.domain.dao;
 
 
 
+
 public interface Dao<T> {
 
 	public T store(T entity);

@@ -7,13 +7,13 @@
 	<ui:define name="title">酷宝图书馆</ui:define>
 	<ui:define name="body">
 		<div class="column" style="width: 220px;">
-			<div>
+			<div class="component">
 				<div class="title">书籍分类</div>
 				<ui:repeat var="category" value="#{suppDataBean.categories}">
 					<div id="category_#{category.oid}" class="category">
 						<div class="category_title">
-							<h:outputLink style="display:block;text-decoration:none;"
-								onclick="category_switch(#{category.oid})" value="#">
+							<h:outputLink onclick="category_switch(#{category.oid})"
+								value="#">
 								<h:outputText value="#{category.name}" />
 							</h:outputLink>
 						</div>
@@ -34,7 +34,7 @@
 		</div>
 		<div class="column" style="width: 540px;">
 			<div style="height: 210px;"></div>
-			<div>
+			<div class="component">
 				<div class="title">最受欢迎的</div>
 				<div>
 					<ui:repeat var="book" value="#{indexPageBean.popularBooks}">
@@ -57,7 +57,7 @@
 									onclick="add_to_cart(#{book.oid})">
 									<h:graphicImage style="height:16px;width:16px;"
 										url="/image/basket.png" />
-										<h:outputText value="加入借书篮" />
+									<h:outputText value="加入借书篮" />
 								</h:outputLink>
 							</div>
 						</div>
@@ -65,7 +65,7 @@
 				</div>
 				<div class="clearer" />
 			</div>
-			<div>
+			<div class="component">
 				<div class="title">新书上架</div>
 				<div>
 					<ui:repeat var="book" value="#{indexPageBean.newBooks}">
@@ -97,7 +97,7 @@
 				</div>
 				<div class="clearer" />
 			</div>
-			<div>
+			<div class="component">
 				<div class="title" style="float: left; width: 95%;">主编推荐</div>
 				<div>
 					<ui:repeat var="book" value="#{indexPageBean.editorRecommendBooks}">
@@ -129,7 +129,7 @@
 				</div>
 				<div class="clearer" />
 			</div>
-			<div>
+			<div class="component">
 				<div class="title">大家都在借什么?</div>
 				<div>
 					<ui:repeat var="book" value="#{indexPageBean.otherBorrowBooks}">
@@ -162,8 +162,8 @@
 				<div class="clearer" />
 			</div>
 		</div>
-		<div class="column" style="width: 200px;">
-			<div style="height: 400px;">
+		<div class="column" style="width: 210px;">
+			<div class="component" style="height: 400px;">
 				<div class="title">热门书讯</div>
 			</div>
 		</div>
