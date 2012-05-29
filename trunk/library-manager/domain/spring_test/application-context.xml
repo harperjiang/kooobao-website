@@ -60,6 +60,7 @@
 	<bean id="businessService" class="com.kooobao.lm.bizflow.DefaultBusinessService">
 		<property name="transactionDao" ref="transactionDao" />
 		<property name="visitorDao" ref="visitorDao" />
+		<property name="bookDao" ref="bookDao" />
 		<property name="expireRecordDao" ref="expireRecordDao" />
 		<property name="ruleDao" ref="ruleDao" />
 		<property name="stockDao" ref="stockDao" />

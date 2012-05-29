@@ -1,0 +1,25 @@
+@CHARSET "utf-8";
+
+div.attr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+div.attr label {
+	font-weight: bold;
+	width: 70px;
+	display: block;
+	float: left;
+}
+
+div.short_attr {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+div.short_attr label {
+	font-weight: bold;
+	width: 50px;
+	display: block;
+	float: left;
+}

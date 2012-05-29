@@ -8,7 +8,9 @@
 
 @IMPORT "button.css";
 
-@IMPORT "category.css";
+@IMPORT "component.css";
+
+@IMPORT "book_list.css";
 
 body {
 	text-align: center;
@@ -18,8 +20,6 @@ div {
 	text-align: left;
 	font-size: 12px;
 	font-family: Calibri, Simsun;
-	border-style: solid;
-	border-width: 1px;
 	overflow: visible;
 	white-space:normal;
 }
@@ -38,6 +38,11 @@ div.footer {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	width: 1000px;
+	text-align:center;
+	padding-top:10px;
+	padding-bottom:10px;
+	color:#112211;
+	background-color:#f1f2f3;
 }
 
 div.header a {
@@ -92,7 +97,6 @@ div.body {
 	height: auto;
 	width: 1000px;
 	overflow: auto;
-	background-image: url("/image/left-bg.gif");
 }
 
 div.body div.column {

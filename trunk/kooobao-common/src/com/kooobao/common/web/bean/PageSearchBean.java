@@ -38,7 +38,7 @@ public abstract class PageSearchBean extends AbstractBean {
 		this.pageCount = pageCount;
 	}
 
-	protected void setRecordCount(int recordCount) {
+	protected void setRecordCount(long recordCount) {
 		setPageCount((int) Math
 				.ceil(((double) recordCount / (double) getPageSize())));
 	}

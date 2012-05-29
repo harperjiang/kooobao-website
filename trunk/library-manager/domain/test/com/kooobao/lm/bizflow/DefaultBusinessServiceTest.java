@@ -23,9 +23,11 @@ import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.ExpireRecordState;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
-import com.kooobao.lm.book.dao.BookDao;
+import com.kooobao.lm.book.dao.JpaBookDao;
 import com.kooobao.lm.book.dao.StockDao;
 import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.book.entity.BookRelation;
+import com.kooobao.lm.book.entity.Category;
 import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
@@ -50,7 +52,7 @@ public class DefaultBusinessServiceTest extends
 	VisitorDao visitorDao;
 
 	@Resource
-	BookDao bookDao;
+	JpaBookDao bookDao;
 
 	@Resource
 	StockDao stockDao;
@@ -63,9 +65,22 @@ public class DefaultBusinessServiceTest extends
 		visitor.setStatus(VisitorStatus.ACTIVE);
 		visitorDao.store(visitor);
 
+		Category category = new Category();
+		bookDao.getEntityManager().persist(category);
+
 		Book book = new Book();
 		book.setOid(1);
+		book.setCategory(category);
+		book.getTags().add("AAA");
+		book.getTags().add("CCC");
 		bookDao.store(book);
+
+		Book book2 = new Book();
+		book2.setOid(2);
+		book2.setCategory(category);
+		book2.getTags().add("AAA");
+		book2.getTags().add("BBB");
+		bookDao.store(book2);
 
 		Stock stock = new Stock();
 		stock.setBook(book);
@@ -136,11 +151,17 @@ public class DefaultBusinessServiceTest extends
 
 	@Test
 	public void testAssumeReceived() {
-		
+
 	}
 
 	@Test
 	public void testBuildBookRelations() {
-		fail("Not yet implemented");
+		businessService.buildBookAssociations();
+		BookRelation br = bookDao
+				.getEntityManager()
+				.createQuery(
+						"select br from BookRelation br where br.from.oid = 1",
+						BookRelation.class).getSingleResult();
+		assertEquals(new BigDecimal("3"),br.getScore());
 	}
 }
