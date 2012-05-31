@@ -27,6 +27,10 @@
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_optlog_search" />
 	<table-generator name="searchSumTG" table="lm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_optlog_searchsum" />
+	<table-generator name="commentTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_book_comment" />
+	<table-generator name="newsTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_article_news" />
 
 
 
@@ -180,7 +184,31 @@
 			</basic>
 		</attributes>
 	</entity>
-	
+
+	<entity class="com.kooobao.lm.book.entity.Comment">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="commentTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.lm.article.entity.News">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="newsTG" />
+			</basic>
+		</attributes>
+	</entity>
+
 	<entity class="com.kooobao.lm.book.entity.BookRelation">
 		<primary-key>
 			<column name="book_from" />

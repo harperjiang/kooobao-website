@@ -49,6 +49,11 @@ public class JpaUserDao implements UserDao {
 	}
 
 	public User store(User user) {
+		if (0 == user.getVersion()) {
+			user.setVersion(1);
+			getEntityManager().persist(user);
+			return user;
+		}
 		return getEntityManager().merge(user);
 	}
 

@@ -5,6 +5,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.Transaction;
@@ -41,6 +43,11 @@ public class TransactionBean extends AbstractBean {
 	public boolean isCanCancel() {
 		return getTran().getState() == TransactionState.BORROW_REQUESTED
 				|| getTran().getState() == TransactionState.BORROW_APPROVED;
+	}
+
+	public boolean isCanComment() {
+		return getTran().getState() == TransactionState.RETURN_RECEIVED
+				&& StringUtils.isEmpty(getTran().getComment());
 	}
 
 	private Transaction tran;

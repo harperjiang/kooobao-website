@@ -6,9 +6,53 @@
 	<import resource="env.xml" />
 	<import resource="auth.xml" />
 
+	<bean id="visitorDao" class="com.kooobao.lm.profile.dao.JpaVisitorDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="ruleDao" class="com.kooobao.lm.rule.dao.FixRuleDao" />
+	<bean id="operationLogDao" class="com.kooobao.lm.optlog.dao.JpaOperationLogDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="bookDao" class="com.kooobao.lm.book.dao.JpaBookDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="categoryDao" class="com.kooobao.lm.book.dao.JpaCategoryDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="stockDao" class="com.kooobao.lm.book.dao.JpaStockDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="expireRecordDao" class="com.kooobao.lm.bizflow.dao.JpaExpireRecordDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="favouriteDao" class="com.kooobao.lm.bizflow.dao.JpaFavouriteDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="transactionDao" class="com.kooobao.lm.bizflow.dao.JpaTransactionDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+	<bean id="recommendDao" class="com.kooobao.lm.book.dao.JpaRecommendDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.exmail.qq.com" />
+		<property name="port" value="25" />
+		<property name="username" value="info@kooobao.cn" />
+		<property name="password" value="debbie1984" />
+	</bean>
+
+	<bean id="profileService" class="com.kooobao.lm.profile.DefaultProfileService">
+		<property name="visitorDao" ref="visitorDao" />
+		<property name="userService" ref="userService" />
+		<property name="mailSender" ref="mailSender" />
+		<property name="ruleDao" ref="ruleDao" />
+	</bean>
+
 	<bean id="bookService" class="com.kooobao.lm.book.DummyBookService" />
-	<bean id="profileService" class="com.kooobao.lm.profile.DummyProfileService" />
+
 	<bean id="transactionService" class="com.kooobao.lm.bizflow.DummyTransactionService" />
+
 	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DummyFavouriteService" />
 
 	<bean id="indexPageBean" class="com.kooobao.lm.IndexPageBean">

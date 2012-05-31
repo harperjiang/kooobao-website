@@ -11,10 +11,8 @@
 	font-size: 14px;
 	display: block;
 	float: left;
-	width: 100px;
+	width: 90px;
 	font-weight: bold;
-	border-style: solid;
-	border-width: 1px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -22,9 +20,7 @@
 .content_text {
 	font-size: 14px;
 	float: left;
-	width: 100px;
-	border-style: solid;
-	border-width: 1px;
+	width: 70px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -52,10 +48,10 @@
 	<ui:define name="body">
 		<ui:decorate template="my_menu.xhtml" />
 		<div
-			style="margin-top: 5px; margin-bottom: 5px; float: left; width: 850px;">
-			<div class="part">
+			style="margin-left: 40px; margin-top: 5px; margin-bottom: 5px; float: left; width: 810px;">
+			<div class="part" style="background-color: #fdfcfb;">
 				<div
-					style="width: 230px; float: left; padding-top: 15px; padding-left: 10px;">
+					style="width: 210px; float: left; padding-top: 12px; padding-left: 40px; padding-bottom: 10px; background-color: #ffe2dd;">
 					<h:outputText styleClass="label_text" value="订单号码:" />
 					<h:outputText styleClass="content_text"
 						value="#{transactionBean.tran.oid}" />
@@ -157,10 +153,20 @@
 				</div>
 			</div>
 			<div class="part">
-				<h:commandLink styleClass="btn_negative"
-					rendered="#{transactionBean.canCancel}"
-					action="#{transactionBean.cancel}">作废订单</h:commandLink>
-				评论
+				<h:form>
+					<h:commandLink styleClass="btn_negative"
+						rendered="#{transactionBean.canCancel}"
+						action="#{transactionBean.cancel}">作废订单</h:commandLink>
+					<h:panelGrid rendered="#{transactionBean.canComment}">
+						<div>评论</div>
+						<div>评分</div>
+						<div>
+							<h:inputTextarea></h:inputTextarea>
+						</div>
+						<h:commandLink styleClass="btn_regular"
+							action="#{transactionBean.saveCommend}">保存</h:commandLink>
+					</h:panelGrid>
+				</h:form>
 			</div>
 		</div>
 	</ui:define>

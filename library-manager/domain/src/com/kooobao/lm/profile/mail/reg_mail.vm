@@ -62,7 +62,7 @@ div.body {
 <body>
 	<div class="header">
 		<div style="float: left; width: 250px; height: 70px;">
-			<img src="/image/logo.gif" />
+			<img src="${website}/image/logo.gif" />
 		</div>
 		<div class="clearer"></div>
 	</div>
@@ -70,7 +70,7 @@ div.body {
 		<div
 			style="text-align: center; font-size: 18px; font-family: 黑体; margin-top: 5px; margin-bottom: 30px;">感谢您注册酷宝图书馆</div>
 		<div>
-			请点击链接完成注册: <a href="http://www.kooobao.cn/register_activate.html?uuid=${uuid}">http://www.kooobao.cn/register_activate.html</a>
+			请点击链接完成注册: <a href="http://www.kooobao.cn/register_activate.html?activate_id=${activation_id}">http://www.kooobao.cn/register_activate.html</a>
 		</div>
 	</div>
 	<div class="footer">

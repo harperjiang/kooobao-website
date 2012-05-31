@@ -6,9 +6,9 @@ public class VerifyCodeHelper {
 
 	public boolean verify(HttpSession session, String input) {
 		Object key = session.getAttribute(VerifyKey.KEY);
-		if(null == key || !(key instanceof VerifyKey))
+		if (null == key || !(key instanceof VerifyKey))
 			return false;
-		VerifyKey vkey = (VerifyKey)key;
-		return VerifyCodeManager.getInstance().verify(vkey,input);
+		VerifyKey vkey = (VerifyKey) key;
+		return VerifyCodeManager.getInstance().verify(vkey, input);
 	}
 }

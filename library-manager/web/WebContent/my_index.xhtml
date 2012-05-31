@@ -8,7 +8,7 @@
 	<ui:define name="body">
 		<ui:decorate template="my_menu.xhtml" />
 
-		<div >
+		<div style="width: 850px; float: left;">
 			<div class="part">
 				<div class="part_header">会员信息</div>
 				<div class="part_body">
@@ -44,7 +44,7 @@
 				<div class="part_header">借阅中的书</div>
 				<div class="part_body">
 					<div class="table_header">
-						<div class="table_header_col" style="width: 350px;">书籍名</div>
+						<div class="table_header_col" style="width: 320px;">书籍名</div>
 						<div class="table_header_col">订单号</div>
 						<div class="table_header_col">应还日期</div>
 						<div class="table_header_col">当前状态</div>
@@ -53,7 +53,7 @@
 						<h:form>
 							<ui:repeat var="tran" value="#{myIndexBean.activeTransactions}">
 								<div class="table_row">
-									<div class="table_cell" style="width: 350px;">
+									<div class="table_cell" style="width: 320px;">
 										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
 											value="/book.html">
 											<f:param name="book_id" value="#{tran.book.oid}" />

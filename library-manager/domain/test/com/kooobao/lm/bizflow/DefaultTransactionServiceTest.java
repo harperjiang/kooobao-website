@@ -21,6 +21,7 @@ import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.dao.BookDao;
 import com.kooobao.lm.book.dao.StockDao;
 import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
@@ -79,6 +80,12 @@ public class DefaultTransactionServiceTest extends
 		stock.setBook(cheapBook);
 		stock.setStock(5);
 		stockDao.store(stock);
+
+		Transaction tran = new Transaction();
+		tran.setOid(128);
+		tran.setVisitor(active);
+		tran.setBook(expBook);
+		transactionDao.store(tran);
 	}
 
 	@Test
@@ -287,7 +294,7 @@ public class DefaultTransactionServiceTest extends
 				.getDescription());
 		assertEquals(new BigDecimal(120), visitorDao.find(2).getDeposit());
 	}
-	
+
 	@Test
 	public void testCancelTransaction2() {
 		Visitor v = visitorDao.find(2);
@@ -308,7 +315,7 @@ public class DefaultTransactionServiceTest extends
 				.getDescription());
 		assertEquals(new BigDecimal(120), visitorDao.find(2).getDeposit());
 	}
-	
+
 	@Test
 	public void testInterrupt() {
 		Visitor v = visitorDao.find(2);
@@ -328,6 +335,20 @@ public class DefaultTransactionServiceTest extends
 		assertEquals("您的订单无法完成，原因:Some Reason", tran.getOperations().get(2)
 				.getDescription());
 		assertEquals(new BigDecimal(20), visitorDao.find(2).getDeposit());
+	}
+
+	@Test
+	public void testAddComment() {
+		Comment c = new Comment();
+		c.setRating(5);
+		c.setContent("这是一大段评论");
+
+		Transaction t = transactionService.addComment(transactionDao.find(128),
+				c);
+		assertEquals("这是一大段评论",t.getComment());
+		assertEquals(1,t.getBook().getComments().size());
+		assertEquals("这是一大段评论",t.getBook().getComments().get(0).getContent());
+		
 	}
 
 	@Test

@@ -77,6 +77,12 @@
 			<to-view-id>/register_done.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{registerBean.register}</from-action>
+			<from-outcome>failed</from-outcome>
+			<to-view-id>/register.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>category.xhtml</display-name>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="library-manager-domain" transaction-type="RESOURCE_LOCAL">
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="library-manager-domain"
+		transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>java:/comp/env/jdbc/KooobookDS</non-jta-data-source>
 		<mapping-file>META-INF/orm.xml</mapping-file>
 		<class>com.kooobao.lm.profile.entity.Address</class>
 		<class>com.kooobao.lm.profile.entity.ActivationRecord</class>
@@ -18,12 +22,10 @@
 		<class>com.kooobao.lm.bizflow.entity.Transaction</class>
 		<class>com.kooobao.lm.profile.entity.BasicAddress</class>
 		<class>com.kooobao.lm.book.entity.BookRelation</class>
+		<class>com.kooobao.lm.book.entity.Comment</class>
+		<class>com.kooobao.lm.article.entity.News</class>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lm"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="jieninan"/>
-			<property name="eclipselink.logging.level.sql" value="ALL"/>
+			<property name="eclipselink.logging.level.sql" value="ALL" />
 		</properties>
 	</persistence-unit>
 </persistence>
