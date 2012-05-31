@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-#{articleBean.article.title}</ui:define>
+	<ui:define name="body">
+		<div class="cross_page_banner">
+			<h:outputText value="#{newsBean.article.title}" />
+		</div>
+		<div>
+			<h:outputText value="#{newsBean.article.content}" escape="false" />
+		</div>
+	</ui:define>
+</ui:composition>

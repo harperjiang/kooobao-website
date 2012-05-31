@@ -156,12 +156,19 @@
 						</div>
 					</ui:repeat>
 				</div>
-				<div class="clearer" />
 			</div>
 		</div>
 		<div class="column" style="width: 210px;">
 			<div class="component" style="height: 400px;">
 				<div class="title">热门书讯</div>
+				<ui:repeat var="article" value="#{indexPageBean.articles}">
+					<div style="margin-top: 6px; margin-bottom: 6px; margin-left: 10px;">
+						<h:outputLink value="/news.html">
+							<h:outputText value="#{article.title}" />
+							<f:param name="news_id" value="#{article.oid}" />
+						</h:outputLink>
+					</div>
+				</ui:repeat>
 			</div>
 		</div>
 		<div class="clearer" />

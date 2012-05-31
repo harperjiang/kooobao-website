@@ -34,6 +34,9 @@
 	<bean id="recommendDao" class="com.kooobao.lm.book.dao.JpaRecommendDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
+	<bean id="newsDao" class="com.kooobao.lm.article.dao.JpaNewsDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.exmail.qq.com" />
@@ -48,7 +51,9 @@
 		<property name="mailSender" ref="mailSender" />
 		<property name="ruleDao" ref="ruleDao" />
 	</bean>
-
+	<bean id="newsService" class="com.kooobao.lm.article.DefaultNewsService">
+		<property name="newsDao" ref="newsDao" />
+	</bean>
 	<bean id="bookService" class="com.kooobao.lm.book.DummyBookService" />
 
 	<bean id="transactionService" class="com.kooobao.lm.bizflow.DummyTransactionService" />
@@ -57,6 +62,7 @@
 
 	<bean id="indexPageBean" class="com.kooobao.lm.IndexPageBean">
 		<property name="bookService" ref="bookService" />
+		<property name="newsService" ref="newsService" />
 	</bean>
 	<bean id="hotSearchBean" class="com.kooobao.lm.book.HotSearchBean">
 		<property name="bookService" ref="bookService" />

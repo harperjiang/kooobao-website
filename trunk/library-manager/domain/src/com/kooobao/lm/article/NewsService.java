@@ -9,4 +9,6 @@ public interface NewsService {
 	public List<News> getLatestNews();
 	
 	public News addNews(News newNews);
+
+	public News findNews(long oid);
 }
