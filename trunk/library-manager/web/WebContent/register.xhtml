@@ -6,9 +6,10 @@
 	<ui:param name="displayLogin" value="false"></ui:param>
 	<ui:define name="title">酷宝图书馆-新用户注册</ui:define>
 	<ui:define name="body">
+		<div class="cross_page_banner">欢迎注册成为酷宝图书馆用户，免费遨游图书世界</div>
 		<h:form id="registerForm">
 			<div
-				style="width: 600px; margin: 0 auto; padding: 5px; overflow: visible;"
+				style="width: 600px; margin: 0 auto; padding: 15px; border-width: 2px; border-style: solid; height: 220px; border-color: #deedee;"
 				class="form">
 				<h:messages errorStyle="color:#FF0000;font-weight:bold;" />
 				<h:outputLabel for="emailText" value="注册邮箱" />
@@ -17,7 +18,7 @@
 				<h:outputText style="font-size:11px;"
 					value="注册邮箱将同时作为您的登陆账号，请填写常用邮箱" />
 				<br />
-				<h:outputLabel for="passwordText" value="登录密码" />
+				<h:outputLabel for="passwordText" value="请设置密码" />
 				<h:inputSecret id="passwordText" value="#{registerBean.password}"
 					required="true" requiredMessage="密码不能为空" />
 				<br />
@@ -33,11 +34,13 @@
 				<div style="float: left; width: 420px; margin-left: 190px;">
 					<img id="verifycodeImg" src="/image/verifycode.jpg"
 						onclick="this.src=this.src+'?'" />
-					<h:outputText value="点击验证码刷新" />
+					<h:outputText style="margin-left:10px;" value="点击验证码刷新" />
 				</div>
 				<br />
-				<h:commandLink style="float:left;" action="#{registerBean.register}"
-					styleClass="btn_positive">注册</h:commandLink>
+				<div style="float: left; margin-left: 200px; margin-top: 20px;">
+					<h:commandLink action="#{registerBean.register}"
+						styleClass="btn_solid">注册新用户</h:commandLink>
+				</div>
 			</div>
 		</h:form>
 	</ui:define>

@@ -13,9 +13,11 @@ import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.ExpireRecordState;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
+import com.kooobao.lm.book.dao.BookDao;
 import com.kooobao.lm.book.dao.RecommendDao;
 import com.kooobao.lm.book.dao.StockDao;
 import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
@@ -198,6 +200,25 @@ public class DefaultTransactionService implements TransactionService {
 
 	public void setStockDao(StockDao stockDao) {
 		this.stockDao = stockDao;
+	}
+
+	private BookDao bookDao;
+
+	public BookDao getBookDao() {
+		return bookDao;
+	}
+
+	public void setBookDao(BookDao bookDao) {
+		this.bookDao = bookDao;
+	}
+
+	public Transaction addComment(Transaction tran, Comment comment) {
+		tran.setComment(comment.getContent());
+		comment.setCreateTime(new Date());
+		tran.getBook().addComment(comment);
+		getBookDao().store(tran.getBook());
+		return getTransactionDao().store(tran);
+
 	}
 
 }

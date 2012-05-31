@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.web.bean.AbstractBean;
 
-@ManagedBean(name = "registerActiveBean")
+@ManagedBean(name = "registerActivateBean")
 @SessionScoped
 public class RegisterActivateBean extends AbstractBean {
 

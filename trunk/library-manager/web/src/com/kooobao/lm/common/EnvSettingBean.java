@@ -39,4 +39,14 @@ public class EnvSettingBean extends AbstractBean {
 		this.rewriteUrl = rewriteUrl;
 	}
 
+	private String websiteLoc;
+
+	public String getWebsiteLoc() {
+		return websiteLoc;
+	}
+
+	public void setWebsiteLoc(String websiteLoc) {
+		this.websiteLoc = websiteLoc;
+	}
+
 }

@@ -7,84 +7,88 @@
 	<ui:define name="title">酷宝图书馆-我的图书馆</ui:define>
 	<ui:define name="body">
 		<ui:decorate template="my_menu.xhtml" />
-		<div class="part">
-			<div class="part_header">借阅记录查询</div>
-			<div class="part_body">
-				<h:form id="queryForm">
-					<div class="onerow_form" style="height:35px;">
-						<h:outputLabel for="fromDateText" id="fromDateLabel">起始日期</h:outputLabel>
-						<h:inputText id="fromDateText"
-							value="#{myQueryBean.searchBean.fromDate}">
-							<f:convertDateTime pattern="yyyy-MM-dd" />
-						</h:inputText>
-						<h:outputLabel for="toDateText" id="toDateLabel">结束日期</h:outputLabel>
-						<h:inputText id="toDateText"
-							value="#{myQueryBean.searchBean.toDate}">
-							<f:convertDateTime pattern="yyyy-MM-dd" />
-						</h:inputText>
-						<h:outputLabel for="stateSelect" id="stateLabel">状态</h:outputLabel>
-						<h:selectOneMenu id="stateSelect"
-							value="#{myQueryBean.searchBean.state}">
-							<f:selectItems value="#{suppDataBean.transactionStates}" />
-							<f:converter converterId="selectItemConverter" />
-						</h:selectOneMenu>
-						<h:commandLink styleClass="btn_positive" style="float:left;"
-							action="#{myQueryBean.search}">查询
+		<div style="width: 850px; float: left;">
+			<div class="part">
+				<div class="part_header">借阅记录查询</div>
+				<div class="part_body">
+					<h:form id="queryForm">
+						<div class="onerow_form" style="height: 35px;">
+							<h:outputLabel for="fromDateText" id="fromDateLabel">起始日期</h:outputLabel>
+							<h:inputText id="fromDateText"
+								value="#{myQueryBean.searchBean.fromDate}">
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:inputText>
+							<h:outputLabel for="toDateText" id="toDateLabel">结束日期</h:outputLabel>
+							<h:inputText id="toDateText"
+								value="#{myQueryBean.searchBean.toDate}">
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:inputText>
+							<h:outputLabel for="stateSelect" id="stateLabel">状态</h:outputLabel>
+							<h:selectOneMenu id="stateSelect"
+								value="#{myQueryBean.searchBean.state}">
+								<f:selectItems value="#{suppDataBean.transactionStates}" />
+								<f:converter converterId="selectItemConverter" />
+							</h:selectOneMenu>
+							<h:commandLink styleClass="btn_positive" style="float:left;"
+								action="#{myQueryBean.search}">查询
 						</h:commandLink>
-					</div>
-				</h:form>
-				<div class="table_header">
-					<div class="table_header_col" style="width: 350px;">借阅书籍</div>
-					<div class="table_header_col">订单号</div>
-					<div class="table_header_col">订单日期</div>
-					<div class="table_header_col">订单状态</div>
-				</div>
-				<div>
-					<h:form>
-						<ui:repeat var="tran" value="#{myQueryBean.result}">
-							<div class="table_row">
-								<div class="table_cell" style="width: 350px;">
-									<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
-										value="/book.html">
-										<f:param name="book_id" value="#{tran.book.oid}" />
-										<h:outputText value="#{tran.book.name}" />
-									</h:outputLink>
-									<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
-										value="/book_#{tran.book.oid}.html">
-										<h:outputText value="#{tran.book.name}" />
-									</h:outputLink>
-								</div>
-								<div class="table_cell">
-									<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
-										value="/transaction.html">
-										<f:param name="tran_id" value="#{tran.oid}" />
-										<h:outputText value="#{tran.id}" />
-									</h:outputLink>
-									<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
-										value="/transaction_#{tran.oid}.html">
-										<h:outputText value="#{tran.id}" />
-									</h:outputLink>
-								</div>
-								<div class="table_cell">
-									<h:outputText value="#{tran.createTime}">
-										<f:convertDateTime pattern="yyyy-MM-dd" />
-									</h:outputText>
-								</div>
-								<div class="table_cell">
-									<h:outputText value="#{tran.stateText}" />
-								</div>
-							</div>
-						</ui:repeat>
-						<div style="float: right; margin-right: 150px;">
-							<h:form>
-								<h:commandLink styleClass="btn" action="#{myQueryBean.prevPage}">上一页</h:commandLink>
-								<h:outputText
-									style="display:block;float:left;padding-top:6px;margin-right:5px;"
-									value="第#{myQueryBean.currentPage}页，共#{myQueryBean.pageCount}页" />
-								<h:commandLink styleClass="btn" action="#{myQueryBean.nextPage}">下一页</h:commandLink>
-							</h:form>
 						</div>
 					</h:form>
+					<div class="table_header">
+						<div class="table_header_col" style="width: 320px;">借阅书籍</div>
+						<div class="table_header_col">订单号</div>
+						<div class="table_header_col">订单日期</div>
+						<div class="table_header_col">订单状态</div>
+					</div>
+					<div>
+						<h:form>
+							<ui:repeat var="tran" value="#{myQueryBean.result}">
+								<div class="table_row">
+									<div class="table_cell" style="width: 320px;">
+										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+											value="/book.html">
+											<f:param name="book_id" value="#{tran.book.oid}" />
+											<h:outputText value="#{tran.book.name}" />
+										</h:outputLink>
+										<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+											value="/book_#{tran.book.oid}.html">
+											<h:outputText value="#{tran.book.name}" />
+										</h:outputLink>
+									</div>
+									<div class="table_cell">
+										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+											value="/transaction.html">
+											<f:param name="tran_id" value="#{tran.oid}" />
+											<h:outputText value="#{tran.id}" />
+										</h:outputLink>
+										<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+											value="/transaction_#{tran.oid}.html">
+											<h:outputText value="#{tran.id}" />
+										</h:outputLink>
+									</div>
+									<div class="table_cell">
+										<h:outputText value="#{tran.createTime}">
+											<f:convertDateTime pattern="yyyy-MM-dd" />
+										</h:outputText>
+									</div>
+									<div class="table_cell">
+										<h:outputText value="#{tran.stateText}" />
+									</div>
+								</div>
+							</ui:repeat>
+							<div style="float: right; margin-right: 150px;">
+								<h:form>
+									<h:commandLink styleClass="btn"
+										action="#{myQueryBean.prevPage}">上一页</h:commandLink>
+									<h:outputText
+										style="display:block;float:left;padding-top:6px;margin-right:5px;"
+										value="第#{myQueryBean.currentPage}页，共#{myQueryBean.pageCount}页" />
+									<h:commandLink styleClass="btn"
+										action="#{myQueryBean.nextPage}">下一页</h:commandLink>
+								</h:form>
+							</div>
+						</h:form>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -61,7 +61,7 @@ public class DefaultProfileService implements ProfileService {
 		model.put("activation_id", activationId);
 		TemplateMailMessage tmm = new TemplateMailMessage(
 				"/com/kooobao/lm/profile/mail/reg_mail.vm", model);
-		tmm.setFrom("info@kooobao.cn");
+		tmm.setFrom("酷宝图书馆");
 		tmm.setSubject("感谢注册酷宝图书馆，请激活您的账户");
 		tmm.setTo(new String[] { email });
 		getMailSender().send(tmm);

@@ -6,21 +6,11 @@
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-搜索图书</ui:define>
 	<ui:define name="body">
-		<style type="text/css">
-.attr {
-	float: left;
-	width: 150px;
-}
-
-.attr label {
-	margin-right: 30px;
-}
-</style>
 		<div style="float: left; margin: 5px; width: 765px;">
 			<div style="font-size: 18px; margin-top: 10px; margin-bottom: 10px;">搜索结果</div>
 
 			<h:panelGroup layout="block">
-				<div>
+				<div style="margin-top: 2px; margin-bottom: 10px;">
 					<h:form>
 						<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
 						<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
@@ -72,7 +62,7 @@
 
 				<div class="clearer" />
 
-				<div>
+				<div class="margin-top:10px;margin-bottom:2px;">
 					<h:form>
 						<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
 						<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
@@ -114,7 +104,10 @@
 
 				<h:panelGroup layout="block" rendered="#{status.index != 0}"
 					style="margin-top:5px;margin-bottom:5px;">
-					<h:outputText value="#{book.name}" />
+					<h:outputLink value="/book.html">
+						<h:outputText value="#{book.name}" />
+						<f:param name="book_id" value="#{book.oid}" />
+					</h:outputLink>
 				</h:panelGroup>
 			</ui:repeat>
 		</div>

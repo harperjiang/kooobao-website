@@ -55,6 +55,7 @@
 		<property name="ruleDao" ref="ruleDao" />
 		<property name="recommendDao" ref="recommendDao" />
 		<property name="stockDao" ref="stockDao" />
+		<property name="bookDao" ref="bookDao" />
 	</bean>
 
 	<bean id="businessService" class="com.kooobao.lm.bizflow.DefaultBusinessService">
@@ -67,8 +68,8 @@
 	</bean>
 
 	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DefaultFavouriteService">
-		<property name="bookDao" ref="bookDao"/>
-		<property name="favouriteDao" ref="favouriteDao"/>
+		<property name="bookDao" ref="bookDao" />
+		<property name="favouriteDao" ref="favouriteDao" />
 	</bean>
 
 

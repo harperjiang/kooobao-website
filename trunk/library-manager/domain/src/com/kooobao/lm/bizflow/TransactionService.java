@@ -7,6 +7,7 @@ import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public interface TransactionService {
@@ -64,4 +65,5 @@ public interface TransactionService {
 
 	ExpireRecord findExpireRecord(Transaction tran);
 
+	Transaction addComment(Transaction tran, Comment comment);
 }

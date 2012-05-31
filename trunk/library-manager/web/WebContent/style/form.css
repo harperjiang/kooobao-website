@@ -10,7 +10,8 @@ div.form label,div.form input,div.form select,div.form table
 
 div.form label {
 	margin-left: 10px;
-	width: 180px;
+	padding-left:40px;
+	width: 140px;
 }
 
 div.form input,div.form select,div.form table {

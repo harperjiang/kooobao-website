@@ -187,6 +187,9 @@ public class Transaction extends VersionEntity {
 	@Column(name = "flag")
 	private int flag;
 
+	@Column(name = "comment")
+	private String comment;
+
 	public Visitor getVisitor() {
 		return visitor;
 	}
@@ -286,6 +289,14 @@ public class Transaction extends VersionEntity {
 			flag |= FLAG_STOCK_RESERVE;
 		else
 			flag &= (-1 ^ FLAG_STOCK_RESERVE);
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 }

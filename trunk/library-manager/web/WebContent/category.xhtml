@@ -6,7 +6,7 @@
 	<ui:param name="displayLogin" value="true" />
 	<ui:define name="title">酷宝图书馆-#{categoryBean.selectedCategory.name}</ui:define>
 	<ui:define name="body">
-		<div style="width: 180px; float: left; margin: 5px;">
+		<div class="component" style="width: 180px; float: left; margin: 5px;">
 			<div class="title">书籍分类</div>
 			<ui:repeat var="category" value="#{suppDataBean.categories}">
 				<div id="category_#{category.oid}" class="category">
@@ -32,7 +32,7 @@
 		</div>
 		<div
 			style="margin-top: 5px; margin-bottom: 5px; width: 790px; float: left;">
-			<div>
+			<div style="margin-top: 2px; margin-bottom: 10px;">
 				<h:form>
 					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
 					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
@@ -87,7 +87,7 @@
 				</div>
 				<div class="clearer" />
 			</ui:repeat>
-			<div>
+			<div style="margin-top: 10px; margin-bottom: 2px;">
 				<h:form>
 					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
 					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>

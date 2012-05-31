@@ -7,67 +7,69 @@
 	<ui:define name="title">酷宝图书馆-收货地址</ui:define>
 	<ui:define name="body">
 		<ui:decorate template="my_menu.xhtml" />
-		<div class="part">
-			<div class="part_header">管理收货地址</div>
-			<div class="part_body">
-				<div class="table_header">
-					<div class="table_header_col">收件人</div>
-					<div class="table_header_col" style="width: 350px;">地址</div>
-					<div class="table_header_col">联系电话</div>
-					<div class="table_header_col">操作</div>
-				</div>
-				<div>
-					<h:form>
-						<ui:repeat var="addr"
-							value="#{myManageAddrBean.visitor.availableAddresses}">
-							<h:panelGroup layout="block"
-								styleClass="table_row #{myManageAddrBean.visitor.address == addr?'row_default':''}">
-								<div class="table_cell">
-									<h:outputText value="#{addr.name}" />
-								</div>
-								<div class="table_cell" style="width: 350px;">
-									<h:outputText value="#{addr.location}" />
-								</div>
-								<div class="table_cell">
-									<h:outputText value="#{addr.phone}" />
-								</div>
-								<div class="table_cell"
-									style="margin-top: 7px; margin-left: 5px; width: 150px;">
-									<h:commandLink action="#{myManageAddrBean.setAsDefault}"
-										styleClass="btn_regular">
-										<h:outputText value="设为默认" />
-										<f:param name="addr_id" value="#{addr.oid}" />
-									</h:commandLink>
-									<h:commandLink action="#{myManageAddrBean.delete}"
-										styleClass="btn_negative">
-										<h:outputText value="删除" />
-										<f:param name="addr_id" value="#{addr.oid}" />
-									</h:commandLink>
-								</div>
-							</h:panelGroup>
-						</ui:repeat>
-					</h:form>
-				</div>
-				<div class="form" style="width: 600px;">
-					<h:form>
-						<div style="margin: 10px; font-size: 13px;">添加新的收件地址</div>
-						<h:outputLabel id="nameLabel" for="nameText">收件人姓名</h:outputLabel>
-						<h:inputText id="nameText"
-							value="#{myManageAddrBean.newAddr.name}" />
-						<br />
-						<h:outputLabel id="addrLabel" for="addrText">收件人地址</h:outputLabel>
-						<h:inputText id="addrText"
-							value="#{myManageAddrBean.newAddr.location}" />
-						<br />
-						<h:outputLabel id="phoneLabel" for="phoneText">联系电话</h:outputLabel>
-						<h:inputText id="phoneText"
-							value="#{myManageAddrBean.newAddr.phone}" />
-						<br />
-						<div style="width: 500px;margin-left:10px;">
-							<h:commandLink styleClass="btn_positive"
-								action="#{myManageAddrBean.save}">保存</h:commandLink>
-						</div>
-					</h:form>
+		<div style="width: 850px; float: left;">
+			<div class="part">
+				<div class="part_header">管理收货地址</div>
+				<div class="part_body">
+					<div class="table_header">
+						<div class="table_header_col">收件人</div>
+						<div class="table_header_col" style="width: 320px;">地址</div>
+						<div class="table_header_col">联系电话</div>
+						<div class="table_header_col">操作</div>
+					</div>
+					<div>
+						<h:form>
+							<ui:repeat var="addr"
+								value="#{myManageAddrBean.visitor.availableAddresses}">
+								<h:panelGroup layout="block"
+									styleClass="table_row #{myManageAddrBean.visitor.address == addr?'row_default':''}">
+									<div class="table_cell">
+										<h:outputText value="#{addr.name}" />
+									</div>
+									<div class="table_cell" style="width: 320px;">
+										<h:outputText value="#{addr.location}" />
+									</div>
+									<div class="table_cell">
+										<h:outputText value="#{addr.phone}" />
+									</div>
+									<div class="table_cell"
+										style="margin-top: 7px; margin-left: 5px; width: 150px;">
+										<h:commandLink action="#{myManageAddrBean.setAsDefault}"
+											styleClass="btn_regular">
+											<h:outputText value="设为默认" />
+											<f:param name="addr_id" value="#{addr.oid}" />
+										</h:commandLink>
+										<h:commandLink action="#{myManageAddrBean.delete}"
+											styleClass="btn_negative">
+											<h:outputText value="删除" />
+											<f:param name="addr_id" value="#{addr.oid}" />
+										</h:commandLink>
+									</div>
+								</h:panelGroup>
+							</ui:repeat>
+						</h:form>
+					</div>
+					<div class="form" style="width: 600px;">
+						<h:form>
+							<div style="margin: 10px; font-size: 14px; font-weight: bold;">添加新的收件地址</div>
+							<h:outputLabel id="nameLabel" for="nameText">收件人姓名</h:outputLabel>
+							<h:inputText id="nameText"
+								value="#{myManageAddrBean.newAddr.name}" />
+							<br />
+							<h:outputLabel id="addrLabel" for="addrText">收件人地址</h:outputLabel>
+							<h:inputText id="addrText"
+								value="#{myManageAddrBean.newAddr.location}" />
+							<br />
+							<h:outputLabel id="phoneLabel" for="phoneText">联系电话</h:outputLabel>
+							<h:inputText id="phoneText"
+								value="#{myManageAddrBean.newAddr.phone}" />
+							<br />
+							<div style="width: 500px; margin-left: 10px;">
+								<h:commandLink styleClass="btn_positive"
+									action="#{myManageAddrBean.save}">保存</h:commandLink>
+							</div>
+						</h:form>
+					</div>
 				</div>
 			</div>
 		</div>

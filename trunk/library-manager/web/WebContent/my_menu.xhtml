@@ -1,14 +1,23 @@
-<div style="margin: 5px; width: 100px;float:left;">
-<style type="text/css">
+<div style="margin: 5px; width: 130px; float: left;">
+	<style type="text/css">
+div.section {
+	background-color: #f2f1f3;
+}
+
 div.section_header {
 	font-size: 14px;
-	padding: 5px;
-	border-width: 3px;
-	border-top-color: #00FFFF;
-	border-left-color: #00FFFF;
-	border-right-color: #FF0000;
-	border-bottom-color: #FF0000;
-	border-style: solid;
+	padding-left: 15px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	background-color: #f5fa79;
+	color: #327564;
+	font-weight: bolder;
+}
+
+div.item {
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 div.section ul {
@@ -19,42 +28,45 @@ div.section ul {
 
 div.section li {
 	padding: 0px;
-	margin-bottom: 7px;
-	margin-left: 15px;
-	margin-top: 7px;
+	padding-bottom: 7px;
+	padding-left: 15px;
+	padding-top: 7px;
 }
 
 div.section a {
 	display: block;
-	color: #000000;
+	color: #2dc4ea;
 	text-decoration: none;
 }
 
-div.section a {
-	display: block;
-	color: #000000;
-	text-decoration: none;
-}
 
 div.section a:visited {
-	color: #000000;
+	color: #2dc4ea;
 }
 </style>
 	<div class="section">
 		<div class="section_header">我的图书馆</div>
-		<div style="width:84px;height:94px;margin-left:auto;margin-right:auto;">
-			<a href="/my_index.html"><img src="" width="80" height="90"/></a>
+		<div
+			style="width: 84px; height: 94px; margin-left: auto; margin-right: auto;margin-top:5px;">
+			<a href="/my_index.html"><img src="" width="80" height="90" /></a>
 		</div>
-		<div style="text-align:center;margin-top:3px;margin-bottom:3px;">harper</div>
-		<div style="text-align:center;margin-top:3px;margin-bottom:3px;">初级会员</div>
-		<div style="text-align:center;margin-top:3px;margin-bottom:3px;">荣誉128</div>
-	</div>
-	<div class="section">
+		<div class="item">harper</div>
+		<div class="item">初级会员</div>
+		<div class="item">荣誉:444豆丁</div>
 		<div class="section_header">我的借阅</div>
-		<ul><li><a href="/my_query.html">借阅记录查询</a></li><li><a href="/my_expire.html">逾期记录查询</a></li><li><a href="/my_fav.html">我的收藏</a></li></ul>
+		<ul>
+			<li><a href="/my_query.html">借阅记录查询</a></li>
+			<li><a href="/my_expire.html">逾期记录查询</a></li>
+			<li><a href="/my_fav.html">我的收藏</a></li>
+		</ul>
 	</div>
 	<div class="section">
 		<div class="section_header">我的账户</div>
-		<ul><li><a id="" href="/my_person.html">会员信息</a></li><li><a href="/my_redeem.html">账户充值</a></li><li><a href="/my_changepass.html">修改密码</a></li><li><a href="/my_manage_addr.html">管理收货地址</a></li></ul>
+		<ul>
+			<li><a id="" href="/my_person.html">会员信息</a></li>
+			<li><a href="/my_redeem.html">账户充值</a></li>
+			<li><a href="/my_changepass.html">修改密码</a></li>
+			<li><a href="/my_manage_addr.html">管理收货地址</a></li>
+		</ul>
 	</div>
 </div>

@@ -12,7 +12,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -55,6 +57,10 @@ public class Book extends SimpleEntity {
 	@MapKeyColumn(name = "content")
 	private Map<String, String> content = new HashMap<String, String>();
 
+	@OneToMany(mappedBy="book")
+	@OrderBy("createTime desc")
+	private List<Comment> comments = new ArrayList<Comment>();
+	
 	public Category getCategory() {
 		return category;
 	}
@@ -199,4 +205,12 @@ public class Book extends SimpleEntity {
 		this.rating = rating;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void addComment(Comment comment) {
+		comment.setBook(this);
+		getComments().add(0, comment);
+	}
 }

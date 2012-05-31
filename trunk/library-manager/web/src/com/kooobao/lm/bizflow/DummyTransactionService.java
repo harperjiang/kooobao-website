@@ -13,6 +13,7 @@ import com.kooobao.lm.bizflow.entity.Operation;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.entity.Book;
+import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public class DummyTransactionService implements TransactionService {
@@ -160,6 +161,12 @@ public class DummyTransactionService implements TransactionService {
 
 	@Override
 	public Transaction interrupt(Transaction tran, String reason) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Transaction addComment(Transaction tran, Comment comment) {
 		// TODO Auto-generated method stub
 		return null;
 	}

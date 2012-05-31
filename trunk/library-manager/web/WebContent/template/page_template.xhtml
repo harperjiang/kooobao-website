@@ -30,6 +30,7 @@
 		<h:panelGroup rendered="#{loginBean.loggedIn and displayLogin}"
 			layout="block" style="float:right;margin-right:40px;">
 			<h:form>
+				<h:outputText value="欢迎您，#{loginBean.userId}"/>
 				<h:outputLink value="/my_index.html">我的图书馆</h:outputLink>
 				<h:outputLink value="/cart.html">我的借书篮</h:outputLink>
 				<h:commandLink action="#{loginBean.logout}">[注销]</h:commandLink>
@@ -44,8 +45,8 @@
 				<h:inputText id="searchText" value="#{searchBookBean.keyword}"
 					style="width:250px;" />
 			</div>
-			<h:commandLink id="searchButton" styleClass="btn_positive"
-				action="#{searchBookBean.search}">搜索</h:commandLink>
+			<h:commandLink id="searchButton" styleClass="btn_solid_small"
+				style="float:left;" action="#{searchBookBean.search}">搜索</h:commandLink>
 			<div style="display: block; float: left; padding-top: 5px;">
 				<span style="margin-left: 25px;">热搜词:</span> <span> <ui:repeat
 						value="#{hotSearchBean.hotWords}" var="hotWord">
@@ -63,7 +64,7 @@
 		<ui:insert name="body" />
 	</div>
 	<div class="footer">
-		上海优阁信息技术有限公司  上海酷宝原版少儿英语<br /> Copyright@ 2005-2012
+		上海优阁信息技术有限公司 上海酷宝原版少儿英语<br /> Copyright@ 2005-2012
 	</div>
 </h:body>
 </html>
