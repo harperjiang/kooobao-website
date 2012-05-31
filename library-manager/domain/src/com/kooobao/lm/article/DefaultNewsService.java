@@ -26,6 +26,10 @@ public class DefaultNewsService implements NewsService {
 	public News addNews(News newNews) {
 		return getNewsDao().store(newNews);
 	}
+
+	public News findNews(long oid) {
+		return getNewsDao().find(oid);
+	}
 	
 	
 }

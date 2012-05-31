@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-文章管理</ui:define>
+	<ui:define name="body">
+		<div class="component">
+			<div class="title">搜索文章</div>
+			<h:form id="searchNewsForm">
+				<div class="form" style="width: 500px;">
+					<label>关键字</label>
+					<h:inputText />
+				</div>
+
+				<h:commandLink styleClass="btn_solid"
+					style="margin-left:200px;margin-top:20px;">搜索</h:commandLink>
+
+			</h:form>
+			<div>
+				<div class="table_header">
+					<div class="table_header_col" style="width: 200px;">文章名</div>
+				</div>
+				<ui:repeat var="" value="">
+					<div class="table_row">
+						<div class="table_cell" style="width: 200px;"></div>
+					</div>
+				</ui:repeat>
+			</div>
+		</div>
+		<div class="component">
+			<div class="title">添加新文章</div>
+
+			<h:form id="addNewsForm">
+				<div class="form" style="width: 600px;">
+					<label>标题</label>
+					<h:inputText value="#{manageArticleBean.article.title}" />
+					<br /> <label>文章内容</label>
+					<h:inputTextarea value="#{manageArticleBean.article.content}"
+						style="width:250px;" />
+					<br />
+				</div>
+				<h:commandLink styleClass="btn_solid"
+					action="#{manageArticleBean.save}"
+					style="margin-left:200px;margin-top:20px;">保存</h:commandLink>
+			</h:form>
+
+		</div>
+	</ui:define>
+</ui:composition>
