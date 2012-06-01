@@ -54,7 +54,12 @@
 	<bean id="newsService" class="com.kooobao.lm.article.DefaultNewsService">
 		<property name="newsDao" ref="newsDao" />
 	</bean>
-	<bean id="bookService" class="com.kooobao.lm.book.DummyBookService" />
+	<bean id="bookService" class="com.kooobao.lm.book.DefaultBookService">
+		<property name="bookDao" ref="bookDao" />
+		<property name="categoryDao" ref="categoryDao" />
+		<property name="opLogDao" ref="operationLogDao" />
+		<property name="recommendDao" ref="recommendDao" />
+	</bean>
 
 	<bean id="transactionService" class="com.kooobao.lm.bizflow.DummyTransactionService" />
 

@@ -33,4 +33,6 @@ public interface BookService {
 
 	public PageSearchResult<Book> getBooksInCategory(Category selectedCategory,
 			int start, int stop);
+
+	public Book save(Book book);
 }

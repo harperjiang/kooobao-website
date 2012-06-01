@@ -73,6 +73,10 @@ public class DefaultBookService implements BookService {
 		return getRecommendDao().recommend(null, book, RECOMMEND_LIMIT);
 	}
 
+	public Book save(Book book) {
+		return getBookDao().store(book);
+	}
+
 	private BookDao bookDao;
 
 	private CategoryDao categoryDao;
@@ -112,4 +116,5 @@ public class DefaultBookService implements BookService {
 	public void setRecommendDao(RecommendDao recommendDao) {
 		this.recommendDao = recommendDao;
 	}
+
 }

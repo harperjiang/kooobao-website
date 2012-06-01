@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
+import org.springframework.util.CollectionUtils;
+
 import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.common.web.bean.JSFStartupAware;
@@ -22,6 +24,8 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	private List<Category> categories;
 
+	private List<Category> allCategories;
+
 	@Override
 	public void init() {
 		transactionStates = new ArrayList<SelectItem>();
@@ -36,6 +40,15 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 		}
 
 		categories = getBookService().getRootCategories();
+		allCategories = new ArrayList<Category>();
+		allCategories.addAll(categories);
+		for(int i = 0 ; i < allCategories.size();i++) {
+			Category c = allCategories.get(i);
+			if(!CollectionUtils.isEmpty(c.getChildren())) {
+				allCategories.remove(i);i--;
+				allCategories.addAll(c.getChildren());
+			}
+		}
 	}
 
 	@Override
@@ -57,6 +70,10 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	public Date getCurrentTime() {
 		return new Date();
+	}
+
+	public List<Category> getAllCategories() {
+		return allCategories;
 	}
 
 	private BookService bookService;

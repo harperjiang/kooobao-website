@@ -1,7 +1,6 @@
 @CHARSET "utf-8";
 
-div.form label,div.form input,div.form select,div.form table
-		{
+div.form label,div.form input,div.form select,div.form table {
 	display: block;
 	float: left;
 	margin-top: 5px;
@@ -10,7 +9,7 @@ div.form label,div.form input,div.form select,div.form table
 
 div.form label {
 	margin-left: 10px;
-	padding-left:40px;
+	padding-left: 40px;
 	width: 140px;
 }
 
@@ -49,4 +48,27 @@ div.onerow_form label {
 div.onerow_form input,div.onerow_form select {
 	margin-left: 15px;
 	margin-right: 15px;
+}
+
+div.long_form label,div.long_form input,div.long_form select,div.long_form textarea
+	{
+	display: block;
+	float: left;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+div.long_form label {
+	margin-left: 10px;
+	padding-left: 40px;
+	width: 100px;
+}
+
+div.long_form input,div.long_form select,div.long_form table,div.long_form textarea
+	{
+	width: 600px;
+}
+
+div.long_form textarea {
+	height: 100px;
 }

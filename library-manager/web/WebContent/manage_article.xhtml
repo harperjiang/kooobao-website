@@ -11,23 +11,33 @@
 			<h:form id="searchNewsForm">
 				<div class="form" style="width: 500px;">
 					<label>关键字</label>
-					<h:inputText />
+					<h:inputText value="#{manageArticleBean.keyword}" />
 				</div>
 
 				<h:commandLink styleClass="btn_solid"
+					action="#{manageArticleBean.search}"
 					style="margin-left:200px;margin-top:20px;">搜索</h:commandLink>
 
-			</h:form>
-			<div>
-				<div class="table_header">
-					<div class="table_header_col" style="width: 200px;">文章名</div>
-				</div>
-				<ui:repeat var="" value="">
-					<div class="table_row">
-						<div class="table_cell" style="width: 200px;"></div>
+				<div>
+					<div class="table_header">
+						<div class="table_header_col" style="width: 200px;">文章名</div>
 					</div>
-				</ui:repeat>
-			</div>
+					<ui:repeat var="news" value="#{manageArticleBean.articles}">
+						<div class="table_row">
+							<div class="table_cell" style="width: 200px;">
+								<h:commandLink action="#{manageArticleBean.select}">
+									<h:outputText value="#{news.title}" />
+									<f:param name="news_id" value="#{news.oid}" />
+								</h:commandLink>
+							</div>
+						</div>
+					</ui:repeat>
+					<div>
+						<h:commandLink action="#{manageArticleBean.prevPage}">上一页</h:commandLink>
+						<h:commandLink action="#{manageArticleBean.nextPage}">下一页</h:commandLink>
+					</div>
+				</div>
+			</h:form>
 		</div>
 		<div class="component">
 			<div class="title">添加新文章</div>
