@@ -48,7 +48,7 @@ public class CategoryBean extends PageSearchBean {
 		PageSearchResult<Book> result = getBookService().getBooksInCategory(
 				selectedCategory, getRecordStart(), getRecordStop());
 		categoryBooks = result.getResult();
-		setRecordCount(result.getPageCount());
+		setRecordCount(result.getCount());
 		return "success";
 	}
 

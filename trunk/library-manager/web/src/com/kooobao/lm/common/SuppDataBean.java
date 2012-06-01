@@ -26,7 +26,6 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	private List<Category> allCategories;
 
-	@Override
 	public void init() {
 		transactionStates = new ArrayList<SelectItem>();
 		for (TransactionState state : TransactionState.values()) {
@@ -42,16 +41,16 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 		categories = getBookService().getRootCategories();
 		allCategories = new ArrayList<Category>();
 		allCategories.addAll(categories);
-		for(int i = 0 ; i < allCategories.size();i++) {
+		for (int i = 0; i < allCategories.size(); i++) {
 			Category c = allCategories.get(i);
-			if(!CollectionUtils.isEmpty(c.getChildren())) {
-				allCategories.remove(i);i--;
+			if (!CollectionUtils.isEmpty(c.getChildren())) {
+				allCategories.remove(i);
+				i--;
 				allCategories.addAll(c.getChildren());
 			}
 		}
 	}
 
-	@Override
 	public void dispose() {
 
 	}

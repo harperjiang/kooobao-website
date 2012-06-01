@@ -32,7 +32,7 @@ public class MyQueryBean extends PageSearchBean {
 		PageSearchResult<Transaction> pageResult = getTransactionService()
 				.findTransaction(myIndexBean.getVisitor(), searchBean);
 		setResult(pageResult.getResult());
-		setRecordCount(pageResult.getPageCount());
+		setRecordCount(pageResult.getCount());
 		return "success";
 	}
 
