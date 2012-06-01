@@ -44,6 +44,7 @@ public class JpaTransactionDaoTest extends
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		Transaction expire = new Transaction();
 		expire.setOid(125);
+		expire.setCreateTime(sdf.parse("20120501", new ParsePosition(0)));
 		expire.setVisitor(v);
 		expire.setState(TransactionState.RETURN_WAIT);
 		expire.setDueTime(sdf.parse("20120501", new ParsePosition(0)));

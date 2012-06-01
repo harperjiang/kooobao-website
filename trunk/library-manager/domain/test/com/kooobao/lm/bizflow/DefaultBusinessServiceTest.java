@@ -63,7 +63,7 @@ public class DefaultBusinessServiceTest extends
 		visitor.setOid(10);
 		visitor.setDeposit(new BigDecimal(100));
 		visitor.setStatus(VisitorStatus.ACTIVE);
-		visitorDao.store(visitor);
+		visitor = visitorDao.store(visitor);
 
 		Category category = new Category();
 		bookDao.getEntityManager().persist(category);
@@ -162,6 +162,6 @@ public class DefaultBusinessServiceTest extends
 				.createQuery(
 						"select br from BookRelation br where br.from.oid = 1",
 						BookRelation.class).getSingleResult();
-		assertEquals(new BigDecimal("3"),br.getScore());
+		assertEquals(new BigDecimal("3"), br.getScore());
 	}
 }

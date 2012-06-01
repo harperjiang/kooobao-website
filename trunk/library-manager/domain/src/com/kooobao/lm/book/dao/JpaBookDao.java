@@ -72,9 +72,8 @@ public class JpaBookDao extends AbstractJpaDao<Book> implements BookDao {
 	}
 
 	public void clearAssociations() {
-		getEntityManager().createNativeQuery("truncate table lm_book_relation")
+		getEntityManager().createNativeQuery("delete from lm_book_relation")
 				.executeUpdate();
-
 	}
 
 	public void addAssociation(Book iBook, Book jBook, int score) {

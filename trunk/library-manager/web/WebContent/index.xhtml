@@ -97,7 +97,7 @@
 				<div class="clearer" />
 			</div>
 			<div class="component">
-				<div class="title" style="float: left; width: 95%;">主编推荐</div>
+				<div class="title">主编推荐</div>
 				<div>
 					<ui:repeat var="book" value="#{indexPageBean.editorRecommendBooks}">
 						<div style="float: left; margin: 5px;">
@@ -162,7 +162,8 @@
 			<div class="component" style="height: 400px;">
 				<div class="title">热门书讯</div>
 				<ui:repeat var="article" value="#{indexPageBean.articles}">
-					<div style="margin-top: 6px; margin-bottom: 6px; margin-left: 10px;">
+					<div
+						style="margin-top: 6px; margin-bottom: 6px; margin-left: 10px;">
 						<h:outputLink value="/news.html">
 							<h:outputText value="#{article.title}" />
 							<f:param name="news_id" value="#{article.oid}" />
