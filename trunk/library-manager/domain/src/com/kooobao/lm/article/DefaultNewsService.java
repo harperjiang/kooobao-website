@@ -2,6 +2,7 @@ package com.kooobao.lm.article;
 
 import java.util.List;
 
+import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.article.dao.NewsDao;
 import com.kooobao.lm.article.entity.News;
 
@@ -18,7 +19,7 @@ public class DefaultNewsService implements NewsService {
 	}
 
 	static int LIMIT = 20;
-	
+
 	public List<News> getLatestNews() {
 		return getNewsDao().findLatestNews(LIMIT);
 	}
@@ -30,6 +31,9 @@ public class DefaultNewsService implements NewsService {
 	public News findNews(long oid) {
 		return getNewsDao().find(oid);
 	}
-	
-	
+
+	public PageSearchResult<News> searchNews(String keyword, int from, int to) {
+		return getNewsDao().search(keyword, from, to);
+	}
+
 }

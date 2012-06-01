@@ -21,7 +21,7 @@ div {
 	font-size: 12px;
 	font-family: Calibri, Simsun;
 	overflow: visible;
-	white-space:normal;
+	white-space: normal;
 }
 
 div.header {
@@ -38,11 +38,11 @@ div.footer {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	width: 1000px;
-	text-align:center;
-	padding-top:10px;
-	padding-bottom:10px;
-	color:#112211;
-	background-color:#f1f2f3;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	color: #112211;
+	background-color: #f1f2f3;
 }
 
 div.header a {

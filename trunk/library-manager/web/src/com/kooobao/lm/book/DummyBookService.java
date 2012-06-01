@@ -164,4 +164,10 @@ public class DummyBookService implements BookService {
 	public Category getCategory(long categoryOid) {
 		return getRootCategories().get(0);
 	}
+
+	@Override
+	public Book save(Book book) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

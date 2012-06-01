@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-图书管理</ui:define>
+	<ui:define name="body">
+		<div class="component">
+			<div class="title">搜索图书</div>
+			<h:form id="searchBookForm">
+				<div class="form" style="width: 600px; height: 60px;">
+					<label>关键字</label>
+					<h:inputText value="#{manageBookBean.keyword}" />
+					<h:commandLink styleClass="btn_solid_small"
+						action="#{manageBookBean.search}" style="margin-top:5px;">搜索</h:commandLink>
+				</div>
+				<div class="clearer" />
+				<div>
+					<div class="table_header">
+						<div class="table_header_col" style="width: 200px;">图书名</div>
+					</div>
+					<ui:repeat var="book" value="#{manageBookBean.books}">
+						<div class="table_row">
+							<div class="table_cell" style="width: 200px;">
+								<h:commandLink action="#{manageBookBean.select}">
+									<h:outputText value="#{book.title}" />
+									<f:param name="book_id" value="#{book.oid}" />
+								</h:commandLink>
+							</div>
+						</div>
+					</ui:repeat>
+					<div style="margin-top: 10px; padding-bottom: 20px;">
+						<h:commandLink styleClass="btn_solid_small"
+							action="#{manageBookBean.prevPage}">上一页</h:commandLink>
+						<h:commandLink styleClass="btn_solid_small"
+							action="#{manageBookBean.nextPage}">下一页</h:commandLink>
+					</div>
+				</div>
+			</h:form>
+		</div>
+		<div class="component">
+			<div class="title">添加新书</div>
+
+			<h:form id="addBookForm">
+				<div class="long_form" style="width: 800px;">
+					<label>标题</label>
+					<h:inputText value="#{manageBookBean.book.name}" />
+					<br /> <label>属类</label>
+					<h:selectOneMenu value="#{manageBookBean.book.category}"
+						converter="selectItemConverter">
+						<f:selectItems value="#{suppDataBean.allCategories}" />
+					</h:selectOneMenu>
+					<br /> <label>标签</label>
+					<h:inputText value="#{manageBookBean.tags}" />
+					<br /> <label>作者</label>
+					<h:inputText value="#{manageBookBean.book.author}" />
+					<br /> <label>出版社</label>
+					<h:inputText value="#{manageBookBean.book.publisher}" />
+					<br /> <label>图片地址</label>
+					<h:inputText value="#{manageBookBean.book.pictureUrl}" />
+					<br /> <label>简介(显示在所有页面)</label>
+					<h:inputTextarea value="#{manageBookBean.book.brief}" />
+					<br /> <label>书籍摘要</label>
+					<h:inputTextarea value="#{manageBookBean.book.abstract}" />
+					<br /> <label>编辑评论</label>
+					<h:inputTextarea value="#{manageBookBean.book.editorComment}" />
+					<br /> <label>内容</label>
+					<h:inputTextarea value="#{manageBookBean.book.textContent}" />
+					<br /> <label>其他</label>
+					<h:inputTextarea value="#{manageBookBean.book.other}" />
+					<br />
+				</div>
+				<h:commandLink styleClass="btn_solid"
+					action="#{manageBookBean.save}"
+					style="margin-left:200px;margin-top:20px;">保存</h:commandLink>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

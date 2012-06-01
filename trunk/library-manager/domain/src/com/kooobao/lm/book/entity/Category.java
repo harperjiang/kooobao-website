@@ -48,10 +48,21 @@ public class Category extends SimpleEntity {
 
 	public void addChild(Category child) {
 		this.children.add(child);
+		child.setParent(this);
 	}
 
 	public void removeChild(Category child) {
 		this.children.remove(child);
 	}
 
+	@Override
+	public String toString() {
+		return getLayeredName();
+	}
+
+	public String getLayeredName() {
+		if (getParent() == null)
+			return getName();
+		return getParent().getLayeredName() + " / " + getName();
+	}
 }
