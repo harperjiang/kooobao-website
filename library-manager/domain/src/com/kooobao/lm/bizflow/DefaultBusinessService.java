@@ -146,7 +146,7 @@ public class DefaultBusinessService implements BusinessService {
 		});
 		for (int i = 0; i < bookList.size(); i++) {
 			Book iBook = (Book) bookList.get(i);
-			for (int j = i; j < bookList.size(); j++) {
+			for (int j = i + 1; j < bookList.size(); j++) {
 				Book jBook = (Book) bookList.get(j);
 
 				int score = 0;

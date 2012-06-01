@@ -35,5 +35,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache Commons"/>
+	<classpathentry kind="lib" path="jpa_test"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

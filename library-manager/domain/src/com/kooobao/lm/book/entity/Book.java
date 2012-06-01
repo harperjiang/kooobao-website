@@ -18,6 +18,8 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.kooobao.common.domain.entity.SimpleEntity;
 
 @Entity
@@ -57,10 +59,10 @@ public class Book extends SimpleEntity {
 	@MapKeyColumn(name = "content")
 	private Map<String, String> content = new HashMap<String, String>();
 
-	@OneToMany(mappedBy="book")
+	@OneToMany(mappedBy = "book")
 	@OrderBy("createTime desc")
 	private List<Comment> comments = new ArrayList<Comment>();
-	
+
 	public Category getCategory() {
 		return category;
 	}
@@ -89,6 +91,8 @@ public class Book extends SimpleEntity {
 	public String getDisplayName() {
 		if (null != displayName)
 			return displayName;
+		if (StringUtils.isEmpty(name))
+			return null;
 		if (name.length() > NAME_SIZE) {
 			displayName = name.substring(0, NAME_SIZE) + "...";
 		} else {

@@ -104,7 +104,7 @@ public class JpaBookDaoTest extends
 	@Test
 	public void testGetLatestBooks() {
 		PageSearchResult<Book> books = bookDao.getLatestBooks(0, 10);
-		assertEquals(2, books.getCount());
+		assertEquals(3, books.getCount());
 		assertEquals("Good Book", books.getResult().get(0).getName());
 	}
 
