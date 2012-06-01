@@ -14,12 +14,10 @@ public class DummyBookService implements BookService {
 
 	private List<Book> books = initBooks();
 
-	@Override
 	public List<Book> findRecommend(List<Book> selected) {
 		return selected;
 	}
 
-	@Override
 	public List<String> getHotWords() {
 		List<String> words = new ArrayList<String>();
 		words.add("Good");
@@ -27,7 +25,6 @@ public class DummyBookService implements BookService {
 		return words;
 	}
 
-	@Override
 	public Book getBook(long oid) {
 		for (Book book : books) {
 			if (book.getOid() == oid)
@@ -36,7 +33,6 @@ public class DummyBookService implements BookService {
 		return null;
 	}
 
-	@Override
 	public PageSearchResult<Book> searchBooks(String keyword, int start,
 			int stop) {
 		PageSearchResult<Book> result = new PageSearchResult<Book>(5, books);
@@ -85,7 +81,6 @@ public class DummyBookService implements BookService {
 
 	List<Category> categories = null;
 
-	@Override
 	public List<Category> getRootCategories() {
 		if (null != categories)
 			return categories;
@@ -129,43 +124,35 @@ public class DummyBookService implements BookService {
 		return categories;
 	}
 
-	@Override
 	public List<Book> getPopularBooks() {
 		return books;
 	}
 
-	@Override
 	public List<Book> getNewBooks() {
 		return books;
 	}
 
-	@Override
 	public List<Book> getEditorRecommendBooks() {
 		return books;
 	}
 
-	@Override
 	public List<Book> getOtherBorrowBooks() {
 		return books;
 	}
 
-	@Override
 	public PageSearchResult<Book> getBooksInCategory(Category selectedCategory,
 			int start, int stop) {
 		return new PageSearchResult<Book>(10, books);
 	}
 
-	@Override
 	public List<Book> findRecommend(Book book) {
 		return books;
 	}
 
-	@Override
 	public Category getCategory(long categoryOid) {
 		return getRootCategories().get(0);
 	}
 
-	@Override
 	public Book save(Book book) {
 		// TODO Auto-generated method stub
 		return null;

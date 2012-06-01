@@ -31,25 +31,21 @@ public class DummyProfileService implements ProfileService {
 		return v;
 	}
 
-	@Override
 	public Visitor saveVisitor(Visitor visitor) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public boolean activateUser(String activateId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public void register(String email, String password) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void redeem(Visitor visitor, BigDecimal amount) {
 		// TODO Auto-generated method stub
 

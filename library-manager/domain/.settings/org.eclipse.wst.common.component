@@ -3,5 +3,6 @@
     <wb-module deploy-name="library-manager-domain">
         <wb-resource deploy-path="/" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/test"/>
+        <wb-resource deploy-path="/" source-path="/data"/>
     </wb-module>
 </project-modules>

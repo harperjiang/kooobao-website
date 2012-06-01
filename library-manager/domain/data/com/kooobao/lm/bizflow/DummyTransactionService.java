@@ -18,7 +18,6 @@ import com.kooobao.lm.profile.entity.Visitor;
 
 public class DummyTransactionService implements TransactionService {
 
-	@Override
 	public List<Transaction> getActiveTransactions(Visitor visitor) {
 		List<Transaction> trans = new ArrayList<Transaction>();
 
@@ -69,7 +68,6 @@ public class DummyTransactionService implements TransactionService {
 		return trans;
 	}
 
-	@Override
 	public List<Book> getRecommendBooks(Visitor visitor) {
 		List<Book> books = new ArrayList<Book>();
 
@@ -84,56 +82,47 @@ public class DummyTransactionService implements TransactionService {
 		return books;
 	}
 
-	@Override
 	public Transaction getTransaction(long transId) {
 		return getActiveTransactions(null).get(0);
 	}
 
-	@Override
 	public Transaction saveTransaction(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public PageSearchResult<Transaction> findTransaction(Visitor visitor,
 			TransactionSearchBean searchBean) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public PageSearchResult<ExpireRecord> searchExpiredRecords(Visitor visitor,
 			SearchBean searchBean) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Transaction requestBorrow(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public long getExpiredTransactionCount(Visitor visitor) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
 	public Transaction confirmReturn(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Transaction approveBorrow(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public ExpireRecord findExpireRecord(Transaction tran) {
 		ExpireRecord er = new ExpireRecord();
 		er.setPenalty(new BigDecimal("432.4"));
@@ -141,31 +130,26 @@ public class DummyTransactionService implements TransactionService {
 		return er;
 	}
 
-	@Override
 	public Transaction sendBorrow(Transaction transaction, String expressInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Transaction sendReturn(Transaction transaction, String expressInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Transaction cancel(Transaction tran, String reason) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Transaction interrupt(Transaction tran, String reason) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Transaction addComment(Transaction tran, Comment comment) {
 		// TODO Auto-generated method stub
 		return null;
