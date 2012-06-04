@@ -19,6 +19,16 @@ public class EnvSettingBean extends AbstractBean {
 		this.datePattern = datePattern;
 	}
 
+	private String timeZone = "Asia/Shanghai";
+
+	public String getTimeZone() {
+		return timeZone;
+	}
+
+	public void setTimeZone(String timeZone) {
+		this.timeZone = timeZone;
+	}
+
 	private String moneyUnit = "豆丁";
 
 	public String getMoneyUnit() {

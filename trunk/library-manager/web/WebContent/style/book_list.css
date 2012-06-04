@@ -106,3 +106,10 @@ div.short_attr label {
 	margin-top: 2px;
 	margin-bottom: 10px;
 }
+
+.navigation_bar_right {
+	float:right;
+	margin-right:180px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}

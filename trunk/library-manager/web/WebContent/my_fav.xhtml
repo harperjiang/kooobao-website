@@ -19,7 +19,7 @@
 						<h:form>
 							<ui:repeat var="fav" value="#{myFavBean.result}">
 								<div class="table_row">
-									<div class="table_cell" style="width: 400px;">
+									<div class="table_cell" style="width: 450px;">
 										<h:outputLink value="/book.html"
 											rendered="#{!envConfigBean.rewriteUrl}">
 											<h:outputText value="#{fav.favorite.name}" />
@@ -30,11 +30,11 @@
 											<h:outputText value="#{fav.favorite.name}" />
 										</h:outputLink>
 									</div>
-									<div class="table_cell">
-										<h:outputLink styleClass="btn_regular"
+									<div class="table_cell" style="width:300px;">
+										<h:outputLink styleClass="btn_confirm_small" value="#"
 											onclick="add_to_cart(#{fav.favorite.oid})">加入借阅车</h:outputLink>
 										<h:commandLink action="#{myFavBean.delete}"
-											styleClass="btn_negative">
+											styleClass="btn_solid_small">
 											<h:outputText value="删除" />
 											<f:param name="book_id" value="#{fav.favorite.oid}" />
 										</h:commandLink>
@@ -42,15 +42,6 @@
 								</div>
 							</ui:repeat>
 						</h:form>
-						<div style="float: right; margin-right: 150px;">
-							<h:form>
-								<h:commandLink styleClass="btn" action="#{myFavBean.prevPage}">上一页</h:commandLink>
-								<h:outputText
-									style="display:block;float:left;padding-top:6px;margin-right:5px;"
-									value="第#{myFavBean.currentPage}页，共#{myFavBean.pageCount}页" />
-								<h:commandLink styleClass="btn" action="#{myFavBean.nextPage}">下一页</h:commandLink>
-							</h:form>
-						</div>
 					</div>
 				</div>
 			</div>

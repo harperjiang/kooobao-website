@@ -46,6 +46,8 @@ public class DefaultProfileService implements ProfileService {
 		Visitor visitor = new Visitor();
 		visitor.setId(email);
 		visitor.setLevel(1);
+		// Registration Reward
+		visitor.setDeposit(getRuleDao().getRegisterRule().getRegisterReward());
 		visitor.setStatus(VisitorStatus.INACTIVE);
 		getUserService().register("lm", email, password);
 		getVisitorDao().store(visitor);

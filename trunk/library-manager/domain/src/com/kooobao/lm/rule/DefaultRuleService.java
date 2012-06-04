@@ -3,6 +3,7 @@ package com.kooobao.lm.rule;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.kooobao.lm.profile.entity.Address;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.rule.dao.RuleDao;
 
@@ -25,5 +26,13 @@ public class DefaultRuleService implements RuleService {
 
 	public void setRuleDao(RuleDao ruleDao) {
 		this.ruleDao = ruleDao;
+	}
+
+	public BigDecimal getDeliveryFee(Address address, BigDecimal netWeight) {
+		if (null == address) {
+			return BigDecimal.ZERO;
+		}
+		return getRuleDao().getDeliveryFeeRule().getDeliveryFee(address,
+				netWeight);
 	}
 }

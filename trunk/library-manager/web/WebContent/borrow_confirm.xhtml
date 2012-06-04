@@ -47,7 +47,7 @@
 				document.getElementById("addressPanelInner").style.display = "inline";
 			}
 		</script>
-		<h:form>
+		<h:form id="mainForm">
 			<h:panelGroup layout="block" style="margin:5px;">
 				<div class="page_title">确认订单信息：</div>
 				<div>
@@ -86,8 +86,21 @@
 					<div class="block">
 						<div class="block_header">运送方式:</div>
 						<div>
-							<h:selectOneMenu style="width:60%"
-								value="#{borrowConfirmBean.delivery}">
+							<script language="javascript">
+								function select_change() {
+									var sel = document
+											.getElementById("mainForm:deliveryMethodSelect");
+									if (sel.options[sel.selectedIndex].value == 'EXPRESS') {
+										document.getElementById("express").style.display = 'block';
+										document.getElementById("nonExpress").style.display = 'none';
+									} else {
+										document.getElementById("express").style.display = 'none';
+										document.getElementById("nonExpress").style.display = 'block';
+									}
+								}
+							</script>
+							<h:selectOneMenu id="deliveryMethodSelect" style="width:60%"
+								value="#{borrowConfirmBean.delivery}" onchange="select_change()">
 								<f:selectItems value="#{suppDataBean.deliveryMethods}" />
 							</h:selectOneMenu>
 						</div>
@@ -98,14 +111,28 @@
 						</div>
 					</div>
 					<div class="shadow"
-						style="margin-left: 10px; height: 150px; float: left; width: 150px; padding-left: 30px; padding-top: 10px;">
+						style="margin-left: 10px; height: 150px; float: left; width: 200px; padding-left: 20px; padding-top: 10px;">
 
 						<h:commandLink styleClass="btn_confirm"
 							action="#{borrowConfirmBean.confirm}">确认</h:commandLink>
 						<h:outputLink styleClass="btn_solid"
-							style="padding:5px 5px;font-size:13px;margin-top:10px;"
+							style="padding:5px 5px;margin-left:5px;font-size:13px;margin-top:10px;margin-bottoom:10px;"
 							value="/cart.html">修改借书篮</h:outputLink>
-
+						<div id="nonExpress" style="margin-top: 10px; font-size: 13px;">
+							<h:outputText>借阅图书所需积分:#{borrowConfirmBean.sum}</h:outputText>
+							<br />
+							<h:outputText>递送无需积分(自取或货到付款)</h:outputText>
+							<br />
+							<h:outputText>共计:#{borrowConfirmBean.sum}</h:outputText>
+						</div>
+						<div id="express"
+							style="display: none; margin-top: 10px; font-size: 13px;">
+							<h:outputText>借阅图书所需积分:#{borrowConfirmBean.sum}</h:outputText>
+							<br />
+							<h:outputText>快递所需积分:#{borrowConfirmBean.deliveryFee}</h:outputText>
+							<br />
+							<h:outputText>共计:#{borrowConfirmBean.deliveryFee + borrowConfirmBean.sum}</h:outputText>
+						</div>
 					</div>
 				</div>
 				<div class="clearer" />

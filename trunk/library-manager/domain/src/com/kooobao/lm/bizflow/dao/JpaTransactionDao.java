@@ -1,5 +1,6 @@
 package com.kooobao.lm.bizflow.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +82,10 @@ public class JpaTransactionDao extends AbstractJpaDao<Transaction> implements
 		query.setFirstResult(searchBean.getFrom());
 		query.setMaxResults(searchBean.getTo() - searchBean.getFrom());
 		long count = countQuery.getSingleResult();
-		List<Transaction> result = query.getResultList();
+		List<Transaction> result = new ArrayList<Transaction>();
+		if (0 != count) {
+			result = query.getResultList();
+		}
 		return new PageSearchResult<Transaction>(count, result);
 	}
 

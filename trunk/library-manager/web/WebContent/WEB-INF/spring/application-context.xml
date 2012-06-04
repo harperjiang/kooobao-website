@@ -65,9 +65,20 @@
 		<property name="ruleDao" ref="ruleDao" />
 	</bean>
 
-	<bean id="transactionService" class="com.kooobao.lm.bizflow.DummyTransactionService" />
+	<bean id="transactionService" class="com.kooobao.lm.bizflow.DefaultTransactionService">
+		<property name="bookDao" ref="bookDao" />
+		<property name="expireRecordDao" ref="expireRecordDao" />
+		<property name="recommendDao" ref="recommendDao" />
+		<property name="ruleDao" ref="ruleDao" />
+		<property name="stockDao" ref="stockDao" />
+		<property name="transactionDao" ref="transactionDao" />
+		<property name="visitorDao" ref="visitorDao" />
+	</bean>
 
-	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DummyFavouriteService" />
+	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DefaultFavouriteService">
+		<property name="bookDao" ref="bookDao" />
+		<property name="favouriteDao" ref="favouriteDao" />
+	</bean>
 
 	<bean id="indexPageBean" class="com.kooobao.lm.IndexPageBean">
 		<property name="bookService" ref="bookService" />

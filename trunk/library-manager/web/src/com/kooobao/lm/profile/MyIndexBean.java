@@ -2,6 +2,7 @@ package com.kooobao.lm.profile;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -29,15 +30,18 @@ public class MyIndexBean extends AbstractBean {
 
 	public void onPageLoad() {
 		// Visitor
-		getVisitor();
-		//
-		expiredBookCount = getTransactionService().getExpiredTransactionCount(
-				visitor);
+		visitor = getVisitor();
+		if (null == visitor) {
+			addMessage(FacesMessage.SEVERITY_ERROR, "请先登录", "您尚未登录");
+		} else {
+			expiredBookCount = getTransactionService()
+					.getExpiredTransactionCount(visitor);
 
-		activeTransactions = getTransactionService().getActiveTransactions(
-				visitor);
-		borrowedBookCount = activeTransactions.size();
-		recommendBooks = getTransactionService().getRecommendBooks(visitor);
+			activeTransactions = getTransactionService().getActiveTransactions(
+					visitor);
+			borrowedBookCount = activeTransactions.size();
+			recommendBooks = getTransactionService().getRecommendBooks(visitor);
+		}
 	}
 
 	@ManagedProperty("#{profileService}")

@@ -50,3 +50,4 @@ INSERT INTO lm_sequence(name, count) values ('lm_visitor_addr', 0);
 
 create unique index uk_stock_book_id on lm_book_stock(book_id);
 create unique index uk_expire_record_tran on lm_tran_expire_rec (transaction);
+create unique index lm_visitor_id on lm_visitor(id);
