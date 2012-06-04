@@ -10,9 +10,11 @@ import org.eclipse.persistence.jpa.JpaHelper;
 import org.eclipse.persistence.queries.QueryByExamplePolicy;
 import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReadObjectQuery;
+import org.eclipse.persistence.sessions.server.Server;
 
 import com.kooobao.common.domain.dao.cursor.JpaCursor;
 import com.kooobao.common.domain.entity.SimpleEntity;
+import com.kooobao.common.domain.entity.VersionEntity;
 
 public abstract class AbstractJpaDao<T> implements Dao<T> {
 
@@ -30,14 +32,26 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 		if (entity instanceof SimpleEntity
 				&& 0 == ((SimpleEntity) entity).getOid()) {
 			getEntityManager().persist(entity);
-			return entity;
-		}
 
-		if (entity instanceof SimpleEntity
-				&& (null == ((SimpleEntity) entity).getCreateTime())) {
-			((SimpleEntity) entity).setCreateTime(new Date());
+		} else {
+			if (entity instanceof SimpleEntity
+					&& (null == ((SimpleEntity) entity).getCreateTime())) {
+				((SimpleEntity) entity).setCreateTime(new Date());
+			}
+			entity = getEntityManager().merge(entity);
 		}
-		return getEntityManager().merge(entity);
+		// Copy Object
+		if (entity instanceof VersionEntity
+				&& JpaHelper.isEclipseLink(getEntityManager()
+						.getEntityManagerFactory())) {
+			Server server = JpaHelper.getServerSession(getEntityManager()
+					.getEntityManagerFactory());
+			VersionEntity ve = (VersionEntity) server.copy(entity, null);
+			ve.setVersion(ve.getVersion() + 1);
+			return (T) ve;
+		}
+		return entity;
+
 	}
 
 	public T remove(T entity) {

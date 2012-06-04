@@ -60,7 +60,7 @@ public class LoginAuthorizer implements PhaseListener {
 			HttpSession ssn = (HttpSession) event.getFacesContext()
 					.getExternalContext().getSession(true);
 
-			Token token = getToken(ssn,pattern.getSystem());
+			Token token = getToken(ssn, pattern.getSystem());
 			if (token == null || !getAuthService().validate((Token) token)) {
 				// Validation Failed, need re-login
 				// Log URL
@@ -71,7 +71,7 @@ public class LoginAuthorizer implements PhaseListener {
 						.getApplication()
 						.getNavigationHandler()
 						.handleNavigation(event.getFacesContext(), null,
-								"require_login");
+								"require_login_" + pattern.getSystem());
 			} else {
 				// Validate the existence of Login Bean
 				Token yesToken = (Token) token;
@@ -125,7 +125,7 @@ public class LoginAuthorizer implements PhaseListener {
 		}
 	}
 
-	public static Token getToken(HttpSession ssn,String system) {
+	public static Token getToken(HttpSession ssn, String system) {
 		Map<String, Token> tokens = (Map<String, Token>) ssn
 				.getAttribute(Constants.TOKEN);
 		if (null == tokens) {
@@ -135,7 +135,7 @@ public class LoginAuthorizer implements PhaseListener {
 		return tokens.get(system);
 	}
 
-	public static void setToken(HttpSession ssn,String system, Token token) {
+	public static void setToken(HttpSession ssn, String system, Token token) {
 		Map<String, Token> tokens = (Map<String, Token>) ssn
 				.getAttribute(Constants.TOKEN);
 		if (null == tokens) {
@@ -185,6 +185,10 @@ public class LoginAuthorizer implements PhaseListener {
 
 		private String excludeStr;
 
+		private String[] includes;
+
+		private String[] excludes;
+
 		ValidatePattern(String system, String includeStr, String excludeStr) {
 			this.system = system;
 			this.includeStr = includeStr;
@@ -195,7 +199,8 @@ public class LoginAuthorizer implements PhaseListener {
 			boolean include = false;
 			boolean exclude = false;
 			if (!StringUtils.isEmpty(includeStr)) {
-				String[] includes = includeStr.split(",");
+				if (null == includes)
+					includes = includeStr.split(",");
 				for (String includePage : includes)
 					if (Pattern.matches(includePage, viewId)) {
 						include = true;
@@ -203,7 +208,8 @@ public class LoginAuthorizer implements PhaseListener {
 					}
 			}
 			if (!StringUtils.isEmpty(excludeStr)) {
-				String[] excludes = excludeStr.split(",");
+				if (null == excludes)
+					excludes = excludeStr.split(",");
 				for (String excludePage : excludes)
 					if (Pattern.matches(excludePage, viewId)) {
 						exclude = true;

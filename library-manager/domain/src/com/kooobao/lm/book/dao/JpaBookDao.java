@@ -1,6 +1,7 @@
 package com.kooobao.lm.book.dao;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.kooobao.common.domain.dao.AbstractJpaDao;
@@ -8,8 +9,21 @@ import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.BookRelation;
 import com.kooobao.lm.book.entity.Category;
+import com.kooobao.lm.optlog.entity.BorrowCount;
 
 public class JpaBookDao extends AbstractJpaDao<Book> implements BookDao {
+
+	@Override
+	public Book store(Book entity) {
+		if (0 == entity.getOid()) {
+			BorrowCount bc = new BorrowCount();
+			bc.setBook(entity);
+			bc.setCount(0);
+			bc.setUpdateTime(new Date());
+			getEntityManager().persist(bc);
+		}
+		return super.store(entity);
+	}
 
 	public PageSearchResult<Book> findByCategory(Category selectedCategory,
 			int start, int stop) {

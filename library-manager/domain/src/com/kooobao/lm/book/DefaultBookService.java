@@ -2,6 +2,8 @@ package com.kooobao.lm.book;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.book.dao.BookDao;
 import com.kooobao.lm.book.dao.CategoryDao;
@@ -66,10 +68,16 @@ public class DefaultBookService implements BookService {
 	static int RECOMMEND_LIMIT = 10;
 
 	public List<Book> findRecommend(List<Book> selected) {
+		if (CollectionUtils.isEmpty(selected)) {
+			return getPopularBooks();
+		}
 		return getRecommendDao().recommend(null, selected, RECOMMEND_LIMIT);
 	}
 
 	public List<Book> findRecommend(Book book) {
+		if (null == book) {
+			return getPopularBooks();
+		}
 		return getRecommendDao().recommend(null, book, RECOMMEND_LIMIT);
 	}
 

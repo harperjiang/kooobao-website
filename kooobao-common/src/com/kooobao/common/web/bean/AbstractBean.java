@@ -31,17 +31,17 @@ public abstract class AbstractBean implements JSFLifecycleAware {
 		return FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap().get(paramName);
 	}
-	
+
 	public Cookie getCookie(String name) {
-		if(StringUtils.isEmpty(name))
+		if (StringUtils.isEmpty(name))
 			return null;
 		Cookie[] cookies = ((HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest())
 				.getCookies();
-		if(null == cookies)
+		if (null == cookies)
 			return null;
-		for(Cookie cookie:cookies) {
-			if(name.equals(cookie.getName()))
+		for (Cookie cookie : cookies) {
+			if (name.equals(cookie.getName()))
 				return cookie;
 		}
 		return null;
@@ -68,7 +68,24 @@ public abstract class AbstractBean implements JSFLifecycleAware {
 	protected void addMessage(Severity severity, String message) {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(severity, message, message));
+	}
 
+	protected void addMessage(Severity severity, String summary, String detail) {
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(severity, summary, detail));
+	}
+
+	protected void addDialogMessage(String id, Severity severity,
+			String summary, String detail) {
+		FacesContext.getCurrentInstance().addMessage(id,
+				new FacesMessage(severity, summary, detail));
+
+	}
+
+	protected void navigate(String to) {
+		FacesContext.getCurrentInstance().getApplication()
+				.getNavigationHandler()
+				.handleNavigation(FacesContext.getCurrentInstance(), null, to);
 	}
 
 	protected List<FileBean> fileBeans;

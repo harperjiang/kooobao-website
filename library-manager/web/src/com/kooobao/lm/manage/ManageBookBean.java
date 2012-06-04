@@ -3,6 +3,7 @@ package com.kooobao.lm.manage;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.PageSearchBean;
@@ -74,6 +75,7 @@ public class ManageBookBean extends PageSearchBean {
 		this.tags = tags;
 	}
 
+	@ManagedProperty("#{bookService}")
 	private BookService bookService;
 
 	public BookService getBookService() {

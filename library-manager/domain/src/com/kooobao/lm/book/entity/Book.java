@@ -49,14 +49,14 @@ public class Book extends SimpleEntity {
 
 	@ElementCollection
 	@CollectionTable(name = "lm_book_attr", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_id"))
-	@Column(name = "attr", columnDefinition = "varchar(25)")
-	@MapKeyColumn(name = "attr")
+	@Column(name = "attr", columnDefinition = "varchar(100)")
+	@MapKeyColumn(name = "attr_key", columnDefinition = "varchar(20)")
 	private Map<String, String> attributes = new HashMap<String, String>();
 
 	@ElementCollection
 	@CollectionTable(name = "lm_book_content", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "obj_id"))
 	@Column(name = "content", columnDefinition = "text")
-	@MapKeyColumn(name = "content")
+	@MapKeyColumn(name = "content_key", columnDefinition = "varchar(20)")
 	private Map<String, String> content = new HashMap<String, String>();
 
 	@OneToMany(mappedBy = "book")
@@ -86,18 +86,27 @@ public class Book extends SimpleEntity {
 	@Transient
 	private transient String displayName;
 
-	static final int NAME_SIZE = 10;
+	static final int NAME_SIZE = 20;
 
 	public String getDisplayName() {
 		if (null != displayName)
 			return displayName;
 		if (StringUtils.isEmpty(name))
 			return null;
-		if (name.length() > NAME_SIZE) {
-			displayName = name.substring(0, NAME_SIZE) + "...";
-		} else {
-			displayName = name;
+		StringBuilder sb = new StringBuilder();
+		int counter = 0;
+		for (char c : getName().toCharArray()) {
+			sb.append(c);
+			if (c < 256)
+				counter++;
+			else
+				counter += 2;
+			if (counter >= NAME_SIZE)
+				break;
 		}
+		if (sb.length() < getName().length())
+			sb.append("...");
+		displayName = sb.toString();
 		return displayName;
 	}
 
@@ -183,6 +192,14 @@ public class Book extends SimpleEntity {
 
 	public void setAuthor(String author) {
 		setAttribute(BookAttribute.AUTHOR.name(), author);
+	}
+
+	public String getNetWeight() {
+		return getAttribute(BookAttribute.NET_WEIGHT.name());
+	}
+
+	public void setNetWeight(String netWeight) {
+		setAttribute(BookAttribute.NET_WEIGHT.name(), netWeight);
 	}
 
 	public String getPublisher() {

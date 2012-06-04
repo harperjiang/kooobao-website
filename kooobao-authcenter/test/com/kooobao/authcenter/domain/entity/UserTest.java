@@ -8,7 +8,7 @@ public class UserTest {
 
 	@Test
 	public void testEncryptPass() {
-		assertEquals("", User.encryptPass("lili123456"));
+		assertEquals("", User.encryptPass("sunny123"));
 	}
 
 }

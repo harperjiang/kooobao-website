@@ -21,11 +21,10 @@ public class MyIndexBean extends AbstractBean {
 
 	public Visitor getVisitor() {
 		String userId = LoginBean.getCurrentUser();
-		if (!StringUtils.isEmpty(userId)
-				&& (null == visitor || !userId.equals(visitor.getId()))) {
-			visitor = getProfileService().getVisitor(userId);
+		if (!StringUtils.isEmpty(userId)) {
+			return getProfileService().getVisitor(userId);
 		}
-		return visitor;
+		return null;
 	}
 
 	public void onPageLoad() {

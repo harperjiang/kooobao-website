@@ -41,7 +41,7 @@ public class MyManageAddrBean extends AbstractBean {
 			}
 			for (Address addr : getVisitor().getAvailableAddresses()) {
 				if (addr.getOid() == addrId) {
-					getVisitor().getAvailableAddresses().remove(addr);
+					getVisitor().removeAddress(addr);
 					break;
 				}
 			}
@@ -72,7 +72,7 @@ public class MyManageAddrBean extends AbstractBean {
 	}
 
 	public String save() {
-		getVisitor().getAvailableAddresses().add(newAddr);
+		getVisitor().addAddress(newAddr);
 		visitor = getProfileService().saveVisitor(visitor);
 		newAddr = new Address();
 		return "success";
