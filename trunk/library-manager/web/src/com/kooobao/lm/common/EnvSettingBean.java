@@ -9,7 +9,7 @@ import com.kooobao.common.web.bean.AbstractBean;
 @ApplicationScoped
 public class EnvSettingBean extends AbstractBean {
 
-	private String datePattern;
+	private String datePattern = "yyyy-MM-dd";
 
 	public String getDatePattern() {
 		return datePattern;
@@ -47,6 +47,16 @@ public class EnvSettingBean extends AbstractBean {
 
 	public void setWebsiteLoc(String websiteLoc) {
 		this.websiteLoc = websiteLoc;
+	}
+
+	private int baseBorrowDay = 14;
+
+	public int getBaseBorrowDay() {
+		return baseBorrowDay;
+	}
+
+	public void setBaseBorrowDay(int baseBorrowDay) {
+		this.baseBorrowDay = baseBorrowDay;
 	}
 
 }

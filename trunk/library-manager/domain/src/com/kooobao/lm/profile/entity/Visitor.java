@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,10 +38,10 @@ public class Visitor extends VersionEntity {
 	@JoinColumn(name = "default_addr")
 	private Address address;
 
-	@OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Address> availableAddresses = new ArrayList<Address>();
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "info")
 	private PersonalInfo info;
 
@@ -88,12 +89,6 @@ public class Visitor extends VersionEntity {
 		return availableAddresses;
 	}
 
-	public void setAvailableAddresses(List<Address> availableAddresses) {
-		this.availableAddresses = availableAddresses;
-		for (Address addr : availableAddresses)
-			addr.setVisitor(this);
-	}
-
 	public int getLevel() {
 		return level;
 	}
@@ -113,8 +108,21 @@ public class Visitor extends VersionEntity {
 	public void setInfo(PersonalInfo info) {
 		this.info = info;
 	}
-	
+
 	public void changeDeposit(BigDecimal change, String reason) {
 		this.setDeposit(getDeposit().add(change));
+	}
+
+	public void addAddress(Address addr) {
+		if (null == getAddress())
+			setAddress(addr);
+		addr.setVisitor(this);
+		getAvailableAddresses().add(addr);
+	}
+
+	public void removeAddress(Address addr) {
+		addr.setVisitor(null);
+		getAvailableAddresses().remove(addr);
+
 	}
 }

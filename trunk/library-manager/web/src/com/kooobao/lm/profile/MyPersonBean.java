@@ -3,6 +3,7 @@ package com.kooobao.lm.profile;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -36,6 +37,8 @@ public class MyPersonBean extends AbstractBean {
 		Visitor v = myInfoBean.getVisitor();
 		v.setInfo(personalInfo);
 		personalInfo = getProfileService().saveVisitor(v).getInfo();
+		addDialogMessage("defaultDialog", FacesMessage.SEVERITY_INFO, "提示",
+				"您的信息已经保存!");
 		return "success";
 	}
 
@@ -68,6 +71,18 @@ public class MyPersonBean extends AbstractBean {
 
 	public void setProfileService(ProfileService profileService) {
 		this.profileService = profileService;
+	}
+
+	private List<String> yearList;
+
+	public List<String> getYearList() {
+		return yearList;
+	}
+
+	{
+		yearList = new ArrayList<String>();
+		for (int i = 1950; i < 2012; i++)
+			yearList.add(String.valueOf(i));
 	}
 
 }

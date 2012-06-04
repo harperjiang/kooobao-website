@@ -6,5 +6,6 @@ public enum BookAttribute {
 	EDITION, 
 	PAGE_COUNT, 
 	WORD_COUNT, 
-	SIZE
+	SIZE,
+	NET_WEIGHT;
 }

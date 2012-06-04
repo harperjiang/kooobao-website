@@ -75,6 +75,10 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 		return allCategories;
 	}
 
+	public List<SelectItem> getDeliveryMethods() {
+		return deliveryMethods;
+	}
+
 	private BookService bookService;
 
 	public BookService getBookService() {

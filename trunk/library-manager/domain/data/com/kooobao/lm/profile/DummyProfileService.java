@@ -19,7 +19,7 @@ public class DummyProfileService implements ProfileService {
 		addr.setPhone("1232141313113");
 
 		v.setAddress(addr);
-		v.getAvailableAddresses().add(addr);
+		v.addAddress(addr);
 
 		Address addr2 = new Address();
 		addr2.setName("李四");

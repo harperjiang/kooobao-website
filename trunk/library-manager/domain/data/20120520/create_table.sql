@@ -10,12 +10,12 @@ CREATE TABLE lm_tran_opt (obj_id int(10) NOT NULL, tran_id int(10),desc_text var
 CREATE TABLE lm_tran_lm_tran_opt (Transaction_obj_id int(10) NOT NULL, operations_obj_id int(10) NOT NULL, PRIMARY KEY (Transaction_obj_id, operations_obj_id));
 CREATE TABLE lm_visitor (obj_id int(10) NOT NULL, id VARCHAR(255), create_time datetime, level INTEGER, status VARCHAR(20), deposit DECIMAL(10,2), name VARCHAR(10), obj_version decimal(10), default_addr int(10), info int(10), PRIMARY KEY (obj_id));
 CREATE TABLE lm_book_tag (book_id int(10) NOT NULL, tag varchar(25));
-CREATE TABLE lm_book_content (book_id int(10) NOT NULL, content text);
+CREATE TABLE lm_book_content (book_id int(10) NOT NULL, content_key varchar(20), content text,primary key(book_id,content_key));
 CREATE TABLE lm_book_stock (obj_id int(10) NOT NULL, create_time datetime, stock_count INTEGER, avail_count INTEGER, obj_version decimal(10), book_id int(10), PRIMARY KEY (obj_id));
 CREATE TABLE lm_book_category (obj_id int(10) NOT NULL, create_time datetime, name VARCHAR(255), parent int(10), PRIMARY KEY (obj_id));
 CREATE TABLE lm_book (obj_id int(10) NOT NULL, content text, create_time datetime, picture_url VARCHAR(255), list_price decimal(10,2), name VARCHAR(255), rating INTEGER, category int(10), PRIMARY KEY (obj_id));
 CREATE TABLE lm_optlog_search (obj_id int(10) NOT NULL, create_time datetime, keyword VARCHAR(50), PRIMARY KEY (obj_id));
-CREATE TABLE lm_book_attr (book_id int(10) NOT NULL, attr varchar(50));
+CREATE TABLE lm_book_attr (book_id int(10) NOT NULL, attr_key varchar(20), attr varchar(50),primary key(book_id,attr_key));
 CREATE TABLE lm_book_relation (book_from int(10), book_to int(10), score decimal(10,2), primary key(book_from,book_to));
 CREATE TABLE lm_book_comment (obj_id int(10) NOT NULL, book_id int(10),create_time datetime, visitor_id varchar(50), rating int(1), comment varchar(500),primary key (obj_id));
 ALTER TABLE lm_tran_expire_rec ADD CONSTRAINT FK_lm_tran_expire_rec_transaction FOREIGN KEY (transaction) REFERENCES lm_tran (obj_id);
@@ -46,6 +46,7 @@ INSERT INTO lm_sequence(name, count) values ('lm_tran_fav_rec', 0);
 INSERT INTO lm_sequence(name, count) values ('lm_optlog_search', 0);
 INSERT INTO lm_sequence(name, count) values ('lm_optlog_searchsum', 0);
 INSERT INTO lm_sequence(name, count) values ('lm_book_comment', 0);
+INSERT INTO lm_sequence(name, count) values ('lm_visitor_addr', 0);
 
 create unique index uk_stock_book_id on lm_book_stock(book_id);
 create unique index uk_expire_record_tran on lm_tran_expire_rec (transaction);

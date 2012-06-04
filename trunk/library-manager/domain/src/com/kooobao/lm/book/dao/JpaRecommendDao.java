@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.commons.lang.Validate;
+
 import com.kooobao.common.domain.dao.AbstractJpaDao;
 import com.kooobao.common.domain.entity.SimpleEntity;
 import com.kooobao.lm.book.entity.Book;
@@ -13,6 +15,7 @@ public class JpaRecommendDao extends AbstractJpaDao<SimpleEntity> implements
 		RecommendDao {
 
 	public List<Book> recommend(Visitor visitor, List<Book> selected, int limit) {
+		Validate.notEmpty(selected);
 		// TODO Ignore Visitor info
 		String queryStr = "select distinct book.* from lm_book book "
 				+ "join "
@@ -35,6 +38,7 @@ public class JpaRecommendDao extends AbstractJpaDao<SimpleEntity> implements
 	}
 
 	public List<Book> recommend(Visitor visitor, Book book, int limit) {
+		Validate.notNull(book);
 		// TODO Ignore Visitor info
 		String query = "select book.* from lm_book book "
 				+ "join "

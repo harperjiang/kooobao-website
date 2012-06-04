@@ -11,7 +11,7 @@ public class Cart {
 	private String uuid;
 
 	private Date updateTime;
-	
+
 	private List<Book> books = new ArrayList<Book>();
 
 	public String getUuid() {
@@ -31,7 +31,21 @@ public class Cart {
 	}
 
 	public void add(Book book) {
+		for (int i = 0; i < books.size(); i++) {
+			if (books.get(i).getOid() == book.getOid())
+				return;
+		}
 		books.add(book);
+	}
+
+	public void remove(Book book) {
+		for (int i = 0; i < books.size(); i++) {
+			Book bk = books.get(i);
+			if (bk.getOid() == book.getOid()) {
+				books.remove(bk);
+				break;
+			}
+		}
 	}
 
 	public List<Book> getBooks() {
