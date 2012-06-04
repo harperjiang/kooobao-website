@@ -2,17 +2,19 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kui="http://kooobao.com/jsf/ui"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-借阅确认</ui:define>
-	<ui:define name="body">
+	<ui:define name="css">
 		<style type="text/css">
 .block {
-	margin-left: 10px;
-	margin-top: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
 	float: left;
 	width: 270px;
 	height: 150px;
+	background-color: #ddeeff;
 }
 
 .block div {
@@ -22,7 +24,8 @@
 .block_header {
 	margin-top: 5px;
 	margin-bottom: 5px;
-	font-size: 14px;
+	font-size: 16px;
+	font-weight: bold;
 	font-weight: block;
 }
 
@@ -35,90 +38,113 @@
 	font-weight: bold;
 }
 </style>
+	</ui:define>
+	<ui:define name="body">
+
 		<script type="text/javascript">
 			function switch_address_panel() {
 				document.getElementById("addressPanel").style.display = "none";
 				document.getElementById("addressPanelInner").style.display = "inline";
 			}
 		</script>
-		<h:panelGroup layout="block" style="margin:5px;">
-			<div class="page_title">确认订单信息：</div>
-			<div>
-				<div id="addressPanel" class="block" style="width: 450px;">
-					<div class="block_header">派送地址:</div>
-					<div>
-						<h:outputText value="#{borrowConfirmBean.address.name}" />
+		<h:form>
+			<h:panelGroup layout="block" style="margin:5px;">
+				<div class="page_title">确认订单信息：</div>
+				<div>
+					<div id="addressPanel" class="block" style="width: 350px;">
+						<div class="block_header">派送地址:</div>
+						<div>
+							<h:outputText value="#{borrowConfirmBean.address.name}" />
+						</div>
+						<div>
+							<h:outputText value="#{borrowConfirmBean.address.location}" />
+						</div>
+						<div>
+							电话：
+							<h:outputText value="#{borrowConfirmBean.address.phone}" />
+						</div>
+						<div>
+							<a href="#" class="btn_solid_small"
+								onclick="switch_address_panel()">修改地址</a>
+						</div>
 					</div>
-					<div>
-						<h:outputText value="#{borrowConfirmBean.address.location}" />
-					</div>
-					<div>
-						电话：
-						<h:outputText value="#{borrowConfirmBean.address.phone}" />
-					</div>
-					<div>
-						<a href="#" onclick="switch_address_panel()">修改地址</a>
-					</div>
-				</div>
-				<div id="addressPanelInner" class="block"
-					style="width: 450px; display: none;">
-					<div class="block_header">派送地址:</div>
-					<h:form>
+					<div id="addressPanelInner" class="block"
+						style="width: 350px; display: none;">
+						<div class="block_header">派送地址:</div>
+
 						<h:selectOneRadio layout="pageDirection"
 							value="#{borrowConfirmBean.address}"
 							converter="selectItemConverter">
 							<f:selectItems
 								value="#{borrowConfirmBean.currentVisitor.availableAddresses}" />
 						</h:selectOneRadio>
-						<h:commandButton action="#{borrowConfirmBean.changeAddress}"
-							value="确认" />
-					</h:form>
-				</div>
-				<div class="block">
-					<div class="block_header">运送方式:</div>
-					<div>
-						<h:selectOneMenu style="width:60%"
-							value="#{borrowConfirmBean.delivery}">
-							<f:selectItems value="#{suppDataBean.deliveryMethods}"/>
-							<f:converter converterId="selectItemConverter"/>
-						</h:selectOneMenu>
+						<h:commandLink styleClass="btn_solid_small"
+							action="#{borrowConfirmBean.changeAddress}" value="确认" />
+
 					</div>
-					<div>如果您的地址距离图书馆较近，为了减少碳排放。我们鼓励您自行前来取书。您将获得10个豆丁的奖励</div>
-				</div>
-				<div>
-					<h:form>
-						<h:commandLink action="#{borrowConfirmBean.confirm}">确认</h:commandLink>
-					</h:form>
+
+					<div class="block">
+						<div class="block_header">运送方式:</div>
+						<div>
+							<h:selectOneMenu style="width:60%"
+								value="#{borrowConfirmBean.delivery}">
+								<f:selectItems value="#{suppDataBean.deliveryMethods}" />
+							</h:selectOneMenu>
+						</div>
+						<div>如果您的地址距离图书馆较近，为了减少碳排放。我们鼓励您自行前来取书。您将获得10个#{envSettingBean.moneyUnit}的奖励</div>
+						<div>
+							如果您选择快递方式递送，快递费用将从您的#{envSettingBean.moneyUnit}中扣除。请<a
+								href="/rule_express.html">点此查看费用规则</a>
+						</div>
+					</div>
+					<div class="shadow"
+						style="margin-left: 10px; height: 150px; float: left; width: 150px; padding-left: 30px; padding-top: 10px;">
+
+						<h:commandLink styleClass="btn_confirm"
+							action="#{borrowConfirmBean.confirm}">确认</h:commandLink>
+						<h:outputLink styleClass="btn_solid"
+							style="padding:5px 5px;font-size:13px;margin-top:10px;"
+							value="/cart.html">修改借书篮</h:outputLink>
+
+					</div>
 				</div>
 				<div class="clearer" />
-			</div>
-			<div style="margin-left: 10px;">
-				<div class="block_header">书籍信息:</div>
-				<div>
-					<div class="table_header" style="width: 90%;">
-						<div class="table_header_col" style="width: 350px;">书名</div>
-						<div class="table_header_col" style="width: 120px;">还书日期</div>
-						<div class="table_header_col">逾期</div>
-					</div>
-					<ui:repeat var="book" value="#{borrowConfirmBean.borrowed}">
-						<div class="table_row" style="width: 90%;">
-							<div class="table_cell" style="width: 350px;">
-								<h:outputText value="#{book.name}" />
-							</div>
-							<div class="table_cell" style="width: 120px;">2012-05-01</div>
-							<div class="table_cell">1豆丁/天</div>
-
+				<div
+					style="margin-top: 20px; margin-bottom: 20px; padding-bottom: 10px;">
+					<div class="block_header" style="margin-left: 10px;">书籍信息:</div>
+					<div>
+						<div class="table_header" style="width: 90%;">
+							<div class="table_header_col" style="width: 350px;">书名</div>
+							<div class="table_header_col" style="width: 120px;">还书日期</div>
+							<div class="table_header_col">逾期</div>
 						</div>
-					</ui:repeat>
-					<div class="clearer" />
+						<ui:repeat var="book" value="#{borrowConfirmBean.borrowed}">
+							<div class="table_row" style="width: 90%; height: 40px;">
+								<div class="table_cell" style="width: 350px;">
+									<h:outputLink value="/book.html">
+										<h:outputText value="#{book.name}" />
+										<f:param name="book_id" value="#{book.oid}" />
+									</h:outputLink>
+								</div>
+								<div class="table_cell" style="width: 120px;">
+									<h:outputText value="#{borrowConfirmBean.expireDate}">
+										<f:convertDateTime pattern="#{envSettingBean.datePattern}" />
+									</h:outputText>
+								</div>
+								<div class="table_cell">#{borrowConfirmBean.penalty}#{envSettingBean.moneyUnit}/天</div>
+							</div>
+						</ui:repeat>
+						<div class="clearer" />
+					</div>
 				</div>
-			</div>
-			<div class="block" style="width: 450px;">
-				<div class="block_header">留言:</div>
-				<div>如果有特殊需求，请在此留言，我们会尽量协调</div>
-				<h:inputTextarea style="width:400px;height:80px;" />
-			</div>
-
-		</h:panelGroup>
+				<div class="block" style="width: 450px;">
+					<div class="block_header">留言:</div>
+					<div>如果有特殊需求，请在此留言，我们会尽量协调</div>
+					<h:inputTextarea value="#{borrowConfirmBean.comment}"
+						style="width:400px;height:80px;" />
+				</div>
+			</h:panelGroup>
+		</h:form>
+		<kui:messages />
 	</ui:define>
 </ui:composition>

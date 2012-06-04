@@ -2,6 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kf="http://kooobao.com/jsf/func"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true" />
 	<ui:define name="title">酷宝图书馆-#{categoryBean.selectedCategory.name}</ui:define>
@@ -30,17 +31,16 @@
 				</div>
 			</ui:repeat>
 		</div>
-		<div
-			style="margin-top: 5px; margin-bottom: 5px; width: 790px; float: left;">
-			<div style="margin-top: 2px; margin-bottom: 10px;">
+		<div class="book_list_container" style="width: 790px;">
+			<div class="navigation_bar">
 				<h:form>
 					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
 					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
 				</h:form>
 			</div>
 			<ui:repeat var="book" value="#{categoryBean.categoryBooks}">
-				<div style="margin-bottom: 10px; float: left;">
-					<div style="width: 120px; height: 140px; float: left;">
+				<div class="bl_unit">
+					<div class="bl_picture">
 						<h:outputLink value="/book.html">
 							<f:param name="book_id" value="#{book.oid}" />
 							<h:graphicImage
@@ -48,46 +48,51 @@
 								value="#{book.pictureUrl}" />
 						</h:outputLink>
 					</div>
-					<div style="float: left; margin-left: 10px; width: 640px;">
-						<div
-							style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">
+					<div class="bl_content" style="width: 640px;">
+						<div class="bl_title">
 							<h:outputLink value="/book.html" style="text-decoration:none;">
 								<f:param name="book_id" value="#{book.oid}" />
 								<h:outputText value="#{book.name}" />
 							</h:outputLink>
 						</div>
-						<div>
-							<h:outputText value="#{book.brief}" />
+						<div class="attr">
+							<h:panelGroup id="rateText">
+								<kf:for repeat="#{bookBean.book.rating}">
+									<h:graphicImage width="15" height="15" url="/image/star.gif" />
+								</kf:for>
+								<kf:for repeat="#{5 - bookBean.book.rating}">
+									<h:graphicImage width="15" height="15"
+										url="/image/empty_star.gif" />
+								</kf:for>
+							</h:panelGroup>
 						</div>
-						<div style="margin-top: 5px;">
-							<div class="attr">
-								<h:outputLabel id="authorLabel" for="authorText" value="作　者:" />
-								<h:outputText id="authorText" value="#{book.author}" />
-							</div>
-							<div class="attr">
-								<h:outputLabel id="publisherLabel" for="publisherText"
-									value="出版社:" />
-								<h:outputText id="publisherText" value="#{book.publisher}" />
-							</div>
+						<h:outputText id="authorText" value="#{book.author}著" />
+						<h:outputText value="/" />
+						<h:outputText id="publisherText" value="#{book.publisher}出版" />
+
+						<div class="bl_brief" style="width: 640px;">
+							<h:outputText escape="false" value="#{book.brief}" />
 						</div>
+
 					</div>
 					<div style="display: block; margin-left: 400px; float: left;">
 						<h:form>
-							<h:commandLink style="float:left;" action="#">
+							<h:outputLink value="#" styleClass="btn_highlight"
+								onclick="add_to_cart(#{book.oid})">
+								<h:graphicImage style="height:16px;width:16px;"
+									url="/image/basket.gif" />
+								<h:outputText value="加入借书篮" />
+							</h:outputLink>
+
+							<h:commandLink styleClass="btn_confirm_small" action="#">
 									借阅
 								</h:commandLink>
 						</h:form>
-						<h:outputLink value="#" styleClass="btn_positive"
-							onclick="add_to_cart(#{book.oid})">
-							<h:graphicImage style="height:16px;width:16px;"
-								url="/image/basket.png" />
-							<h:outputText value="加入借书篮" />
-						</h:outputLink>
 					</div>
 				</div>
 				<div class="clearer" />
 			</ui:repeat>
-			<div style="margin-top: 10px; margin-bottom: 2px;">
+			<div class="navigation_bar">
 				<h:form>
 					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
 					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>

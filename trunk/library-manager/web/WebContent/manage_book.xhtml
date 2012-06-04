@@ -24,7 +24,7 @@
 						<div class="table_row">
 							<div class="table_cell" style="width: 200px;">
 								<h:commandLink action="#{manageBookBean.select}">
-									<h:outputText value="#{book.title}" />
+									<h:outputText value="#{book.name}" />
 									<f:param name="book_id" value="#{book.oid}" />
 								</h:commandLink>
 							</div>
@@ -41,7 +41,7 @@
 		</div>
 		<div class="component">
 			<div class="title">添加新书</div>
-
+			<script type="text/javascript" src="/ckeditor/ckeditor.js" />
 			<h:form id="addBookForm">
 				<div class="long_form" style="width: 800px;">
 					<label>标题</label>
@@ -57,10 +57,14 @@
 					<h:inputText value="#{manageBookBean.book.author}" />
 					<br /> <label>出版社</label>
 					<h:inputText value="#{manageBookBean.book.publisher}" />
+					<br /> <label>净重</label>
+					<h:inputText value="#{manageBookBean.book.netWeight}" />
+					<br /> <label>需积分</label>
+					<h:inputText value="#{manageBookBean.book.listPrice}" />
 					<br /> <label>图片地址</label>
 					<h:inputText value="#{manageBookBean.book.pictureUrl}" />
 					<br /> <label>简介(显示在所有页面)</label>
-					<h:inputTextarea value="#{manageBookBean.book.brief}" />
+					<h:inputTextarea id="brief" value="#{manageBookBean.book.brief}" />
 					<br /> <label>书籍摘要</label>
 					<h:inputTextarea value="#{manageBookBean.book.abstract}" />
 					<br /> <label>编辑评论</label>
@@ -71,6 +75,9 @@
 					<h:inputTextarea value="#{manageBookBean.book.other}" />
 					<br />
 				</div>
+				<script type="text/javascript">
+					CKEDITOR.replace('addBookForm:brief');
+				</script>
 				<h:commandLink styleClass="btn_solid"
 					action="#{manageBookBean.save}"
 					style="margin-left:200px;margin-top:20px;">保存</h:commandLink>
