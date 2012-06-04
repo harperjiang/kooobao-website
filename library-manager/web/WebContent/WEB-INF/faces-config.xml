@@ -107,12 +107,29 @@
 			<to-view-id>/404.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>require_login_lm</display-name>
+		<navigation-case>
+			<from-outcome>require_login_lm</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<render-kit>
 		<display-name>KooobaoRenderKit</display-name>
 		<renderer>
 			<component-family>com.kooobao.jsf.func.for</component-family>
 			<renderer-type>com.kooobao.jsf.func.for</renderer-type>
 			<renderer-class>com.kooobao.common.web.tag.FuncForRender</renderer-class>
+		</renderer>
+		<renderer>
+			<component-family>javax.faces.Message</component-family>
+			<renderer-type>com.kooobao.jsf.ui.Message</renderer-type>
+			<renderer-class>com.kooobao.common.web.tag.HtmlMessageDialogRenderer</renderer-class>
+		</renderer>
+		<renderer>
+			<component-family>javax.faces.Messages</component-family>
+			<renderer-type>com.kooobao.jsf.ui.Messages</renderer-type>
+			<renderer-class>com.kooobao.common.web.tag.HtmlMessagesDialogRenderer</renderer-class>
 		</renderer>
 	</render-kit>
 	<lifecycle>

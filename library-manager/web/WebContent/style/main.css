@@ -12,6 +12,10 @@
 
 @IMPORT "book_list.css";
 
+@IMPORT "dialog.css";
+
+@IMPORT "common.css";
+
 body {
 	text-align: center;
 }
@@ -97,6 +101,7 @@ div.body {
 	height: auto;
 	width: 1000px;
 	overflow: auto;
+	min-height: 400px;
 }
 
 div.body div.column {

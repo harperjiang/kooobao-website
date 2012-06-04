@@ -25,10 +25,10 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>WEB-INF/spring/application-context.xml</param-value>
 	</context-param>
-	
+
 	<context-param>
 		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-		<param-value>/WEB-INF/kooobao-func.tld</param-value>
+		<param-value>/WEB-INF/kooobao-func.tld;/WEB-INF/kooobao-ui.tld</param-value>
 	</context-param>
 
 	<listener>
@@ -36,7 +36,8 @@
 	</listener>
 	<listener>
 		<listener-class>
-			org.springframework.web.context.request.RequestContextListener</listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
 	</listener>
 	<listener>
 		<listener-class>com.kooobao.common.web.bean.BeanStartuper</listener-class>

@@ -53,3 +53,10 @@
 .category_content a {
 	text-decoration: none;
 }
+
+.shadow {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #dddddd;
+	box-shadow: 3px 3px 0px 0px #cccccc;
+}
