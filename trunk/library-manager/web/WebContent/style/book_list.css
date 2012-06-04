@@ -1,5 +1,45 @@
 @CHARSET "utf-8";
 
+.book_list_container {
+	float: left;
+	margin: 5px;
+	width: 690px;
+}
+
+.bl_unit {
+	margin-bottom: 10px;
+	float: left;
+}
+
+.bl_picture {
+	width: 120px;
+	height: 140px;
+	float: left;
+}
+
+.bl_picture img {
+	width: 120px;
+	height: 140px;
+}
+
+.bl_title {
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.bl_content {
+	float: left;
+	margin-left: 10px;
+	width: 560px;
+	font-size: 14px;
+}
+
+.bl_brief {
+	width: 560px;
+	float: left;
+}
+
 div.attr {
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -22,4 +62,47 @@ div.short_attr label {
 	width: 50px;
 	display: block;
 	float: left;
+}
+
+.also_like_container {
+	float: left;
+	width: 270px;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+.also_like_pic {
+	float: left;
+	width: 80px;
+	height: 100px;
+}
+
+.also_like_first {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.also_like_first_title {
+	margin-bottom: 10px;
+	font-size: 16px;
+}
+
+.also_like_first_text {
+	float: left;
+	margin-left: 5px;
+	font-size: 14px;
+}
+
+.also_like_others {
+	
+}
+
+.also_like_pic img {
+	width: 80px;
+	height: 100px;
+}
+
+.navigation_bar {
+	margin-top: 2px;
+	margin-bottom: 10px;
 }

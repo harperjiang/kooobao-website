@@ -61,6 +61,10 @@
 		<property name="recommendDao" ref="recommendDao" />
 	</bean>
 
+	<bean id="ruleService" class="com.kooobao.lm.rule.DefaultRuleService">
+		<property name="ruleDao" ref="ruleDao" />
+	</bean>
+
 	<bean id="transactionService" class="com.kooobao.lm.bizflow.DummyTransactionService" />
 
 	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DummyFavouriteService" />

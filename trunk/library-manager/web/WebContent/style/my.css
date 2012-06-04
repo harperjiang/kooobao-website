@@ -10,15 +10,15 @@ div.part_header {
 	margin: 6px;
 	font-size: 14px;
 	font-weight: bolder;
-	background-color:#edfede;
-	padding-top:5px;
-	padding-bottom:5px;
-	padding-left:5px;
+	background-color: #edfede;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
 }
 
 div.part_body {
 	margin: 6px;
-	padding-left:5px;
+	padding-left: 5px;
 }
 
 div.part_body label {
@@ -41,27 +41,35 @@ div.part_item label {
 
 div.table_header {
 	height: 40px;
+	background-color: #FEE8D3;
 }
 
 div.table_header_col {
 	margin-top: 13px;
-	float: left;
+	font-size: 13px;
 	display: block;
 	width: 160px;
 	text-align: center;
+	border-left-width: 2px;
+	border-left-style: solid;
+	border-left-color: #e1e1e1;
+	float: left;
 }
 
 div.table_row {
-	min-height: 40px;
+	min-height: 20px;
+	margin-top: 4px;
+	margin-bottom: 4px;
 }
 
 div.table_cell {
-	margin-top: 13px;
 	float: left;
 	display: block;
 	width: 160px;
 	text-align: center;
 	display: block;
+	margin-top: 10px;
+	font-size: 13px;
 }
 
 div.table_cell a {
@@ -70,4 +78,47 @@ div.table_cell a {
 
 div.table_cell a:hover {
 	text-decoration: underline;
+}
+
+div.section {
+	background-color: #f2f1f3;
+}
+
+div.section_header {
+	font-size: 14px;
+	padding-left: 15px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	background-color: #f5fa79;
+	color: #327564;
+	font-weight: bolder;
+}
+
+div.item {
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+div.section ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+div.section li {
+	padding: 0px;
+	padding-bottom: 7px;
+	padding-left: 15px;
+	padding-top: 7px;
+}
+
+div.section a {
+	display: block;
+	color: #2dc4ea;
+	text-decoration: none;
+}
+
+div.section a:visited {
+	color: #2dc4ea;
 }
