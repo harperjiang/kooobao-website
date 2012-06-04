@@ -1,58 +1,22 @@
-<div style="margin: 5px; width: 130px; float: left;">
-	<style type="text/css">
-div.section {
-	background-color: #f2f1f3;
-}
-
-div.section_header {
-	font-size: 14px;
-	padding-left: 15px;
-	padding-top: 7px;
-	padding-bottom: 7px;
-	background-color: #f5fa79;
-	color: #327564;
-	font-weight: bolder;
-}
-
-div.item {
-	text-align: center;
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
-
-div.section ul {
-	list-style: none;
-	margin: 0px;
-	padding: 0px;
-}
-
-div.section li {
-	padding: 0px;
-	padding-bottom: 7px;
-	padding-left: 15px;
-	padding-top: 7px;
-}
-
-div.section a {
-	display: block;
-	color: #2dc4ea;
-	text-decoration: none;
-}
-
-
-div.section a:visited {
-	color: #2dc4ea;
-}
-</style>
+<div xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" style="margin: 5px; width: 130px; float: left;">
 	<div class="section">
 		<div class="section_header">我的图书馆</div>
 		<div
-			style="width: 84px; height: 94px; margin-left: auto; margin-right: auto;margin-top:5px;">
+			style="width: 84px; height: 94px; margin-left: auto; margin-right: auto; margin-top: 5px;">
 			<a href="/my_index.html"><img src="" width="80" height="90" /></a>
 		</div>
-		<div class="item">harper</div>
-		<div class="item">初级会员</div>
-		<div class="item">荣誉:444豆丁</div>
+		<!-- div class="item">
+			<h:outputText value="#{myIndexBean.visitor.id}" />
+		</div>
+		<div class="item">
+			<h:outputText value="级别:#{myIndexBean.visitor.level}" />
+		</div>
+		<div class="item">
+			<h:outputText value="荣誉:#{myIndexBean.visitor.deposit}豆丁" />
+		</div -->
 		<div class="section_header">我的借阅</div>
 		<ul>
 			<li><a href="/my_query.html">借阅记录查询</a></li>

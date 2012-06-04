@@ -2,6 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kui="http://kooobao.com/jsf/ui"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="false"></ui:param>
 	<ui:define name="title">酷宝图书馆-用户登录</ui:define>
@@ -46,9 +47,10 @@
 					<br />
 					<h:commandButton id="submitBtn" class="submitBtn"
 						action="#{loginBean.login}" value="登录" />
-					<h:commandLink id="forgetLink"  value="忘记密码" />
+					<h:commandLink id="forgetLink" value="忘记密码" />
 				</h:form>
 			</div>
 		</h:panelGroup>
+		<kui:messages />
 	</ui:define>
 </ui:composition>

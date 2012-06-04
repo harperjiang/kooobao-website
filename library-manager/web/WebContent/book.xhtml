@@ -6,8 +6,16 @@
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-#{bookBean.book.displayName}</ui:define>
-	<ui:define name="body">
+	<ui:define name="css">
 		<style type="text/css">
+.book_intro {
+	font-size: 14px;
+}
+
+.book_intro div {
+	font-size: 14px;
+}
+
 .book_intro label {
 	width: 100px;
 	font-weight: bold;
@@ -41,6 +49,8 @@
 	
 }
 </style>
+	</ui:define>
+	<ui:define name="body">
 		<div
 			style="float: left; width: 190px; margin-right: 5px; margin-top: 5px; height: 300px;">
 			<div style="margin-top: 5px; margin-bottom: 5px; font-size: 14px;">您可能还喜欢</div>
@@ -87,15 +97,17 @@
 				style="margin-top: 5px; margin-bottom: 5px;">
 				<h:outputText value="#{bookBean.book.name}" />
 			</div>
-			<div style="width: 140px; height: 160px; float: left;">
-				<h:graphicImage url="#{bookBean.book.pictureUrl}" />
+			<div style="width: 160px; height: 200px; float: left;">
+				<h:graphicImage url="#{bookBean.book.pictureUrl}" width="160"
+					height="200" />
 			</div>
 			<div class="book_intro"
-				style="float: left; margin-left: 5px; width: 620px;">
+				style="float: left; margin-left: 30px; width: 580px;">
 				<div style="float: right;">
-					<h:outputLink styleClass="btn_regular" value="#"
+					<h:outputLink styleClass="btn_highlight" value="#"
 						onclick="add_to_cart(#{bookBean.book.oid})">加入借书篮</h:outputLink>
-					<h:outputLink styleClass="btn_regular" value="#"
+					<br />
+					<h:outputLink styleClass="btn_confirm_small" value="#"
 						onclick="add_to_fav(#{bookBean.book.oid})">加入收藏</h:outputLink>
 				</div>
 				<div>
@@ -104,27 +116,34 @@
 				</div>
 				<div>
 					<h:outputLabel id="publisherLabel" for="publisherText" value="出版社" />
-					<h:outputText id="publisherText" value="#{bookBean.book.author}" />
+					<h:outputText id="publisherText" value="#{bookBean.book.publisher}" />
 				</div>
 				<div>
 					<h:outputLabel id="rateLabel" for="rateText" value="读者评级" />
 					<h:panelGroup id="rateText">
 						<kf:for repeat="#{bookBean.book.rating}">
-							<h:graphicImage url="/image/star.gif" />
+							<h:graphicImage width="15" height="15" url="/image/star.gif" />
+						</kf:for>
+						<kf:for repeat="#{5 - bookBean.book.rating}">
+							<h:graphicImage width="15" height="15"
+								url="/image/empty_star.gif" />
 						</kf:for>
 					</h:panelGroup>
 				</div>
 
 				<div>
 					<h:outputLabel id="briefLabel" for="briefText" value="简介" />
-					<div style="display: block; float: left; width: 515px;">
-						<h:outputText id="briefText" value="#{bookBean.book.brief}" />
+					<div style="display: block; float: left; width: 480px;">
+						<h:outputText id="briefText" value="#{bookBean.book.brief}"
+							escape="false" />
 					</div>
 				</div>
 			</div>
 			<div class="clearer" />
 		</div>
-		<div class="book_content" style="float: left; width: 780px;">
+
+		<div class="book_content dash_line"
+			style="float: left; width: 780px; margin-top: 20px; padding-top: 20px;">
 			<div class="book_content_header">内容摘要</div>
 			<div class="book_content_section">
 				<h:outputText value="#{bookBean.book.abstract}" escape="true" />

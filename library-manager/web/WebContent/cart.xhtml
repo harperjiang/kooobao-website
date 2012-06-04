@@ -2,102 +2,79 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kui="http://kooobao.com/jsf/ui"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-我的借书篮</ui:define>
 	<ui:define name="body">
-		<style type="text/css">
-.attr {
-	float: left;
-	width: 150px;
-}
-
-.attr label {
-	margin-right: 30px;
-}
-</style>
-		<div style="float: left; margin: 5px; width: 785px;">
-			<div class="page_title" style="margin-top: 20px; margin-bottom: 10px;">已选择的图书</div>
+		<div class="book_list_container" style="width: 760px;">
 			<h:panelGroup layout="block" rendered="#{cartBean.size > 0}">
-				<ui:repeat var="book" value="#{cartBean.books}">
-					<div style="margin-bottom: 10px;">
-						<div style="width: 140; height: 160; float: left;">
-							<h:graphicImage value="#{book.pictureUrl}" />
-						</div>
-						<div style="float: left; margin-left: 10px; width: 600px;">
-							<div
-								style="font-size: 14px; font-weight: bold; margin-bottom: 5px;">
-								<h:outputText value="#{book.name}" />
-							</div>
-							<div>
-								<h:outputText value="#{book.brief}" />
-							</div>
-							<div style="margin-top: 5px;">
-								<div class="attr">
-									<h:outputLabel id="authorLabel" for="authorText" value="作　者:" />
-									<h:outputText id="authorText" value="#{book.author}" />
-								</div>
-								<div class="attr">
-									<h:outputLabel id="publisherLabel" for="publisherText"
-										value="出版社:" />
-									<h:outputText id="publisherText" value="#{book.publisher}" />
-								</div>
-							</div>
-						</div>
-						<div style="display: block; margin-left: 400px; float: left;">
-							<h:form>
-								<h:commandLink action="#">
-									<h:graphicImage url="/image/btn_fav.gif" />
-								</h:commandLink>
-								<h:outputLink value="#">删除</h:outputLink>
-							</h:form>
-						</div>
-					</div>
-				</ui:repeat>
-
-				<div class="clearer" />
-
-				<div style="margin-left: 450px;">
-					<h:form id="cartForm">
-						<h:outputLink value="/index.html">继续选书</h:outputLink>
-						<h:commandLink id="confirm" action="#{cartBean.confirm}">确认借阅</h:commandLink>
-					</h:form>
+				<div class="page_title">已选择的图书</div>
+				<div class="table_header">
+					<div class="table_header_col" style="width: 320px">书名</div>
+					<div class="table_header_col" style="width: 120px">所需积分</div>
+					<div class="table_header_col" style="width: 120px">重量</div>
+					<div class="table_header_col" style="width: 180px">操作</div>
 				</div>
+				<h:form>
+					<ui:repeat var="book" value="#{cartBean.books}">
+						<div class="table_row">
+							<div class="table_cell" style="width: 320px;">
+								<div style="float: left;">
+									<h:graphicImage style="width:57px;height:70px;"
+										value="#{book.pictureUrl}" />
+								</div>
+								<div style="float: left; font-size: 14px; margin-left: 10px;">
+									<h:outputLink value="/book.html">
+										<h:outputText value="#{book.name}" />
+										<f:param name="book_id" value="#{book.oid}" />
+									</h:outputLink>
+								</div>
+							</div>
+							<div class="table_cell" style="width: 120px; font-size: 14px;">
+								<h:outputText value="#{book.listPrice}" />
+							</div>
+							<div class="table_cell" style="width: 120px; font-size: 14px;">
+								<h:outputText value="#{book.netWeight}" />
+							</div>
+							<div class="table_cell" style="width: 180px">
+								<h:commandLink action="#{cartBean.delete}"
+									styleClass="btn_confirm_small">
+									<h:outputText value="删除" />
+									<f:param name="book_id" value="#{book.oid}" />
+								</h:commandLink>
+								<h:outputLink styleClass="btn_solid_small"
+									style="margin-left:5px;" value="#"
+									onclick="add_to_fav(#{book.oid})">
+									<h:outputText value="加入收藏" />
+								</h:outputLink>
+							</div>
+						</div>
+					</ui:repeat>
+				</h:form>
+				<div class="clearer" />
 			</h:panelGroup>
 			<h:panelGroup layout="block" rendered="#{cartBean.size == 0}">
-				您的购物车是空的
+				<div class="page_title">您的借书篮是空的</div>
 			</h:panelGroup>
 		</div>
-		<div
-			style="float: left; width: 190px; margin-right: 5px; margin-top: 5px;">
-			<div class="title">您可能还喜欢</div>
-			<ui:repeat var="book" value="#{cartBean.recommend}"
-				varStatus="status">
-				<h:panelGroup layout="block" rendered="#{status.index == 0}">
-					<div style="float: left; width: 60px; height: 70px;">
-						<h:graphicImage url="#{book.pictureUrl}" width="60" height="70" />
-					</div>
-					<div style="float: left; margin-left: 5px;">
-						<div style="margin-bottom: 10px;">
-							<h:outputText value="#{book.name}" />
-						</div>
-						<div>
-							<h:outputText style="margin-right:10px;" value="作　者:" />
-							<h:outputText value="#{book.author}" />
-						</div>
-						<div>
-							<h:outputText style="margin-right:10px;" value="出版社:" />
-							<h:outputText value="#{book.publisher}" />
-						</div>
-					</div>
-					<div class="clearer" />
-				</h:panelGroup>
-
-				<h:panelGroup layout="block" rendered="#{status.index != 0}"
-					style="margin-top:5px;margin-bottom:5px;">
-					<h:outputText value="#{book.name}" />
-				</h:panelGroup>
-			</ui:repeat>
+		<div style="float: left; width: 200px; margin-top: 5px; padding: 10px;"
+			class="shadow">
+			<div style="font-size: 14px; margin: 10px 0px;">
+				<h:outputText value="总计 #{cartBean.sumWeight}kg" />
+				<br />
+				<h:outputText value="所需点数#{cartBean.sumPrice}" />
+			</div>
+			<h:form>
+				<h:commandLink styleClass="btn_confirm"
+					disabled="#{cartBean.books == null}" action="#{cartBean.confirm}"
+					value="确认借阅>>" />
+				<h:outputLink style="margin-top:5px;" value="/index.html"
+					styleClass="btn_solid">
+					<h:outputText value="继续挑选" />
+				</h:outputLink>
+			</h:form>
 		</div>
+		<kui:messages />
 	</ui:define>
 </ui:composition>

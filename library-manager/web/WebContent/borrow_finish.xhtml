@@ -6,9 +6,18 @@
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-订单已确认</ui:define>
 	<ui:define name="body">
-		<div>您的订单已确认</div>
-		<div>
-			<h:outputLink value="/index.html">返回首页</h:outputLink>
+		<div class="page_title">您的订单已确认</div>
+		<div style="margin-top: 10px; margin-bottom: 20px; font-size: 14px;">
+			<p>您的订单已提交，并正在审核中，通过审核后，我们将发给您一封电子邮件并安排发货。</p>
+			<p>您可以</p>
+			<ul>
+				<li><a href="/my_query.html">点这里</a>查看或取消订单</li>
+				<li>点这里 <h:outputLink value="/index.html">继续挑选</h:outputLink>
+				</li>
+			</ul>
+		</div>
+		<div class="component">
+			<div class="title">您可能还喜欢</div>
 		</div>
 	</ui:define>
 </ui:composition>

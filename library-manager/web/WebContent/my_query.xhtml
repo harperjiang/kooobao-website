@@ -29,7 +29,7 @@
 								<f:selectItems value="#{suppDataBean.transactionStates}" />
 								<f:converter converterId="selectItemConverter" />
 							</h:selectOneMenu>
-							<h:commandLink styleClass="btn_positive" style="float:left;"
+							<h:commandLink styleClass="btn_solid_small" style="float:left;"
 								action="#{myQueryBean.search}">查询
 						</h:commandLink>
 						</div>
@@ -78,12 +78,12 @@
 							</ui:repeat>
 							<div style="float: right; margin-right: 150px;">
 								<h:form>
-									<h:commandLink styleClass="btn"
+									<h:commandLink styleClass="btn_solid_small" style="float:left;"
 										action="#{myQueryBean.prevPage}">上一页</h:commandLink>
 									<h:outputText
 										style="display:block;float:left;padding-top:6px;margin-right:5px;"
 										value="第#{myQueryBean.currentPage}页，共#{myQueryBean.pageCount}页" />
-									<h:commandLink styleClass="btn"
+									<h:commandLink styleClass="btn_solid_small" style="float:left;"
 										action="#{myQueryBean.nextPage}">下一页</h:commandLink>
 								</h:form>
 							</div>

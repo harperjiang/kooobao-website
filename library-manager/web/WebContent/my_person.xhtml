@@ -2,6 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kui="http://kooobao.com/jsf/ui"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-我的图书馆</ui:define>
@@ -24,10 +25,7 @@
 							<h:outputLabel for="yearMenu" id="yearLabel">出生年份</h:outputLabel>
 							<h:selectOneMenu id="yearMenu"
 								value="#{myPersonBean.personalInfo.bornYear}">
-								<f:selectItem itemLabel="1970" itemValue="1970" />
-								<f:selectItem itemLabel="1980" itemValue="1980" />
-								<f:selectItem itemLabel="1990" itemValue="1990" />
-								<f:selectItem itemLabel="2000" itemValue="2000" />
+								<f:selectItems value="#{myPersonBean.yearList}" />
 							</h:selectOneMenu>
 							<br />
 							<h:outputLabel for="eduSelect" id="eduLabel">您的教育程度</h:outputLabel>
@@ -42,6 +40,7 @@
 							<h:outputLabel for="kidCountSelect" id="kidSelectMenu">您有几个孩子</h:outputLabel>
 							<h:selectOneMenu id="kidCountSelect"
 								value="#{myPersonBean.personalInfo.kidCount}">
+								<f:selectItem itemLabel="无" itemValue="0" />
 								<f:selectItem itemLabel="一个" itemValue="1" />
 								<f:selectItem itemLabel="两个" itemValue="2" />
 								<f:selectItem itemLabel="两个以上" itemValue="3" />
@@ -66,7 +65,7 @@
 								<f:selectItem itemLabel="亲子互动活动" itemValue="F" />
 							</h:selectManyCheckbox>
 							<div style="width: 300px; padding-left: 140px;">
-								<h:commandLink styleClass="btn_positive"
+								<h:commandLink styleClass="btn_solid"
 									action="#{myPersonBean.save}">保存</h:commandLink>
 							</div>
 						</div>
@@ -74,5 +73,6 @@
 				</div>
 			</div>
 		</div>
+		<kui:message for="defaultDialog" />
 	</ui:define>
 </ui:composition>

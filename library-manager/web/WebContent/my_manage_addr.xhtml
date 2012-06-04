@@ -2,6 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kui="http://kooobao.com/jsf/ui"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-收货地址</ui:define>
@@ -35,12 +36,12 @@
 									<div class="table_cell"
 										style="margin-top: 7px; margin-left: 5px; width: 150px;">
 										<h:commandLink action="#{myManageAddrBean.setAsDefault}"
-											styleClass="btn_regular">
+											styleClass="btn_solid_small">
 											<h:outputText value="设为默认" />
 											<f:param name="addr_id" value="#{addr.oid}" />
 										</h:commandLink>
 										<h:commandLink action="#{myManageAddrBean.delete}"
-											styleClass="btn_negative">
+											styleClass="btn_solid_small">
 											<h:outputText value="删除" />
 											<f:param name="addr_id" value="#{addr.oid}" />
 										</h:commandLink>
@@ -65,7 +66,7 @@
 								value="#{myManageAddrBean.newAddr.phone}" />
 							<br />
 							<div style="width: 500px; margin-left: 10px;">
-								<h:commandLink styleClass="btn_positive"
+								<h:commandLink styleClass="btn_solid_small"
 									action="#{myManageAddrBean.save}">保存</h:commandLink>
 							</div>
 						</h:form>
@@ -73,5 +74,6 @@
 				</div>
 			</div>
 		</div>
+		<kui:messages />
 	</ui:define>
 </ui:composition>
