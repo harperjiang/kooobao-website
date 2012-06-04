@@ -15,8 +15,8 @@
 	position: absolute;
 	z-index: 40;
 	width: 400px;
-	height: 120px;
-	background-color: #ffffff;
+	height: 180px;
+	background-color: #eeeeee;
 	border-radius: 3px;
 }
 
@@ -30,6 +30,7 @@
 .dialog_content {
 	text-align: center;
 	margin: 5px;
+	margin-top:14px;
 	font-size: 14px;
 }
 
@@ -38,7 +39,7 @@
 }
 
 .dialog_content .warn {
-	color: #00ffff;
+	color: #863E5A;
 }
 
 .dialog_content .info {

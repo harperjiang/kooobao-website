@@ -35,9 +35,36 @@ public class BorrowConfirmBean extends AbstractBean {
 			setExpireDate(getRuleService().getExpirePeriod(visitor));
 			setPenalty(getRuleService().getPenalty(visitor));
 		}
+		if (!CollectionUtils.isEmpty(getBorrowed())) {
+			BigDecimal sum = BigDecimal.ZERO;
+			BigDecimal netWeight = BigDecimal.ZERO;
+			for (Book book : getBorrowed()) {
+				sum = sum.add(book.getListPrice());
+				netWeight = netWeight.add(new BigDecimal(book.getNetWeight()));
+			}
+			setSum(sum);
+			setNetWeight(netWeight);
+		}
+		updateDeliveryFee();
+	}
+
+	protected void updateDeliveryFee() {
+		BigDecimal bookSum = getSum();
+		setDeliveryFee(getRuleService().getDeliveryFee(getAddress(),
+				getNetWeight()));
+		BigDecimal deliveryFee = getDelivery() == DeliveryMethod.EXPRESS ? getDeliveryFee()
+				: BigDecimal.ZERO;
+
+		BigDecimal visitorDeposit = getCurrentVisitor().getDeposit();
+		if (visitorDeposit.compareTo(deliveryFee.add(bookSum)) < 0) {
+			addMessage(FacesMessage.SEVERITY_INFO, "积分不足",
+					"您的积分不足以支付抵押，借阅可能无法通过审批。您仍可以提交请求");
+		}
 	}
 
 	public String changeAddress() {
+		// Recalculate the delivery fee.
+		updateDeliveryFee();
 		return "success";
 	}
 
@@ -45,6 +72,10 @@ public class BorrowConfirmBean extends AbstractBean {
 		if (null == getCurrentVisitor()
 				|| CollectionUtils.isEmpty(getBorrowed())) {
 			addMessage(FacesMessage.SEVERITY_WARN, "用户未登录", "您尚未登录,请先登录");
+			return "failed";
+		}
+		if (CollectionUtils.isEmpty(borrowed)) {
+			addMessage(FacesMessage.SEVERITY_WARN, "列表为空", "您的确认列表是空的");
 			return "failed";
 		}
 		for (Book book : borrowed) {
@@ -84,6 +115,36 @@ public class BorrowConfirmBean extends AbstractBean {
 
 	public void setPenalty(BigDecimal penalty) {
 		this.penalty = penalty;
+	}
+
+	private BigDecimal sum;
+
+	public BigDecimal getSum() {
+		return sum;
+	}
+
+	public void setSum(BigDecimal sum) {
+		this.sum = sum;
+	}
+
+	private BigDecimal netWeight;
+
+	public BigDecimal getNetWeight() {
+		return netWeight;
+	}
+
+	public void setNetWeight(BigDecimal netWeight) {
+		this.netWeight = netWeight;
+	}
+
+	private BigDecimal deliveryFee;
+
+	public BigDecimal getDeliveryFee() {
+		return deliveryFee;
+	}
+
+	public void setDeliveryFee(BigDecimal deliveryFee) {
+		this.deliveryFee = deliveryFee;
 	}
 
 	private Address address;

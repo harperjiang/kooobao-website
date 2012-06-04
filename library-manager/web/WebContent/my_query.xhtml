@@ -16,18 +16,19 @@
 							<h:outputLabel for="fromDateText" id="fromDateLabel">起始日期</h:outputLabel>
 							<h:inputText id="fromDateText"
 								value="#{myQueryBean.searchBean.fromDate}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
+								<f:convertDateTime pattern="yyyy-MM-dd HH:mm"
+									timeZone="#{envSettingBean.timeZone}" />
 							</h:inputText>
 							<h:outputLabel for="toDateText" id="toDateLabel">结束日期</h:outputLabel>
 							<h:inputText id="toDateText"
 								value="#{myQueryBean.searchBean.toDate}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
+								<f:convertDateTime pattern="yyyy-MM-dd HH:mm"
+									timeZone="#{envSettingBean.timeZone}" />
 							</h:inputText>
 							<h:outputLabel for="stateSelect" id="stateLabel">状态</h:outputLabel>
 							<h:selectOneMenu id="stateSelect"
 								value="#{myQueryBean.searchBean.state}">
 								<f:selectItems value="#{suppDataBean.transactionStates}" />
-								<f:converter converterId="selectItemConverter" />
 							</h:selectOneMenu>
 							<h:commandLink styleClass="btn_solid_small" style="float:left;"
 								action="#{myQueryBean.search}">查询
@@ -59,11 +60,11 @@
 										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
 											value="/transaction.html">
 											<f:param name="tran_id" value="#{tran.oid}" />
-											<h:outputText value="#{tran.id}" />
+											<h:outputText value="#{tran.oid}" />
 										</h:outputLink>
 										<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
 											value="/transaction_#{tran.oid}.html">
-											<h:outputText value="#{tran.id}" />
+											<h:outputText value="#{tran.oid}" />
 										</h:outputLink>
 									</div>
 									<div class="table_cell">
@@ -76,16 +77,14 @@
 									</div>
 								</div>
 							</ui:repeat>
-							<div style="float: right; margin-right: 150px;">
-								<h:form>
-									<h:commandLink styleClass="btn_solid_small" style="float:left;"
-										action="#{myQueryBean.prevPage}">上一页</h:commandLink>
-									<h:outputText
-										style="display:block;float:left;padding-top:6px;margin-right:5px;"
-										value="第#{myQueryBean.currentPage}页，共#{myQueryBean.pageCount}页" />
-									<h:commandLink styleClass="btn_solid_small" style="float:left;"
-										action="#{myQueryBean.nextPage}">下一页</h:commandLink>
-								</h:form>
+							<div class="navigation_bar_right">
+								<h:commandLink styleClass="btn_solid_small" style="float:left;"
+									action="#{myQueryBean.prevPage}">上一页</h:commandLink>
+								<h:outputText
+									style="display:block;float:left;padding-top:6px;margin-right:5px;"
+									value="第#{myQueryBean.currentPage}页，共#{myQueryBean.pageCount}页" />
+								<h:commandLink styleClass="btn_solid_small" style="float:left;"
+									action="#{myQueryBean.nextPage}">下一页</h:commandLink>
 							</div>
 						</h:form>
 					</div>

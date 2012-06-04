@@ -71,16 +71,14 @@
 									</div>
 								</div>
 							</ui:repeat>
-							<div style="float: right; margin-right: 150px;">
-								<h:form>
-									<h:commandLink styleClass="btn"
-										action="#{myExpireBean.prevPage}">上一页</h:commandLink>
-									<h:outputText
-										style="display:block;float:left;padding-top:6px;margin-right:5px;"
-										value="第#{myExpireBean.currentPage}页，共#{myExpireBean.pageCount}页" />
-									<h:commandLink styleClass="btn"
-										action="#{myExpireBean.nextPage}">下一页</h:commandLink>
-								</h:form>
+							<div class="navigation_bar_right">
+								<h:commandLink styleClass="btn"
+									action="#{myExpireBean.prevPage}">上一页</h:commandLink>
+								<h:outputText
+									style="display:block;float:left;padding-top:6px;margin-right:5px;"
+									value="第#{myExpireBean.currentPage}页，共#{myExpireBean.pageCount}页" />
+								<h:commandLink styleClass="btn"
+									action="#{myExpireBean.nextPage}">下一页</h:commandLink>
 							</div>
 						</h:form>
 					</div>

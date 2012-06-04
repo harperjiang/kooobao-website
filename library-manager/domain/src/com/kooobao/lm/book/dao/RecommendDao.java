@@ -11,4 +11,6 @@ public interface RecommendDao {
 
 	List<Book> recommend(Visitor visitor, Book book, int limit);
 
+	List<Book> recommend(Visitor visitor, int limit);
+
 }

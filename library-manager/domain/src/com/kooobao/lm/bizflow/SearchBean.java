@@ -2,11 +2,13 @@ package com.kooobao.lm.bizflow;
 
 import java.util.Date;
 
+import com.kooobao.common.web.Utilities;
+
 public class SearchBean {
 
-	private Date fromDate;
+	private Date fromDate = Utilities.offset(Utilities.dayBegin(), -7);
 
-	private Date toDate;
+	private Date toDate = Utilities.dayEnd();
 
 	private int from;
 

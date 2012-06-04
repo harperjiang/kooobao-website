@@ -39,10 +39,7 @@ public class DefaultTransactionService implements TransactionService {
 		Visitor v = getVisitorDao().find(transaction.getVisitor());
 		if (!v.getStatus().equals(VisitorStatus.ACTIVE.name()))
 			return null;
-		// Check User Account
-		if (v.getDeposit().compareTo(transaction.getBook().getListPrice()) < 0)
-			throw new InsufficientFundException();
-		v.changeDeposit(transaction.getBook().getListPrice().negate(), "");
+
 		transaction.create();
 		// Set Due date
 		DueRule dueRule = getRuleDao().getDueRule();
@@ -53,10 +50,14 @@ public class DefaultTransactionService implements TransactionService {
 	}
 
 	public Transaction approveBorrow(Transaction transaction) {
+		Visitor v = getVisitorDao().find(transaction.getVisitor());
 		// Check stock reservation
 		if (!transaction.isStockReserved())
 			throw new IllegalStateException();
-		//
+		// Check User Account
+		if (v.getDeposit().compareTo(transaction.getBook().getListPrice()) < 0)
+			throw new InsufficientFundException();
+		v.changeDeposit(transaction.getBook().getListPrice().negate(), "");
 		transaction.approve();
 		return getTransactionDao().store(transaction);
 	}
@@ -117,19 +118,24 @@ public class DefaultTransactionService implements TransactionService {
 	}
 
 	public List<Transaction> getActiveTransactions(Visitor visitor) {
+		Validate.notNull(visitor);
 		return getTransactionDao().getTransactions(visitor,
-				TransactionState.BORROW_SENT, TransactionState.RETURN_WAIT,
-				TransactionState.RETURN_SENT, TransactionState.RETURN_EXPIRED);
+				TransactionState.BORROW_REQUESTED,
+				TransactionState.BORROW_APPROVED, TransactionState.BORROW_SENT,
+				TransactionState.RETURN_WAIT, TransactionState.RETURN_SENT,
+				TransactionState.RETURN_EXPIRED);
 	}
 
 	static final int LIMIT = 10;
 
 	public List<Book> getRecommendBooks(Visitor visitor) {
-		return getRecommendDao().recommend(visitor, (Book) null, LIMIT);
+		return getRecommendDao().recommend(visitor, LIMIT);
 	}
 
 	public PageSearchResult<Transaction> findTransaction(Visitor visitor,
 			TransactionSearchBean searchBean) {
+		Validate.notNull(searchBean.getFromDate());
+		Validate.notNull(searchBean.getToDate());
 		return getTransactionDao().search(visitor, searchBean);
 	}
 
@@ -220,5 +226,4 @@ public class DefaultTransactionService implements TransactionService {
 		return getTransactionDao().store(tran);
 
 	}
-
 }

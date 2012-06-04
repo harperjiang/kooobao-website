@@ -2,6 +2,8 @@ package com.kooobao.lm.bizflow;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.LogFactory;
+
 import com.kooobao.authcenter.listener.LoginAuthorizer;
 import com.kooobao.authcenter.service.Token;
 import com.kooobao.lm.profile.ProfileService;
@@ -18,8 +20,7 @@ public class FavManager {
 			getFavouriteService().addFavorite(visitor, bookOid);
 			return true;
 		} catch (Exception e) {
-			// TODO log
-			e.printStackTrace();
+			LogFactory.getLog(getClass()).warn("Failed to add to favorite", e);
 			return false;
 		}
 	}

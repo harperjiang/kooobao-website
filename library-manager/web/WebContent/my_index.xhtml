@@ -45,9 +45,10 @@
 				<div class="part_body">
 					<div class="table_header">
 						<div class="table_header_col" style="width: 320px;">书籍名</div>
-						<div class="table_header_col">订单号</div>
-						<div class="table_header_col">应还日期</div>
-						<div class="table_header_col">当前状态</div>
+						<div class="table_header_col" style="width: 120px;">订单号</div>
+						<div class="table_header_col" style="width: 120px;">应还日期</div>
+						<div class="table_header_col" style="width: 120px;">是否到期</div>
+						<div class="table_header_col" style="width: 120px;">当前状态</div>
 					</div>
 					<div>
 						<h:form>
@@ -64,7 +65,7 @@
 											<h:outputText value="#{tran.book.name}" />
 										</h:outputLink>
 									</div>
-									<div class="table_cell">
+									<div class="table_cell" style="width: 120px;">
 										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
 											value="/transaction.html">
 											<f:param name="tran_id" value="#{tran.oid}" />
@@ -75,14 +76,17 @@
 											<h:outputText value="#{tran.oid}" />
 										</h:outputLink>
 									</div>
-									<div class="table_cell">
+									<div class="table_cell" style="width: 120px;">
 										<h:outputText value="#{tran.dueTime}">
 											<f:convertDateTime pattern="yyyy-MM-dd" />
 										</h:outputText>
 									</div>
-									<div class="table_cell">
+									<div class="table_cell" style="width: 120px;">
 										<h:outputText
 											value="#{tran.dueTime ge suppDataBean.currentTime ? '未到期':'逾期'}" />
+									</div>
+									<div class="table_cell" style="width: 120px;">
+										<h:outputText value="#{tran.stateText}" />
 									</div>
 								</div>
 							</ui:repeat>

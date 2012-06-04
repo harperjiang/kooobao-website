@@ -1,5 +1,6 @@
 package com.kooobao.lm.book.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -49,4 +50,7 @@ public class JpaRecommendDao extends AbstractJpaDao<SimpleEntity> implements
 				.getResultList();
 	}
 
+	public List<Book> recommend(Visitor visitor, int limit) {
+		return new ArrayList<Book>();
+	}
 }
