@@ -9,6 +9,7 @@ import org.apache.commons.lang.Validate;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.dao.ExpireRecordDao;
 import com.kooobao.lm.bizflow.dao.TransactionDao;
+import com.kooobao.lm.bizflow.entity.DeliveryMethod;
 import com.kooobao.lm.bizflow.entity.ExpireRecord;
 import com.kooobao.lm.bizflow.entity.ExpireRecordState;
 import com.kooobao.lm.bizflow.entity.Transaction;
@@ -20,6 +21,7 @@ import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
+import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
 import com.kooobao.lm.rule.dao.RuleDao;
@@ -49,38 +51,48 @@ public class DefaultTransactionService implements TransactionService {
 		return getTransactionDao().store(transaction);
 	}
 
-	public Transaction approveBorrow(Transaction transaction) {
+	public Transaction approveBorrow(Transaction transaction, Operator operator) {
 		Visitor v = getVisitorDao().find(transaction.getVisitor());
 		// Check stock reservation
 		if (!transaction.isStockReserved())
-			throw new IllegalStateException();
+			throw new IllegalStateException("Stock Not Reserved");
 		// Check User Account
 		if (v.getDeposit().compareTo(transaction.getBook().getListPrice()) < 0)
 			throw new InsufficientFundException();
 		v.changeDeposit(transaction.getBook().getListPrice().negate(), "");
-		transaction.approve();
+		transaction.approve(null == operator ? null : operator.getId());
 		return getTransactionDao().store(transaction);
 	}
 
-	public Transaction sendBorrow(Transaction transaction, String expressInfo) {
-		transaction.sendout(expressInfo);
+	public Transaction sendBorrow(Transaction transaction, Operator operator,
+			String expressInfo) {
+		Validate.notNull(operator);
+		Validate.isTrue(!DeliveryMethod.EXPRESS.name().equals(
+				transaction.getDelivery())
+				|| !StringUtils.isEmpty(expressInfo));
+		transaction.sendout(operator.getId(), expressInfo);
 		return getTransactionDao().store(transaction);
 	}
 
-	public Transaction sendReturn(Transaction transaction, String expressInfo) {
-		transaction.sendback(expressInfo);
+	public Transaction sendReturn(Transaction transaction, Operator operator,
+			String expressInfo) {
+		Validate.isTrue(!DeliveryMethod.EXPRESS.name().equals(
+				transaction.getDelivery())
+				|| !StringUtils.isEmpty(expressInfo));
+		transaction.sendback(null == operator ? null : operator.getId(),
+				expressInfo);
 		return getTransactionDao().store(transaction);
 	}
 
-	public Transaction confirmReturn(Transaction transaction) {
+	public Transaction confirmReturn(Transaction transaction, Operator operator) {
 		ExpireRecord expireRecord = getExpireRecordDao().findByTransaction(
 				transaction);
 		if (null != expireRecord && expireRecord.isActive()) {
 			expireRecord.setReturnTime(new Date());
 			expireRecord.setState(ExpireRecordState.INACTIVE);
 		}
-		transaction.returnReceived(null == expireRecord ? null : expireRecord
-				.getPenalty());
+		transaction.returnReceived(operator.getId(),
+				null == expireRecord ? null : expireRecord.getPenalty());
 		// Add Stock
 		// TODO Set as async operation
 		Stock stock = getStockDao().findByBook(transaction.getBook());
@@ -90,19 +102,24 @@ public class DefaultTransactionService implements TransactionService {
 
 	public Transaction cancel(Transaction tran, String reason) {
 		Validate.isTrue(!StringUtils.isEmpty(reason));
-		tran.cancel(reason);
+
 		// Return Funds
-		tran.getVisitor().changeDeposit(tran.getBook().getListPrice(), "");
+		if (tran.getState() == TransactionState.BORROW_APPROVED)
+			tran.getVisitor().changeDeposit(tran.getBook().getListPrice(), "");
 		// Release Stocks
 		if (tran.isStockReserved()) {
 			Stock stock = getStockDao().findByBook(tran.getBook());
 			stock.setAvailable(stock.getAvailable() + 1);
 		}
+		tran.cancel(reason);
+
 		return getTransactionDao().store(tran);
 	}
 
-	public Transaction interrupt(Transaction tran, String reason) {
-		tran.interrupt(reason);
+	public Transaction interrupt(Transaction tran, Operator operator,
+			String reason) {
+		Validate.notNull(operator);
+		tran.interrupt(operator.getId(), reason);
 		// Deactivate Expire Records
 		ExpireRecord er = getExpireRecordDao().findByTransaction(tran);
 		if (null != er) {

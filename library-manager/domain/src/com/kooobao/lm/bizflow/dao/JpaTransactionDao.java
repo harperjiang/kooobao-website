@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import com.kooobao.common.domain.dao.AbstractJpaDao;
 import com.kooobao.common.domain.dao.Cursor;
@@ -61,24 +65,36 @@ public class JpaTransactionDao extends AbstractJpaDao<Transaction> implements
 		return query.getResultList();
 	}
 
+	protected Predicate[] genSearchQuery(CriteriaBuilder cb,
+			Root<Transaction> root, Visitor v, TransactionSearchBean searchBean) {
+		List<Predicate> ps = new ArrayList<Predicate>();
+		ps.add(cb.equal(root.get("state"), searchBean.getState().name()));
+		ps.add(cb.between(root.<Date> get("createTime"),
+				searchBean.getFromDate(), searchBean.getToDate()));
+		if (null != v) {
+			ps.add(cb.equal(root.<Visitor> get("visitor"), v));
+		}
+
+		Predicate[] pa = new Predicate[ps.size()];
+		ps.toArray(pa);
+		return pa;
+	}
+
 	public PageSearchResult<Transaction> search(Visitor visitor,
 			TransactionSearchBean searchBean) {
-		TypedQuery<Long> countQuery = getEntityManager()
-				.createQuery(
-						"select count(t) from Transaction t where t.visitor = :visitor and t.createTime between :fromDate and :toDate and t.state = :state order by t.createTime",
-						Long.class);
-		TypedQuery<Transaction> query = getEntityManager()
-				.createQuery(
-						"select t from Transaction t where t.visitor = :visitor and t.createTime between :fromDate and :toDate and t.state = :state order by t.createTime",
-						Transaction.class);
-		countQuery.setParameter("fromDate", searchBean.getFromDate());
-		countQuery.setParameter("toDate", searchBean.getToDate());
-		countQuery.setParameter("state", searchBean.getState().name());
-		countQuery.setParameter("visitor", visitor);
-		query.setParameter("fromDate", searchBean.getFromDate());
-		query.setParameter("toDate", searchBean.getToDate());
-		query.setParameter("state", searchBean.getState().name());
-		query.setParameter("visitor", visitor);
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Transaction> tranQ = cb.createQuery(Transaction.class);
+		Root<Transaction> root = tranQ.from(Transaction.class);
+		tranQ.where(genSearchQuery(cb, root, visitor, searchBean));
+
+		CriteriaQuery<Long> countQ = cb.createQuery(Long.class);
+		Root<Transaction> countRoot = countQ.from(Transaction.class);
+		countQ.select(cb.count(countRoot)).where(
+				genSearchQuery(cb, countRoot, visitor, searchBean));
+
+		TypedQuery<Long> countQuery = getEntityManager().createQuery(countQ);
+		TypedQuery<Transaction> query = getEntityManager().createQuery(tranQ);
 		query.setFirstResult(searchBean.getFrom());
 		query.setMaxResults(searchBean.getTo() - searchBean.getFrom());
 		long count = countQuery.getSingleResult();

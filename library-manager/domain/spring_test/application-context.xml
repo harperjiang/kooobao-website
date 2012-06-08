@@ -33,6 +33,10 @@
 	<bean id="recommendDao" class="com.kooobao.lm.book.dao.JpaRecommendDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
+	
+	<bean id="operatorDao" class="com.kooobao.lm.profile.dao.JpaOperatorDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
 
 	<bean id="dummyUserService" class="com.kooobao.lm.profile.DummyUserService" />
 	<bean id="dummyMailSender" class="com.kooobao.lm.profile.DummyMailSender" />

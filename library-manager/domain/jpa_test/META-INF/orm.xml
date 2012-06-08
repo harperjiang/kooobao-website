@@ -32,8 +32,6 @@
 	<table-generator name="newsTG" table="lm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_article_news" />
 
-
-
 	<entity class="com.kooobao.lm.profile.entity.Visitor">
 		<primary-key>
 			<column name="obj_id" />
@@ -213,6 +211,12 @@
 		<primary-key>
 			<column name="book_from" />
 			<column name="book_to" />
+		</primary-key>
+	</entity>
+
+	<entity class="com.kooobao.lm.profile.entity.Operator">
+		<primary-key>
+			<column name="obj_id" />
 		</primary-key>
 	</entity>
 

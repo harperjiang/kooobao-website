@@ -3,6 +3,7 @@ package com.kooobao.lm.profile;
 import java.math.BigDecimal;
 
 import com.kooobao.lm.profile.entity.Address;
+import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public class DummyProfileService implements ProfileService {
@@ -49,5 +50,10 @@ public class DummyProfileService implements ProfileService {
 	public void redeem(Visitor visitor, BigDecimal amount) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public Operator getOperator(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

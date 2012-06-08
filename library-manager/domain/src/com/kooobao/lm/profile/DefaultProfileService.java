@@ -9,8 +9,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import com.kooobao.authcenter.service.UserService;
 import com.kooobao.common.web.email.TemplateMailMessage;
+import com.kooobao.lm.profile.dao.OperatorDao;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.ActivationRecord;
+import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
 import com.kooobao.lm.rule.dao.RuleDao;
@@ -117,6 +119,20 @@ public class DefaultProfileService implements ProfileService {
 
 	public void setRuleDao(RuleDao ruleDao) {
 		this.ruleDao = ruleDao;
+	}
+
+	private OperatorDao operatorDao;
+
+	public OperatorDao getOperatorDao() {
+		return operatorDao;
+	}
+
+	public void setOperatorDao(OperatorDao operatorDao) {
+		this.operatorDao = operatorDao;
+	}
+
+	public Operator getOperator(String id) {
+		return getOperatorDao().find(id);
 	}
 
 }
