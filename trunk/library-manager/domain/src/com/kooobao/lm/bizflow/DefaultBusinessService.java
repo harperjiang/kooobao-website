@@ -227,4 +227,8 @@ public class DefaultBusinessService implements BusinessService {
 		this.bookDao = bookDao;
 	}
 
+	public void reserveStock(Transaction tran) {
+		updateStock(tran);
+	}
+
 }

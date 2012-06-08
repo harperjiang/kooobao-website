@@ -8,6 +8,7 @@ import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Comment;
+import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public interface TransactionService {
@@ -18,11 +19,13 @@ public interface TransactionService {
 
 	Transaction requestBorrow(Transaction transaction);
 
-	Transaction approveBorrow(Transaction transaction);
+	Transaction approveBorrow(Transaction transaction, Operator operator);
 
-	Transaction sendBorrow(Transaction transaction, String expressInfo);
+	Transaction sendBorrow(Transaction transaction, Operator operator,
+			String expressInfo);
 
-	Transaction sendReturn(Transaction transaction, String expressInfo);
+	Transaction sendReturn(Transaction transaction, Operator operator,
+			String expressInfo);
 
 	Transaction cancel(Transaction tran, String reason);
 
@@ -34,9 +37,9 @@ public interface TransactionService {
 	 * @param reason
 	 * @return
 	 */
-	Transaction interrupt(Transaction tran, String reason);
+	Transaction interrupt(Transaction tran, Operator operator, String reason);
 
-	Transaction confirmReturn(Transaction transaction);
+	Transaction confirmReturn(Transaction transaction, Operator operator);
 
 	long getExpiredTransactionCount(Visitor visitor);
 

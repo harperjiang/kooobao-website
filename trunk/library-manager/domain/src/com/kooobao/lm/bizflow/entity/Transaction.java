@@ -31,6 +31,7 @@ import com.kooobao.lm.profile.entity.Visitor;
 public class Transaction extends VersionEntity {
 
 	public void create() {
+		Validate.isTrue(StringUtils.isEmpty(state));
 		setState(TransactionState.BORROW_REQUESTED);
 
 		Operation operation = new Operation();
@@ -41,11 +42,12 @@ public class Transaction extends VersionEntity {
 		addOperation(operation);
 	}
 
-	public void approve() {
+	public void approve(String operatorId) {
 		Validate.isTrue(getState() == TransactionState.BORROW_REQUESTED);
 		setState(TransactionState.BORROW_APPROVED);
 
 		Operation operation = new Operation();
+		operation.setOperatorId(operatorId);
 		operation.setCreateTime(new Date());
 		operation.setFromState(TransactionState.BORROW_REQUESTED);
 		operation.setToState(TransactionState.BORROW_APPROVED);
@@ -53,10 +55,11 @@ public class Transaction extends VersionEntity {
 		addOperation(operation);
 	}
 
-	public void sendout(String expressInfo) {
+	public void sendout(String operatorId, String expressInfo) {
 		Validate.isTrue(getState() == TransactionState.BORROW_APPROVED);
 		Validate.isTrue(!StringUtils.isEmpty(expressInfo)
 				|| DeliveryMethod.SELF_PICK.name().equals(getDelivery()));
+		Validate.notEmpty(operatorId);
 		setState(TransactionState.BORROW_SENT);
 
 		Operation operation = new Operation();
@@ -64,6 +67,7 @@ public class Transaction extends VersionEntity {
 		operation.setFromState(TransactionState.BORROW_APPROVED);
 		operation.setToState(TransactionState.BORROW_SENT);
 		operation.setComment(expressInfo);
+		operation.setOperatorId(operatorId);
 		operation.setDescription(OperationDescriptor.describe(operation));
 		addOperation(operation);
 	}
@@ -94,7 +98,7 @@ public class Transaction extends VersionEntity {
 		setState(TransactionState.RETURN_EXPIRED);
 	}
 
-	public void sendback(String expressInfo) {
+	public void sendback(String operatorId, String expressInfo) {
 		Validate.isTrue(getState() == TransactionState.RETURN_WAIT
 				|| getState() == TransactionState.RETURN_EXPIRED);
 		validateExpressInfo(expressInfo);
@@ -103,6 +107,7 @@ public class Transaction extends VersionEntity {
 		operation.setCreateTime(new Date());
 		operation.setFromState(getState());
 		operation.setComment(expressInfo);
+		operation.setOperatorId(operatorId);
 		operation.setTransaction(this);
 		addOperation(operation);
 
@@ -117,7 +122,7 @@ public class Transaction extends VersionEntity {
 
 	}
 
-	public void returnReceived(BigDecimal penalty) {
+	public void returnReceived(String operatorId, BigDecimal penalty) {
 		Validate.isTrue(getState() == TransactionState.RETURN_SENT
 				|| getState() == TransactionState.RETURN_EXPIRED);
 		setState(TransactionState.RETURN_RECEIVED);
@@ -128,6 +133,7 @@ public class Transaction extends VersionEntity {
 		if (null != penalty)
 			operation.setComment("逾期扣款 " + penalty);
 		operation.setDescription(OperationDescriptor.describe(operation));
+		operation.setOperatorId(operatorId);
 
 		addOperation(operation);
 	}
@@ -147,7 +153,7 @@ public class Transaction extends VersionEntity {
 	}
 
 	// Cancel by manager
-	public void interrupt(String reason) {
+	public void interrupt(String operatorId, String reason) {
 		Validate.isTrue(getState() != TransactionState.CANCELLED
 				&& getState() != TransactionState.INTERRUPTED);
 		Operation operation = new Operation();
@@ -156,6 +162,7 @@ public class Transaction extends VersionEntity {
 		setState(TransactionState.INTERRUPTED);
 		operation.setToState(getState());
 		operation.setComment(reason);
+		operation.setOperatorId(operatorId);
 		operation.setDescription(OperationDescriptor.describe(operation));
 		addOperation(operation);
 	}

@@ -1,5 +1,7 @@
 package com.kooobao.lm.bizflow;
 
+import com.kooobao.lm.bizflow.entity.Transaction;
+
 
 public interface BusinessService {
 	
@@ -13,6 +15,8 @@ public interface BusinessService {
 	 * Auto Reserve stock for requested transactions
 	 */
 	public void reserveStocks();
+	
+	public void reserveStock(Transaction tran);
 	
 	/**
 	 * Auto assume user had received the package

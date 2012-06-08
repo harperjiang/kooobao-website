@@ -1,6 +1,5 @@
 package com.kooobao.lm.bizflow;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,12 +7,12 @@ import java.util.List;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.entity.DeliveryMethod;
 import com.kooobao.lm.bizflow.entity.ExpireRecord;
-import com.kooobao.lm.bizflow.entity.ExpireRecordState;
 import com.kooobao.lm.bizflow.entity.Operation;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Comment;
+import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public class DummyTransactionService implements TransactionService {
@@ -83,12 +82,56 @@ public class DummyTransactionService implements TransactionService {
 	}
 
 	public Transaction getTransaction(long transId) {
-		return getActiveTransactions(null).get(0);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public Transaction saveTransaction(Transaction transaction) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Transaction requestBorrow(Transaction transaction) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Transaction approveBorrow(Transaction transaction, Operator operator) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Transaction sendBorrow(Transaction transaction, Operator operator,
+			String expressInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Transaction sendReturn(Transaction transaction, Operator operator,
+			String expressInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Transaction cancel(Transaction tran, String reason) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Transaction interrupt(Transaction tran, Operator operator,
+			String reason) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Transaction confirmReturn(Transaction transaction, Operator operator) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public long getExpiredTransactionCount(Visitor visitor) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public PageSearchResult<Transaction> findTransaction(Visitor visitor,
@@ -103,49 +146,7 @@ public class DummyTransactionService implements TransactionService {
 		return null;
 	}
 
-	public Transaction requestBorrow(Transaction transaction) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public long getExpiredTransactionCount(Visitor visitor) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public Transaction confirmReturn(Transaction transaction) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Transaction approveBorrow(Transaction transaction) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public ExpireRecord findExpireRecord(Transaction tran) {
-		ExpireRecord er = new ExpireRecord();
-		er.setPenalty(new BigDecimal("432.4"));
-		er.setState(ExpireRecordState.ACTIVE);
-		return er;
-	}
-
-	public Transaction sendBorrow(Transaction transaction, String expressInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Transaction sendReturn(Transaction transaction, String expressInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Transaction cancel(Transaction tran, String reason) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Transaction interrupt(Transaction tran, String reason) {
 		// TODO Auto-generated method stub
 		return null;
 	}

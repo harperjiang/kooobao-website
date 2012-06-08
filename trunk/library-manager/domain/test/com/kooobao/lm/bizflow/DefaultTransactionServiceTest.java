@@ -1,5 +1,6 @@
 package com.kooobao.lm.bizflow;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -16,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.kooobao.lm.bizflow.dao.TransactionDao;
+import com.kooobao.lm.bizflow.entity.DeliveryMethod;
 import com.kooobao.lm.bizflow.entity.Transaction;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.dao.BookDao;
@@ -24,6 +26,7 @@ import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
+import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
 
@@ -94,25 +97,18 @@ public class DefaultTransactionServiceTest extends
 		Transaction tran = new Transaction();
 		tran.setOid(1);
 		tran.setVisitor(v);
-		tran.setBook(bookDao.find(1));
-		try {
-			transactionService.requestBorrow(tran);
-			fail("Insufficient Fund!");
-		} catch (InsufficientFundException e) {
-
-		}
 		tran.setBook(bookDao.find(2));
 		transactionService.requestBorrow(tran);
 
 		tran = transactionService.getTransaction(1);
 
-		assertEquals(tran.getCreateTime().getTime() + 86400000 * 14, tran
+		assertTrue(tran.getCreateTime().getTime() + 86400000 * 14 <= tran
 				.getDueTime().getTime());
 		assertEquals(TransactionState.BORROW_REQUESTED, tran.getState());
 		assertEquals(1, tran.getOperations().size());
 		assertEquals("您的请求已经提交，正在处理中", tran.getOperations().get(0)
 				.getDescription());
-		assertEquals(new BigDecimal(20), visitorDao.find(2).getDeposit());
+		assertEquals(new BigDecimal(120), visitorDao.find(2).getDeposit());
 	}
 
 	@Test
@@ -121,10 +117,18 @@ public class DefaultTransactionServiceTest extends
 		Transaction tran = new Transaction();
 		tran.setOid(1);
 		tran.setVisitor(v);
-		tran.setBook(bookDao.find(2));
-		transactionService.requestBorrow(tran);
+		tran.setBook(bookDao.find(1));
+		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		transactionService.approveBorrow(tran);
+		try {
+			tran = transactionService.approveBorrow(tran, null);
+			fail();
+		} catch (InsufficientFundException e) {
+
+		}
+		tran.setBook(bookDao.find(2));
+
+		tran = transactionService.approveBorrow(tran, null);
 
 		tran = transactionService.getTransaction(1);
 
@@ -140,11 +144,28 @@ public class DefaultTransactionServiceTest extends
 		Transaction tran = new Transaction();
 		tran.setOid(1);
 		tran.setVisitor(v);
+		tran.setDelivery(DeliveryMethod.EXPRESS);
 		tran.setBook(bookDao.find(2));
-		transactionService.requestBorrow(tran);
+		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		transactionService.approveBorrow(tran);
-		transactionService.sendBorrow(tran, "顺丰 112444234");
+		tran = transactionService.approveBorrow(tran, null);
+
+		Operator operator = new Operator();
+		operator.setId("myoperator");
+
+		try {
+			transactionService.sendBorrow(tran, null, null);
+			fail();
+		} catch (IllegalArgumentException e) {
+
+		}
+		try {
+			transactionService.sendBorrow(tran, operator, null);
+			fail();
+		} catch (IllegalArgumentException e) {
+
+		}
+		transactionService.sendBorrow(tran, operator, "顺丰 112444234");
 
 		tran = transactionService.getTransaction(1);
 
@@ -152,6 +173,7 @@ public class DefaultTransactionServiceTest extends
 		assertEquals(3, tran.getOperations().size());
 		assertEquals("您的订单已经出库,跟踪编号 顺丰 112444234", tran.getOperations().get(2)
 				.getDescription());
+		assertEquals("myoperator", tran.getOperations().get(2).getOperatorId());
 	}
 
 	@Test
@@ -161,10 +183,12 @@ public class DefaultTransactionServiceTest extends
 		tran.setOid(1);
 		tran.setVisitor(v);
 		tran.setBook(bookDao.find(2));
-		transactionService.requestBorrow(tran);
+		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		transactionService.approveBorrow(tran);
-		transactionService.sendBorrow(tran, "顺丰 112444234");
+		tran = transactionService.approveBorrow(tran, null);
+		Operator o = new Operator();
+		o.setId("good");
+		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
 		transactionDao.store(tran);
@@ -179,14 +203,16 @@ public class DefaultTransactionServiceTest extends
 	@Test
 	public void testReturnExpired() {
 		Visitor v = visitorDao.find(2);
+		Operator o = new Operator();
+		o.setId("1001");
 		Transaction tran = new Transaction();
 		tran.setOid(1);
 		tran.setVisitor(v);
 		tran.setBook(bookDao.find(2));
-		transactionService.requestBorrow(tran);
+		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		transactionService.approveBorrow(tran);
-		transactionService.sendBorrow(tran, "顺丰 112444234");
+		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
 		tran.expire();
@@ -203,19 +229,21 @@ public class DefaultTransactionServiceTest extends
 	@Test
 	public void testSendBackReturnWait() {
 		Visitor v = visitorDao.find(2);
+		Operator o = new Operator();
+		o.setId("1001");
 		Transaction tran = new Transaction();
 		tran.setOid(1);
 		tran.setVisitor(v);
 		tran.setBook(bookDao.find(2));
-		transactionService.requestBorrow(tran);
+		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		transactionService.approveBorrow(tran);
-		transactionService.sendBorrow(tran, "顺丰 112444234");
+		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
 		tran = transactionDao.store(tran);
 
-		transactionService.sendReturn(tran, "自送");
+		tran = transactionService.sendReturn(tran, o, "自送");
 
 		tran = transactionService.getTransaction(1);
 
@@ -223,49 +251,57 @@ public class DefaultTransactionServiceTest extends
 		assertEquals(5, tran.getOperations().size());
 		assertEquals("您已经登记了归还书籍 自送", tran.getOperations().get(4)
 				.getDescription());
+		assertEquals("1001", tran.getOperations().get(4).getOperatorId());
 	}
 
 	@Test
 	public void testSendBackReturnExpired() {
+		Operator o = new Operator();
+		o.setId("1001");
+
 		Visitor v = visitorDao.find(2);
 		Transaction tran = new Transaction();
 		tran.setOid(1);
 		tran.setVisitor(v);
 		tran.setBook(bookDao.find(2));
-		transactionService.requestBorrow(tran);
+		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		transactionService.approveBorrow(tran);
-		transactionService.sendBorrow(tran, "顺丰 112444234");
+		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
 		tran.expire();
 		transactionDao.store(tran);
 
-		transactionService.sendReturn(tran, "货到付款 顺丰 123333");
+		tran = transactionService.sendReturn(tran, o, "货到付款 顺丰 123333");
 		tran = transactionService.getTransaction(1);
 
 		assertEquals(TransactionState.RETURN_EXPIRED, tran.getState());
 		assertEquals(6, tran.getOperations().size());
 		assertEquals("您的归还记录已提交(货到付款 顺丰 123333)，收到后，我们将为您清除超期记录", tran
 				.getOperations().get(5).getDescription());
+		assertEquals("1001", tran.getOperations().get(5).getOperatorId());
 	}
 
 	@Test
 	public void testSendBackReceived() {
+		Operator o = new Operator();
+		o.setId("1001");
+
 		Visitor v = visitorDao.find(2);
 		Transaction tran = new Transaction();
 		// tran.setOid(1);
 		tran.setVisitor(v);
 		tran.setBook(bookDao.find(2));
-		transactionService.requestBorrow(tran);
+		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		transactionService.approveBorrow(tran);
-		transactionService.sendBorrow(tran, "顺丰 112444234");
+		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
 
-		transactionService.sendReturn(tran, "自送");
-		transactionService.confirmReturn(tran);
+		tran = transactionService.sendReturn(tran, o, "自送");
+		tran = transactionService.confirmReturn(tran, o);
 
 		// tran = transactionService.getTransaction(1);
 
@@ -273,7 +309,7 @@ public class DefaultTransactionServiceTest extends
 		assertEquals(6, tran.getOperations().size());
 		assertEquals("您归还的书籍已经收到 ", tran.getOperations().get(5)
 				.getDescription());
-
+		assertEquals("1001", tran.getOperations().get(5).getOperatorId());
 	}
 
 	@Test
@@ -304,7 +340,7 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran);
+		tran = transactionService.approveBorrow(tran, null);
 		tran = transactionService.cancel(tran, "Some Reason");
 
 		tran = transactionService.getTransaction(1);
@@ -318,6 +354,8 @@ public class DefaultTransactionServiceTest extends
 
 	@Test
 	public void testInterrupt() {
+		Operator o = new Operator();
+		o.setId("1001");
 		Visitor v = visitorDao.find(2);
 		Transaction tran = new Transaction();
 		tran.setOid(1);
@@ -325,8 +363,8 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran);
-		tran = transactionService.interrupt(tran, "Some Reason");
+		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.interrupt(tran, o, "Some Reason");
 
 		tran = transactionService.getTransaction(1);
 
@@ -334,6 +372,7 @@ public class DefaultTransactionServiceTest extends
 		assertEquals(3, tran.getOperations().size());
 		assertEquals("您的订单无法完成，原因:Some Reason", tran.getOperations().get(2)
 				.getDescription());
+		assertEquals("1001", tran.getOperations().get(2).getOperatorId());
 		assertEquals(new BigDecimal(20), visitorDao.find(2).getDeposit());
 	}
 
@@ -345,10 +384,10 @@ public class DefaultTransactionServiceTest extends
 
 		Transaction t = transactionService.addComment(transactionDao.find(128),
 				c);
-		assertEquals("这是一大段评论",t.getComment());
-		assertEquals(1,t.getBook().getComments().size());
-		assertEquals("这是一大段评论",t.getBook().getComments().get(0).getContent());
-		
+		assertEquals("这是一大段评论", t.getComment());
+		assertEquals(1, t.getBook().getComments().size());
+		assertEquals("这是一大段评论", t.getBook().getComments().get(0).getContent());
+
 	}
 
 	@Test

@@ -23,10 +23,13 @@ public class Operation extends SimpleEntity {
 
 	@Column(name = "desc_text")
 	private String description;
-	
+
 	@OneToOne
-	@JoinColumn(name="tran_id")
+	@JoinColumn(name = "tran_id")
 	private Transaction transaction;
+
+	@Column(name="operator_id")
+	private String operatorId;
 
 	public String getDescription() {
 		return description;
@@ -77,5 +80,13 @@ public class Operation extends SimpleEntity {
 	public void setTransaction(Transaction transaction) {
 		this.transaction = transaction;
 	}
-	
+
+	public String getOperatorId() {
+		return operatorId;
+	}
+
+	public void setOperatorId(String operatorId) {
+		this.operatorId = operatorId;
+	}
+
 }

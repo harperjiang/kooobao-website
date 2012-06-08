@@ -2,6 +2,7 @@ package com.kooobao.lm.profile;
 
 import java.math.BigDecimal;
 
+import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 
 public interface ProfileService {
@@ -15,4 +16,6 @@ public interface ProfileService {
 	boolean activateUser(String activateId);
 
 	void register(String email, String password);
+	
+	Operator getOperator(String id);
 }
