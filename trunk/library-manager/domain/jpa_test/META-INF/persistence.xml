@@ -12,6 +12,7 @@
 		<class>com.kooobao.lm.optlog.entity.SearchLog</class>
 		<class>com.kooobao.lm.optlog.entity.SearchSummary</class>
 		<class>com.kooobao.lm.bizflow.entity.ExpireRecord</class>
+		<class>com.kooobao.lm.bizflow.entity.Comment</class>
 		<class>com.kooobao.lm.bizflow.entity.FavoriteRecord</class>
 		<class>com.kooobao.lm.bizflow.entity.Operation</class>
 		<class>com.kooobao.lm.bizflow.entity.Transaction</class>

@@ -1,7 +1,7 @@
 package com.kooobao.lm.bizflow;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -301,7 +301,7 @@ public class DefaultTransactionServiceTest extends
 		tran.assumeReceived();
 
 		tran = transactionService.sendReturn(tran, o, "自送");
-		tran = transactionService.confirmReturn(tran, o);
+		tran = transactionService.confirmReturn(tran, o, "Good Boy");
 
 		// tran = transactionService.getTransaction(1);
 
@@ -310,6 +310,7 @@ public class DefaultTransactionServiceTest extends
 		assertEquals("您归还的书籍已经收到 ", tran.getOperations().get(5)
 				.getDescription());
 		assertEquals("1001", tran.getOperations().get(5).getOperatorId());
+		assertEquals("Good Boy", tran.getOperations().get(5).getComment());
 	}
 
 	@Test

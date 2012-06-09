@@ -37,6 +37,9 @@
 	<bean id="newsDao" class="com.kooobao.lm.article.dao.JpaNewsDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
+	<bean id="operatorDao" class="com.kooobao.lm.profile.dao.JpaOperatorDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.exmail.qq.com" />
@@ -50,6 +53,7 @@
 		<property name="userService" ref="userService" />
 		<property name="mailSender" ref="mailSender" />
 		<property name="ruleDao" ref="ruleDao" />
+		<property name="operatorDao" ref="operatorDao" />
 	</bean>
 	<bean id="newsService" class="com.kooobao.lm.article.DefaultNewsService">
 		<property name="newsDao" ref="newsDao" />
@@ -65,6 +69,10 @@
 		<property name="ruleDao" ref="ruleDao" />
 	</bean>
 
+	<bean id="stockService" class="com.kooobao.lm.book.DefaultStockService">
+		<property name="stockDao" ref="stockDao" />
+	</bean>
+
 	<bean id="transactionService" class="com.kooobao.lm.bizflow.DefaultTransactionService">
 		<property name="bookDao" ref="bookDao" />
 		<property name="expireRecordDao" ref="expireRecordDao" />
@@ -78,6 +86,15 @@
 	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DefaultFavouriteService">
 		<property name="bookDao" ref="bookDao" />
 		<property name="favouriteDao" ref="favouriteDao" />
+	</bean>
+
+	<bean id="businessService" class="com.kooobao.lm.bizflow.DefaultBusinessService">
+		<property name="transactionDao" ref="transactionDao" />
+		<property name="visitorDao" ref="visitorDao" />
+		<property name="bookDao" ref="bookDao" />
+		<property name="expireRecordDao" ref="expireRecordDao" />
+		<property name="ruleDao" ref="ruleDao" />
+		<property name="stockDao" ref="stockDao" />
 	</bean>
 
 	<bean id="indexPageBean" class="com.kooobao.lm.IndexPageBean">

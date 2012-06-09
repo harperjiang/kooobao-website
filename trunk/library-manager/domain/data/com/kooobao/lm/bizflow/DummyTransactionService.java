@@ -15,7 +15,7 @@ import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 
-public class DummyTransactionService implements TransactionService {
+public abstract class DummyTransactionService implements TransactionService {
 
 	public List<Transaction> getActiveTransactions(Visitor visitor) {
 		List<Transaction> trans = new ArrayList<Transaction>();
@@ -124,7 +124,8 @@ public class DummyTransactionService implements TransactionService {
 		return null;
 	}
 
-	public Transaction confirmReturn(Transaction transaction, Operator operator) {
+	public Transaction confirmReturn(Transaction transaction,
+			Operator operator, String comment) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -152,6 +153,11 @@ public class DummyTransactionService implements TransactionService {
 	}
 
 	public Transaction addComment(Transaction tran, Comment comment) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Transaction> getTransactionsForComment(Visitor visitor) {
 		// TODO Auto-generated method stub
 		return null;
 	}

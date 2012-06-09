@@ -111,4 +111,13 @@ public class JpaTransactionDao extends AbstractJpaDao<Transaction> implements
 				Transaction.class).setParameter("state", state.name()));
 	}
 
+	public List<Transaction> getTransactionsForComment(Visitor visitor, int i) {
+		return getEntityManager()
+				.createQuery(
+						"select t from Transaction t where t.state = 'RETURN_RECEIVED' and t.visitor = :visitor and t.returnTime >= :currentTime and t.rating = 0",
+						Transaction.class)
+				.setParameter("currentTime",
+						new Date(System.currentTimeMillis() - i * 86400000l))
+				.setParameter("visitor", visitor).getResultList();
+	}
 }

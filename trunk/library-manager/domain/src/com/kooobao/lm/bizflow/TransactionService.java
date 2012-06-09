@@ -39,7 +39,7 @@ public interface TransactionService {
 	 */
 	Transaction interrupt(Transaction tran, Operator operator, String reason);
 
-	Transaction confirmReturn(Transaction transaction, Operator operator);
+	Transaction confirmReturn(Transaction transaction, Operator operator, String comment);
 
 	long getExpiredTransactionCount(Visitor visitor);
 
@@ -69,4 +69,6 @@ public interface TransactionService {
 	ExpireRecord findExpireRecord(Transaction tran);
 
 	Transaction addComment(Transaction tran, Comment comment);
+
+	List<Transaction> getTransactionsForComment(Visitor visitor);
 }

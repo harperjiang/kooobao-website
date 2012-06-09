@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.book.BookService;
+import com.kooobao.lm.book.StockService;
 import com.kooobao.lm.book.entity.Book;
 
 @ManagedBean(name = "manageBookBean")
@@ -39,7 +40,11 @@ public class ManageBookBean extends PageSearchBean {
 	}
 
 	public String save() {
+		long bookOid = getBook().getOid();
 		setBook(getBookService().save(getBook()));
+		if(0 == bookOid) {
+			getStockService().initStock(getBook());
+		}
 		return "success";
 	}
 
@@ -84,6 +89,17 @@ public class ManageBookBean extends PageSearchBean {
 
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
+	}
+
+	@ManagedProperty("#{stockService}")
+	private StockService stockService;
+
+	public StockService getStockService() {
+		return stockService;
+	}
+
+	public void setStockService(StockService stockService) {
+		this.stockService = stockService;
 	}
 
 }

@@ -17,6 +17,7 @@
 		<class>com.kooobao.lm.optlog.entity.SearchLog</class>
 		<class>com.kooobao.lm.optlog.entity.SearchSummary</class>
 		<class>com.kooobao.lm.bizflow.entity.ExpireRecord</class>
+		<class>com.kooobao.lm.bizflow.entity.TranComment</class>
 		<class>com.kooobao.lm.bizflow.entity.FavoriteRecord</class>
 		<class>com.kooobao.lm.bizflow.entity.Operation</class>
 		<class>com.kooobao.lm.bizflow.entity.Transaction</class>
@@ -24,8 +25,9 @@
 		<class>com.kooobao.lm.book.entity.BookRelation</class>
 		<class>com.kooobao.lm.book.entity.Comment</class>
 		<class>com.kooobao.lm.article.entity.News</class>
+		<class>com.kooobao.lm.profile.entity.Operator</class>
 		<properties>
-			<property name="eclipselink.logging.level.sql" value="ALL"/>
+			<property name="eclipselink.logging.level.sql" value="ALL" />
 		</properties>
 	</persistence-unit>
 </persistence>

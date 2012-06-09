@@ -26,6 +26,8 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	private List<Category> allCategories;
 
+	private List<String> cancelReasons;
+
 	public void init() {
 		transactionStates = new ArrayList<SelectItem>();
 		for (TransactionState state : TransactionState.values()) {
@@ -49,6 +51,10 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 				allCategories.addAll(c.getChildren());
 			}
 		}
+		
+		cancelReasons = new ArrayList<String>();
+		cancelReasons.add("我不想要了");
+		cancelReasons.add("订单错了，需要重新修改");
 	}
 
 	public void dispose() {
@@ -87,6 +93,14 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
+	}
+
+	public List<String> getCancelReasons() {
+		return cancelReasons;
+	}
+
+	public void setCancelReasons(List<String> cancelReasons) {
+		this.cancelReasons = cancelReasons;
 	}
 
 }

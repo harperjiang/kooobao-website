@@ -31,6 +31,8 @@
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_book_comment" />
 	<table-generator name="newsTG" table="lm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_article_news" />
+	<table-generator name="tcommentTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_tran_comment" />
 
 
 
@@ -215,5 +217,22 @@
 			<column name="book_to" />
 		</primary-key>
 	</entity>
-
+	
+	<entity class="com.kooobao.lm.profile.entity.Operator">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+	</entity>
+	
+	<entity class="com.kooobao.lm.bizflow.entity.TranComment">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="tcommentTG" />
+			</basic>
+		</attributes>
+	</entity>
 </entity-mappings>
