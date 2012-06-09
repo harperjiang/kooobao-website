@@ -60,7 +60,7 @@ public class DefaultTransactionService implements TransactionService {
 		if (v.getDeposit().compareTo(transaction.getBook().getListPrice()) < 0)
 			throw new InsufficientFundException();
 		v.changeDeposit(transaction.getBook().getListPrice().negate(),
-				"Borrow Book", operator.getId());
+				"Borrow Book " + transaction.getOid(), operator.getId());
 		transaction.approve(null == operator ? null : operator.getId());
 		return getTransactionDao().store(transaction);
 	}
@@ -99,6 +99,11 @@ public class DefaultTransactionService implements TransactionService {
 		// TODO Set as async operation
 		Stock stock = getStockDao().findByBook(transaction.getBook());
 		stock.setAvailable(stock.getAvailable() + 1);
+		// Return Motegage
+		transaction.getVisitor().changeDeposit(
+				transaction.getBook().getListPrice(),
+				"Return Book " + transaction.getOid(), operator.getId());
+
 		return getTransactionDao().store(transaction);
 	}
 

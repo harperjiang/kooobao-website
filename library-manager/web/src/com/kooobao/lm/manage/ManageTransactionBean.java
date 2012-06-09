@@ -16,6 +16,8 @@ import com.kooobao.common.web.Utilities;
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.bizflow.BusinessService;
+import com.kooobao.lm.bizflow.InsufficientFundException;
+import com.kooobao.lm.bizflow.InsufficientStockException;
 import com.kooobao.lm.bizflow.TransactionService;
 import com.kooobao.lm.bizflow.TransactionService.TransactionSearchBean;
 import com.kooobao.lm.bizflow.entity.Transaction;
@@ -71,6 +73,9 @@ public class ManageTransactionBean extends PageSearchBean {
 			} catch (IllegalStateException e) {
 				addMessage(FacesMessage.SEVERITY_WARN, "库存未更新", e.getMessage());
 				return "failed";
+			} catch (InsufficientFundException e) {
+				addMessage(FacesMessage.SEVERITY_WARN, "余额不足", "用户余额不足，无法通过");
+				return "failed";
 			}
 		} else {
 			addMessage(FacesMessage.SEVERITY_FATAL, "尚未登录", "请登录后操作");
@@ -81,7 +86,12 @@ public class ManageTransactionBean extends PageSearchBean {
 	public String reserveStock() {
 		Transaction t = getTransaction();
 		if (null != t)
-			getBusinesService().reserveStock(t);
+			try {
+				getBusinesService().reserveStock(t);
+			} catch (InsufficientStockException e) {
+				addMessage(FacesMessage.SEVERITY_WARN, "库存不足");
+				return "failed";
+			}
 		else
 			addMessage(FacesMessage.SEVERITY_WARN, "Transaction Id missing");
 		return search();

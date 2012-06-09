@@ -9,12 +9,20 @@
 	<ui:define name="body">
 		<div class="book_list_container">
 			<div class="page_title">搜索结果</div>
-			<div class="navigation_bar">
-				<h:form>
-					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
-					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
-				</h:form>
+			<div
+				style="background-color: #fafbfc; font-size: 14px; padding: 5px;">
+				<span style="font-weight: bold; color: #de3251">"#{searchBookBean.keyword}"</span>的搜索结果
 			</div>
+			<h:panelGroup display="block"
+				rendered="#{! empty searchBookBean.searched}"
+				styleClass="navigation_bar">
+				<h:form>
+					<h:commandLink action="#{categoryBean.prevPage}"
+						styleClass="btn_solid_small">上一页</h:commandLink>
+					<h:commandLink action="#{categoryBean.nextPage}"
+						styleClass="btn_solid_small">下一页</h:commandLink>
+				</h:form>
+			</h:panelGroup>
 			<ui:repeat var="book" value="#{searchBookBean.searched}">
 				<div class="bl_unit">
 					<div id="picture" class="bl_picture">
@@ -62,13 +70,20 @@
 			</ui:repeat>
 
 			<div class="clearer" />
-
-			<div class="navigation_bar">
+			<h:panelGroup display="block"
+				rendered="#{ empty searchBookBean.searched}">
+				这是没有结果时显示的图
+			</h:panelGroup>
+			<h:panelGroup display="block"
+				rendered="#{! empty searchBookBean.searched}"
+				styleClass="navigation_bar">
 				<h:form>
-					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
-					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
+					<h:commandLink action="#{categoryBean.prevPage}"
+						styleClass="btn_solid_small">上一页</h:commandLink>
+					<h:commandLink action="#{categoryBean.nextPage}"
+						styleClass="btn_solid_small">下一页</h:commandLink>
 				</h:form>
-			</div>
+			</h:panelGroup>
 
 		</div>
 		<div class="also_like_container">

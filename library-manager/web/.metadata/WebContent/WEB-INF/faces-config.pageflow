@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13361415361610" configfile="/library-manager-web/WebContent/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="cart.xhtml" x="122" y="1426" id="pf13362220596101" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13362220596112" path="/cart.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="borrow_confirm.xhtml" x="338" y="1426" id="pf13362220596113" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf13363184086253" inlinks="pf13362220596112" path="/borrow_confirm.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="178" id="pf13362392495174" path="/index.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="search.xhtml" x="338" y="274" id="pf13362392495176" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13363135125000 pf13363135125001" path="/search_book.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="search" x="122" y="562" id="pf13363135125002" outlinks="pf13363135125000 pf13363135125001 pf13371778672190 pf13386176868341" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="borrow_finish.xhtml" x="554" y="1426" id="pf13363184086254" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf13363184086253" path="/borrow_finish.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="500.xhtml" x="122" y="1810" id="pf13370980728591" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" path="/500.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="404.xhtml" x="338" y="658" id="pf13371778672191" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf13371778672190" path="/404.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="category.xhtml" x="122" y="2194" id="pf13373984703310" referenceLink="//@navigationRule.5/@navigationCase.1/@toViewId|" outlinks="pf13373984703311 pf13373984703312" inlinks="pf13373984703311 pf13373984703312" path="/category.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="register_done.xhtml" x="122" y="2578" id="pf13374968732243" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf13374968732244 pf13383961505890" inlinks="pf13383961505890" path="/register.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="register_done.xhtml" x="338" y="2578" id="pf13374968732245" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf13374968732244" path="/register_done.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="1042" id="pf13386176868352" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" inlinks="pf13386176868341" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="cart.xhtml" x="122" y="562" id="pf13362220596101" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf13362220596112" path="/cart.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="borrow_confirm.xhtml" x="338" y="562" id="pf13362220596113" referenceLink="//@navigationRule.3/@fromViewId|" outlinks="pf13363184086253" inlinks="pf13362220596112" path="/borrow_confirm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="search.xhtml" x="338" y="946" id="pf13362392495176" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf13363135125000 pf13363135125001" path="/search_book.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="search" x="122" y="1330" id="pf13363135125002" outlinks="pf13363135125000 pf13363135125001 pf13371778672190 pf13386176868341 pf13392066455560 pf13392066455561" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="borrow_finish.xhtml" x="554" y="562" id="pf13363184086254" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf13363184086253" path="/borrow_finish.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="500.xhtml" x="122" y="1714" id="pf13370980728591" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" path="/500.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="404.xhtml" x="338" y="1330" id="pf13371778672191" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" inlinks="pf13371778672190" path="/404.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="category.xhtml" x="122" y="2098" id="pf13373984703310" referenceLink="//@navigationRule.5/@navigationCase.1/@toViewId|" outlinks="pf13373984703311 pf13373984703312" inlinks="pf13373984703311 pf13373984703312" path="/category.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="register_done.xhtml" x="122" y="2482" id="pf13374968732243" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf13374968732244 pf13383961505890" inlinks="pf13383961505890" path="/register.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="register_done.xhtml" x="338" y="2482" id="pf13374968732245" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf13374968732244" path="/register_done.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="1714" id="pf13386176868352" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" inlinks="pf13386176868341" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="manage_login.xhtml" x="338" y="2098" id="pf13392066455572" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" inlinks="pf13392066455560" path="/manage_login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" id="pf13392066455573" referenceLink="//@navigationRule.8/@navigationCase.0/@toViewId|" inlinks="pf13392066455561" path="/index.xhtml"/>
   <links id="pf13362220596112" target="pf13362220596113" source="pf13362220596101" outcome="success" redirect="true" fromaction="#{cartBean.confirm}"/>
   <links id="pf13363135125000" target="pf13362392495176" source="pf13363135125002" outcome="success" redirect="true" fromaction="#{searchBookBean.search}"/>
   <links id="pf13363135125001" target="pf13362392495176" source="pf13363135125002" outcome="success" redirect="true" fromaction="#{hotSearchBean.hotSearch}"/>
@@ -19,6 +20,7 @@
   <links id="pf13371778672190" target="pf13371778672191" source="pf13363135125002" outcome="not_found"/>
   <links id="pf13374968732244" target="pf13374968732245" source="pf13374968732243" outcome="success" redirect="true" fromaction="#{registerBean.register}"/>
   <links id="pf13386176868341" target="pf13386176868352" source="pf13363135125002" outcome="require_login_lm"/>
+  <links id="pf13392066455560" target="pf13392066455572" source="pf13363135125002" outcome="require_login_lm_manage"/>
   <links id="pf13373984703311" target="pf13373984703310" source="pf13373984703310" outcome="success" redirect="true" fromaction="#{categoryBean.prevPage}">
     <bendPoints d1Height="-36" d2Height="-36"/>
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
@@ -34,4 +36,5 @@
     <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
     <bendPoints d1Width="-64" d2Width="-64"/>
   </links>
+  <links id="pf13392066455561" target="pf13392066455573" source="pf13363135125002" outcome="true" fromaction="#{loginBean.logout}"/>
 </pageflow:Pageflow>

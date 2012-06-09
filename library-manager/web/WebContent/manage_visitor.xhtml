@@ -6,6 +6,47 @@
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-管理用户</ui:define>
 	<ui:define name="body">
+		<h:form>
+			<div class="part">
+				<div class="part_header">搜索用户</div>
+				<div class="part_body">
+					<div>
+						<label>用户id</label>
+						<h:inputText style="margin-left:10px;margin-right:10px;"
+							value="#{manageVisitorBean.visitorId}" required="true"
+							requiredMessage="请输入用户id" />
+						<h:commandLink styleClass="btn_solid_small" value="搜索"
+							action="#{manageVisitorBean.search}" />
+					</div>
 
+					<div class="table_header">
+						<div class="table_header_col">用户id</div>
+						<div class="table_header_col">账户余额</div>
+						<div class="table_header_col">操作</div>
+					</div>
+					<ui:repeat value="#{manageVisitorBean.visitors}" var="visitor">
+						<div class="table_row">
+							<div class="table_cell">#{visitor.id}</div>
+							<div class="table_cell">#{visitor.deposit}</div>
+							<div class="table_cell">
+								<h:commandLink styleClass="btn_confirm_small"
+									action="#{manageVisitorBean.modifyBalance}" value="修改余额">
+									<f:param name="visitor_id" value="#{visitor.id}" />
+								</h:commandLink>
+							</div>
+						</div>
+					</ui:repeat>
+					<div class="clearer"/>
+					<div style="margin-top:10px;">
+						<label style="margin-left:5px;">修改余额</label>
+						<h:inputText value="#{manageVisitorBean.balance}">
+							<f:convertNumber />
+						</h:inputText>
+						<label>操作原因说明</label>
+						<h:inputText value="#{manageVisitorBean.reason}" />
+					</div>
+				</div>
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>

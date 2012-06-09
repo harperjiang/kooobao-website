@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.web.bean.PageSearchBean;
@@ -76,5 +77,4 @@ public class SearchBookBean extends PageSearchBean {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-
 }
