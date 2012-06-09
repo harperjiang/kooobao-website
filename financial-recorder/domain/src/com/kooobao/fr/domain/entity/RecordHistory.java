@@ -2,6 +2,7 @@ package com.kooobao.fr.domain.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class RecordHistory extends SimpleEntity {
 	@Column(name = "desc_text")
 	private String description;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "attachment", referencedColumnName = "obj_id")
 	private Attachment attachment;
 

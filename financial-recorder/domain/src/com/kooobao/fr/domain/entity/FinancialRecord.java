@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -65,10 +66,10 @@ public class FinancialRecord extends VersionEntity {
 			@AttributeOverride(name = "company", column = @Column(name = "with_company")) })
 	private AccountInfo with;
 
-	@OneToMany(mappedBy = "record", fetch = FetchType.LAZY, targetEntity = RecordHistory.class)
+	@OneToMany(mappedBy = "record", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = RecordHistory.class)
 	List<RecordHistory> histories;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "attachment", referencedColumnName = "obj_id")
 	Attachment attachment;
 
