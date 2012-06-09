@@ -39,7 +39,7 @@ public class JpaOperationLogDao extends AbstractJpaDao<SimpleEntity> implements
 						// potentially to many records
 		List<Book> bookList = getEntityManager()
 				.createQuery(
-						"select t.book from Transaction t order by t.createTime desc",
+						"select distinct t.book from Transaction t order by t.createTime desc",
 						Book.class).setFirstResult(start)
 				.setMaxResults(stop - start).getResultList();
 		return new PageSearchResult<Book>(count, bookList);

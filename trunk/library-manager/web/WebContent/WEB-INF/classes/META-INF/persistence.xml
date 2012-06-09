@@ -26,6 +26,7 @@
 		<class>com.kooobao.lm.book.entity.Comment</class>
 		<class>com.kooobao.lm.article.entity.News</class>
 		<class>com.kooobao.lm.profile.entity.Operator</class>
+		<class>com.kooobao.lm.profile.entity.BalanceLog</class>
 		<properties>
 			<property name="eclipselink.logging.level.sql" value="ALL" />
 		</properties>

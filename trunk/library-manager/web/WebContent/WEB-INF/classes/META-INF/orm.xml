@@ -33,6 +33,8 @@
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_article_news" />
 	<table-generator name="tcommentTG" table="lm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_tran_comment" />
+	<table-generator name="ballogTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_visitor_balancelog" />
 
 
 
@@ -232,6 +234,18 @@
 			<basic name="oid">
 				<column name="obj_id" />
 				<generated-value generator="tcommentTG" />
+			</basic>
+		</attributes>
+	</entity>
+	
+	<entity class="com.kooobao.lm.profile.entity.BalanceLog">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="ballogTG" />
 			</basic>
 		</attributes>
 	</entity>

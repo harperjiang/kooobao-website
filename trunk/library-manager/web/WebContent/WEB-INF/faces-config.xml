@@ -115,6 +115,14 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
+		<display-name>logout</display-name>
+		<navigation-case>
+			<from-action>#{loginBean.logout}</from-action>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
 		<display-name>require_login_lm_manage</display-name>
 		<navigation-case>
 			<from-outcome>require_login_lm_manage</from-outcome>
