@@ -43,10 +43,6 @@ public class FinancialRecord extends VersionEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	Date recordDate;
 
-	@Column(name = "create_date", columnDefinition = "datetime")
-	@Temporal(TemporalType.TIMESTAMP)
-	Date createDate;
-
 	@Column(name = "create_by", columnDefinition = "varchar(30)")
 	String createBy;
 
@@ -79,7 +75,6 @@ public class FinancialRecord extends VersionEntity {
 	public FinancialRecord() {
 		// Should not be invoked explicitly
 		with = new AccountInfo();
-		createDate = new Date();
 		recordDate = new Date();
 	}
 
@@ -100,11 +95,11 @@ public class FinancialRecord extends VersionEntity {
 	}
 
 	public Date getCreateDate() {
-		return createDate;
+		return getCreateTime();
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		this.setCreateTime(createDate);
 	}
 
 	public String getCreateBy() {

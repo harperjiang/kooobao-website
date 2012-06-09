@@ -45,11 +45,11 @@ public class SearchRecordBean extends PageSearchBean {
 
 	public String search() {
 		PageSearchResult<FinancialRecord> result = getFinancialRecordService()
-				.search(getFromDate(), getToDate(),
+				.search(Utilities.dayBegin(getFromDate()), Utilities.dayEnd(getToDate()),
 						new String[] { getStatus() }, getRecordStart(),
 						getRecordStop());
 		setRecords(result.getResult());
-		setRecordCount(result.getPageCount());
+		setRecordCount(result.getCount());
 		return "success";
 	}
 
