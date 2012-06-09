@@ -40,6 +40,8 @@ public class LoginAuthorizer implements PhaseListener {
 
 	public static Map<String, ValidatePattern> patterns;
 
+	private static boolean multiSystem;
+	
 	static {
 		patterns = new ConcurrentHashMap<String, ValidatePattern>();
 		initPatterns(patterns);
@@ -67,11 +69,18 @@ public class LoginAuthorizer implements PhaseListener {
 				ssn.setAttribute(Constants.JUMP_URL, viewId);
 				ssn.setAttribute(Constants.LOGIN_SYSTEM, pattern.getSystem());
 				// Validate Failed, require login
-				event.getFacesContext()
-						.getApplication()
-						.getNavigationHandler()
-						.handleNavigation(event.getFacesContext(), null,
-								"require_login_" + pattern.getSystem());
+				if (multiSystem)
+					event.getFacesContext()
+							.getApplication()
+							.getNavigationHandler()
+							.handleNavigation(event.getFacesContext(), null,
+									"require_login_" + pattern.getSystem());
+				else
+					event.getFacesContext()
+							.getApplication()
+							.getNavigationHandler()
+							.handleNavigation(event.getFacesContext(), null,
+									"require_login");
 			} else {
 				// Validate the existence of Login Bean
 				Token yesToken = (Token) token;
@@ -106,6 +115,7 @@ public class LoginAuthorizer implements PhaseListener {
 		String multiSys = ConfigLoader.getInstance().load("auth_list",
 				"multi_system");
 		if (multiSys != null && Boolean.valueOf(multiSys)) {
+			multiSystem = true;
 			String[] system = ConfigLoader.getInstance()
 					.load("auth_list", "system").split(",");
 			for (String sys : system) {
