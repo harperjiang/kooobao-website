@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.TimeZone;
 
 import javax.faces.model.SelectItem;
 
@@ -32,9 +31,9 @@ public class Utilities {
 		return dayEnd(new Date());
 	}
 
-	public static Date dayBegin() {
+	public static Date dayBegin(Date date) {
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(new Date());
+		cal.setTime(date);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
@@ -89,6 +88,10 @@ public class Utilities {
 			if(!StringUtils.isEmpty(val))
 				return val;
 		return null;
+	}
+
+	public static Date dayBegin() {
+		return dayBegin(new Date());
 	}
 
 }
