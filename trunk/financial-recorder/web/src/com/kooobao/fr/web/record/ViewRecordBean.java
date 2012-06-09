@@ -84,22 +84,31 @@ public class ViewRecordBean extends AbstractBean {
 			return null;
 		return actorInfoBean.getActor();
 	}
+	
+	private void reset() {
+		setComment(null);
+		setCommission(BigDecimal.ZERO);
+		setCreditPay(BigDecimal.ZERO);
+	}
 
 	public String resubmitPayment() {
 		setRecord(getFinancialRecordService().resubmitPayment(getRecord(),
 				getActor(), comment));
+		reset();
 		return "success";
 	}
 
 	public String approvePayment() {
 		setRecord(getFinancialRecordService().approvePayment(getRecord(),
 				getActor(), comment));
+		reset();
 		return "success";
 	}
 
 	public String rejectPayment() {
 		setRecord(getFinancialRecordService().rejectPayment(getRecord(),
 				getActor(), comment));
+		reset();
 		return "success";
 	}
 
@@ -110,30 +119,35 @@ public class ViewRecordBean extends AbstractBean {
 
 		setRecord(getFinancialRecordService().payPayment(getRecord(), fb,
 				getActor(), commission, creditPay, comment));
+		reset();
 		return "success";
 	}
 
 	public String failedPayment() {
 		setRecord(getFinancialRecordService().failPayment(getRecord(),
 				getActor(), comment));
+		reset();
 		return "success";
 	}
 
 	public String balancePayment() {
 		setRecord(getFinancialRecordService().balancePayment(getRecord(),
 				getActor(), comment));
+		reset();
 		return "success";
 	}
 
 	public String cancelPayment() {
 		setRecord(getFinancialRecordService().cancelPayment(getRecord(),
 				getActor(), comment));
+		reset();
 		return "success";
 	}
 
 	public String confirmReceive() {
 		setRecord(getFinancialRecordService().confirmReceive(getRecord(),
 				getActor(), comment));
+		reset();
 		return "success";
 	}
 
