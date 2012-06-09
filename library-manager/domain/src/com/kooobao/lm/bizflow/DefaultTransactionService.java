@@ -84,7 +84,8 @@ public class DefaultTransactionService implements TransactionService {
 		return getTransactionDao().store(transaction);
 	}
 
-	public Transaction confirmReturn(Transaction transaction, Operator operator) {
+	public Transaction confirmReturn(Transaction transaction,
+			Operator operator, String comment) {
 		ExpireRecord expireRecord = getExpireRecordDao().findByTransaction(
 				transaction);
 		if (null != expireRecord && expireRecord.isActive()) {
@@ -237,10 +238,14 @@ public class DefaultTransactionService implements TransactionService {
 
 	public Transaction addComment(Transaction tran, Comment comment) {
 		tran.setComment(comment.getContent());
+		tran.setRating(comment.getRating());
 		comment.setCreateTime(new Date());
 		tran.getBook().addComment(comment);
 		getBookDao().store(tran.getBook());
 		return getTransactionDao().store(tran);
+	}
 
+	public List<Transaction> getTransactionsForComment(Visitor visitor) {
+		return getTransactionDao().getTransactionsForComment(visitor, 30);
 	}
 }

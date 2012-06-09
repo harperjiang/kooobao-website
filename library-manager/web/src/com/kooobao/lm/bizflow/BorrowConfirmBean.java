@@ -44,12 +44,16 @@ public class BorrowConfirmBean extends AbstractBean {
 			}
 			setSum(sum);
 			setNetWeight(netWeight);
+			updateDeliveryFee();
+		} else {
+			addMessage(FacesMessage.SEVERITY_WARN, "确认列表为空",
+					"您没有选择任何书，请返回借书篮重新挑选");
 		}
-		updateDeliveryFee();
 	}
 
 	protected void updateDeliveryFee() {
 		BigDecimal bookSum = getSum();
+
 		setDeliveryFee(getRuleService().getDeliveryFee(getAddress(),
 				getNetWeight()));
 		BigDecimal deliveryFee = getDelivery() == DeliveryMethod.EXPRESS ? getDeliveryFee()
@@ -85,7 +89,7 @@ public class BorrowConfirmBean extends AbstractBean {
 			transaction.setBook(book);
 			transaction.setDelivery(getDelivery());
 			transaction.setAddress(address);
-			transaction.setComment(getComment());
+			transaction.addComment(getComment(), null);
 			getTransactionService().requestBorrow(transaction);
 		}
 		reset();

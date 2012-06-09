@@ -95,6 +95,45 @@
 				</div>
 			</div>
 			<div class="part">
+				<div class="part_header">待评价的书</div>
+				<div class="part_body">
+					<div class="table_header">
+						<div class="table_header_col" style="width: 320px;">书籍名</div>
+						<div class="table_header_col" style="width: 120px;">订单号</div>
+					</div>
+					<div>
+						<h:form>
+							<ui:repeat var="tran" value="#{myIndexBean.toCommentTransactions}">
+								<div class="table_row">
+									<div class="table_cell" style="width: 320px;">
+										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+											value="/book.html">
+											<f:param name="book_id" value="#{tran.book.oid}" />
+											<h:outputText value="#{tran.book.name}" />
+										</h:outputLink>
+										<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+											value="/book_#{tran.book.oid}.html">
+											<h:outputText value="#{tran.book.name}" />
+										</h:outputLink>
+									</div>
+									<div class="table_cell" style="width: 120px;">
+										<h:outputLink rendered="#{!envSettingBean.rewriteUrl}"
+											value="/transaction.html">
+											<f:param name="tran_id" value="#{tran.oid}" />
+											<h:outputText value="#{tran.oid}" />
+										</h:outputLink>
+										<h:outputLink rendered="#{envSettingBean.rewriteUrl}"
+											value="/transaction_#{tran.oid}.html">
+											<h:outputText value="#{tran.oid}" />
+										</h:outputLink>
+									</div>
+								</div>
+							</ui:repeat>
+						</h:form>
+					</div>
+				</div>
+			</div>
+			<div class="part">
 				<div class="part_header">可能喜欢</div>
 				<div class="part_body">
 					<div style="padding-bottom: 10px;">

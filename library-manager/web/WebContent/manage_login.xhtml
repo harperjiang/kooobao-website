@@ -40,13 +40,13 @@
 			<div style="width: 300px; float: left; margin-top: 50px;">
 				<h:form id="loginForm">
 					<h:outputLabel id="idLabel" for="idText" value="用户id" />
-					<h:inputText id="idText" value="#{loginBean.userId}" />
+					<h:inputText id="idText" value="#{manageLoginBean.userId}" />
 					<br />
 					<h:outputLabel id="passLabel" for="passText" value="密码" />
-					<h:inputSecret id="passText" value="#{loginBean.plainPass}" />
+					<h:inputSecret id="passText" value="#{manageLoginBean.plainPass}" />
 					<br />
 					<h:commandButton id="submitBtn" class="submitBtn"
-						action="#{loginBean.login}" value="登录" />
+						action="#{manageLoginBean.login}" value="登录" />
 					<h:commandLink id="forgetLink" value="忘记密码" />
 				</h:form>
 			</div>

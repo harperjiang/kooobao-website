@@ -30,14 +30,13 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 
 	public T store(T entity) {
 		if (entity instanceof SimpleEntity
+				&& (null == ((SimpleEntity) entity).getCreateTime())) {
+			((SimpleEntity) entity).setCreateTime(new Date());
+		}
+		if (entity instanceof SimpleEntity
 				&& 0 == ((SimpleEntity) entity).getOid()) {
 			getEntityManager().persist(entity);
-
 		} else {
-			if (entity instanceof SimpleEntity
-					&& (null == ((SimpleEntity) entity).getCreateTime())) {
-				((SimpleEntity) entity).setCreateTime(new Date());
-			}
 			entity = getEntityManager().merge(entity);
 		}
 		// Copy Object

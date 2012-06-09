@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -24,6 +25,7 @@ import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.profile.entity.Address;
 import com.kooobao.lm.profile.entity.BasicAddress;
+import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 
 @Entity
@@ -126,6 +128,7 @@ public class Transaction extends VersionEntity {
 		Validate.isTrue(getState() == TransactionState.RETURN_SENT
 				|| getState() == TransactionState.RETURN_EXPIRED);
 		setState(TransactionState.RETURN_RECEIVED);
+		setReturnTime(new Date());
 		Operation operation = new Operation();
 		operation.setCreateTime(new Date());
 		operation.setFromState(getState());
@@ -134,7 +137,6 @@ public class Transaction extends VersionEntity {
 			operation.setComment("逾期扣款 " + penalty);
 		operation.setDescription(OperationDescriptor.describe(operation));
 		operation.setOperatorId(operatorId);
-
 		addOperation(operation);
 	}
 
@@ -304,6 +306,46 @@ public class Transaction extends VersionEntity {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	@Column(name = "rating")
+	private int rating;
+
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	@Column(name = "return_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date returnTime;
+
+	public Date getReturnTime() {
+		return returnTime;
+	}
+
+	public void setReturnTime(Date returnTime) {
+		this.returnTime = returnTime;
+	}
+
+	@OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<TranComment> comments = new ArrayList<TranComment>();
+
+	public List<TranComment> getComments() {
+		return comments;
+	}
+
+	public void addComment(String comment, Operator o) {
+		TranComment c = new TranComment();
+		c.setContent(comment);
+		c.setCreateTime(new Date());
+		c.setTransaction(this);
+		if (null != o)
+			c.setOperatorId(o.getId());
+		getComments().add(c);
 	}
 
 }

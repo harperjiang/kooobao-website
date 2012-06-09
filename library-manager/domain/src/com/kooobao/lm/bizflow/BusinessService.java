@@ -23,5 +23,9 @@ public interface BusinessService {
 	 */
 	public void assumeReceived();
 	
+	public void assumeReceived(Transaction tran);
+	
 	public void buildBookAssociations();
+
+	public void expireTransaction(Transaction t);
 }

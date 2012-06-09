@@ -78,8 +78,8 @@ public class HtmlMessagesDialogRenderer extends Renderer {
 				"var dialog = document.getElementById(\""
 						+ id
 						+ "_dialog\");"
-						+ "dialog.style.left = (window.innerWidth - 400) / 2 + \"px\";"
-						+ "dialog.style.top = (window.innerHeight - 200) / 2 + \"px\";"
+						+ "dialog.style.left = (document.body.clientWidth - 400) / 2 + \"px\";"
+						+ "dialog.style.top = (document.body.clientHeight - 200) / 2 + \"px\";"
 						+ "function hide_dialog(name) {"
 						+ "	document.getElementById(name + \"_mask\").style.display = \"none\";"
 						+ "	document.getElementById(name + \"_dialog\").style.display = \"none\";"

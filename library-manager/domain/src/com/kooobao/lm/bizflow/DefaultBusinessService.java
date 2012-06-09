@@ -45,6 +45,7 @@ public class DefaultBusinessService implements BusinessService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	protected void expireOneTransaction(Transaction expire) {
 		expire.expire();
+		getTransactionDao().store(expire);
 		ExpireRecord er = new ExpireRecord();
 		er.setDueTime(new Date());
 		er.setTransaction(expire);
@@ -122,8 +123,10 @@ public class DefaultBusinessService implements BusinessService {
 	private void assumeReceive(Transaction next, int day) {
 		Operation send = next.getOperations().get(
 				next.getOperations().size() - 1);
-		if (System.currentTimeMillis() - send.getCreateTime().getTime() >= day * 86400000l)
+		if (System.currentTimeMillis() - send.getCreateTime().getTime() >= day * 86400000l) {
 			next.assumeReceived();
+			getTransactionDao().store(next);
+		}
 	}
 
 	static int FACTOR_CATEGORY = 2;
@@ -159,7 +162,7 @@ public class DefaultBusinessService implements BusinessService {
 				Set<String> tagB = new HashSet<String>();
 				tagB.addAll(jBook.getTags());
 
-				Collection result = CollectionUtils.intersection(tagA, tagB);
+				Collection<?> result = CollectionUtils.intersection(tagA, tagB);
 				score += FACTOR_TAG * result.size();
 
 				getBookDao().addAssociation(iBook, jBook, score);
@@ -229,6 +232,14 @@ public class DefaultBusinessService implements BusinessService {
 
 	public void reserveStock(Transaction tran) {
 		updateStock(tran);
+	}
+
+	public void assumeReceived(Transaction tran) {
+		assumeReceive(tran, 0);
+	}
+
+	public void expireTransaction(Transaction t) {
+		expireOneTransaction(t);
 	}
 
 }

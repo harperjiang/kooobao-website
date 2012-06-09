@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:kui="http://kooobao.com/jsf/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><ui:insert name="title" /></title>
@@ -30,7 +31,7 @@
 		<h:panelGroup rendered="#{loginBean.loggedIn and displayLogin}"
 			layout="block" style="float:right;margin-right:40px;">
 			<h:form>
-				<h:outputText value="欢迎您，#{loginBean.userId}"/>
+				<h:outputText value="欢迎您，#{loginBean.userId}" />
 				<h:outputLink value="/my_index.html">我的图书馆</h:outputLink>
 				<h:outputLink value="/cart.html">我的借书篮</h:outputLink>
 				<h:commandLink action="#{loginBean.logout}">[注销]</h:commandLink>
@@ -62,6 +63,7 @@
 
 	<div class="body">
 		<ui:insert name="body" />
+		<kui:messages />
 	</div>
 	<div class="footer">
 		上海优阁信息技术有限公司 上海酷宝原版少儿英语<br /> Copyright@ 2005-2012

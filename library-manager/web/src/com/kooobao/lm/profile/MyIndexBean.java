@@ -36,9 +36,9 @@ public class MyIndexBean extends AbstractBean {
 		} else {
 			expiredBookCount = getTransactionService()
 					.getExpiredTransactionCount(visitor);
-
 			activeTransactions = getTransactionService().getActiveTransactions(
 					visitor);
+			toCommentTransactions = getTransactionService().getTransactionsForComment(visitor);
 			borrowedBookCount = activeTransactions.size();
 			recommendBooks = getTransactionService().getRecommendBooks(visitor);
 		}
@@ -73,6 +73,8 @@ public class MyIndexBean extends AbstractBean {
 	private int borrowedBookCount;
 
 	private List<Transaction> activeTransactions;
+
+	private List<Transaction> toCommentTransactions;
 
 	private List<Book> recommendBooks;
 
@@ -110,6 +112,14 @@ public class MyIndexBean extends AbstractBean {
 
 	public void setRecommendBooks(List<Book> recommendBooks) {
 		this.recommendBooks = recommendBooks;
+	}
+
+	public List<Transaction> getToCommentTransactions() {
+		return toCommentTransactions;
+	}
+
+	public void setToCommentTransactions(List<Transaction> toCommentTransactions) {
+		this.toCommentTransactions = toCommentTransactions;
 	}
 
 }

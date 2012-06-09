@@ -21,7 +21,7 @@
 .content_text {
 	font-size: 14px;
 	float: left;
-	width: 140px;
+	width: 70px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -47,31 +47,30 @@
 </style>
 	</ui:define>
 	<ui:define name="body">
-		<ui:decorate template="my_menu.xhtml" />
 		<div
 			style="margin-left: 40px; margin-top: 5px; margin-bottom: 5px; float: left; width: 810px;">
 			<div class="part" style="background-color: #fdfcfb;">
 				<div
-					style="width: 250px; float: left; padding-top: 12px; padding-left: 40px; padding-bottom: 10px; background-color: #ffe2dd;">
+					style="width: 210px; float: left; padding-top: 12px; padding-left: 40px; padding-bottom: 10px; background-color: #ffe2dd;">
 					<h:outputText styleClass="label_text" value="订单号码:" />
 					<h:outputText styleClass="content_text"
-						value="#{transactionBean.tran.oid}" />
+						value="#{manageViewTransactionBean.tran.oid}" />
 					<br />
 					<h:outputText styleClass="label_text" value="当前状态:" />
 					<h:outputText styleClass="content_text"
-						value="#{transactionBean.tran.stateText}" />
+						value="#{manageViewTransactionBean.tran.stateText}" />
 				</div>
 				<div
 					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
 					<h:outputText styleClass="small_label" value="创建日期:" />
 					<h:outputText styleClass="small_content"
-						value="#{transactionBean.tran.createTime}">
+						value="#{manageViewTransactionBean.tran.createTime}">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</h:outputText>
 					<br />
 					<h:outputText styleClass="small_label" value="应归还日期:" />
 					<h:outputText styleClass="small_content"
-						value="#{transactionBean.tran.dueTime}">
+						value="#{manageViewTransactionBean.tran.dueTime}">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</h:outputText>
 				</div>
@@ -79,12 +78,12 @@
 					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
 					<h:outputText styleClass="small_label" value="是否逾期:" />
 					<h:outputText styleClass="small_content"
-						value="#{transactionBean.expireRecord == null?'否':'是'}" />
+						value="#{manageViewTransactionBean.expireRecord == null?'否':'是'}" />
 					<br />
 					<h:outputText styleClass="small_label" value="逾期款项:" />
 					<h:outputText styleClass="small_content"
-						rendered="#{transactionBean.expireRecord != null}"
-						value="#{transactionBean.expireRecord.penalty} #{envSettingBean.moneyUnit}" />
+						rendered="#{manageViewTransactionBean.expireRecord != null}"
+						value="#{manageViewTransactionBean.expireRecord.penalty} #{envSettingBean.moneyUnit}" />
 				</div>
 			</div>
 			<div class="part">
@@ -93,8 +92,9 @@
 				</div>
 				<div class="part_body">
 					<h:outputLink value="/book.html">
-						<h:outputText value="#{transactionBean.tran.book.name}" />
-						<f:param name="book_id" value="#{transactionBean.tran.book.oid}" />
+						<h:outputText value="#{manageViewTransactionBean.tran.book.name}" />
+						<f:param name="book_id"
+							value="#{manageViewTransactionBean.tran.book.oid}" />
 					</h:outputLink>
 				</div>
 			</div>
@@ -104,7 +104,7 @@
 				</div>
 				<div class="part_body">
 					<ui:repeat var="operation"
-						value="#{transactionBean.tran.operations}">
+						value="#{manageViewTransactionBean.tran.operations}">
 						<div style="margin-top: 5px; margin-bottom: 5px;">
 							<div
 								style="display: inline; margin-right: 20px; margin-top: 5px; margin-bottom: 5px;">
@@ -129,94 +129,32 @@
 					<div class="part_item">
 						<h:outputLabel for="sendText" value="配送方式" />
 						<h:outputText id="sendText"
-							value="#{transactionBean.tran.deliveryText}" />
+							value="#{manageViewTransactionBean.tran.deliveryText}" />
 					</div>
 
 					<div class="part_item">
 						<h:outputLabel for="priceText" value="配送费用" />
 						<h:outputText id="priceText"
-							value="#{transactionBean.tran.deliveryFee}" />
+							value="#{manageViewTransactionBean.tran.deliveryFee}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="nameText" value="收件人" />
 						<h:outputText id="nameText"
-							value="#{transactionBean.tran.address.name}" />
+							value="#{manageViewTransactionBean.tran.address.name}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="locationText" value="收件地址" />
 						<h:outputText id="locationText"
-							value="#{transactionBean.tran.address.location}" />
+							value="#{manageViewTransactionBean.tran.address.location}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="phoneText" value="联系电话" />
 						<h:outputText id="phoneText"
-							value="#{transactionBean.tran.address.phone}" />
+							value="#{manageViewTransactionBean.tran.address.phone}" />
 					</div>
 				</div>
 			</div>
-			<div class="part">
-				<div class="part_body">
-					<h:form id="commentForm">
-						<h:outputLink id="originalCancelButton" styleClass="btn_solid"
-							value="#" rendered="#{transactionBean.canCancel}"
-							onclick="switch_cancel_layer()">作废订单</h:outputLink>
-						<div id="cancelLayer" style="display: none; width: 400px;">
-							<label>请填写您取消订单的原因:</label><span>（您的留言有助于我们为您提供更好的服务）</span>
-							<h:selectOneMenu value="#{transactionBean.cancelSelect}" style="margin-top:5px;margin-bottom:5px;">
-								<f:selectItems value="#{suppDataBean.cancelReasons}" />
-							</h:selectOneMenu>
-							<h:inputTextarea style="width:360px;height:80px;margin-bottom:5px;"
-								value="#{transactionBean.cancelReason}" />
-							<h:commandLink id="cancelButton" styleClass="btn_solid"
-								value="作废订单" action="#{transactionBean.cancel}" />
-						</div>
-						<h:panelGroup display="block"
-							rendered="#{transactionBean.canComment}">
-							<label>评分</label>
-							<span>（请您为所借阅的书评分，我们将为您送出积分鼓励）</span>
-							<div>
-								<img id="star1" width="15" height="15"
-									src="/image/empty_star.gif" onclick="change_rating(1)" /> <img
-									id="star2" width="15" height="15" src="/image/empty_star.gif"
-									onclick="change_rating(2)" /> <img id="star3" width="15"
-									height="15" src="/image/empty_star.gif"
-									onclick="change_rating(3)" /> <img id="star4" width="15"
-									height="15" src="/image/empty_star.gif"
-									onclick="change_rating(4)" /> <img id="star5" width="15"
-									height="15" src="/image/empty_star.gif"
-									onclick="change_rating(5)" />
-							</div>
 
-							<h:inputHidden id="rating" value="#{transactionBean.rating}" />
-							<label>评论</label>
-							<span>（请勿超过500字）</span>
-							<div>
-								<h:inputTextarea value="#{transactionBean.comment}"
-									style="width:500px;height:100px;" />
-							</div>
-							<h:commandLink styleClass="btn_regular"
-								action="#{transactionBean.saveComment}">保存</h:commandLink>
-						</h:panelGroup>
-						<script language="javascript">	
-								<!--
-								function change_rating(val) {
-									for(i = 1 ; i <= val ; i++) {
-										document.getElementById("star"+i).src="/image/star.gif";
-									}
-									for(i = val+1 ; i <=5;i++)
-										document.getElementById("star"+i).src="/image/empty_star.gif";
-									document.getElementById("commentForm:rating").value = val;
-								}
-							
-								function switch_cancel_layer() {
-									document.getElementById("commentForm:originalCancelButton").style.display="none";
-									document.getElementById("cancelLayer").style.display="block";
-								}
-							-->
-						</script>
-					</h:form>
-				</div>
-			</div>
 		</div>
 	</ui:define>
 </ui:composition>

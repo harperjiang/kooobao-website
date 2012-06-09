@@ -114,6 +114,13 @@
 			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>require_login_lm_manage</display-name>
+		<navigation-case>
+			<from-outcome>require_login_lm_manage</from-outcome>
+			<to-view-id>/manage_login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<render-kit>
 		<display-name>KooobaoRenderKit</display-name>
 		<renderer>

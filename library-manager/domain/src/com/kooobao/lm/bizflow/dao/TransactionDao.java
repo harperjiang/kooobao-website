@@ -25,4 +25,6 @@ public interface TransactionDao extends Dao<Transaction> {
 
 	Cursor<Transaction> getTransactions(TransactionState borrowRequested);
 
+	List<Transaction> getTransactionsForComment(Visitor visitor, int i);
+
 }
