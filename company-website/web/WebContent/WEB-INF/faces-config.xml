@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
@@ -7,7 +6,6 @@
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
-
 	<managed-bean>
 		<managed-bean-name>loginBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.authcenter.web.bean.LoginBean</managed-bean-class>
@@ -25,12 +23,10 @@
 			<property-name>authService</property-name>
 			<value>#{authenticateService}</value>
 		</managed-property>
-	</managed-bean>
-	<!-- managed-bean> <managed-bean-name>categoryInfoBean</managed-bean-name> 
+	</managed-bean><!-- managed-bean> <managed-bean-name>categoryInfoBean</managed-bean-name> 
 		<managed-bean-class>com.kooobao.cws.web.book.CategoryInfoBean </managed-bean-class> 
 		<managed-bean-scope>application</managed-bean-scope> <managed-property> <property-name>bookService</property-name> 
 		<value>#{bookService}</value> </managed-property> </managed-bean -->
-
 	<managed-bean>
 		<managed-bean-name>envConfigBean</managed-bean-name>
 		<managed-bean-class>com.kooobao.cws.web.common.EnvConfigBean</managed-bean-class>
@@ -91,10 +87,17 @@
 		</managed-property>
 	</managed-bean>
 	<navigation-rule>
-		<display-name>require_login</display-name>
+		<display-name>require_login_cws</display-name>
 		<navigation-case>
-			<from-outcome>require_login</from-outcome>
+			<from-outcome>require_login_cws</from-outcome>
 			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>require_login_website</display-name>
+		<navigation-case>
+			<from-outcome>require_login_website</from-outcome>
+			<to-view-id>/memeber.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -159,7 +162,7 @@
 			<to-view-id>/manage/manage_book.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-		<navigation-rule>
+	<navigation-rule>
 		<from-view-id>/manage/manage_article.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>success</from-outcome>
@@ -171,17 +174,15 @@
 		<phase-listener>com.kooobao.authcenter.listener.LoginAuthorizer</phase-listener>
 	</lifecycle>
 	<validator>
-    	<validator-id>com.kooobao.validator.Email</validator-id>
-    	<validator-class>
-      		com.kooobao.common.web.validator.EmailValidator
-    	</validator-class>
-  	</validator>
-  	<converter>  
-   	 	<converter-id>categoryConverter</converter-id>  
-    	<converter-class>com.kooobao.cws.web.manage.CategoryConverter</converter-class>  
-	</converter> 
-	<converter>  
-   	 	<converter-id>sectionConverter</converter-id>  
-    	<converter-class>com.kooobao.cws.web.article.SectionConverter</converter-class>  
-	</converter>   
+		<validator-id>com.kooobao.validator.Email</validator-id>
+		<validator-class>com.kooobao.common.web.validator.EmailValidator</validator-class>
+	</validator>
+	<converter>
+		<converter-id>categoryConverter</converter-id>
+		<converter-class>com.kooobao.cws.web.manage.CategoryConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-id>sectionConverter</converter-id>
+		<converter-class>com.kooobao.cws.web.article.SectionConverter</converter-class>
+	</converter>
 </faces-config>
