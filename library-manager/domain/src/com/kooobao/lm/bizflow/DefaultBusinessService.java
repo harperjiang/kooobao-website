@@ -72,8 +72,10 @@ public class DefaultBusinessService implements BusinessService {
 					.getVisitor(), record.getDueTime(), new Date());
 			record.setPenalty(penalty);
 			// Update User Remaining
+			// TODO Change to async
 			Visitor visitor = record.getTransaction().getVisitor();
-			visitor.changeDeposit(penalty.subtract(oldPenalty).negate(), "");
+			visitor.changeDeposit(penalty.subtract(oldPenalty).negate(),
+					"Expiration Penalty", null);
 			// Update User Status
 			if (visitor.getDeposit().compareTo(BigDecimal.ZERO) < 0)
 				visitor.setStatus(VisitorStatus.LOCKED.name());
@@ -105,6 +107,8 @@ public class DefaultBusinessService implements BusinessService {
 		if (stock.getAvailable() > 0) {
 			stock.setAvailable(stock.getAvailable() - 1);
 			tran.setStockReserved(true);
+		} else {
+			throw new InsufficientStockException();
 		}
 	}
 

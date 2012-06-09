@@ -59,7 +59,8 @@ public class DefaultTransactionService implements TransactionService {
 		// Check User Account
 		if (v.getDeposit().compareTo(transaction.getBook().getListPrice()) < 0)
 			throw new InsufficientFundException();
-		v.changeDeposit(transaction.getBook().getListPrice().negate(), "");
+		v.changeDeposit(transaction.getBook().getListPrice().negate(),
+				"Borrow Book", operator.getId());
 		transaction.approve(null == operator ? null : operator.getId());
 		return getTransactionDao().store(transaction);
 	}
@@ -106,7 +107,8 @@ public class DefaultTransactionService implements TransactionService {
 
 		// Return Funds
 		if (tran.getState() == TransactionState.BORROW_APPROVED)
-			tran.getVisitor().changeDeposit(tran.getBook().getListPrice(), "");
+			tran.getVisitor().changeDeposit(tran.getBook().getListPrice(),
+					"User Cancel", null);
 		// Release Stocks
 		if (tran.isStockReserved()) {
 			Stock stock = getStockDao().findByBook(tran.getBook());
