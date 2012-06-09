@@ -2,13 +2,13 @@ package com.kooobao.fr.domain.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
 
@@ -22,7 +22,7 @@ public class Attachment extends SimpleEntity {
 	@Column(name = "size")
 	private long size;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	@JoinColumn(name = "file_id", referencedColumnName = "obj_id")
 	private FileStorage file;
 
