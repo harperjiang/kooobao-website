@@ -1,0 +1,2 @@
+create table lm_visitor_balancelog (obj_id int(10) not null, create_time datetime, operator_id varchar(30), visitor_id int(10),reason varchar(150),bal_change decimal(10,2),primary key (obj_id));
+insert into lm_sequence (name,count) values('lm_visitor_balancelog',1);

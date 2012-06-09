@@ -78,7 +78,7 @@ public class DefaultProfileService implements ProfileService {
 		int newLevel = getRuleDao().getVisitorLevelRule()
 				.getLevel(resultAmount);
 		v.setLevel(newLevel);
-		v.changeDeposit(amount, "Redeem");
+		v.changeDeposit(amount, "Redeem", null);
 	}
 
 	private VisitorDao visitorDao;

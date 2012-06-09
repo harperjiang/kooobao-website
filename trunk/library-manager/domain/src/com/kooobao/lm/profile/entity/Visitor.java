@@ -2,6 +2,7 @@ package com.kooobao.lm.profile.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -44,6 +45,9 @@ public class Visitor extends VersionEntity {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "info")
 	private PersonalInfo info;
+	
+	@OneToMany(mappedBy="visitor",cascade = CascadeType.ALL,orphanRemoval=true) 
+	private List<BalanceLog> balanceLogs = new ArrayList<BalanceLog>();
 
 	public String getId() {
 		return id;
@@ -109,8 +113,15 @@ public class Visitor extends VersionEntity {
 		this.info = info;
 	}
 
-	public void changeDeposit(BigDecimal change, String reason) {
+	public void changeDeposit(BigDecimal change, String reason,String operatorId) {
 		this.setDeposit(getDeposit().add(change));
+		BalanceLog bl = new BalanceLog();
+		bl.setVisitor(this);
+		bl.setCreateTime(new Date());
+		bl.setChange(change);
+		bl.setReason(reason);
+		bl.setOperatorId(operatorId);
+		getBalanceLogs().add(bl);
 	}
 
 	public void addAddress(Address addr) {
@@ -124,5 +135,9 @@ public class Visitor extends VersionEntity {
 		addr.setVisitor(null);
 		getAvailableAddresses().remove(addr);
 
+	}
+
+	public List<BalanceLog> getBalanceLogs() {
+		return balanceLogs;
 	}
 }
