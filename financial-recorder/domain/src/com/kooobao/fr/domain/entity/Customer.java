@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.kooobao.common.domain.entity.VersionEntity;
 
@@ -22,10 +20,6 @@ public class Customer extends VersionEntity {
 
 	@Column(name = "account")
 	private String account;
-
-	@Column(name = "create_date")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createDate = new Date();
 
 	public String getName() {
 		return name;
@@ -52,11 +46,11 @@ public class Customer extends VersionEntity {
 	}
 
 	public Date getCreateDate() {
-		return createDate;
+		return getCreateTime();
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		this.setCreateTime(createDate);
 	}
 
 }

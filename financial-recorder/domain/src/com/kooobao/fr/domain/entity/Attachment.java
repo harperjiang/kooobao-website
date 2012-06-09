@@ -22,10 +22,6 @@ public class Attachment extends SimpleEntity {
 	@Column(name = "size")
 	private long size;
 
-	@Column(name = "create_date")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createDate;
-
 	@OneToOne
 	@JoinColumn(name = "file_id", referencedColumnName = "obj_id")
 	private FileStorage file;
@@ -39,11 +35,11 @@ public class Attachment extends SimpleEntity {
 	}
 
 	public Date getCreateDate() {
-		return createDate;
+		return getCreateTime();
 	}
 
 	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+		this.setCreateTime(createDate);
 	}
 
 	public FileStorage getFile() {

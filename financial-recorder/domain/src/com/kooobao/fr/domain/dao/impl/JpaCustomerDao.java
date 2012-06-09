@@ -12,7 +12,7 @@ public class JpaCustomerDao extends AbstractJpaDao<Customer> implements
 	public List<Customer> getRecentCustomer(int limit) {
 		return getEntityManager()
 				.createQuery(
-						"select c from Customer c order by c.createDate desc",
+						"select c from Customer c order by c.createTime desc",
 						Customer.class).setMaxResults(limit).getResultList();
 	}
 
