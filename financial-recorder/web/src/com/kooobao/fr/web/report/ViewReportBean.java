@@ -21,8 +21,9 @@ public class ViewReportBean extends AbstractBean {
 	private Date endDate = Utilities.dayEnd();
 
 	public String report() {
-		ReportResult result = getReportService().getReport(getBeginDate(),
-				getEndDate());
+		ReportResult result = getReportService().getReport(
+				Utilities.dayBegin(getBeginDate()),
+				Utilities.dayEnd(getEndDate()));
 		setIncome(result.getIncome());
 		setExpense(result.getExpense());
 		setProfit(result.getProfit());
