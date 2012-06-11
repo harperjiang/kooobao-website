@@ -156,7 +156,32 @@
 			<div class="book_content_section">
 				<h:outputText value="#{bookBean.book.textContent}" escape="true" />
 			</div>
-
+			<div class="book_content_header">读者评论</div>
+			<div class="book_content_section">
+				<ui:repeat var="comment" value="#{bookBean.book.comments}">
+					<div style="font-size:14px;margin-top:5px;margin-bottom:5px;">
+						<h:outputText value="#{comment.visitorId}" />
+						在
+						<h:outputText value="#{comment.createTime}">
+							<f:convertDateTime pattern="yyyy-MM-dd HH:mm"
+								timeZone="#{envSettingBean.timeZone}" />
+						</h:outputText>
+						评价:
+						<h:panelGroup id="rateText">
+							<kf:for repeat="#{comment.rating}">
+								<h:graphicImage width="15" height="15" url="/image/star.gif" />
+							</kf:for>
+							<kf:for repeat="#{5 - comment.rating}">
+								<h:graphicImage width="15" height="15"
+									url="/image/empty_star.gif" />
+							</kf:for>
+						</h:panelGroup>
+					</div>
+					<div style="background-color:#f9f9f9;padding:5px;font-size:14px;">
+						<h:outputText value="#{comment.content}" />
+					</div>
+				</ui:repeat>
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>

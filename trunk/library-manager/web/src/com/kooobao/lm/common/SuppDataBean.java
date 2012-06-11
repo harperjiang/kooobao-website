@@ -28,6 +28,8 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	private List<String> cancelReasons;
 
+	private List<String> expressCompanies;
+
 	public void init() {
 		transactionStates = new ArrayList<SelectItem>();
 		for (TransactionState state : TransactionState.values()) {
@@ -51,10 +53,18 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 				allCategories.addAll(c.getChildren());
 			}
 		}
-		
+
 		cancelReasons = new ArrayList<String>();
 		cancelReasons.add("我不想要了");
 		cancelReasons.add("订单错了，需要重新修改");
+		
+		expressCompanies = new ArrayList<String>();
+		expressCompanies.add("顺丰");
+		expressCompanies.add("圆通");
+		expressCompanies.add("中通");
+		expressCompanies.add("汇通");
+		expressCompanies.add("韵达");
+		expressCompanies.add("其他");
 	}
 
 	public void dispose() {
@@ -101,6 +111,10 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	public void setCancelReasons(List<String> cancelReasons) {
 		this.cancelReasons = cancelReasons;
+	}
+
+	public List<String> getExpressCompanies() {
+		return expressCompanies;
 	}
 
 }

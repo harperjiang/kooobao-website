@@ -155,6 +155,14 @@
 				</div>
 			</div>
 			<div class="part">
+				<div class="part_header">
+					<h:outputText value="登记还书"
+						rendered="#{transactionBean.canSendback}" />
+					<h:outputText value="评价图书"
+						rendered="#{transactionBean.canComment}" />	
+					<h:outputText value="取消订单"
+						rendered="#{transactionBean.canCancel}" />	
+				</div>
 				<div class="part_body">
 					<h:form id="commentForm">
 						<h:outputLink id="originalCancelButton" styleClass="btn_solid"
@@ -162,14 +170,37 @@
 							onclick="switch_cancel_layer()">作废订单</h:outputLink>
 						<div id="cancelLayer" style="display: none; width: 400px;">
 							<label>请填写您取消订单的原因:</label><span>（您的留言有助于我们为您提供更好的服务）</span>
-							<h:selectOneMenu value="#{transactionBean.cancelSelect}" style="margin-top:5px;margin-bottom:5px;">
+							<h:selectOneMenu value="#{transactionBean.cancelSelect}"
+								style="margin-top:5px;margin-bottom:5px;">
 								<f:selectItems value="#{suppDataBean.cancelReasons}" />
 							</h:selectOneMenu>
-							<h:inputTextarea style="width:360px;height:80px;margin-bottom:5px;"
+							<h:inputTextarea
+								style="width:360px;height:80px;margin-bottom:5px;"
 								value="#{transactionBean.cancelReason}" />
 							<h:commandLink id="cancelButton" styleClass="btn_solid"
 								value="作废订单" action="#{transactionBean.cancel}" />
 						</div>
+						<h:panelGroup display="block"
+							rendered="#{transactionBean.canSendback}">
+							<div class="part_item">（如果您不使用快递还书，请直接将书籍交还至前台即可）</div>
+							<div class="part_item">
+								<label>快递公司</label>
+								<h:selectOneMenu id="companySelect"
+									value="#{transactionBean.expressCompany}"
+									onchange="express_changed()">
+									<f:selectItems value="#{suppDataBean.expressCompanies}" />
+								</h:selectOneMenu>
+								<h:inputText id="companyText" style="display:none;"
+									value="#{transactionBean.expressCompanyName}" />
+							</div>
+							<div class="part_item">
+								<label>快递单号</label>
+								<h:inputText value="#{transactionBean.expressNo}" />
+							</div>
+							<h:commandLink action="#{transactionBean.sendback}"
+								value="归还书籍已寄出" styleClass="btn_confirm" />
+						</h:panelGroup>
+
 						<h:panelGroup display="block"
 							rendered="#{transactionBean.canComment}">
 							<label>评分</label>
@@ -197,8 +228,7 @@
 							<h:commandLink styleClass="btn_regular"
 								action="#{transactionBean.saveComment}">保存</h:commandLink>
 						</h:panelGroup>
-						<script language="javascript">	
-								<!--
+						<script language="javascript"><!--
 								function change_rating(val) {
 									for(i = 1 ; i <= val ; i++) {
 										document.getElementById("star"+i).src="/image/star.gif";
@@ -211,6 +241,17 @@
 								function switch_cancel_layer() {
 									document.getElementById("commentForm:originalCancelButton").style.display="none";
 									document.getElementById("cancelLayer").style.display="block";
+								}
+								
+								function express_changed() {
+									var select = document.getElementById("commentForm:companySelect");
+									var text = document.getElementById("commentForm:companyText")
+									alert(select.options[select.selectedIndex]);
+									if(select.options[select.selectedIndex].value == '其他') {
+										text.style.display='inline';
+									} else {
+										text.style.display='none';		
+									}
 								}
 							-->
 						</script>
