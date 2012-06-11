@@ -1,0 +1,1 @@
+create table lm_book_ratesum (obj_id int(10) not null, create_time datetime, book_id int(10), rate1 int(10),rate2 int(10),rate3 int(10), rate4 int(10),rate5 int(10),merge_mark int(1),primary key (obj_id))

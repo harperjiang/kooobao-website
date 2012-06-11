@@ -65,6 +65,9 @@ public class Book extends SimpleEntity {
 	@OrderBy("createTime desc")
 	private List<Comment> comments = new ArrayList<Comment>();
 
+	@OneToOne(mappedBy = "book", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+	private BookRateSummary rateSum;
+
 	public Category getCategory() {
 		return category;
 	}
@@ -235,5 +238,13 @@ public class Book extends SimpleEntity {
 	public void addComment(Comment comment) {
 		comment.setBook(this);
 		getComments().add(0, comment);
+	}
+
+	public BookRateSummary getRateSum() {
+		return rateSum;
+	}
+
+	public void setRateSum(BookRateSummary rateSum) {
+		this.rateSum = rateSum;
 	}
 }
