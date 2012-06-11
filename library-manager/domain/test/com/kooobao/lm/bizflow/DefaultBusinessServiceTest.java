@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -28,6 +30,7 @@ import com.kooobao.lm.book.dao.StockDao;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.BookRelation;
 import com.kooobao.lm.book.entity.Category;
+import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.book.entity.Stock;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
@@ -73,7 +76,15 @@ public class DefaultBusinessServiceTest extends
 		book.setCategory(category);
 		book.getTags().add("AAA");
 		book.getTags().add("CCC");
+		
+		Comment c = new Comment();
+		c.setRating(5);
+		c.setCreateTime(new Date());
+		book.addComment(c);
+		
 		bookDao.store(book);
+		
+		
 
 		Book book2 = new Book();
 		book2.setOid(2);
@@ -163,5 +174,11 @@ public class DefaultBusinessServiceTest extends
 						"select br from BookRelation br where br.from.oid = 1",
 						BookRelation.class).getSingleResult();
 		assertEquals(new BigDecimal("3"), br.getScore());
+	}
+
+	@Test
+	public void testUpdateBookRating() {
+		businessService.updateBookRating(new SimpleDateFormat("yyyy-MM-dd")
+				.parse("2010-01-01", new ParsePosition(0)));
 	}
 }

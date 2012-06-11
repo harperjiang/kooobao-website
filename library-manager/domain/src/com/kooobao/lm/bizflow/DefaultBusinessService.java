@@ -246,4 +246,14 @@ public class DefaultBusinessService implements BusinessService {
 		expireOneTransaction(t);
 	}
 
+	public void updateBookRating(Date from) {
+		getBookDao().updateBookRateSummary(from);
+		Cursor<Book> books = getBookDao().findBooksToRate(from);
+		while(books.hasNext()) {
+			Book book = books.next();
+			book.setRating(book.getRateSum().getRate());
+			book.getRateSum().setMergeMark(false);
+		}
+	}
+
 }

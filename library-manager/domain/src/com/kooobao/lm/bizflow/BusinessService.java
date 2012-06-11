@@ -1,5 +1,7 @@
 package com.kooobao.lm.bizflow;
 
+import java.util.Date;
+
 import com.kooobao.lm.bizflow.entity.Transaction;
 
 
@@ -28,4 +30,6 @@ public interface BusinessService {
 	public void buildBookAssociations();
 
 	public void expireTransaction(Transaction t);
+	
+	public void updateBookRating(Date from);
 }

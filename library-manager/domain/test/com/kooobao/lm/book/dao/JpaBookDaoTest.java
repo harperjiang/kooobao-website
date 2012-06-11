@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -143,6 +144,16 @@ public class JpaBookDaoTest extends
 				brin = br;
 		}
 		assertNotNull(brin);
+	}
+	
+	@Test
+	public void testUpdateRateSum() {
+		bookDao.updateBookRateSummary(new Date());
+	}
+	
+	@Test
+	public void testFindBooksToRate() {
+		fail("Not implemented");
 	}
 
 }

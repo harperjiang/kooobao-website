@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="library-manager-domain" transaction-type="RESOURCE_LOCAL">
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="library-manager-domain"
+		transaction-type="RESOURCE_LOCAL">
 		<class>com.kooobao.lm.profile.entity.Address</class>
 		<class>com.kooobao.lm.profile.entity.ActivationRecord</class>
 		<class>com.kooobao.lm.profile.entity.PersonalInfo</class>
@@ -12,18 +15,23 @@
 		<class>com.kooobao.lm.optlog.entity.SearchLog</class>
 		<class>com.kooobao.lm.optlog.entity.SearchSummary</class>
 		<class>com.kooobao.lm.bizflow.entity.ExpireRecord</class>
-		<class>com.kooobao.lm.bizflow.entity.Comment</class>
+		<class>com.kooobao.lm.bizflow.entity.TranComment</class>
 		<class>com.kooobao.lm.bizflow.entity.FavoriteRecord</class>
 		<class>com.kooobao.lm.bizflow.entity.Operation</class>
 		<class>com.kooobao.lm.bizflow.entity.Transaction</class>
 		<class>com.kooobao.lm.profile.entity.BasicAddress</class>
+		<class>com.kooobao.lm.book.entity.BookRelation</class>
+		<class>com.kooobao.lm.book.entity.Comment</class>
+		<class>com.kooobao.lm.book.entity.BookRateSummary</class>
+		<class>com.kooobao.lm.article.entity.News</class>
 		<class>com.kooobao.lm.profile.entity.Operator</class>
+		<class>com.kooobao.lm.profile.entity.BalanceLog</class>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lm_test"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="jieninan"/>
-			<property name="eclipselink.logging.level.sql" value="ALL"/>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lm_test" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="jieninan" />
+			<property name="eclipselink.logging.level.sql" value="ALL" />
 		</properties>
 	</persistence-unit>
 </persistence>
