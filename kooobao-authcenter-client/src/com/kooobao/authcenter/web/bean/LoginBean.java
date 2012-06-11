@@ -76,7 +76,7 @@ public class LoginBean extends AbstractBean {
 		javax.servlet.http.HttpServletResponse response = (HttpServletResponse) javax.faces.context.FacesContext
 				.getCurrentInstance().getExternalContext().getResponse();
 		Object previousUrl = getSession().getAttribute(Constants.JUMP_URL);
-
+		getSession().setAttribute(Constants.JUMP_URL, null);
 		// Jump to previous URL, index.htm if null
 		String indexPage = ConfigLoader.getInstance().load("auth_list",
 				system + ".index_page");
@@ -118,14 +118,17 @@ public class LoginBean extends AbstractBean {
 	private String system = getSystem();
 
 	protected String getSystem() {
-		String val = (String) ((HttpSession) FacesContext.getCurrentInstance()
-				.getExternalContext().getSession(true))
-				.getAttribute(Constants.LOGIN_SYSTEM);
+		String val = (String) getSession().getAttribute(Constants.LOGIN_SYSTEM);
+		getSession().setAttribute(Constants.LOGIN_SYSTEM, null);
 		if (StringUtils.isEmpty(val))
 			val = ConfigLoader.getInstance().load("auth_list", "default");
 		if (StringUtils.isEmpty(val))
 			val = ConfigLoader.getInstance().load("auth_list", "system");
 		return val;
+	}
+
+	protected void setSystem(String sys) {
+		this.system = sys;
 	}
 
 	private Token validateLogin() {

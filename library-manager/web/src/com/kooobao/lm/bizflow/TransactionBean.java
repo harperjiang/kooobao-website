@@ -23,8 +23,7 @@ public class TransactionBean extends AbstractBean {
 	public void onPageLoad() {
 		String tranIdParam = getParameter("tran_id");
 		try {
-			if ((!StringUtils.isEmpty(tranIdParam) && (getTran() == null || !String
-					.valueOf(getTran().getOid()).equals(tranIdParam)))) {
+			if ((!StringUtils.isEmpty(tranIdParam))) {
 				long tranId = Long.parseLong(tranIdParam);
 				Transaction t = getTransactionService().getTransaction(tranId);
 				setTran(t);
@@ -60,6 +59,11 @@ public class TransactionBean extends AbstractBean {
 				&& 0 == (getTran().getRating());
 	}
 
+	public boolean isCanSendback() {
+		return getTran().getState() == TransactionState.RETURN_WAIT
+				|| getTran().getState() == TransactionState.RETURN_EXPIRED;
+	}
+
 	public String saveComment() {
 		if (StringUtils.isEmpty(getComment()) || getRating() == 0) {
 			addMessage(FacesMessage.SEVERITY_WARN, "未评级或无内容", "请您做出评分并填写评论");
@@ -78,6 +82,19 @@ public class TransactionBean extends AbstractBean {
 		cmt.setContent(getComment());
 		setTran(getTransactionService().addComment(getTran(), cmt));
 		addMessage(FacesMessage.SEVERITY_INFO, "评论成功", "感谢您的评论，我们将赠送您5豆丁的积分");
+		return "success";
+	}
+
+	public String sendback() {
+		String expressCompany = "其他".equals(getExpressCompany()) ? getExpressNo()
+				: getExpressCompany();
+		if (StringUtils.isEmpty(expressCompany)
+				|| StringUtils.isEmpty(expressNo)) {
+			addMessage(FacesMessage.SEVERITY_WARN, "信息不全", "请填写快递公司及快递单号");
+			return "failed";
+		}
+		setTran(getTransactionService().sendReturn(getTran(), null,
+				expressCompany + expressNo));
 		return "success";
 	}
 
@@ -139,6 +156,36 @@ public class TransactionBean extends AbstractBean {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	private String expressCompany;
+
+	public String getExpressCompany() {
+		return expressCompany;
+	}
+
+	public void setExpressCompany(String expressCompany) {
+		this.expressCompany = expressCompany;
+	}
+
+	private String expressCompanyName;
+
+	public String getExpressCompanyName() {
+		return expressCompanyName;
+	}
+
+	public void setExpressCompanyName(String expressCompanyName) {
+		this.expressCompanyName = expressCompanyName;
+	}
+
+	private String expressNo;
+
+	public String getExpressNo() {
+		return expressNo;
+	}
+
+	public void setExpressNo(String expressNo) {
+		this.expressNo = expressNo;
 	}
 
 	@ManagedProperty("#{transactionService}")

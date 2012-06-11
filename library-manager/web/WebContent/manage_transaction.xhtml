@@ -44,7 +44,7 @@
 					<div class="table_header_col" style="width: 100px">创建日期</div>
 					<div class="table_header_col" style="width: 100px">过期日期</div>
 					<div class="table_header_col" style="width: 120px">当前状态</div>
-					<div class="table_header_col">操作</div>
+					<div class="table_header_col" style="width: 200px">操作</div>
 				</div>
 				<ui:repeat var="tran" value="#{manageTransactionBean.trans}">
 					<div class="table_row">
@@ -79,7 +79,7 @@
 						<div class="table_cell" style="width: 120px">
 							<h:outputText value="#{tran.stateText}" />
 						</div>
-						<div class="table_cell">
+						<div class="table_cell" style="width: 200px">
 							<h:panelGroup rendered="#{tran.state == 'BORROW_REQUESTED'}">
 								<h:commandLink value="审核通过" styleClass="btn_confirm_small"
 									action="#{manageTransactionBean.approve}">

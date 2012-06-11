@@ -60,6 +60,7 @@ div.table_row {
 	min-height: 20px;
 	margin-top: 4px;
 	margin-bottom: 4px;
+	overflow:auto;
 }
 
 div.table_cell {

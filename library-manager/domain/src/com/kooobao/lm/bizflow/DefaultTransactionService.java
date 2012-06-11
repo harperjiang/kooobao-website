@@ -1,5 +1,6 @@
 package com.kooobao.lm.bizflow;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -247,7 +248,11 @@ public class DefaultTransactionService implements TransactionService {
 		tran.setComment(comment.getContent());
 		tran.setRating(comment.getRating());
 		comment.setCreateTime(new Date());
+		comment.setVisitorId(tran.getVisitor().getId());
 		tran.getBook().addComment(comment);
+		// TODO Async
+		tran.getVisitor().changeDeposit(new BigDecimal("5"),
+				"Comment:" + tran.getOid(), null);
 		getBookDao().store(tran.getBook());
 		return getTransactionDao().store(tran);
 	}
