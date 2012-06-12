@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 import com.kooobao.authcenter.Constants;
 import com.kooobao.authcenter.listener.LoginAuthorizer;
@@ -87,7 +87,8 @@ public class LoginBean extends AbstractBean {
 		try {
 			response.sendRedirect(formatUrl(previousUrl));
 		} catch (IOException e) {
-			LogFactory.getLog(getClass()).error("Failed to redirect page");
+			LoggerFactory.getLogger(getClass()).error(
+					"Failed to redirect page", e);
 		}
 	}
 
@@ -134,7 +135,7 @@ public class LoginBean extends AbstractBean {
 	private Token validateLogin() {
 		// Trying to match system based on jump url
 		if (StringUtils.isEmpty(system)) {
-			LogFactory.getLog(getClass()).warn(
+			LoggerFactory.getLogger(getClass()).warn(
 					"System name Not Found, cannot validate login");
 			return null;
 		}

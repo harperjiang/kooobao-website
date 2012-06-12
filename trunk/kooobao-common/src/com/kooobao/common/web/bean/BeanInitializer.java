@@ -6,8 +6,8 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.kooobao.common.util.ConfigLoader;
 
@@ -31,7 +31,7 @@ public class BeanInitializer implements PhaseListener {
 		String viewId = phaseEvent.getFacesContext().getViewRoot().getViewId();
 		if (StringUtils.isEmpty(viewId))
 			return;
-		Log log = LogFactory.getLog(getClass());
+		Logger log = LoggerFactory.getLogger(getClass());
 		if (viewId.endsWith(".xhtml") || viewId.endsWith(".html")
 				|| viewId.endsWith(".htm")) {
 			String[] managedBeanName = getManagedBeanNameFromView(viewId);
@@ -43,16 +43,22 @@ public class BeanInitializer implements PhaseListener {
 				if (object != null)
 					break;
 			}
-			if (object == null)
-				log.debug("OnPageLoad cannot be executed, no such managed bean:"
-						+ managedBeanName);
-			else {
+			if (object == null) {
+				if (log.isDebugEnabled())
+					log.debug("OnPageLoad cannot be executed, no such managed bean:"
+							+ managedBeanName);
+			} else {
 				if (object instanceof JSFLifecycleAware) {
 					JSFLifecycleAware lifeCycleAwareBean = (JSFLifecycleAware) object;
 					lifeCycleAwareBean.onPageLoad();
+					if (log.isDebugEnabled()) {
+						log.debug("OnPageLoad is executed on {}",
+								object.getClass());
+					}
 				} else {
-					log.debug("Bean " + object.getClass().getSimpleName()
-							+ " is not Lifecycle Aware");
+					if (log.isDebugEnabled())
+						log.debug("Bean {} is not Lifecycle Aware", object
+								.getClass().getSimpleName());
 				}
 			}
 		}

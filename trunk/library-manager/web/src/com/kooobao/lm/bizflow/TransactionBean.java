@@ -6,7 +6,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.lm.bizflow.entity.ExpireRecord;
@@ -28,6 +28,10 @@ public class TransactionBean extends AbstractBean {
 				Transaction t = getTransactionService().getTransaction(tranId);
 				setTran(t);
 			}
+			if (null == getTran()) {
+				navigate("not_found");
+				return;
+			}
 			LoginBean lb = findBean("loginBean");
 			if (!lb.isLoggedIn()
 					|| !lb.getUserId().equals(getTran().getVisitor().getId())) {
@@ -37,8 +41,10 @@ public class TransactionBean extends AbstractBean {
 				setExpireRecord(getTransactionService().findExpireRecord(
 						getTran()));
 			}
+		} catch (NumberFormatException e) {
+			navigate("not_found");
 		} catch (Exception e) {
-			LogFactory.getLog(getClass()).error("Cannot find transaction", e);
+			LoggerFactory.getLogger(getClass()).error("Cannot find transaction", e);
 			navigate("not_found");
 		}
 	}

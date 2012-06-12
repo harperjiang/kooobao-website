@@ -3,9 +3,6 @@ package com.kooobao.lm.article;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-
-import org.apache.commons.logging.LogFactory;
 
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.lm.article.entity.News;
@@ -19,15 +16,10 @@ public class NewsBean extends AbstractBean {
 		try {
 			long oid = Long.parseLong(getParameter("news_id"));
 			article = getNewsService().findNews(oid);
+			if (null == article)
+				navigate("not_found");
 		} catch (Exception e) {
-			LogFactory.getLog(getClass())
-					.error("No article id was provided", e);
-			FacesContext
-					.getCurrentInstance()
-					.getApplication()
-					.getNavigationHandler()
-					.handleNavigation(FacesContext.getCurrentInstance(), null,
-							"not_found");
+			navigate("not_found");
 		}
 	}
 
