@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 
 public class ConfigLoader {
 
@@ -32,7 +32,7 @@ public class ConfigLoader {
 			cache.put(module, prop);
 			return prop.getProperty(key);
 		} catch (Exception e) {
-			LogFactory.getLog(getClass()).error("Failed to load " + module, e);
+			LoggerFactory.getLogger(getClass()).error("Failed to load " + module, e);
 			return null;
 		}
 

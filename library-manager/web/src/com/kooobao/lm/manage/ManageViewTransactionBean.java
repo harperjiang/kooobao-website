@@ -5,7 +5,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.LogFactory;
 
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.lm.bizflow.TransactionService;
@@ -26,9 +25,6 @@ public class ManageViewTransactionBean extends AbstractBean {
 			setTran(t);
 			setExpireRecord(getTransactionService().findExpireRecord(getTran()));
 		} catch (Exception e) {
-			LogFactory.getLog(getClass()).warn(
-					"No transaction found:" + tranIdParam);
-
 			navigate("not_found");
 		}
 	}

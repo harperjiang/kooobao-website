@@ -3,8 +3,8 @@ package com.kooobao.common.concurrent;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TaskQueue<TASK> {
 
@@ -32,7 +32,7 @@ public class TaskQueue<TASK> {
 
 	class DaemonThread extends Thread {
 
-		private Log log = LogFactory.getLog(DaemonThread.class);
+		private Logger log = LoggerFactory.getLogger(DaemonThread.class);
 
 		DaemonThread() {
 			super();

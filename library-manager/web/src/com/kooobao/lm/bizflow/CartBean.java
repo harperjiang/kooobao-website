@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.Cookie;
 
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import com.kooobao.common.spring.ApplicationContextHolder;
@@ -103,7 +103,7 @@ public class CartBean extends AbstractBean {
 			getCart().remove(book);
 			return "success";
 		} catch (Exception e) {
-			LogFactory.getLog(CartBean.class).error(
+			LoggerFactory.getLogger(CartBean.class).error(
 					"Exception when executing action", e);
 			return "failed";
 		}
