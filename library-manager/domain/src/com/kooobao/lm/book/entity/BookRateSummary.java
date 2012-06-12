@@ -98,4 +98,34 @@ public class BookRateSummary extends SimpleEntity {
 	public void setRate5(int rate5) {
 		this.rate5 = rate5;
 	}
+
+	protected int maxRate() {
+		return Math.max(Math.max(
+				Math.max(Math.max(getRate1(), getRate2()), getRate3()),
+				getRate4()), getRate5());
+	}
+
+	public int getRate1Rate() {
+		return (int) Math.ceil(100 * (float) rate1 / (float) maxRate());
+	}
+
+	public int getRate2Rate() {
+		return (int) Math.ceil(100 * (float) rate2 / (float) maxRate());
+	}
+
+	public int getRate3Rate() {
+		return (int) Math.ceil(100 * (float) rate3 / (float) maxRate());
+	}
+
+	public int getRate4Rate() {
+		return (int) Math.ceil(100 * (float) rate4 / (float) maxRate());
+	}
+
+	public int getRate5Rate() {
+		return (int) Math.ceil(100 * (float) rate5 / (float) maxRate());
+	}
+
+	public int getSum() {
+		return getRate1() + getRate2() + getRate3() + getRate4() + getRate5();
+	}
 }
