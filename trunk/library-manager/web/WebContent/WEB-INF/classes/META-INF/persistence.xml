@@ -24,6 +24,7 @@
 		<class>com.kooobao.lm.profile.entity.BasicAddress</class>
 		<class>com.kooobao.lm.book.entity.BookRelation</class>
 		<class>com.kooobao.lm.book.entity.Comment</class>
+		<class>com.kooobao.lm.book.entity.BookRateSummary</class>
 		<class>com.kooobao.lm.article.entity.News</class>
 		<class>com.kooobao.lm.profile.entity.Operator</class>
 		<class>com.kooobao.lm.profile.entity.BalanceLog</class>

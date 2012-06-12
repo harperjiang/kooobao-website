@@ -24,4 +24,34 @@
 			<renderer-type>com.kooobao.jsf.ui.Messages</renderer-type>
 		</component>
 	</tag>
+	<tag>
+		<tag-name>progress</tag-name>
+		<component>
+			<component-type>com.kooobao.jsf.ui.Progress</component-type>
+			<renderer-type>com.kooobao.jsf.ui.Progress</renderer-type>
+		</component>
+		<attribute>
+			<name>value</name>
+		</attribute>
+
+		<attribute>
+			<name>width</name>
+		</attribute>
+
+		<attribute>
+			<name>height</name>
+		</attribute>
+
+		<attribute>
+			<name>color</name>
+		</attribute>
+
+		<attribute>
+			<name>backgroundColor</name>
+		</attribute>
+		
+		<attribute>
+			<name>styleClass</name>
+		</attribute>
+	</tag>
 </facelet-taglib>

@@ -2,12 +2,14 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kui="http://kooobao.com/jsf/ui"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-新用户注册</ui:define>
 	<ui:define name="body">
 
-		<h:message for="defaultDialog" />
+		<kui:progress width="200" height="10" value="88" color="#ff0000"
+			background-color="#00ff00" />
 
 	</ui:define>
 </ui:composition>

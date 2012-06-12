@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kui="http://kooobao.cn/jsf/ui"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-新用户注册</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:commandLink styleClass="btn_confirm"
+				action="#{manageBizoprBean.updateBookRating}"
+				value="Update Book Rating" />
+		</h:form>
+	</ui:define>
+</ui:composition>

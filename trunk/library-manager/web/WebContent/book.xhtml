@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:kf="http://kooobao.com/jsf/func"
+	xmlns:kui="http://kooobao.com/jsf/ui"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-#{bookBean.book.displayName}</ui:define>
@@ -129,6 +130,7 @@
 								url="/image/empty_star.gif" />
 						</kf:for>
 					</h:panelGroup>
+
 				</div>
 
 				<div>
@@ -158,8 +160,95 @@
 			</div>
 			<div class="book_content_header">读者评论</div>
 			<div class="book_content_section">
+				<div style="margin-top:5px;margin-bottom:10px;">
+					<div style="font-size:14px;">共有#{bookBean.book.rateSum.sum}条评论</div>
+					<div style="margin-top: 5px; margin-bottom: 5px;">
+						<div style="float: left">
+							<kf:for repeat="5">
+								<h:graphicImage width="15" height="15" url="/image/star.gif" />
+							</kf:for>
+							<kf:for repeat="0">
+								<h:graphicImage width="15" height="15"
+									url="/image/empty_star.gif" />
+							</kf:for>
+						</div>
+						<kui:progress value="#{bookBean.book.rateSum.rate5Rate}"
+							width="150" height="15" color="#cccccc" backgroundColor="#eeeeee"
+							styleClass="float:left;" />
+						<div style="float: left; margin-left: 4px;">#{bookBean.book.rateSum.rate5}</div>
+					</div>
+					<div class="clearer" />
+					<div style="margin-top: 5px; margin-bottom: 5px;">
+						<div style="float: left">
+							<kf:for repeat="1">
+								<h:graphicImage width="15" height="15"
+									url="/image/empty_star.gif" />
+							</kf:for>
+							<kf:for repeat="4">
+								<h:graphicImage width="15" height="15" url="/image/star.gif" />
+							</kf:for>
+						</div>
+						<kui:progress value="#{bookBean.book.rateSum.rate4Rate}"
+							width="150" height="15" color="#cccccc" backgroundColor="#eeeeee"
+							styleClass="float:left;" />
+						<div style="float: left; margin-left: 4px;">#{bookBean.book.rateSum.rate4}</div>
+					</div>
+					<div class="clearer" />
+					
+					<div style="margin-top: 5px; margin-bottom: 5px;">
+						<div style="float: left">
+							<kf:for repeat="2">
+								<h:graphicImage width="15" height="15"
+									url="/image/empty_star.gif" />
+							</kf:for>
+							<kf:for repeat="3">
+								<h:graphicImage width="15" height="15" url="/image/star.gif" />
+							</kf:for>
+						</div>
+						<kui:progress value="#{bookBean.book.rateSum.rate3Rate}"
+							width="150" height="15" color="#cccccc" backgroundColor="#eeeeee"
+							styleClass="float:left;" />
+						<div style="float: left; margin-left: 4px;">#{bookBean.book.rateSum.rate3}</div>
+					</div>
+					<div class="clearer" />
+					
+					<div style="margin-top: 5px; margin-bottom: 5px;">
+						<div style="float: left">
+							<kf:for repeat="3">
+								<h:graphicImage width="15" height="15"
+									url="/image/empty_star.gif" />
+							</kf:for>
+							<kf:for repeat="2">
+								<h:graphicImage width="15" height="15" url="/image/star.gif" />
+							</kf:for>
+						</div>
+						<kui:progress value="#{bookBean.book.rateSum.rate2Rate}"
+							width="150" height="15" color="#cccccc" backgroundColor="#eeeeee"
+							styleClass="float:left;" />
+						<div style="float: left; margin-left: 4px;">#{bookBean.book.rateSum.rate2}</div>
+					</div>
+					<div class="clearer" />
+					
+					<div style="margin-top: 5px; margin-bottom: 5px;">
+						<div style="float: left">
+							<kf:for repeat="4">
+								<h:graphicImage width="15" height="15"
+									url="/image/empty_star.gif" />
+							</kf:for>
+							<kf:for repeat="1">
+								<h:graphicImage width="15" height="15" url="/image/star.gif" />
+							</kf:for>
+						</div>
+						<kui:progress value="#{bookBean.book.rateSum.rate1Rate}"
+							width="150" height="15" color="#cccccc" backgroundColor="#eeeeee"
+							styleClass="float:left;" />
+						<div style="float: left; margin-left: 4px;">#{bookBean.book.rateSum.rate1}</div>
+					</div>
+					<div class="clearer" />
+
+				</div>
 				<ui:repeat var="comment" value="#{bookBean.book.comments}">
-					<div style="font-size:14px;margin-top:5px;margin-bottom:5px;">
+					<div style="font-size: 14px; margin-top: 5px; margin-bottom: 5px;">
 						<h:outputText value="#{comment.visitorId}" />
 						在
 						<h:outputText value="#{comment.createTime}">
@@ -177,7 +266,8 @@
 							</kf:for>
 						</h:panelGroup>
 					</div>
-					<div style="background-color:#f9f9f9;padding:5px;font-size:14px;">
+					<div
+						style="background-color: #f9f9f9; padding: 5px; font-size: 14px;">
 						<h:outputText value="#{comment.content}" />
 					</div>
 				</ui:repeat>
