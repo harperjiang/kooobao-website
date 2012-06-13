@@ -1,5 +1,8 @@
 package com.kooobao.common.web.bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
@@ -45,8 +48,9 @@ public class BeanInitializer implements PhaseListener {
 			}
 			if (object == null) {
 				if (log.isDebugEnabled())
-					log.debug("OnPageLoad cannot be executed, no such managed bean:"
-							+ managedBeanName);
+					log.debug(
+							"OnPageLoad cannot be executed, no managed bean for {}",
+							viewId);
 			} else {
 				if (object instanceof JSFLifecycleAware) {
 					JSFLifecycleAware lifeCycleAwareBean = (JSFLifecycleAware) object;
@@ -68,7 +72,21 @@ public class BeanInitializer implements PhaseListener {
 		return PhaseId.RENDER_RESPONSE;
 	}
 
-	protected String[] getManagedBeanNameFromView(String viewId) {
+	protected synchronized String[] getManagedBeanNameFromView(String viewId) {
+		String key = convertViewId(viewId);
+		if (beanNames.containsKey(key))
+			return beanNames.get(key);
+		String value = ConfigLoader.getInstance().load("page_load", key);
+		if (StringUtils.isEmpty(value)) {
+			value = key + "Bean";
+		}
+		beanNames.put(key, new String[] { key, value });
+		return beanNames.get(key);
+	}
+
+	Map<String, String[]> beanNames = new HashMap<String, String[]>();
+
+	private String convertViewId(String viewId) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(viewId);
 		// Delete the first slash
@@ -81,10 +99,6 @@ public class BeanInitializer implements PhaseListener {
 			}
 		}
 		String key = sb.toString();
-		String value = ConfigLoader.getInstance().load("page_load", key);
-		if (StringUtils.isEmpty(value)) {
-			value = key + "Bean";
-		}
-		return new String[] { key, value };
+		return key;
 	}
 }
