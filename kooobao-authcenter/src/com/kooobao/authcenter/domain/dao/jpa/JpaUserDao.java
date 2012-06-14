@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import com.kooobao.authcenter.domain.dao.UserDao;
@@ -29,10 +30,14 @@ public class JpaUserDao implements UserDao {
 	}
 
 	public User findUser(String userid) {
-		TypedQuery<User> query = getEntityManager().createQuery(
-				"select u from User u where u.id = :id", User.class);
-		query.setParameter("id", userid);
-		return query.getSingleResult();
+		try {
+			TypedQuery<User> query = getEntityManager().createQuery(
+					"select u from User u where u.id = :id", User.class);
+			query.setParameter("id", userid);
+			return query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 
 	public User findUser(String system, String userId) {

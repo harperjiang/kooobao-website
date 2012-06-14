@@ -124,7 +124,8 @@ public class Transaction extends VersionEntity {
 
 	}
 
-	public void returnReceived(String operatorId, BigDecimal penalty) {
+	public void returnReceived(String operatorId, BigDecimal penalty,
+			String comment) {
 		Validate.isTrue(getState() == TransactionState.RETURN_SENT
 				|| getState() == TransactionState.RETURN_EXPIRED);
 		setState(TransactionState.RETURN_RECEIVED);
@@ -136,6 +137,7 @@ public class Transaction extends VersionEntity {
 		if (null != penalty)
 			operation.setComment("逾期扣款 " + penalty);
 		operation.setDescription(OperationDescriptor.describe(operation));
+		operation.setComment(comment);
 		operation.setOperatorId(operatorId);
 		addOperation(operation);
 	}

@@ -3,6 +3,8 @@ package com.kooobao.authcenter.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
+
 import com.kooobao.authcenter.domain.dao.UserDao;
 import com.kooobao.authcenter.domain.entity.User;
 
@@ -27,6 +29,7 @@ public class DefaultUserService implements UserService {
 	}
 
 	public void register(String system, String id, String pass) {
+		Validate.isTrue(null == getUserDao().findUser(id));
 		User user = new User();
 		user.setId(id);
 		user.getSystems().put(system, system);

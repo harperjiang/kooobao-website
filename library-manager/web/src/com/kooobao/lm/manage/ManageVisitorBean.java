@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.PageSearchBean;
+import com.kooobao.lm.finance.FinanceOperationService;
 import com.kooobao.lm.profile.ManageLoginBean;
 import com.kooobao.lm.profile.ProfileService;
 import com.kooobao.lm.profile.entity.Operator;
@@ -33,8 +34,8 @@ public class ManageVisitorBean extends PageSearchBean {
 
 	public String modifyBalance() {
 		Visitor v = getProfileService().getVisitor(getParameter("visitor_id"));
-		// TODO All modify balance operations should be made asynchronized or locked
-		v.changeDeposit(getBalance(), getReason(), getOperator().getId());
+		getFinanceOperationService().changeVisitorDeposit(v, getBalance(),
+				getReason(), getOperator().getId());
 		getProfileService().saveVisitor(v);
 		return search();
 	}
@@ -66,6 +67,18 @@ public class ManageVisitorBean extends PageSearchBean {
 
 	public void setProfileService(ProfileService profileService) {
 		this.profileService = profileService;
+	}
+
+	@ManagedProperty("#{financeOperationService}")
+	private FinanceOperationService financeOperationService;
+
+	public FinanceOperationService getFinanceOperationService() {
+		return financeOperationService;
+	}
+
+	public void setFinanceOperationService(
+			FinanceOperationService financeOperationService) {
+		this.financeOperationService = financeOperationService;
 	}
 
 	private String visitorId;

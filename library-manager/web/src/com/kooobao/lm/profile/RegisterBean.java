@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.common.web.verifycode.VerifyCodeHelper;
+import com.kooobao.lm.profile.entity.VisitorType;
 
 @ManagedBean(name = "registerBean")
 @RequestScoped
@@ -22,6 +23,10 @@ public class RegisterBean extends AbstractBean {
 
 	private String verifyCode;
 
+	private VisitorType type;
+
+	private String recommendBy;
+
 	public String register() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		// Validate VerifyCode
@@ -34,7 +39,13 @@ public class RegisterBean extends AbstractBean {
 			addMessage(FacesMessage.SEVERITY_ERROR, "请确保两次输入的密码一样");
 			return "failed";
 		}
-		getProfileService().register(email, password);
+		try {
+			getProfileService().register(email, password, type, recommendBy);
+		} catch (UserExistedException e) {
+			addMessage(FacesMessage.SEVERITY_INFO, "用户已存在", "用户名" + getEmail()
+					+ "已被注册");
+			return "failed";
+		}
 		return "success";
 	}
 
@@ -79,6 +90,22 @@ public class RegisterBean extends AbstractBean {
 
 	public void setVerifyCode(String verifyCode) {
 		this.verifyCode = verifyCode;
+	}
+
+	public VisitorType getType() {
+		return type;
+	}
+
+	public void setType(VisitorType type) {
+		this.type = type;
+	}
+
+	public String getRecommendBy() {
+		return recommendBy;
+	}
+
+	public void setRecommendBy(String recommendBy) {
+		this.recommendBy = recommendBy;
 	}
 
 }

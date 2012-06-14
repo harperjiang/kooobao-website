@@ -15,6 +15,7 @@ import com.kooobao.lm.bizflow.entity.DeliveryMethod;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.BookService;
 import com.kooobao.lm.book.entity.Category;
+import com.kooobao.lm.profile.entity.VisitorType;
 
 public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
@@ -29,6 +30,8 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 	private List<String> cancelReasons;
 
 	private List<String> expressCompanies;
+
+	private List<SelectItem> userTypes;
 
 	public void init() {
 		transactionStates = new ArrayList<SelectItem>();
@@ -57,7 +60,7 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 		cancelReasons = new ArrayList<String>();
 		cancelReasons.add("我不想要了");
 		cancelReasons.add("订单错了，需要重新修改");
-		
+
 		expressCompanies = new ArrayList<String>();
 		expressCompanies.add("顺丰");
 		expressCompanies.add("圆通");
@@ -65,6 +68,11 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 		expressCompanies.add("汇通");
 		expressCompanies.add("韵达");
 		expressCompanies.add("其他");
+
+		userTypes = new ArrayList<SelectItem>();
+		for (VisitorType vt : VisitorType.values()) {
+			userTypes.add(new SelectItem(vt, StatusUtils.text(vt)));
+		}
 	}
 
 	public void dispose() {
@@ -115,6 +123,10 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	public List<String> getExpressCompanies() {
 		return expressCompanies;
+	}
+
+	public List<SelectItem> getUserTypes() {
+		return userTypes;
 	}
 
 }

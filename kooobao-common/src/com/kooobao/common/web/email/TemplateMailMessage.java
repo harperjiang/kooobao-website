@@ -26,6 +26,8 @@ public class TemplateMailMessage implements MimeMessagePreparator {
 
 	private String from;
 
+	private String fromName;
+
 	private String[] to;
 
 	public TemplateMailMessage(String templateName, Map<String, Object> values) {
@@ -37,7 +39,7 @@ public class TemplateMailMessage implements MimeMessagePreparator {
 		mimeMessage.setContent(composeContent(), "text/html;charset=utf8");
 		mimeMessage.setSubject(MimeUtility
 				.encodeText(getSubject(), "utf8", "B"));
-		mimeMessage.setFrom(new InternetAddress(getFrom()));
+		mimeMessage.setFrom(new InternetAddress(getFrom(), getFromName()));
 		for (String to : getTo())
 			mimeMessage.addRecipient(RecipientType.TO, new InternetAddress(to));
 	}
@@ -78,6 +80,14 @@ public class TemplateMailMessage implements MimeMessagePreparator {
 
 	public void setTo(String[] to) {
 		this.to = to;
+	}
+
+	public String getFromName() {
+		return fromName;
+	}
+
+	public void setFromName(String fromName) {
+		this.fromName = fromName;
 	}
 
 }

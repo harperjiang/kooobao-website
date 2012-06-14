@@ -82,83 +82,83 @@ public abstract class DummyTransactionService implements TransactionService {
 	}
 
 	public Transaction getTransaction(long transId) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction saveTransaction(Transaction transaction) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction requestBorrow(Transaction transaction) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction approveBorrow(Transaction transaction, Operator operator) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction sendBorrow(Transaction transaction, Operator operator,
 			String expressInfo) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction sendReturn(Transaction transaction, Operator operator,
 			String expressInfo) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction cancel(Transaction tran, String reason) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction interrupt(Transaction tran, Operator operator,
 			String reason) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction confirmReturn(Transaction transaction,
 			Operator operator, String comment) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public long getExpiredTransactionCount(Visitor visitor) {
-		// TODO Auto-generated method stub
+
 		return 0;
 	}
 
 	public PageSearchResult<Transaction> findTransaction(Visitor visitor,
 			TransactionSearchBean searchBean) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public PageSearchResult<ExpireRecord> searchExpiredRecords(Visitor visitor,
 			SearchBean searchBean) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public ExpireRecord findExpireRecord(Transaction tran) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public Transaction addComment(Transaction tran, Comment comment) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	public List<Transaction> getTransactionsForComment(Visitor visitor) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

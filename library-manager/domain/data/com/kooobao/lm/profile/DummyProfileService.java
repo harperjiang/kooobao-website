@@ -6,7 +6,7 @@ import com.kooobao.lm.profile.entity.Address;
 import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 
-public class DummyProfileService implements ProfileService {
+public abstract class DummyProfileService implements ProfileService {
 
 	public Visitor getVisitor(String id) {
 		Visitor v = new Visitor();
@@ -33,27 +33,22 @@ public class DummyProfileService implements ProfileService {
 	}
 
 	public Visitor saveVisitor(Visitor visitor) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
-	public boolean activateUser(String activateId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public void register(String email, String password) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	public void redeem(Visitor visitor, BigDecimal amount) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
 	public Operator getOperator(String id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 }

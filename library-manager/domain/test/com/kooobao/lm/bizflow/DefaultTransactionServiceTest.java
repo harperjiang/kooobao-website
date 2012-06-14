@@ -113,6 +113,8 @@ public class DefaultTransactionServiceTest extends
 
 	@Test
 	public void testApproveBorrow() {
+		Operator o = new Operator();
+		o.setId("id");
 		Visitor v = visitorDao.find(2);
 		Transaction tran = new Transaction();
 		tran.setOid(1);
@@ -121,14 +123,14 @@ public class DefaultTransactionServiceTest extends
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
 		try {
-			tran = transactionService.approveBorrow(tran, null);
+			tran = transactionService.approveBorrow(tran, o);
 			fail();
 		} catch (InsufficientFundException e) {
 
 		}
 		tran.setBook(bookDao.find(2));
 
-		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.approveBorrow(tran, o);
 
 		tran = transactionService.getTransaction(1);
 
@@ -148,7 +150,9 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran, null);
+		Operator o = new Operator();
+		o.setId("id");
+		tran = transactionService.approveBorrow(tran, o);
 
 		Operator operator = new Operator();
 		operator.setId("myoperator");
@@ -185,9 +189,10 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran, null);
 		Operator o = new Operator();
-		o.setId("good");
+		o.setId("id");
+		tran = transactionService.approveBorrow(tran, o);
+
 		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
@@ -211,7 +216,8 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran, null);
+
+		tran = transactionService.approveBorrow(tran, o);
 		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
@@ -237,7 +243,7 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.approveBorrow(tran, o);
 		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
@@ -266,7 +272,8 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran, null);
+
+		tran = transactionService.approveBorrow(tran, o);
 		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
@@ -295,7 +302,7 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.approveBorrow(tran, o);
 		tran = transactionService.sendBorrow(tran, o, "顺丰 112444234");
 
 		tran.assumeReceived();
@@ -341,7 +348,9 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran, null);
+		Operator o = new Operator();
+		o.setId("id");
+		tran = transactionService.approveBorrow(tran, o);
 		tran = transactionService.cancel(tran, "Some Reason");
 
 		tran = transactionService.getTransaction(1);
@@ -364,7 +373,7 @@ public class DefaultTransactionServiceTest extends
 		tran.setBook(bookDao.find(2));
 		tran = transactionService.requestBorrow(tran);
 		tran.setStockReserved(true);
-		tran = transactionService.approveBorrow(tran, null);
+		tran = transactionService.approveBorrow(tran, o);
 		tran = transactionService.interrupt(tran, o, "Some Reason");
 
 		tran = transactionService.getTransaction(1);

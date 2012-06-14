@@ -4,19 +4,28 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="false"></ui:param>
+	<ui:define name="css">
+		<style type="text/css">
+.tip_text {
+	font-size: 11px;
+	margin-left: 16px;
+	display: block;
+	float: left;
+	width: 160px;
+}
+</style>
+	</ui:define>
 	<ui:define name="title">酷宝图书馆-新用户注册</ui:define>
 	<ui:define name="body">
 		<div class="cross_page_banner">欢迎注册成为酷宝图书馆用户，免费遨游图书世界</div>
 		<h:form id="registerForm">
 			<div
-				style="width: 600px; margin: 0 auto; padding: 15px; border-width: 2px; border-style: solid; height: 220px; border-color: #deedee;"
-				class="form">
-				<h:messages errorStyle="color:#FF0000;font-weight:bold;" />
+				style="width: 600px; margin: 0 auto; padding: 15px; border-width: 2px; border-style: solid; height: 270px; border-color: #deedee;"
+				class="form shadow">
 				<h:outputLabel for="emailText" value="注册邮箱" />
 				<h:inputText id="emailText" value="#{registerBean.email}"
 					required="true" requiredMessage="email不能为空" />
-				<h:outputText style="font-size:11px;"
-					value="注册邮箱将同时作为您的登陆账号，请填写常用邮箱" />
+				<h:outputText styleClass="tip_text" value="注册邮箱将同时作为您的登陆账号，请填写常用邮箱" />
 				<br />
 				<h:outputLabel for="passwordText" value="请设置密码" />
 				<h:inputSecret id="passwordText" value="#{registerBean.password}"
@@ -26,7 +35,15 @@
 				<h:inputSecret id="repeatPassText"
 					value="#{registerBean.confirmPass}" required="true"
 					requiredMessage="密码不能为空" />
-				<br />
+				<div class="clearer" />
+				<label>您是：</label>
+				<h:selectOneMenu value="#{registerBean.type}">
+					<f:selectItems value="#{suppDataBean.userTypes}" />
+				</h:selectOneMenu>
+				<h:outputText styleClass="tip_text"
+					value="学校、培训机构用户请选择'学校用户'，验证身份后即可享有学校会员权限" />
+				<div class="clearer" />
+
 				<h:outputLabel for="verifyCodeText">输入验证码</h:outputLabel>
 				<h:inputText id="verifyCodeText" value="#{registerBean.verifyCode}"
 					required="true" requiredMessage="验证码不能为空" />
@@ -36,10 +53,17 @@
 						onclick="this.src=this.src+'?'" />
 					<h:outputText style="margin-left:10px;" value="点击验证码刷新" />
 				</div>
-				<br />
-				<div style="float: left; margin-left: 200px; margin-top: 20px;">
+				<br /> <label>推荐人：</label>
+				<h:inputText value="#{registerBean.recommendBy}" />
+				<h:outputText styleClass="tip_text"
+					value="我们非常欢迎您推荐自己的朋友注册。账户成功激活后，推荐人将获得积分奖励" />
+				<br /> <label style="width: 300px; font-weight: bolder;">我已经阅读网站用户许可协议，并声明同意所有条款</label>
+				<input id="acceptLicenseCheck" type="checkbox" checked="checked"
+					style="width: 20px; height: 15px;" />
+				<div
+					style="float: left; margin-left: 240px; margin-top: 20px; margin-bottom: 20px;">
 					<h:commandLink action="#{registerBean.register}"
-						styleClass="btn_solid">注册新用户</h:commandLink>
+						styleClass="btn_confirm">注册新用户</h:commandLink>
 				</div>
 			</div>
 		</h:form>

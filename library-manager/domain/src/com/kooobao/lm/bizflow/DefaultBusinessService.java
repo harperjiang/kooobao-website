@@ -25,6 +25,7 @@ import com.kooobao.lm.book.dao.BookDao;
 import com.kooobao.lm.book.dao.StockDao;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Stock;
+import com.kooobao.lm.finance.dao.FinanceOperationDao;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
@@ -62,7 +63,7 @@ public class DefaultBusinessService implements BusinessService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	protected void updateExpireRecord(ExpireRecord record) {
+	public void updateExpireRecord(ExpireRecord record) {
 		if (TransactionState.RETURN_EXPIRED == record.getTransaction()
 				.getState()) {
 			// Update Penalty
@@ -71,11 +72,12 @@ public class DefaultBusinessService implements BusinessService {
 			BigDecimal penalty = rule.getPenalty(record.getTransaction()
 					.getVisitor(), record.getDueTime(), new Date());
 			record.setPenalty(penalty);
-			// Update User Remaining
-			// TODO Change to async
 			Visitor visitor = record.getTransaction().getVisitor();
-			visitor.changeDeposit(penalty.subtract(oldPenalty).negate(),
-					"Expiration Penalty", null);
+
+			// Update User Remaining
+			getFinanceOperationDao().changeVisitorDeposit(visitor,
+					penalty.subtract(oldPenalty).negate(),
+					"Expiration Penalty:" + record.getOid(), null);
 			// Update User Status
 			if (visitor.getDeposit().compareTo(BigDecimal.ZERO) < 0)
 				visitor.setStatus(VisitorStatus.LOCKED.name());
@@ -84,7 +86,7 @@ public class DefaultBusinessService implements BusinessService {
 	}
 
 	public void clearInactivateVisitors() {
-		// TODO Auto-generated method stub
+		// TODO Not implemented
 
 	}
 
@@ -234,6 +236,16 @@ public class DefaultBusinessService implements BusinessService {
 		this.bookDao = bookDao;
 	}
 
+	private FinanceOperationDao financeOperationDao;
+
+	public FinanceOperationDao getFinanceOperationDao() {
+		return financeOperationDao;
+	}
+
+	public void setFinanceOperationDao(FinanceOperationDao financeOperationDao) {
+		this.financeOperationDao = financeOperationDao;
+	}
+
 	public void reserveStock(Transaction tran) {
 		updateStock(tran);
 	}
@@ -249,7 +261,7 @@ public class DefaultBusinessService implements BusinessService {
 	public void updateBookRating(Date from) {
 		getBookDao().updateBookRateSummary(from);
 		Cursor<Book> books = getBookDao().findBooksToRate(from);
-		while(books.hasNext()) {
+		while (books.hasNext()) {
 			Book book = books.next();
 			book.setRating(book.getRateSum().getRate());
 			book.getRateSum().setMergeMark(false);

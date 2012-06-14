@@ -2,7 +2,6 @@ package com.kooobao.lm.profile.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,7 +32,7 @@ public class Visitor extends VersionEntity {
 	private int level;
 
 	@Column(name = "deposit")
-	private BigDecimal deposit;
+	private BigDecimal deposit = BigDecimal.ZERO;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "default_addr")
@@ -45,9 +44,15 @@ public class Visitor extends VersionEntity {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "info")
 	private PersonalInfo info;
-	
-	@OneToMany(mappedBy="visitor",cascade = CascadeType.ALL,orphanRemoval=true) 
+
+	@OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BalanceLog> balanceLogs = new ArrayList<BalanceLog>();
+
+	@Column(name = "visitor_type")
+	private String type;
+
+	@Column(name = "recommend_by")
+	private String recommendBy;
 
 	public String getId() {
 		return id;
@@ -113,17 +118,6 @@ public class Visitor extends VersionEntity {
 		this.info = info;
 	}
 
-	public void changeDeposit(BigDecimal change, String reason,String operatorId) {
-		this.setDeposit(getDeposit().add(change));
-		BalanceLog bl = new BalanceLog();
-		bl.setVisitor(this);
-		bl.setCreateTime(new Date());
-		bl.setChange(change);
-		bl.setReason(reason);
-		bl.setOperatorId(operatorId);
-		getBalanceLogs().add(bl);
-	}
-
 	public void addAddress(Address addr) {
 		if (null == getAddress())
 			setAddress(addr);
@@ -134,10 +128,26 @@ public class Visitor extends VersionEntity {
 	public void removeAddress(Address addr) {
 		addr.setVisitor(null);
 		getAvailableAddresses().remove(addr);
-
 	}
 
 	public List<BalanceLog> getBalanceLogs() {
 		return balanceLogs;
 	}
+
+	public VisitorType getType() {
+		return VisitorType.valueOf(type);
+	}
+
+	public void setType(VisitorType type) {
+		this.type = type.name();
+	}
+
+	public String getRecommendBy() {
+		return recommendBy;
+	}
+
+	public void setRecommendBy(String recommendBy) {
+		this.recommendBy = recommendBy;
+	}
+
 }

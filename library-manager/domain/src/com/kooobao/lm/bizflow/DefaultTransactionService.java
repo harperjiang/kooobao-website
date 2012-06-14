@@ -1,6 +1,5 @@
 package com.kooobao.lm.bizflow;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +20,7 @@ import com.kooobao.lm.book.dao.StockDao;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.book.entity.Comment;
 import com.kooobao.lm.book.entity.Stock;
+import com.kooobao.lm.finance.dao.FinanceOperationDao;
 import com.kooobao.lm.profile.dao.VisitorDao;
 import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
@@ -53,6 +53,7 @@ public class DefaultTransactionService implements TransactionService {
 	}
 
 	public Transaction approveBorrow(Transaction transaction, Operator operator) {
+		Validate.notNull(operator);
 		Visitor v = getVisitorDao().find(transaction.getVisitor());
 		// Check stock reservation
 		if (!transaction.isStockReserved())
@@ -60,7 +61,8 @@ public class DefaultTransactionService implements TransactionService {
 		// Check User Account
 		if (v.getDeposit().compareTo(transaction.getBook().getListPrice()) < 0)
 			throw new InsufficientFundException();
-		v.changeDeposit(transaction.getBook().getListPrice().negate(),
+		getFinanceOperationDao().changeVisitorDeposit(v,
+				transaction.getBook().getListPrice().negate(),
 				"Borrow Book " + transaction.getOid(), operator.getId());
 		transaction.approve(null == operator ? null : operator.getId());
 		return getTransactionDao().store(transaction);
@@ -95,13 +97,14 @@ public class DefaultTransactionService implements TransactionService {
 			expireRecord.setState(ExpireRecordState.INACTIVE);
 		}
 		transaction.returnReceived(operator.getId(),
-				null == expireRecord ? null : expireRecord.getPenalty());
+				null == expireRecord ? null : expireRecord.getPenalty(),
+				comment);
 		// Add Stock
 		// TODO Set as async operation
 		Stock stock = getStockDao().findByBook(transaction.getBook());
 		stock.setAvailable(stock.getAvailable() + 1);
 		// Return Motegage
-		transaction.getVisitor().changeDeposit(
+		getFinanceOperationDao().changeVisitorDeposit(transaction.getVisitor(),
 				transaction.getBook().getListPrice(),
 				"Return Book " + transaction.getOid(), operator.getId());
 
@@ -113,8 +116,9 @@ public class DefaultTransactionService implements TransactionService {
 
 		// Return Funds
 		if (tran.getState() == TransactionState.BORROW_APPROVED)
-			tran.getVisitor().changeDeposit(tran.getBook().getListPrice(),
-					"User Cancel", null);
+			getFinanceOperationDao().changeVisitorDeposit(tran.getVisitor(),
+					tran.getBook().getListPrice(),
+					"User Cancel:" + tran.getOid(), null);
 		// Release Stocks
 		if (tran.isStockReserved()) {
 			Stock stock = getStockDao().findByBook(tran.getBook());
@@ -244,15 +248,27 @@ public class DefaultTransactionService implements TransactionService {
 		this.bookDao = bookDao;
 	}
 
+	private FinanceOperationDao financeOperationDao;
+
+	public FinanceOperationDao getFinanceOperationDao() {
+		return financeOperationDao;
+	}
+
+	public void setFinanceOperationDao(FinanceOperationDao financeOperationDao) {
+		this.financeOperationDao = financeOperationDao;
+	}
+
 	public Transaction addComment(Transaction tran, Comment comment) {
 		tran.setComment(comment.getContent());
 		tran.setRating(comment.getRating());
 		comment.setCreateTime(new Date());
 		comment.setVisitorId(tran.getVisitor().getId());
 		tran.getBook().addComment(comment);
-		// TODO Async
-		tran.getVisitor().changeDeposit(new BigDecimal("5"),
-				"Comment:" + tran.getOid(), null);
+		// change deposit
+		getFinanceOperationDao().changeVisitorDeposit(tran.getVisitor(),
+				getRuleDao().getRewardRule().getCommentReward(),
+				"Comment Reward " + tran.getOid(), null);
+
 		getBookDao().store(tran.getBook());
 		return getTransactionDao().store(tran);
 	}
