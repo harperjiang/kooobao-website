@@ -33,10 +33,12 @@
 	<bean id="recommendDao" class="com.kooobao.lm.book.dao.JpaRecommendDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
-	
+
 	<bean id="operatorDao" class="com.kooobao.lm.profile.dao.JpaOperatorDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
+
+	<bean id="financeOperationDao" class="com.kooobao.lm.finance.dao.SimpleFinanceOperationDao" />
 
 	<bean id="dummyUserService" class="com.kooobao.lm.profile.DummyUserService" />
 	<bean id="dummyMailSender" class="com.kooobao.lm.profile.DummyMailSender" />
@@ -46,6 +48,8 @@
 		<property name="userService" ref="dummyUserService" />
 		<property name="mailSender" ref="dummyMailSender" />
 		<property name="ruleDao" ref="ruleDao" />
+		<property name="operatorDao" ref="operatorDao" />
+		<property name="financeOperationDao" ref="financeOperationDao" />
 	</bean>
 
 	<bean id="optLogService" class="com.kooobao.lm.optlog.DefaultOptLogService">
@@ -60,6 +64,7 @@
 		<property name="recommendDao" ref="recommendDao" />
 		<property name="stockDao" ref="stockDao" />
 		<property name="bookDao" ref="bookDao" />
+		<property name="financeOperationDao" ref="financeOperationDao" />
 	</bean>
 
 	<bean id="businessService" class="com.kooobao.lm.bizflow.DefaultBusinessService">
@@ -69,6 +74,7 @@
 		<property name="expireRecordDao" ref="expireRecordDao" />
 		<property name="ruleDao" ref="ruleDao" />
 		<property name="stockDao" ref="stockDao" />
+		<property name="financeOperationDao" ref="financeOperationDao" />
 	</bean>
 
 	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DefaultFavouriteService">

@@ -8,7 +8,7 @@
   <nodes xsi:type="pageflow:PFPage" name="500.xhtml" x="122" y="1714" id="pf13370980728591" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" path="/500.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="404.xhtml" x="338" y="1330" id="pf13371778672191" referenceLink="//@navigationRule.6/@navigationCase.0/@toViewId|" inlinks="pf13371778672190" path="/404.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="category.xhtml" x="122" y="2098" id="pf13373984703310" referenceLink="//@navigationRule.5/@navigationCase.1/@toViewId|" outlinks="pf13373984703311 pf13373984703312" inlinks="pf13373984703311 pf13373984703312" path="/category.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="register_done.xhtml" x="122" y="2482" id="pf13374968732243" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf13374968732244 pf13383961505890" inlinks="pf13383961505890" path="/register.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="register_done.xhtml" x="122" y="2482" id="pf13374968732243" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf13374968732244" path="/register.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="register_done.xhtml" x="338" y="2482" id="pf13374968732245" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf13374968732244" path="/register_done.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="1714" id="pf13386176868352" referenceLink="//@navigationRule.7/@navigationCase.0/@toViewId|" inlinks="pf13386176868341" path="/login.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="manage_login.xhtml" x="338" y="2098" id="pf13392066455572" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" inlinks="pf13392066455560" path="/manage_login.xhtml"/>
@@ -30,11 +30,6 @@
     <bendPoints d1Height="-66" d2Height="-66"/>
     <bendPoints d1Width="-94" d1Height="-66" d2Width="-94" d2Height="-66"/>
     <bendPoints d1Width="-94" d2Width="-94"/>
-  </links>
-  <links id="pf13383961505890" target="pf13374968732243" source="pf13374968732243" outcome="failed" redirect="true" fromaction="#{registerBean.register}">
-    <bendPoints d1Height="-36" d2Height="-36"/>
-    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
-    <bendPoints d1Width="-64" d2Width="-64"/>
   </links>
   <links id="pf13392066455561" target="pf13392066455573" source="pf13363135125002" outcome="true" fromaction="#{loginBean.logout}"/>
 </pageflow:Pageflow>

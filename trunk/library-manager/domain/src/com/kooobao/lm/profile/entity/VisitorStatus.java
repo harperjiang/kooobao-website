@@ -1,5 +1,5 @@
 package com.kooobao.lm.profile.entity;
 
 public enum VisitorStatus {
-	ACTIVE, INACTIVE, LOCKED;
+	ACTIVE, INACTIVE, LOCKED, NOT_VERIFIED;
 }

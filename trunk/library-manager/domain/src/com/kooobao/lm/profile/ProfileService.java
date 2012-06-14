@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
+import com.kooobao.lm.profile.entity.VisitorType;
 
 public interface ProfileService {
 
@@ -13,9 +14,9 @@ public interface ProfileService {
 
 	void redeem(Visitor visitor, BigDecimal amount);
 
-	boolean activateUser(String activateId);
+	Visitor activateUser(String activateId);
 
-	void register(String email, String password);
+	void register(String email, String password, VisitorType type, String recommendBy);
 	
 	Operator getOperator(String id);
 }

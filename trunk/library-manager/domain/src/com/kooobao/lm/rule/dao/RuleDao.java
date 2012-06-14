@@ -6,7 +6,7 @@ import com.kooobao.lm.rule.entity.DeliveryDayRule;
 import com.kooobao.lm.rule.entity.DeliveryFeeRule;
 import com.kooobao.lm.rule.entity.DueRule;
 import com.kooobao.lm.rule.entity.PenaltyRule;
-import com.kooobao.lm.rule.entity.RegisterRule;
+import com.kooobao.lm.rule.entity.RewardRule;
 import com.kooobao.lm.rule.entity.VisitorLevelRule;
 
 public interface RuleDao extends Dao<SimpleEntity> {
@@ -21,5 +21,5 @@ public interface RuleDao extends Dao<SimpleEntity> {
 
 	DeliveryDayRule getDeliveryDayRule();
 
-	RegisterRule getRegisterRule();
+	RewardRule getRewardRule();
 }

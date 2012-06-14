@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 import org.apache.commons.lang.StringUtils;
 
 import com.kooobao.common.web.bean.AbstractBean;
+import com.kooobao.lm.profile.entity.Visitor;
 
 @ManagedBean(name = "registerActivateBean")
 @SessionScoped
@@ -17,7 +18,18 @@ public class RegisterActivateBean extends AbstractBean {
 		String activateId = getParameter("activate_id");
 		if (StringUtils.isEmpty(activateId))
 			activated = false;
-		activated = getProfileService().activateUser(activateId);
+		visitor = getProfileService().activateUser(activateId);
+		activated = (null != visitor);
+	}
+
+	Visitor visitor;
+
+	public Visitor getVisitor() {
+		return visitor;
+	}
+
+	public void setVisitor(Visitor visitor) {
+		this.visitor = visitor;
 	}
 
 	private boolean activated;

@@ -7,18 +7,37 @@
 	<ui:define name="title">酷宝图书馆-用户激活</ui:define>
 	<ui:define name="body">
 		<h:panelGroup layout="block" style="margin: 0 auto;"
-			rendered="#{registerActivateBean.activated}">
+			rendered="#{registerActivateBean.activated and registerActivateBean.visitor.type == 'PERSON'}">
 			<div class="cross_page_banner">您的账户已经激活!</div>
 			<div
 				style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
 				<p>现在您可以使用本站所有功能</p>
-				<p>
-					您可以： <a href="/index.html">回到首页</a>选择喜欢的书。<br /> <a
-						href="/my_person.html">完成个人信息调查</a>获得免费积分 <br /> <a
-						href="/my_redeem.html">为账户充值积分</a>
+				<p>您可以：
+				<ul>
+					<li><a href="/index.html">回到首页</a>选择喜欢的书。</li>
+					<li><a href="/my_person.html">完成个人信息调查</a>获得免费积分</li>
+					<li><a href="/my_redeem.html">为账户充值积分</a></li>
+				</ul>
 				</p>
 			</div>
 		</h:panelGroup>
+		
+		<h:panelGroup layout="block" style="margin: 0 auto;"
+			rendered="#{registerActivateBean.activated and registerActivateBean.visitor.type == 'INSTITUTE'}">
+			<div class="cross_page_banner">您的账户已经激活!</div>
+			<div
+				style="margin-top: 10px; margin-bottom: 10px; text-align: center;">
+				<p>您是学校用户，验证身份后即可专享学校用户优惠</p>
+				<p>您可以：
+				<ul>
+					<li><a href="/index.html">回到首页</a>选择喜欢的书。</li>
+					<li><a href="/my_person.html">完成个人信息调查</a>获得免费积分</li>
+					<li><a href="/my_redeem.html">为账户充值积分</a></li>
+				</ul>
+				</p>
+			</div>
+		</h:panelGroup>
+		
 		<h:panelGroup layout="block" style="margin: 0 auto;"
 			rendered="#{!registerActivateBean.activated}">
 			<div class="cross_page_banner">您的账户激活失败!</div>
@@ -28,7 +47,7 @@
 				<p>这可能因为：
 				<ul>
 					<li>1. 您还没注册</li>
-					<li>2.您已经激活过</li>
+					<li>2. 您已经激活过</li>
 				</ul>
 				</p>
 				<p>

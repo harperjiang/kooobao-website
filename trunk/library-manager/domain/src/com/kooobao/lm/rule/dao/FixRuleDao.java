@@ -6,7 +6,7 @@ import com.kooobao.lm.rule.entity.DeliveryDayRule;
 import com.kooobao.lm.rule.entity.DeliveryFeeRule;
 import com.kooobao.lm.rule.entity.DueRule;
 import com.kooobao.lm.rule.entity.PenaltyRule;
-import com.kooobao.lm.rule.entity.RegisterRule;
+import com.kooobao.lm.rule.entity.RewardRule;
 import com.kooobao.lm.rule.entity.VisitorLevelRule;
 
 public class FixRuleDao implements RuleDao {
@@ -51,7 +51,7 @@ public class FixRuleDao implements RuleDao {
 		return new DeliveryDayRule();
 	}
 
-	public RegisterRule getRegisterRule() {
-		return new RegisterRule();
+	public RewardRule getRewardRule() {
+		return new RewardRule();
 	}
 }
