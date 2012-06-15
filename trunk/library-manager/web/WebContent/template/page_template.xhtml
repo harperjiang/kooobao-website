@@ -27,7 +27,7 @@
 			layout="block" style="float: right; margin-right: 40px;">
 			<h:outputLink value="/login.html">[登录]</h:outputLink>
 			<h:outputLink value="/register.html">[注册]</h:outputLink>
-			<h:outputLink value="/cart.html">我的借书篮</h:outputLink>
+			<h:outputLink value="/cart.html">我的书架</h:outputLink>
 		</h:panelGroup>
 
 		<h:panelGroup rendered="#{loginBean.loggedIn and displayLogin}"
@@ -35,7 +35,7 @@
 			<h:form>
 				<h:outputText value="欢迎您，#{loginBean.userId}" />
 				<h:outputLink value="/my_index.html">我的图书馆</h:outputLink>
-				<h:outputLink value="/cart.html">我的借书篮</h:outputLink>
+				<h:outputLink value="/cart.html">我的书架</h:outputLink>
 				<h:commandLink action="#{loginBean.logout}">[注销]</h:commandLink>
 			</h:form>
 		</h:panelGroup>

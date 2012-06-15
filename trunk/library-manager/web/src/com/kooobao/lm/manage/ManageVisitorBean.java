@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+
+import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.web.bean.PageSearchBean;
 import com.kooobao.common.web.bean.PageSearchResult;
@@ -16,6 +19,7 @@ import com.kooobao.lm.profile.ProfileService;
 import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
 import com.kooobao.lm.profile.entity.VisitorStatus;
+import com.kooobao.lm.profile.entity.VisitorType;
 
 @ManagedBean(name = "manageVisitorBean")
 @SessionScoped
@@ -35,6 +39,16 @@ public class ManageVisitorBean extends PageSearchBean {
 		getFinanceOperationService().changeVisitorDeposit(v, getBalance(),
 				getReason(), getOperator().getId());
 		getProfileService().saveVisitor(v);
+		return search();
+	}
+
+	public String verify() {
+		Visitor v = getProfileService().getVisitor(getParameter("visitor_id"));
+		Validate.isTrue(VisitorStatus.NOT_VERIFIED.name().equals(v.getStatus())
+				&& v.getType() == VisitorType.INSTITUTE);
+		v.setStatus(VisitorStatus.ACTIVE);
+		getProfileService().saveVisitor(v);
+		addMessage(FacesMessage.SEVERITY_INFO, "用户信息已验证");
 		return search();
 	}
 

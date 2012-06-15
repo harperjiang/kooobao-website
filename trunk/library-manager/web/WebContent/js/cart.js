@@ -21,7 +21,7 @@ function getCookie(c_name) {
 
 function add_to_cart_success(cart_id) {
 	setCookie("lm_cart_id", cart_id, 100);
-	window.alert("已添加到借书篮!");
+	window.alert("已添加到您的书架");
 }
 
 function add_to_cart(book_oid) {
@@ -31,9 +31,9 @@ function add_to_cart(book_oid) {
 
 function add_to_fav_success(success) {
 	if (success)
-		window.alert("已添加到收藏夹!");
+		window.alert("已添加到收藏夹");
 	else
-		window.alert("添加到收藏夹失败，请先登录!");
+		window.alert("添加到收藏夹失败，请先登录");
 }
 
 function add_to_fav(book_oid) {

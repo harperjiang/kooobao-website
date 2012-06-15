@@ -32,12 +32,6 @@
 			</ui:repeat>
 		</div>
 		<div class="book_list_container" style="width: 790px;">
-			<div class="navigation_bar">
-				<h:form>
-					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
-					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
-				</h:form>
-			</div>
 			<ui:repeat var="book" value="#{categoryBean.categoryBooks}">
 				<div class="bl_unit">
 					<div class="bl_picture">
@@ -81,23 +75,21 @@
 								onclick="add_to_cart(#{book.oid})">
 								<h:graphicImage style="height:16px;width:16px;"
 									url="/image/basket.gif" />
-								<h:outputText value="加入借书篮" />
+								<h:outputText value="加入书架" />
 							</h:outputLink>
-
-							<h:commandLink styleClass="btn_confirm_small" action="#">
-									借阅
-								</h:commandLink>
 						</h:form>
 					</div>
 				</div>
 				<div class="clearer" />
 			</ui:repeat>
-			<div class="navigation_bar">
+			<h:panelGroup display="block" styleClass="navigation_bar">
 				<h:form>
-					<h:commandLink action="#{categoryBean.prevPage}">上一页</h:commandLink>
-					<h:commandLink action="#{categoryBean.nextPage}">下一页</h:commandLink>
+					<h:commandLink action="#{categoryBean.prevPage}"
+						styleClass="btn_solid_small">上一页</h:commandLink>
+					<h:commandLink action="#{categoryBean.nextPage}"
+						styleClass="btn_solid_small">下一页</h:commandLink>
 				</h:form>
-			</div>
+			</h:panelGroup>
 		</div>
 		<div class="clearer" />
 	</ui:define>
