@@ -5,40 +5,68 @@
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
 	<ui:define name="title">酷宝图书馆-管理用户</ui:define>
+	<ui:define name="css">
+		<script type="text/javascript" src="/js/manage/load_visitor.js" />
+	</ui:define>
 	<ui:define name="body">
 		<h:form>
 			<div class="part">
 				<div class="part_header">搜索用户</div>
 				<div class="part_body">
-					<div>
+					<div style="margin: 10px;" class="form">
 						<label>用户id</label>
-						<h:inputText style="margin-left:10px;margin-right:10px;"
-							value="#{manageVisitorBean.visitorId}" required="true"
-							requiredMessage="请输入用户id" />
+						<h:inputText value="#{manageVisitorBean.visitorId}" />
+						<div class="clearer" />
+						<label>用户状态</label>
+						<h:selectOneMenu value="#{manageVisitorBean.visitorStatus}">
+							<f:selectItems value="#{suppDataBean.visitorStatus}" />
+						</h:selectOneMenu>
+						<div class="clearer" />
 						<h:commandLink styleClass="btn_solid_small" value="搜索"
-							action="#{manageVisitorBean.search}" />
+							action="#{manageVisitorBean.search}" style="margin-left:60px;" />
 					</div>
 
 					<div class="table_header">
 						<div class="table_header_col">用户id</div>
+						<div class="table_header_col">类型</div>
+						<div class="table_header_col">状态</div>
 						<div class="table_header_col">账户余额</div>
 						<div class="table_header_col">操作</div>
 					</div>
 					<ui:repeat value="#{manageVisitorBean.visitors}" var="visitor">
 						<div class="table_row">
-							<div class="table_cell">#{visitor.id}</div>
-							<div class="table_cell">#{visitor.deposit}</div>
+							<div class="table_cell">
+								<h:outputLink value="#" onclick="load_visitor('#{visitor.id}')">
+									<h:outputText value="#{visitor.id}" />
+								</h:outputLink>
+							</div>
+							<div class="table_cell">
+								<h:outputText value="#{visitor.deposit}" />
+							</div>
+							<div class="table_cell">
+								<h:outputText value="#{visitor.typeText}" />
+							</div>
+							<div class="table_cell">
+								<h:outputText value="#{visitor.statusText}" />
+							</div>
 							<div class="table_cell">
 								<h:commandLink styleClass="btn_confirm_small"
+									rendered="#{visitor.type=='PERSON'}"
 									action="#{manageVisitorBean.modifyBalance}" value="修改余额">
+									<f:param name="visitor_id" value="#{visitor.id}" />
+								</h:commandLink>
+
+								<h:commandLink styleClass="btn_confirm_small"
+									rendered="#{visitor.type=='INSTITUTE' and visitor.status == 'NOT_VERIFIED'}"
+									action="#{manageVisitorBean.modifyBalance}" value="用户信息已验证">
 									<f:param name="visitor_id" value="#{visitor.id}" />
 								</h:commandLink>
 							</div>
 						</div>
+						<div class="clearer" />
 					</ui:repeat>
-					<div class="clearer"/>
-					<div style="margin-top:10px;">
-						<label style="margin-left:5px;">修改余额</label>
+					<div style="margin-top: 10px;">
+						<label style="margin-left: 5px;">修改余额</label>
 						<h:inputText value="#{manageVisitorBean.balance}">
 							<f:convertNumber />
 						</h:inputText>
@@ -48,5 +76,27 @@
 				</div>
 			</div>
 		</h:form>
+		<div id="mask" class="mask" style="display: none;"
+			onclick="hide_visitor_dialogs()" />
+		<div id="pinfo_dlg" class="form" style="display: none;"></div>
+		<div id="iinfo_dlg" class="dialog form"
+			style="display: none; width: 500px; height: 400px; padding-top: 20px;">
+			<label>学校名称:</label><input type="text" readonly="readonly"
+				id="iinfo_name" /> <label>学校地址:</label><input type="text"
+				readonly="readonly" id="iinfo_address" />
+			<div class="clearer" />
+			<label>联系人:</label><input type="text" readonly="readonly"
+				id="iinfo_contact" />
+			<div class="clearer" />
+			<label>联系电话:</label><input type="text" readonly="readonly"
+				id="iinfo_phone" />
+			<div class="clearer" />
+			<label>学校网站:</label><input type="text" readonly="readonly"
+				id="iinfo_url" />
+			<div class="clearer" />
+			<label>简介:</label>
+			<textarea readonly="readonly" id="iinfo_desc"
+				style="width: 300px; height: 80px;" />
+		</div>
 	</ui:define>
 </ui:composition>

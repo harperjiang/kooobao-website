@@ -8,5 +8,15 @@
 		<create creator="spring" javascript="fav_manager">
 			<param name="beanName" value="favManager" />
 		</create>
+		<create creator="spring" javascript="profile_service">
+			<param name="beanName" value="profileService" />
+			<include method="getVisitor" />
+		</create>
+		<convert match="com.kooobao.lm.profile.entity.Visitor"
+			converter="bean" />
+		<convert match="com.kooobao.lm.profile.entity.PersonalInfo"
+			converter="bean" />
+		<convert match="com.kooobao.lm.profile.entity.InstituteInfo"
+			converter="bean" />
 	</allow>
 </dwr>  

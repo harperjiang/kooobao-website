@@ -8,7 +8,8 @@ public class LoginBean extends com.kooobao.authcenter.web.bean.LoginBean {
 	@Override
 	protected boolean verify(String id) {
 		Visitor v = getProfileService().getVisitor(getUserId());
-		return v != null && VisitorStatus.ACTIVE.name().equals(v.getStatus());
+		return v != null
+				&& !VisitorStatus.INACTIVE.name().equals(v.getStatus());
 	}
 
 	private ProfileService profileService;

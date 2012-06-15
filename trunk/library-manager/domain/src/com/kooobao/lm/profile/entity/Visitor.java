@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 
 @Entity
@@ -44,6 +45,10 @@ public class Visitor extends VersionEntity {
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "info")
 	private PersonalInfo info;
+
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "inst_info")
+	private InstituteInfo instInfo;
 
 	@OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<BalanceLog> balanceLogs = new ArrayList<BalanceLog>();
@@ -111,11 +116,25 @@ public class Visitor extends VersionEntity {
 	}
 
 	public PersonalInfo getInfo() {
-		return info;
+		if (getType() == VisitorType.PERSON)
+			return info;
+		return null;
 	}
 
 	public void setInfo(PersonalInfo info) {
-		this.info = info;
+		if (getType() == VisitorType.PERSON)
+			this.info = info;
+	}
+
+	public InstituteInfo getInstInfo() {
+		if (getType() == VisitorType.INSTITUTE)
+			return instInfo;
+		return null;
+	}
+
+	public void setInstInfo(InstituteInfo instInfo) {
+		if (getType() == VisitorType.INSTITUTE)
+			this.instInfo = instInfo;
 	}
 
 	public void addAddress(Address addr) {
@@ -150,4 +169,11 @@ public class Visitor extends VersionEntity {
 		this.recommendBy = recommendBy;
 	}
 
+	public String getTypeText() {
+		return StatusUtils.text(getType());
+	}
+
+	public String getStatusText() {
+		return StatusUtils.text(VisitorStatus.valueOf(getStatus()));
+	}
 }

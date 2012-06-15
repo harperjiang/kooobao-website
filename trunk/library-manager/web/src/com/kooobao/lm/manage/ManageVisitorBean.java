@@ -9,11 +9,13 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.kooobao.common.web.bean.PageSearchBean;
+import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.finance.FinanceOperationService;
 import com.kooobao.lm.profile.ManageLoginBean;
 import com.kooobao.lm.profile.ProfileService;
 import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
+import com.kooobao.lm.profile.entity.VisitorStatus;
 
 @ManagedBean(name = "manageVisitorBean")
 @SessionScoped
@@ -21,14 +23,10 @@ public class ManageVisitorBean extends PageSearchBean {
 
 	@Override
 	public String search() {
-		Visitor v = getProfileService().getVisitor(getVisitorId());
-		visitors.clear();
-		if (v != null) {
-			visitors.add(v);
-			setRecordCount(1);
-		} else {
-			setRecordCount(0);
-		}
+		PageSearchResult<Visitor> result = getProfileService().searchVisitor(
+				getVisitorId(), getVisitorStatus());
+		setRecordCount(result.getCount());
+		setVisitors(result.getResult());
 		return "success";
 	}
 
@@ -89,6 +87,16 @@ public class ManageVisitorBean extends PageSearchBean {
 
 	public void setVisitorId(String visitorId) {
 		this.visitorId = visitorId;
+	}
+
+	private VisitorStatus visitorStatus;
+
+	public VisitorStatus getVisitorStatus() {
+		return visitorStatus;
+	}
+
+	public void setVisitorStatus(VisitorStatus visitorStatus) {
+		this.visitorStatus = visitorStatus;
 	}
 
 	private String reason;
