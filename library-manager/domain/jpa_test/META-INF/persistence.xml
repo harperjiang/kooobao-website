@@ -7,6 +7,7 @@
 		<class>com.kooobao.lm.profile.entity.Address</class>
 		<class>com.kooobao.lm.profile.entity.ActivationRecord</class>
 		<class>com.kooobao.lm.profile.entity.PersonalInfo</class>
+		<class>com.kooobao.lm.profile.entity.InstituteInfo</class>
 		<class>com.kooobao.lm.profile.entity.Visitor</class>
 		<class>com.kooobao.lm.book.entity.Book</class>
 		<class>com.kooobao.lm.book.entity.Category</class>

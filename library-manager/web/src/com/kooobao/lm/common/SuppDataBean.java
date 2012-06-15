@@ -15,6 +15,7 @@ import com.kooobao.lm.bizflow.entity.DeliveryMethod;
 import com.kooobao.lm.bizflow.entity.TransactionState;
 import com.kooobao.lm.book.BookService;
 import com.kooobao.lm.book.entity.Category;
+import com.kooobao.lm.profile.entity.VisitorStatus;
 import com.kooobao.lm.profile.entity.VisitorType;
 
 public class SuppDataBean extends AbstractBean implements JSFStartupAware {
@@ -32,6 +33,8 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 	private List<String> expressCompanies;
 
 	private List<SelectItem> userTypes;
+
+	private List<SelectItem> visitorStatus;
 
 	public void init() {
 		transactionStates = new ArrayList<SelectItem>();
@@ -72,6 +75,11 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 		userTypes = new ArrayList<SelectItem>();
 		for (VisitorType vt : VisitorType.values()) {
 			userTypes.add(new SelectItem(vt, StatusUtils.text(vt)));
+		}
+
+		visitorStatus = new ArrayList<SelectItem>();
+		for (VisitorStatus s : VisitorStatus.values()) {
+			visitorStatus.add(new SelectItem(s, StatusUtils.text(s)));
 		}
 	}
 
@@ -127,6 +135,10 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	public List<SelectItem> getUserTypes() {
 		return userTypes;
+	}
+
+	public List<SelectItem> getVisitorStatus() {
+		return visitorStatus;
 	}
 
 }

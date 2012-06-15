@@ -2,8 +2,10 @@ package com.kooobao.lm.profile;
 
 import java.math.BigDecimal;
 
+import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.lm.profile.entity.Operator;
 import com.kooobao.lm.profile.entity.Visitor;
+import com.kooobao.lm.profile.entity.VisitorStatus;
 import com.kooobao.lm.profile.entity.VisitorType;
 
 public interface ProfileService {
@@ -19,4 +21,7 @@ public interface ProfileService {
 	void register(String email, String password, VisitorType type, String recommendBy);
 	
 	Operator getOperator(String id);
+
+	PageSearchResult<Visitor> searchVisitor(String visitorId,
+			VisitorStatus visitorStatus);
 }

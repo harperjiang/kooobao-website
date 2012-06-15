@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import com.kooobao.authcenter.service.UserService;
+import com.kooobao.common.web.bean.PageSearchResult;
 import com.kooobao.common.web.email.TemplateMailMessage;
 import com.kooobao.lm.finance.dao.FinanceOperationDao;
 import com.kooobao.lm.profile.dao.OperatorDao;
@@ -166,6 +167,11 @@ public class DefaultProfileService implements ProfileService {
 
 	public void setFinanceOperationDao(FinanceOperationDao financeOperationDao) {
 		this.financeOperationDao = financeOperationDao;
+	}
+
+	public PageSearchResult<Visitor> searchVisitor(String visitorId,
+			VisitorStatus visitorStatus) {
+		return getVisitorDao().search(visitorId, visitorStatus);
 	}
 
 }

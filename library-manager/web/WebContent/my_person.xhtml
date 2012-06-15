@@ -9,7 +9,8 @@
 	<ui:define name="body">
 		<ui:decorate template="my_menu.xhtml" />
 		<div style="width: 850px; float: left;">
-			<div class="part">
+			<h:panelGroup display="block" styleClass="part"
+				rendered="#{myPersonBean.visitor.type == 'PERSON'}">
 				<div class="part_header">个人信息</div>
 				<div class="part_body form">
 					<h:form id="personForm">
@@ -71,8 +72,48 @@
 						</div>
 					</h:form>
 				</div>
-			</div>
+			</h:panelGroup>
+			<h:panelGroup display="block" styleClass="part"
+				rendered="#{myPersonBean.visitor.type == 'INSTITUTE' and myPersonBean.visitor.status == 'NOT_VERIFIED'}">
+				<div class="part_header">完善学校会员信息</div>
+				<div class="part_body form">
+					<h:form id="instForm">
+						<div style="margin-top: 10px; margin-bottom: 10px;">您是学校用户，请完善您的学校信息。审核通过后，您将享有学校用户的专有功能</div>
+						<label>学校名称：</label>
+						<h:inputText value="#{myPersonBean.instituteInfo.name}" />
+						<div class="clearer" />
+						<label>学校地址：</label>
+						<h:inputText value="#{myPersonBean.instituteInfo.address}" />
+						<div class="clearer" />
+						<label>联系人：</label>
+						<h:inputText value="#{myPersonBean.instituteInfo.contact}" />
+						<div class="clearer" />
+						<label>联系电话：</label>
+						<h:inputText value="#{myPersonBean.instituteInfo.phone}" />
+						<div class="clearer" />
+						<label>学校网址：</label>
+						<h:inputText value="#{myPersonBean.instituteInfo.url}" />
+						<div class="clearer" />
+						<label>简介<span style="font-weight: normal;">（500字以内）</span>
+						</label>
+						<h:inputTextarea id="descText"
+							value="#{myPersonBean.instituteInfo.description}"
+							style="width:300px;height:80px;"
+							onchange="check_input_length('instForm:descText',500)" />
+
+						<div style="width: 300px; padding-left: 140px; margin-top: 10px;">
+							<h:commandLink styleClass="btn_solid"
+								action="#{myPersonBean.save}">保存</h:commandLink>
+						</div>
+					</h:form>
+				</div>
+			</h:panelGroup>
+
+			<h:panelGroup display="block" styleClass="part"
+				rendered="#{myPersonBean.visitor.type == 'INSTITUTE' and myPersonBean.visitor.status == 'ACTIVE'}">
+				<div class="part_header">学校会员信息</div>
+			</h:panelGroup>
 		</div>
-		<kui:message for="defaultDialog" />
+		<kui:message for=" defaultDialog" />
 	</ui:define>
 </ui:composition>
