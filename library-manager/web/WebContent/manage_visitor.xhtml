@@ -28,9 +28,9 @@
 
 					<div class="table_header">
 						<div class="table_header_col">用户id</div>
+						<div class="table_header_col">账户余额</div>
 						<div class="table_header_col">类型</div>
 						<div class="table_header_col">状态</div>
-						<div class="table_header_col">账户余额</div>
 						<div class="table_header_col">操作</div>
 					</div>
 					<ui:repeat value="#{manageVisitorBean.visitors}" var="visitor">
@@ -58,7 +58,7 @@
 
 								<h:commandLink styleClass="btn_confirm_small"
 									rendered="#{visitor.type=='INSTITUTE' and visitor.status == 'NOT_VERIFIED'}"
-									action="#{manageVisitorBean.modifyBalance}" value="用户信息已验证">
+									action="#{manageVisitorBean.verify}" value="用户信息已验证">
 									<f:param name="visitor_id" value="#{visitor.id}" />
 								</h:commandLink>
 							</div>
@@ -66,7 +66,7 @@
 						<div class="clearer" />
 					</ui:repeat>
 					<div style="margin-top: 10px;">
-						<label style="margin-left: 5px;">修改余额</label>
+						<label style="margin-left: 5px;">余额变化</label>
 						<h:inputText value="#{manageVisitorBean.balance}">
 							<f:convertNumber />
 						</h:inputText>
@@ -96,7 +96,7 @@
 			<div class="clearer" />
 			<label>简介:</label>
 			<textarea readonly="readonly" id="iinfo_desc"
-				style="width: 300px; height: 80px;" />
+				style="width: 250px; height: 160px;" />
 		</div>
 	</ui:define>
 </ui:composition>

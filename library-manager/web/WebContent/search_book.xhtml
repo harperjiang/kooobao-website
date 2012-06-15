@@ -10,19 +10,10 @@
 		<div class="book_list_container">
 			<div class="page_title">搜索结果</div>
 			<div
-				style="background-color: #fafbfc; font-size: 14px; padding: 5px;">
+				style="background-color: #fafbfc; font-size: 14px; padding: 5px; margin-top: 10px; margin-bottom: 15px;">
 				<span style="font-weight: bold; color: #de3251">"#{searchBookBean.keyword}"</span>的搜索结果
 			</div>
-			<h:panelGroup display="block"
-				rendered="#{! empty searchBookBean.searched}"
-				styleClass="navigation_bar">
-				<h:form>
-					<h:commandLink action="#{categoryBean.prevPage}"
-						styleClass="btn_solid_small">上一页</h:commandLink>
-					<h:commandLink action="#{categoryBean.nextPage}"
-						styleClass="btn_solid_small">下一页</h:commandLink>
-				</h:form>
-			</h:panelGroup>
+
 			<ui:repeat var="book" value="#{searchBookBean.searched}">
 				<div class="bl_unit">
 					<div id="picture" class="bl_picture">
@@ -60,11 +51,12 @@
 				</div>
 				<div style="display: block; margin-left: 400px; float: left;">
 					<h:form>
-						<h:commandLink styleClass="btn_confirm_small" action="#">
-									借阅
-								</h:commandLink>
 						<h:outputLink value="#" styleClass="btn_highlight"
-							onclick="add_to_cart(#{book.oid})">加入借书篮</h:outputLink>
+							onclick="add_to_cart(#{book.oid})">
+							<h:graphicImage style="height:16px;width:16px;"
+								url="/image/basket.gif" />
+							<h:outputText value="加入书架" />
+						</h:outputLink>
 					</h:form>
 				</div>
 			</ui:repeat>
@@ -78,9 +70,9 @@
 				rendered="#{! empty searchBookBean.searched}"
 				styleClass="navigation_bar">
 				<h:form>
-					<h:commandLink action="#{categoryBean.prevPage}"
+					<h:commandLink action="#{searchBookBean.prevPage}"
 						styleClass="btn_solid_small">上一页</h:commandLink>
-					<h:commandLink action="#{categoryBean.nextPage}"
+					<h:commandLink action="#{searchBookBean.nextPage}"
 						styleClass="btn_solid_small">下一页</h:commandLink>
 				</h:form>
 			</h:panelGroup>
@@ -95,7 +87,7 @@
 					<div class="also_like_pic">
 						<h:outputLink value="/book.html">
 							<f:param name="book_id" value="#{book.oid}" />
-							<h:graphicImage url="#{book.pictureUrl}" width="60" height="70" />
+							<h:graphicImage url="#{book.pictureUrl}" />
 						</h:outputLink>
 					</div>
 					<div class="also_like_first_text">

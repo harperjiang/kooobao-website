@@ -5,7 +5,7 @@
 	xmlns:kui="http://kooobao.com/jsf/ui"
 	template="/template/page_template.xhtml">
 	<ui:param name="displayLogin" value="true"></ui:param>
-	<ui:define name="title">酷宝图书馆-我的借书篮</ui:define>
+	<ui:define name="title">酷宝图书馆-我的书架</ui:define>
 	<ui:define name="body">
 		<div class="book_list_container" style="width: 760px;">
 			<h:panelGroup layout="block" rendered="#{cartBean.size > 0}">
@@ -55,7 +55,7 @@
 				<div class="clearer" />
 			</h:panelGroup>
 			<h:panelGroup layout="block" rendered="#{cartBean.size == 0}">
-				<div class="page_title">您的借书篮是空的</div>
+				<div class="page_title">您的书架是空的</div>
 			</h:panelGroup>
 		</div>
 		<div style="float: left; width: 200px; margin-top: 5px; padding: 10px;"

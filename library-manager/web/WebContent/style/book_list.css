@@ -3,7 +3,7 @@
 .book_list_container {
 	float: left;
 	margin: 5px;
-	width: 690px;
+	width: 740px;
 }
 
 .bl_unit {
@@ -36,7 +36,7 @@
 }
 
 .bl_brief {
-	width: 560px;
+	width: 600px;
 	float: left;
 }
 
@@ -66,15 +66,15 @@ div.short_attr label {
 
 .also_like_container {
 	float: left;
-	width: 270px;
+	width: 230px;
 	margin-right: 5px;
 	margin-top: 5px;
 }
 
 .also_like_pic {
 	float: left;
-	width: 80px;
-	height: 100px;
+	width: 60px;
+	height: 70px;
 }
 
 .also_like_first {
@@ -84,13 +84,13 @@ div.short_attr label {
 
 .also_like_first_title {
 	margin-bottom: 10px;
-	font-size: 16px;
+	font-size: 14px;
 }
 
 .also_like_first_text {
 	float: left;
 	margin-left: 5px;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 .also_like_others {
@@ -98,8 +98,8 @@ div.short_attr label {
 }
 
 .also_like_pic img {
-	width: 80px;
-	height: 100px;
+	width: 50px;
+	height: 65px;
 }
 
 .navigation_bar {
