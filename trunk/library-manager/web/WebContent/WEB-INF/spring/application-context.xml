@@ -41,6 +41,9 @@
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 	<bean id="financeOperationDao" class="com.kooobao.lm.finance.dao.SimpleFinanceOperationDao" />
+	<bean id="purchaseDao" class="com.kooobao.lm.purchase.dao.JpaPurchaseDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.exmail.qq.com" />
@@ -103,6 +106,10 @@
 
 	<bean id="financeOperationService" class="com.kooobao.lm.finance.DefaultFinanceOperationService">
 		<property name="financeOperationDao" ref="financeOperationDao" />
+	</bean>
+
+	<bean id="purchaseService" class="com.kooobao.lm.purchase.DefaultPurchaseService">
+		<property name="purchaseDao" ref="purchaseDao" />
 	</bean>
 
 	<bean id="indexPageBean" class="com.kooobao.lm.IndexPageBean">

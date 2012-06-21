@@ -17,6 +17,7 @@ import com.kooobao.lm.book.BookService;
 import com.kooobao.lm.book.entity.Category;
 import com.kooobao.lm.profile.entity.VisitorStatus;
 import com.kooobao.lm.profile.entity.VisitorType;
+import com.kooobao.lm.purchase.entity.PurchaseState;
 
 public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
@@ -35,6 +36,8 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 	private List<SelectItem> userTypes;
 
 	private List<SelectItem> visitorStatus;
+
+	private List<SelectItem> purchaseStates;
 
 	public void init() {
 		transactionStates = new ArrayList<SelectItem>();
@@ -80,6 +83,11 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 		visitorStatus = new ArrayList<SelectItem>();
 		for (VisitorStatus s : VisitorStatus.values()) {
 			visitorStatus.add(new SelectItem(s, StatusUtils.text(s)));
+		}
+
+		purchaseStates = new ArrayList<SelectItem>();
+		for (PurchaseState s : PurchaseState.values()) {
+			purchaseStates.add(new SelectItem(s, StatusUtils.text(s)));
 		}
 	}
 
@@ -139,6 +147,10 @@ public class SuppDataBean extends AbstractBean implements JSFStartupAware {
 
 	public List<SelectItem> getVisitorStatus() {
 		return visitorStatus;
+	}
+
+	public List<SelectItem> getPurchaseStates() {
+		return purchaseStates;
 	}
 
 }

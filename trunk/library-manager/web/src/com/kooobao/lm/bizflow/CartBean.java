@@ -18,6 +18,7 @@ import com.kooobao.common.web.bean.AbstractBean;
 import com.kooobao.lm.book.BookService;
 import com.kooobao.lm.book.entity.Book;
 import com.kooobao.lm.profile.LoginBean;
+import com.kooobao.lm.purchase.BuyConfirmBean;
 
 @SessionScoped
 @ManagedBean(name = "cartBean")
@@ -81,7 +82,7 @@ public class CartBean extends AbstractBean {
 
 	public String confirm() {
 		if (CollectionUtils.isEmpty(getBooks())) {
-			addMessage(FacesMessage.SEVERITY_WARN, "您的购物车是空的");
+			addMessage(FacesMessage.SEVERITY_WARN, "您的书架是空的");
 			return "failed";
 		}
 		LoginBean loginBean = findBean("loginBean");
@@ -91,6 +92,23 @@ public class CartBean extends AbstractBean {
 		} else {
 			((BorrowConfirmBean) findBean("borrowConfirmBean"))
 					.setBorrowed(getBooks());
+
+			return "success";
+		}
+	}
+	
+	public String confirmBuy() {
+		if (CollectionUtils.isEmpty(getBooks())) {
+			addMessage(FacesMessage.SEVERITY_WARN, "您的书架是空的");
+			return "failed";
+		}
+		LoginBean loginBean = findBean("loginBean");
+		if (!loginBean.isLoggedIn()) {
+			addMessage(FacesMessage.SEVERITY_WARN, "请先登录");
+			return "failed";
+		} else {
+			((BuyConfirmBean) findBean("buyConfirmBean"))
+					.setSelected(getBooks());
 
 			return "success";
 		}

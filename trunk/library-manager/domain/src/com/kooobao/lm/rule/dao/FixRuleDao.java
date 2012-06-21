@@ -4,6 +4,7 @@ import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.common.domain.entity.SimpleEntity;
 import com.kooobao.lm.rule.entity.DeliveryDayRule;
 import com.kooobao.lm.rule.entity.DeliveryFeeRule;
+import com.kooobao.lm.rule.entity.DiscountRule;
 import com.kooobao.lm.rule.entity.DueRule;
 import com.kooobao.lm.rule.entity.PenaltyRule;
 import com.kooobao.lm.rule.entity.RewardRule;
@@ -53,5 +54,9 @@ public class FixRuleDao implements RuleDao {
 
 	public RewardRule getRewardRule() {
 		return new RewardRule();
+	}
+
+	public DiscountRule getDiscountRule() {
+		return new DiscountRule();
 	}
 }

@@ -58,8 +58,8 @@ div.table_header_col {
 
 div.table_row {
 	float:left;
-	margin-top: 4px;
-	margin-bottom: 4px;
+	padding-top: 6px;
+	padding-bottom: 6px;
 }
 
 div.table_cell {
@@ -68,7 +68,8 @@ div.table_cell {
 	width: 160px;
 	text-align: center;
 	display: block;
-	margin-top: 10px;
+	margin-top:5px;
+	margin-bottom:5px;
 	font-size: 13px;
 }
 

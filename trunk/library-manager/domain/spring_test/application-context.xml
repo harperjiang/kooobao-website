@@ -40,6 +40,10 @@
 
 	<bean id="financeOperationDao" class="com.kooobao.lm.finance.dao.SimpleFinanceOperationDao" />
 
+	<bean id="purchaseDao" class="com.kooobao.lm.purchase.dao.JpaPurchaseDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
 	<bean id="dummyUserService" class="com.kooobao.lm.profile.DummyUserService" />
 	<bean id="dummyMailSender" class="com.kooobao.lm.profile.DummyMailSender" />
 
@@ -80,6 +84,10 @@
 	<bean id="favouriteService" class="com.kooobao.lm.bizflow.DefaultFavouriteService">
 		<property name="bookDao" ref="bookDao" />
 		<property name="favouriteDao" ref="favouriteDao" />
+	</bean>
+
+	<bean id="purchaseService" class="com.kooobao.lm.purchase.DefaultPurchaseService">
+		<property name="purchaseDao" ref="purchaseDao" />
 	</bean>
 
 

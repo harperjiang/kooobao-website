@@ -45,6 +45,12 @@
 			<to-view-id>/borrow_confirm.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
+		<navigation-case>
+			<from-action>#{cartBean.confirmBuy}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/buy_confirm.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>search</display-name>
@@ -71,6 +77,16 @@
 			<from-action>#{borrowConfirmBean.confirm}</from-action>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/borrow_finish.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>buy_confirm.xhtml</display-name>
+		<from-view-id>/buy_confirm.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{buyConfirmBean.confirm}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/buy_finish.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

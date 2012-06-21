@@ -6,30 +6,63 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
+import com.kooobao.common.domain.entity.StatusUtils;
 import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.lm.bizflow.entity.DeliveryMethod;
+import com.kooobao.lm.profile.entity.Address;
+import com.kooobao.lm.profile.entity.BasicAddress;
 import com.kooobao.lm.profile.entity.Visitor;
 
+@Entity
+@Table(name = "lm_purchase")
 public class Purchase extends VersionEntity {
 
+	@OneToOne
+	@JoinColumn(name = "visitor_id")
 	private Visitor visitor;
 
+	@Column(name = "state")
 	private String state;
 
-	private String deliveryMethod;
+	@Column(name = "delivery_method")
+	private String deliveryMethod = DeliveryMethod.SELF_PICK.name();
 
-	private List<PurchaseItem> items;
+	@OneToMany(mappedBy = "header", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<PurchaseItem> items = new ArrayList<PurchaseItem>();
 
+	@OneToMany(mappedBy = "header", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<PurchaseLog> logs = new ArrayList<PurchaseLog>();
 
+	@Column(name = "total_price")
 	private BigDecimal totalPrice;
 
-	private BigDecimal grossWeight;
+	@Column(name = "net_weight")
+	private BigDecimal netWeight;
 
+	@Column(name = "comment")
 	private String comment;
+
+	@Column(name = "delivery_fee")
+	private BigDecimal deliveryFee;
+
+	@Column(name = "discount")
+	private BigDecimal discount;
+
+	@Embedded
+	private BasicAddress address = new BasicAddress();
 
 	public void request(String comment) {
 		Validate.isTrue(StringUtils.isEmpty(state));
@@ -158,8 +191,9 @@ public class Purchase extends VersionEntity {
 	public List<PurchaseItem> getItems() {
 		return items;
 	}
-	
+
 	public void addItem(PurchaseItem item) {
+		item.setHeader(this);
 		getItems().add(item);
 	}
 
@@ -175,12 +209,12 @@ public class Purchase extends VersionEntity {
 		this.totalPrice = totalPrice;
 	}
 
-	public BigDecimal getGrossWeight() {
-		return grossWeight;
+	public BigDecimal getNetWeight() {
+		return netWeight;
 	}
 
-	public void setGrossWeight(BigDecimal grossWeight) {
-		this.grossWeight = grossWeight;
+	public void setNetWeight(BigDecimal netWeight) {
+		this.netWeight = netWeight;
 	}
 
 	public String getComment() {
@@ -191,4 +225,33 @@ public class Purchase extends VersionEntity {
 		this.comment = comment;
 	}
 
+	public BasicAddress getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address.setName(address.getName());
+		this.address.setLocation(address.getLocation());
+		this.address.setPhone(address.getPhone());
+	}
+
+	public BigDecimal getDeliveryFee() {
+		return deliveryFee;
+	}
+
+	public void setDeliveryFee(BigDecimal deliveryFee) {
+		this.deliveryFee = deliveryFee;
+	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	public String getStateText() {
+		return StatusUtils.text(getState());
+	}
 }

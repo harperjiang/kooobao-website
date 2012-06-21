@@ -72,6 +72,15 @@ public class BorrowConfirmBean extends AbstractBean {
 		return "success";
 	}
 
+	public String addNewAddress() {
+		Visitor visitor = getCurrentVisitor();
+		visitor.addAddress(newAddress);
+		visitor.setAddress(newAddress);
+		newAddress = new Address();
+		getProfileService().saveVisitor(visitor);
+		return "success";
+	}
+	
 	public String confirm() {
 		if (null == getCurrentVisitor()
 				|| CollectionUtils.isEmpty(getBorrowed())) {
@@ -201,6 +210,12 @@ public class BorrowConfirmBean extends AbstractBean {
 			currentVisitor = getProfileService().getVisitor(userId);
 		}
 		return currentVisitor;
+	}
+
+	private Address newAddress = new Address();
+
+	public Address getNewAddress() {
+		return newAddress;
 	}
 
 	@ManagedProperty("#{profileService}")

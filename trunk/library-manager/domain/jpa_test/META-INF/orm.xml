@@ -37,6 +37,12 @@
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_tran_comment" />
 	<table-generator name="ballogTG" table="lm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="lm_visitor_balancelog" />
+	<table-generator name="purchaseTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_purchase" />
+	<table-generator name="purchaseItemTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_purchase_item" />
+	<table-generator name="purchaseLogTG" table="lm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="lm_purchase_log" />
 
 
 
@@ -76,7 +82,7 @@
 			</basic>
 		</attributes>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.profile.entity.InstituteInfo">
 		<primary-key>
 			<column name="obj_id" />
@@ -233,13 +239,13 @@
 			<column name="book_to" />
 		</primary-key>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.profile.entity.Operator">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.bizflow.entity.TranComment">
 		<primary-key>
 			<column name="obj_id" />
@@ -251,7 +257,7 @@
 			</basic>
 		</attributes>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.profile.entity.BalanceLog">
 		<primary-key>
 			<column name="obj_id" />
@@ -263,11 +269,47 @@
 			</basic>
 		</attributes>
 	</entity>
-	
+
 	<entity class="com.kooobao.lm.book.entity.BookRateSummary">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
 	</entity>
-	
+
+	<entity class="com.kooobao.lm.purchase.entity.Purchase">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="purchaseTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.lm.purchase.entity.PurchaseLog">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="purchaseLogTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.lm.purchase.entity.PurchaseItem">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="purchaseItemTG" />
+			</basic>
+		</attributes>
+	</entity>
+
 </entity-mappings>

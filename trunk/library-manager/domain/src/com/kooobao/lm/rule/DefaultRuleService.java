@@ -35,4 +35,14 @@ public class DefaultRuleService implements RuleService {
 		return getRuleDao().getDeliveryFeeRule().getDeliveryFee(address,
 				netWeight);
 	}
+
+	public BigDecimal getDiscount(Visitor visitor, BigDecimal totalPrice,
+			BigDecimal deliveryFee) {
+		return getRuleDao().getDiscountRule().getDiscount(visitor, totalPrice,
+				deliveryFee);
+	}
+
+	public BigDecimal getVisitorDiscount(Visitor visitor) {
+		return getRuleDao().getDiscountRule().getDiscount(visitor);
+	}
 }

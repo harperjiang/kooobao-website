@@ -13,4 +13,9 @@ public interface RuleService {
 	BigDecimal getPenalty(Visitor visitor);
 
 	BigDecimal getDeliveryFee(Address address, BigDecimal netWeight);
+
+	BigDecimal getDiscount(Visitor visitor, BigDecimal totalPrice,
+			BigDecimal deliveryFee);
+
+	BigDecimal getVisitorDiscount(Visitor visitor);
 }

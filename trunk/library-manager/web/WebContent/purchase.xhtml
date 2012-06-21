@@ -1,0 +1,263 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:kui="http://kooobao.com/jsf/ui"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-查看订单</ui:define>
+	<ui:define name="css">
+		<style type="text/css">
+.label_text {
+	font-size: 14px;
+	display: block;
+	float: left;
+	width: 90px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.content_text {
+	font-size: 14px;
+	float: left;
+	width: 140px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.small_label {
+	font-size: 13px;
+	font-weight: bold;
+	display: block;
+	float: left;
+	width: 100px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.small_content {
+	font-size: 13px;
+	display: block;
+	float: left;
+	width: 100px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+</style>
+	</ui:define>
+	<ui:define name="body">
+		<ui:decorate template="my_menu.xhtml" />
+		<div
+			style="margin-left: 40px; margin-top: 5px; margin-bottom: 5px; float: left; width: 810px;">
+			<div class="part" style="background-color: #fdfcfb;">
+				<div
+					style="width: 250px; float: left; padding-top: 12px; padding-left: 40px; padding-bottom: 10px; background-color: #ffe2dd;">
+					<h:outputText styleClass="label_text" value="订单号码:" />
+					<h:outputText styleClass="content_text"
+						value="#{transactionBean.tran.oid}" />
+					<br />
+					<h:outputText styleClass="label_text" value="当前状态:" />
+					<h:outputText styleClass="content_text"
+						value="#{transactionBean.tran.stateText}" />
+				</div>
+				<div
+					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
+					<h:outputText styleClass="small_label" value="创建日期:" />
+					<h:outputText styleClass="small_content"
+						value="#{transactionBean.tran.createTime}">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</h:outputText>
+					<br />
+					<h:outputText styleClass="small_label" value="应归还日期:" />
+					<h:outputText styleClass="small_content"
+						value="#{transactionBean.tran.dueTime}">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</h:outputText>
+				</div>
+				<div
+					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
+					<h:outputText styleClass="small_label" value="是否逾期:" />
+					<h:outputText styleClass="small_content"
+						value="#{transactionBean.expireRecord == null?'否':'是'}" />
+					<br />
+					<h:outputText styleClass="small_label" value="逾期款项:" />
+					<h:outputText styleClass="small_content"
+						rendered="#{transactionBean.expireRecord != null}"
+						value="#{transactionBean.expireRecord.penalty} #{envSettingBean.moneyUnit}" />
+				</div>
+			</div>
+			<div class="part">
+				<div class="part_header">
+					<h:outputText value="图书信息" />
+				</div>
+				<div class="part_body">
+					<h:outputLink value="/book.html">
+						<h:outputText value="#{transactionBean.tran.book.name}" />
+						<f:param name="book_id" value="#{transactionBean.tran.book.oid}" />
+					</h:outputLink>
+				</div>
+			</div>
+			<div class="part">
+				<div class="part_header">
+					<h:outputText value="订单历史" />
+				</div>
+				<div class="part_body">
+					<ui:repeat var="operation"
+						value="#{transactionBean.tran.operations}">
+						<div style="margin-top: 5px; margin-bottom: 5px;">
+							<div
+								style="display: inline; margin-right: 20px; margin-top: 5px; margin-bottom: 5px;">
+								<h:outputText value="#{operation.createTime}">
+									<f:convertDateTime pattern="yyyy-MM-dd HH:mm"
+										timeZone="#{envSettingBean.timeZone}" />
+								</h:outputText>
+							</div>
+							<div style="display: inline;">
+								<h:outputText value="#{operation.description}" />
+							</div>
+						</div>
+					</ui:repeat>
+				</div>
+			</div>
+			<div class="clearer" />
+			<div class="part">
+				<div class="part_header">
+					<h:outputText value="配送信息" />
+				</div>
+				<div class="part_body">
+					<div class="part_item">
+						<h:outputLabel for="sendText" value="配送方式" />
+						<h:outputText id="sendText"
+							value="#{transactionBean.tran.deliveryText}" />
+					</div>
+
+					<div class="part_item">
+						<h:outputLabel for="priceText" value="配送费用" />
+						<h:outputText id="priceText"
+							value="#{transactionBean.tran.deliveryFee}" />
+					</div>
+					<div class="part_item">
+						<h:outputLabel for="nameText" value="收件人" />
+						<h:outputText id="nameText"
+							value="#{transactionBean.tran.address.name}" />
+					</div>
+					<div class="part_item">
+						<h:outputLabel for="locationText" value="收件地址" />
+						<h:outputText id="locationText"
+							value="#{transactionBean.tran.address.location}" />
+					</div>
+					<div class="part_item">
+						<h:outputLabel for="phoneText" value="联系电话" />
+						<h:outputText id="phoneText"
+							value="#{transactionBean.tran.address.phone}" />
+					</div>
+				</div>
+			</div>
+			<div class="part">
+				<div class="part_header">
+					<h:outputText value="登记还书"
+						rendered="#{transactionBean.canSendback}" />
+					<h:outputText value="评价图书"
+						rendered="#{transactionBean.canComment}" />	
+					<h:outputText value="取消订单"
+						rendered="#{transactionBean.canCancel}" />	
+				</div>
+				<div class="part_body">
+					<h:form id="commentForm">
+						<h:outputLink id="originalCancelButton" styleClass="btn_solid"
+							value="#" rendered="#{transactionBean.canCancel}"
+							onclick="switch_cancel_layer()">作废订单</h:outputLink>
+						<div id="cancelLayer" style="display: none; width: 400px;">
+							<label>请填写您取消订单的原因:</label><span>（您的留言有助于我们为您提供更好的服务）</span>
+							<h:selectOneMenu value="#{transactionBean.cancelSelect}"
+								style="margin-top:5px;margin-bottom:5px;">
+								<f:selectItems value="#{suppDataBean.cancelReasons}" />
+							</h:selectOneMenu>
+							<h:inputTextarea
+								style="width:360px;height:80px;margin-bottom:5px;"
+								value="#{transactionBean.cancelReason}" />
+							<h:commandLink id="cancelButton" styleClass="btn_solid"
+								value="作废订单" action="#{transactionBean.cancel}" />
+						</div>
+						<h:panelGroup display="block"
+							rendered="#{transactionBean.canSendback}">
+							<div class="part_item">（如果您不使用快递还书，请直接将书籍交还至前台即可）</div>
+							<div class="part_item">
+								<label>快递公司</label>
+								<h:selectOneMenu id="companySelect"
+									value="#{transactionBean.expressCompany}"
+									onchange="express_changed()">
+									<f:selectItems value="#{suppDataBean.expressCompanies}" />
+								</h:selectOneMenu>
+								<h:inputText id="companyText" style="display:none;"
+									value="#{transactionBean.expressCompanyName}" />
+							</div>
+							<div class="part_item">
+								<label>快递单号</label>
+								<h:inputText value="#{transactionBean.expressNo}" />
+							</div>
+							<h:commandLink action="#{transactionBean.sendback}"
+								value="归还书籍已寄出" styleClass="btn_confirm" />
+						</h:panelGroup>
+
+						<h:panelGroup display="block"
+							rendered="#{transactionBean.canComment}">
+							<label>评分</label>
+							<span>（请您为所借阅的书评分，我们将为您送出积分鼓励）</span>
+							<div>
+								<img id="star1" width="15" height="15"
+									src="/image/empty_star.gif" onclick="change_rating(1)" /> <img
+									id="star2" width="15" height="15" src="/image/empty_star.gif"
+									onclick="change_rating(2)" /> <img id="star3" width="15"
+									height="15" src="/image/empty_star.gif"
+									onclick="change_rating(3)" /> <img id="star4" width="15"
+									height="15" src="/image/empty_star.gif"
+									onclick="change_rating(4)" /> <img id="star5" width="15"
+									height="15" src="/image/empty_star.gif"
+									onclick="change_rating(5)" />
+							</div>
+
+							<h:inputHidden id="rating" value="#{transactionBean.rating}" />
+							<label>评论</label>
+							<span>（请勿超过500字）</span>
+							<div>
+								<h:inputTextarea value="#{transactionBean.comment}"
+									style="width:500px;height:100px;" />
+							</div>
+							<h:commandLink styleClass="btn_regular"
+								action="#{transactionBean.saveComment}">保存</h:commandLink>
+						</h:panelGroup>
+						<script language="javascript"><!--
+								function change_rating(val) {
+									for(i = 1 ; i <= val ; i++) {
+										document.getElementById("star"+i).src="/image/star.gif";
+									}
+									for(i = val+1 ; i <=5;i++)
+										document.getElementById("star"+i).src="/image/empty_star.gif";
+									document.getElementById("commentForm:rating").value = val;
+								}
+							
+								function switch_cancel_layer() {
+									document.getElementById("commentForm:originalCancelButton").style.display="none";
+									document.getElementById("cancelLayer").style.display="block";
+								}
+								
+								function express_changed() {
+									var select = document.getElementById("commentForm:companySelect");
+									var text = document.getElementById("commentForm:companyText")
+									alert(select.options[select.selectedIndex]);
+									if(select.options[select.selectedIndex].value == '其他') {
+										text.style.display='inline';
+									} else {
+										text.style.display='none';		
+									}
+								}
+							-->
+						</script>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

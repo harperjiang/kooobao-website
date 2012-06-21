@@ -3,15 +3,23 @@ package com.kooobao.lm.purchase.entity;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+import com.kooobao.common.domain.entity.SimpleEntity;
 import com.kooobao.lm.book.entity.Book;
 
-@Embeddable
-public class PurchaseItem {
+@Entity
+@Table(name="lm_purchase_item")
+public class PurchaseItem extends SimpleEntity {
 
+	@ManyToOne
+	@JoinColumn(name="header")
+	private Purchase header;
+	
 	@OneToOne
 	@JoinColumn(name = "book_id")
 	private Book book;
@@ -19,8 +27,7 @@ public class PurchaseItem {
 	@Column(name = "book_count")
 	private int count;
 
-	@Column(name = "discount")
-	private BigDecimal discount;
+	private transient BigDecimal discount;
 
 	public Book getBook() {
 		return book;
@@ -44,6 +51,14 @@ public class PurchaseItem {
 
 	public void setDiscount(BigDecimal discount) {
 		this.discount = discount;
+	}
+
+	public Purchase getHeader() {
+		return header;
+	}
+
+	public void setHeader(Purchase header) {
+		this.header = header;
 	}
 
 }

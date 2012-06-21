@@ -1,17 +1,31 @@
 package com.kooobao.lm.purchase.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import com.kooobao.common.domain.entity.SimpleEntity;
 
+@Entity
+@Table(name = "lm_purchase_log")
 public class PurchaseLog extends SimpleEntity {
 
+	@Column(name = "operator_id")
 	private String operatorId;
 
+	@Column(name = "from_state")
 	private String fromState;
 
+	@Column(name = "to_state")
 	private String toState;
 
+	@Column(name = "desc_text")
 	private String description;
 
+	@ManyToOne
+	@JoinColumn(name = "header")
 	private Purchase header;
 
 	public String getOperatorId() {

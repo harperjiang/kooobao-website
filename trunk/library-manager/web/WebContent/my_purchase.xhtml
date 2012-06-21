@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-我的图书馆</ui:define>
+	<ui:define name="body">
+		<ui:decorate template="my_menu.xhtml" />
+		<div style="width: 850px; float: left;">
+			<div class="part">
+				<div class="part_header">购买记录查询</div>
+				<div class="part_body">
+					<h:form id="queryForm">
+						<div class="onerow_form" style="height: 35px;">
+							<h:outputLabel for="fromDateText" id="fromDateLabel">起始日期</h:outputLabel>
+							<h:inputText id="fromDateText"
+								value="#{myPurchaseBean.searchBean.fromDate}">
+								<f:convertDateTime pattern="yyyy-MM-dd"
+									timeZone="#{envSettingBean.timeZone}" />
+							</h:inputText>
+							<h:outputLabel for="toDateText" id="toDateLabel">结束日期</h:outputLabel>
+							<h:inputText id="toDateText"
+								value="#{myPurchaseBean.searchBean.toDate}">
+								<f:convertDateTime pattern="yyyy-MM-dd"
+									timeZone="#{envSettingBean.timeZone}" />
+							</h:inputText>
+							<h:outputLabel for="stateSelect" id="stateLabel">状态</h:outputLabel>
+							<h:selectOneMenu id="stateSelect"
+								value="#{myPurchaseBean.searchBean.state}">
+								<f:selectItems value="#{suppDataBean.purchaseStates}" />
+							</h:selectOneMenu>
+							<h:commandLink styleClass="btn_solid_small" style="float:left;"
+								action="#{myPurchaseBean.search}">查询
+						</h:commandLink>
+						</div>
+					</h:form>
+					<div class="table_header">
+						<div class="table_header_col" style="width: 80px;">订单号</div>
+						<div class="table_header_col" style="width: 80px;">价格</div>
+						<div class="table_header_col" style="width: 150px;">订单日期</div>
+						<div class="table_header_col" style="width: 100px;">订单状态</div>
+						<div class="table_header_col" style="width: 320px;">书名</div>
+						<div class="table_header_col" style="width: 90px;">数量</div>
+					</div>
+					<div class="clearer" />
+					<h:form>
+						<ui:repeat var="purchase" value="#{myPurchaseBean.result}"
+							varStatus="purchaseStatus">
+
+							<h:panelGroup layout="block" styleClass="table_row"
+								style="background-color:#{purchaseStatus.index mod 2 == 0 ? '#eeeeee':'#dddddd'}">
+								<div class="table_cell" style="width: 80px;">
+									<h:outputLink value="/purchase.html">
+										<f:param name="purchase_id" value="#{purchase.oid}" />
+										<h:outputText value="#{purchase.oid}" />
+									</h:outputLink>
+								</div>
+								<div class="table_cell" style="width: 80px;">
+									<h:outputText value="#{purchase.totalPrice}" />
+								</div>
+								<div class="table_cell" style="width: 150px;">
+									<h:outputText value="#{purchase.createTime}">
+										<f:convertDateTime pattern="yyyy-MM-dd"
+											timeZone="#{envSettingBean.timeZone}" />
+									</h:outputText>
+								</div>
+								<div class="table_cell" style="width: 100px;">
+									<h:outputText value="#{purchase.stateText}" />
+								</div>
+								<ui:repeat var="item" value="#{purchase.items}"
+									varStatus="itemStatus">
+									<h:panelGroup layout="block" styleClass="table_cell"
+										style="width: 320px;#{itemStatus.index!=0?'margin-left:410px;':''}">
+										<h:outputLink value="/book.html">
+											<h:outputText value="#{item.book.name}" />
+											<f:param name="book_id" value="#{item.book.oid}" />
+										</h:outputLink>
+									</h:panelGroup>
+									<h:panelGroup layout="block" styleClass="table_cell"
+										style="width: 100px;">
+										<h:outputText value="#{item.count}" />
+									</h:panelGroup>
+									<div class="clearer" />
+								</ui:repeat>
+							</h:panelGroup>
+							<div class="clearer" />
+						</ui:repeat>
+						<div class="navigation_bar_right">
+							<h:commandLink styleClass="btn_solid_small" style="float:left;"
+								action="#{myPurchaseBean.prevPage}">上一页</h:commandLink>
+							<h:outputText
+								style="display:block;float:left;padding-top:6px;margin-right:5px;"
+								value="第#{myPurchaseBean.currentPage}页，共#{myPurchaseBean.pageCount}页" />
+							<h:commandLink styleClass="btn_solid_small" style="float:left;"
+								action="#{myPurchaseBean.nextPage}">下一页</h:commandLink>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
