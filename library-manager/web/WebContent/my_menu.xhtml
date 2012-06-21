@@ -1,22 +1,16 @@
 <div xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core" style="margin: 5px; width: 130px; float: left;">
+	xmlns:f="http://java.sun.com/jsf/core"
+	style="margin: 5px; width: 130px; float: left;">
 	<div class="section">
 		<div class="section_header">我的图书馆</div>
 		<div
 			style="width: 84px; height: 94px; margin-left: auto; margin-right: auto; margin-top: 5px;">
 			<a href="/my_index.html"><img src="" width="80" height="90" /></a>
 		</div>
-		<!-- div class="item">
-			<h:outputText value="#{myIndexBean.visitor.id}" />
-		</div>
-		<div class="item">
-			<h:outputText value="级别:#{myIndexBean.visitor.level}" />
-		</div>
-		<div class="item">
-			<h:outputText value="荣誉:#{myIndexBean.visitor.deposit}豆丁" />
-		</div -->
+	</div>
+	<div class="section">
 		<div class="section_header">我的借阅</div>
 		<ul>
 			<li><a href="/my_query.html">借阅记录查询</a></li>
@@ -24,6 +18,12 @@
 			<li><a href="/my_fav.html">我的收藏</a></li>
 		</ul>
 	</div>
+	<h:panelGroup layout="block" rendered="#{myIndexBean.visitor.type == 'INSTITUTE'}" styleClass="section">
+		<div class="section_header">我的订单</div>
+		<ul>
+			<li><a href="/my_purchase.html">订单查询</a></li>
+		</ul>
+	</h:panelGroup>
 	<div class="section">
 		<div class="section_header">我的账户</div>
 		<ul>

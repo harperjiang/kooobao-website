@@ -29,6 +29,10 @@
 		<class>com.kooobao.lm.article.entity.News</class>
 		<class>com.kooobao.lm.profile.entity.Operator</class>
 		<class>com.kooobao.lm.profile.entity.BalanceLog</class>
+		<class>com.kooobao.lm.purchase.entity.Purchase</class>
+		<class>com.kooobao.lm.purchase.entity.PurchaseLog</class>
+		<class>com.kooobao.lm.purchase.entity.PurchaseItem</class>
+		
 		<properties>
 			<property name="eclipselink.logging.level.sql" value="ALL" />
 		</properties>

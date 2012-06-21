@@ -54,7 +54,11 @@ public class BeanInitializer implements PhaseListener {
 			} else {
 				if (object instanceof JSFLifecycleAware) {
 					JSFLifecycleAware lifeCycleAwareBean = (JSFLifecycleAware) object;
-					lifeCycleAwareBean.onPageLoad();
+					try {
+						lifeCycleAwareBean.onPageLoad();
+					} catch (Exception e) {
+						log.error("Exception caught onPageLoad" + object, e);
+					}
 					if (log.isDebugEnabled()) {
 						log.debug("OnPageLoad is executed on {}",
 								object.getClass());
