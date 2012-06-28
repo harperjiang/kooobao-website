@@ -47,6 +47,13 @@ public class PurchaseBean extends AbstractBean {
 		}
 	}
 
+	public String cancel() {
+		setPurchase(getPurchaseService().cancelPurchase(getPurchase(),
+				cancelSelect + ":" + cancelReason));
+		addMessage(FacesMessage.SEVERITY_INFO, "操作成功", "您的订单已经取消");
+		return "success";
+	}
+
 	public boolean isCanCancel() {
 		return getPurchase() != null
 				&& (getPurchase().getState() == PurchaseState.SUBMIT || getPurchase()
@@ -61,6 +68,26 @@ public class PurchaseBean extends AbstractBean {
 
 	public void setPurchase(Purchase purchase) {
 		this.purchase = purchase;
+	}
+
+	private String cancelSelect;
+
+	public String getCancelSelect() {
+		return cancelSelect;
+	}
+
+	public void setCancelSelect(String cancelSelect) {
+		this.cancelSelect = cancelSelect;
+	}
+
+	private String cancelReason;
+
+	public String getCancelReason() {
+		return cancelReason;
+	}
+
+	public void setCancelReason(String cancelReason) {
+		this.cancelReason = cancelReason;
 	}
 
 	@ManagedProperty("#{purchaseService}")

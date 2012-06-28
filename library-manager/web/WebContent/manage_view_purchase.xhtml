@@ -47,7 +47,6 @@
 </style>
 	</ui:define>
 	<ui:define name="body">
-		<ui:decorate template="my_menu.xhtml" />
 		<div
 			style="margin-left: 40px; margin-top: 5px; margin-bottom: 5px; float: left; width: 810px;">
 			<div class="part" style="background-color: #fdfcfb;">
@@ -55,23 +54,23 @@
 					style="width: 250px; float: left; padding-top: 12px; padding-left: 40px; padding-bottom: 10px; background-color: #ffe2dd;">
 					<h:outputText styleClass="label_text" value="订单号码:" />
 					<h:outputText styleClass="content_text"
-						value="#{purchaseBean.purchase.oid}" />
+						value="#{manageViewPurchaseBean.purchase.oid}" />
 					<br />
 					<h:outputText styleClass="label_text" value="当前状态:" />
 					<h:outputText styleClass="content_text"
-						value="#{purchaseBean.purchase.stateText}" />
+						value="#{manageViewPurchaseBean.purchase.stateText}" />
 				</div>
 				<div
 					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
 					<h:outputText styleClass="small_label" value="创建日期:" />
 					<h:outputText styleClass="small_content"
-						value="#{purchaseBean.purchase.createTime}">
+						value="#{manageViewPurchaseBean.purchase.createTime}">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</h:outputText>
 					<br />
 					<h:outputText styleClass="small_label" value="总价:" />
 					<h:outputText styleClass="small_content"
-						value="#{purchaseBean.purchase.totalPrice}">
+						value="#{manageViewPurchaseBean.purchase.totalPrice}">
 					</h:outputText>
 				</div>
 			</div>
@@ -80,7 +79,7 @@
 					<h:outputText value="图书信息" />
 				</div>
 				<div class="part_body">
-				<div class="table_header">
+					<div class="table_header">
 				<div class="table_header_col" style="width:320px;">
 				书名
 				</div>
@@ -111,7 +110,8 @@
 					<h:outputText value="订单历史" />
 				</div>
 				<div class="part_body">
-					<ui:repeat var="log" value="#{purchaseBean.purchase.logs}">
+					<ui:repeat var="log"
+						value="#{manageViewPurchaseBean.purchase.logs}">
 						<div style="margin-top: 5px; margin-bottom: 5px;">
 							<div
 								style="display: inline; margin-right: 20px; margin-top: 5px; margin-bottom: 5px;">
@@ -136,59 +136,29 @@
 					<div class="part_item">
 						<h:outputLabel for="sendText" value="配送方式" />
 						<h:outputText id="sendText"
-							value="#{purchaseBean.purchase.deliveryText}" />
+							value="#{manageViewPurchaseBean.purchase.deliveryText}" />
 					</div>
 
 					<div class="part_item">
 						<h:outputLabel for="priceText" value="配送费用" />
 						<h:outputText id="priceText"
-							value="#{purchaseBean.purchase.deliveryFee}" />
+							value="#{manageViewPurchaseBean.purchase.deliveryFee}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="nameText" value="收件人" />
 						<h:outputText id="nameText"
-							value="#{purchaseBean.purchase.address.name}" />
+							value="#{manageViewPurchaseBean.purchase.address.name}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="locationText" value="收件地址" />
 						<h:outputText id="locationText"
-							value="#{purchaseBean.purchase.address.location}" />
+							value="#{manageViewPurchaseBean.purchase.address.location}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="phoneText" value="联系电话" />
 						<h:outputText id="phoneText"
-							value="#{purchaseBean.purchase.address.phone}" />
+							value="#{manageViewPurchaseBean.purchase.address.phone}" />
 					</div>
-				</div>
-			</div>
-			<div class="part">
-				<div class="part_header">
-					<h:outputText value="取消订单" rendered="#{purchaseBean.canCancel}" />
-				</div>
-				<div class="part_body">
-					<h:form id="commentForm">
-						<h:outputLink id="originalCancelButton" styleClass="btn_solid"
-							value="#" rendered="#{purchaseBean.canCancel}"
-							onclick="switch_cancel_layer()">作废订单</h:outputLink>
-						<div id="cancelLayer" style="display: none; width: 400px;">
-							<label>请填写您取消订单的原因:</label><span>（您的留言有助于我们为您提供更好的服务）</span>
-							<h:selectOneMenu value="#{purchaseBean.cancelSelect}"
-								style="margin-top:5px;margin-bottom:5px;">
-								<f:selectItems value="#{suppDataBean.cancelReasons}" />
-							</h:selectOneMenu>
-							<h:inputTextarea
-								style="width:360px;height:80px;margin-bottom:5px;"
-								value="#{purchaseBean.cancelReason}" />
-							<h:commandLink id="cancelButton" styleClass="btn_solid"
-								value="作废订单" action="#{purchaseBean.cancel}" />
-						</div>
-					</h:form>
-					<script language="javascript">	<!--							function switch_cancel_layer() {
-									document.getElementById("commentForm:originalCancelButton").style.display="none";
-									document.getElementById("cancelLayer").style.display="block";
-								}
-							-->
-						</script>
 				</div>
 			</div>
 		</div>
