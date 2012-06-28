@@ -254,4 +254,8 @@ public class Purchase extends VersionEntity {
 	public String getStateText() {
 		return StatusUtils.text(getState());
 	}
+	
+	public String getDeliveryText() {
+		return StatusUtils.text(getDeliveryMethod());
+	}
 }

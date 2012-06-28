@@ -55,36 +55,24 @@
 					style="width: 250px; float: left; padding-top: 12px; padding-left: 40px; padding-bottom: 10px; background-color: #ffe2dd;">
 					<h:outputText styleClass="label_text" value="订单号码:" />
 					<h:outputText styleClass="content_text"
-						value="#{transactionBean.tran.oid}" />
+						value="#{purchaseBean.purchase.oid}" />
 					<br />
 					<h:outputText styleClass="label_text" value="当前状态:" />
 					<h:outputText styleClass="content_text"
-						value="#{transactionBean.tran.stateText}" />
+						value="#{purchaseBean.purchase.stateText}" />
 				</div>
 				<div
 					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
 					<h:outputText styleClass="small_label" value="创建日期:" />
 					<h:outputText styleClass="small_content"
-						value="#{transactionBean.tran.createTime}">
+						value="#{purchaseBean.purchase.createTime}">
 						<f:convertDateTime pattern="yyyy-MM-dd" />
 					</h:outputText>
 					<br />
-					<h:outputText styleClass="small_label" value="应归还日期:" />
+					<h:outputText styleClass="small_label" value="总价:" />
 					<h:outputText styleClass="small_content"
-						value="#{transactionBean.tran.dueTime}">
-						<f:convertDateTime pattern="yyyy-MM-dd" />
+						value="#{purchaseBean.purchase.totalPrice}">
 					</h:outputText>
-				</div>
-				<div
-					style="float: left; width: 200px; padding-top: 15px; padding-left: 10px;">
-					<h:outputText styleClass="small_label" value="是否逾期:" />
-					<h:outputText styleClass="small_content"
-						value="#{transactionBean.expireRecord == null?'否':'是'}" />
-					<br />
-					<h:outputText styleClass="small_label" value="逾期款项:" />
-					<h:outputText styleClass="small_content"
-						rendered="#{transactionBean.expireRecord != null}"
-						value="#{transactionBean.expireRecord.penalty} #{envSettingBean.moneyUnit}" />
 				</div>
 			</div>
 			<div class="part">
@@ -92,10 +80,12 @@
 					<h:outputText value="图书信息" />
 				</div>
 				<div class="part_body">
-					<h:outputLink value="/book.html">
-						<h:outputText value="#{transactionBean.tran.book.name}" />
-						<f:param name="book_id" value="#{transactionBean.tran.book.oid}" />
-					</h:outputLink>
+					<ui:repeat var="item" value="#{purchaseBean.purchase.items}">
+						<h:outputLink value="/book.html">
+							<h:outputText value="#{item.book.name}" />
+							<f:param name="book_id" value="#{item.book.oid}" />
+						</h:outputLink>
+					</ui:repeat>
 				</div>
 			</div>
 			<div class="part">
@@ -103,18 +93,17 @@
 					<h:outputText value="订单历史" />
 				</div>
 				<div class="part_body">
-					<ui:repeat var="operation"
-						value="#{transactionBean.tran.operations}">
+					<ui:repeat var="log" value="#{purchaseBean.purchase.logs}">
 						<div style="margin-top: 5px; margin-bottom: 5px;">
 							<div
 								style="display: inline; margin-right: 20px; margin-top: 5px; margin-bottom: 5px;">
-								<h:outputText value="#{operation.createTime}">
+								<h:outputText value="#{log.createTime}">
 									<f:convertDateTime pattern="yyyy-MM-dd HH:mm"
 										timeZone="#{envSettingBean.timeZone}" />
 								</h:outputText>
 							</div>
 							<div style="display: inline;">
-								<h:outputText value="#{operation.description}" />
+								<h:outputText value="#{log.description}" />
 							</div>
 						</div>
 					</ui:repeat>
@@ -129,39 +118,34 @@
 					<div class="part_item">
 						<h:outputLabel for="sendText" value="配送方式" />
 						<h:outputText id="sendText"
-							value="#{transactionBean.tran.deliveryText}" />
+							value="#{purchaseBean.purchase.deliveryText}" />
 					</div>
 
 					<div class="part_item">
 						<h:outputLabel for="priceText" value="配送费用" />
 						<h:outputText id="priceText"
-							value="#{transactionBean.tran.deliveryFee}" />
+							value="#{purchaseBean.purchase.deliveryFee}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="nameText" value="收件人" />
 						<h:outputText id="nameText"
-							value="#{transactionBean.tran.address.name}" />
+							value="#{purchaseBean.purchase.address.name}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="locationText" value="收件地址" />
 						<h:outputText id="locationText"
-							value="#{transactionBean.tran.address.location}" />
+							value="#{purchaseBean.purchase.address.location}" />
 					</div>
 					<div class="part_item">
 						<h:outputLabel for="phoneText" value="联系电话" />
 						<h:outputText id="phoneText"
-							value="#{transactionBean.tran.address.phone}" />
+							value="#{purchaseBean.purchase.address.phone}" />
 					</div>
 				</div>
 			</div>
 			<div class="part">
 				<div class="part_header">
-					<h:outputText value="登记还书"
-						rendered="#{transactionBean.canSendback}" />
-					<h:outputText value="评价图书"
-						rendered="#{transactionBean.canComment}" />	
-					<h:outputText value="取消订单"
-						rendered="#{transactionBean.canCancel}" />	
+					<h:outputText value="取消订单" rendered="#{purchaseBean.canCancel}" />
 				</div>
 				<div class="part_body">
 					<h:form id="commentForm">
@@ -228,8 +212,7 @@
 							<h:commandLink styleClass="btn_regular"
 								action="#{transactionBean.saveComment}">保存</h:commandLink>
 						</h:panelGroup>
-						<script language="javascript"><!--
-								function change_rating(val) {
+						<script language="javascript">								function change_rating(val) {
 									for(i = 1 ; i <= val ; i++) {
 										document.getElementById("star"+i).src="/image/star.gif";
 									}
