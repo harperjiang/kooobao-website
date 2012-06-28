@@ -37,6 +37,8 @@ public class TransactionBean extends AbstractBean {
 					|| !lb.getUserId().equals(getTran().getVisitor().getId())) {
 				// Unauthorized
 				addMessage(FacesMessage.SEVERITY_ERROR, "无权限", "您无权查看该订单");
+				setTran(null);
+				return;
 			} else {
 				setExpireRecord(getTransactionService().findExpireRecord(
 						getTran()));
