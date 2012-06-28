@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/template/page_template.xhtml">
+	<ui:param name="displayLogin" value="true"></ui:param>
+	<ui:define name="title">酷宝图书馆-管理购买记录</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="page_title">管理/审核购买记录</div>
+			<div class="form" style="width: 560px; overflow: auto; padding: 5px;">
+				<label>订单编号</label>
+				<h:inputText value="#{managePurchaseBean.purchaseId}">
+					<f:convertNumber integerOnly="true" />
+				</h:inputText>
+				<br /> <label>记录状态</label>
+				<h:selectOneMenu value="#{managePurchaseBean.state}">
+					<f:selectItems value="#{suppDataBean.purchaseStates}" />
+				</h:selectOneMenu>
+				<br /> <label>借阅者id</label>
+				<h:inputText value="#{managePurchaseBean.visitorId}" />
+				<br /> <label>开始日期</label>
+				<h:inputText value="#{managePurchaseBean.fromDate}" required="true">
+					<f:convertDateTime pattern="#{envSettingBean.datePattern}"
+						timeZone="#{envSettingBean.timeZone}" />
+				</h:inputText>
+				<br /> <label>结束日期</label>
+				<h:inputText value="#{managePurchaseBean.toDate}" required="true">
+					<f:convertDateTime pattern="#{envSettingBean.datePattern}"
+						timeZone="#{envSettingBean.timeZone}" />
+				</h:inputText>
+				<br />
+				<div style="width: 500px; float: left; text-align: center;">
+					<h:commandLink action="#{managePurchaseBean.search}" value="搜索"
+						styleClass="btn_solid" />
+				</div>
+			</div>
+			<div style="margin-top: 10px;">
+				<div class="table_header">
+					<div class="table_header_col" style="width: 70px">订单号码</div>
+					<div class="table_header_col">订书人</div>
+					<div class="table_header_col" style="width: 200px">书名</div>
+					<div class="table_header_col" style="width: 100px">数量</div>
+					<div class="table_header_col" style="width: 100px">创建日期</div>
+					<div class="table_header_col" style="width: 120px">当前状态</div>
+					<div class="table_header_col" style="width: 200px">操作</div>
+				</div>
+				<ui:repeat var="purchase" value="#{managePurchaseBean.result}"
+					varStatus="purchaseStatus">
+					<div class="table_row"
+						style="background-color: #{purchaseStatus.index mod 2==0?'#eeeeee':'#dddddd'}">
+						<ui:repeat var="item" value="#{purchase.items}"
+							varStatus="itemStatus">
+							<div class="table_cell" style="width: 70px">
+								<h:outputLink rendered="#{itemStatus.index == 0}"
+									value="/manage_view_purchase.html">
+									<h:outputText value="#{purchase.oid}" />
+									<f:param name="purchase_id" value="#{purchase.oid}" />
+								</h:outputLink>
+							</div>
+							<div class="table_cell">
+								<h:outputText rendered="#{itemStatus.index == 0}"
+									value="#{purchase.visitor.id}" />
+							</div>
+							<div class="table_cell" style="width: 200px;">
+								<h:outputLink value="/book.html">
+									<h:outputText value="#{item.book.name}" />
+									<f:param name="book_id" value="item.book.oid" />
+								</h:outputLink>
+							</div>
+							<div class="table_cell" style="width: 100px">
+								<h:outputText value="#{item.count}" />
+							</div>
+							<div class="table_cell" style="width: 100px">
+								<h:outputText rendered="#{itemStatus.index == 0}"
+									value="#{purchase.createTime}">
+									<f:convertDateTime pattern="#{envSettingBean.datePattern}"
+										timeZone="#{envSettingBean.timeZone}" />
+								</h:outputText>
+							</div>
+							<div class="table_cell" style="width: 120px">
+								<h:outputText rendered="#{itemStatus.index == 0}"
+									value="#{purchase.stateText}" />
+							</div>
+							<div class="table_cell" style="width: 200px">
+								<h:panelGroup layout="block" rendered="#{itemStatus.index == 0}">
+									<h:panelGroup rendered="#{purchase.state == 'SUBMIT'}">
+										<h:commandLink value="审核通过" styleClass="btn_confirm_small"
+											action="#{managePurchaseBean.approve}">
+											<f:param name="purchase_id" value="#{purchase.oid}" />
+										</h:commandLink>
+										<h:commandLink value="审核拒绝" styleClass="btn_confirm_small"
+											action="#{managePurchaseBean.reject}">
+											<f:param name="purchase_id" value="#{purchase.oid}" />
+										</h:commandLink>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{purchase.state == 'APPROVE'}">
+										<h:commandLink value="登记发货" styleClass="btn_confirm_small"
+											action="#{managePurchaseBean.send}">
+											<f:param name="purchase_id" value="#{purchase.oid}" />
+										</h:commandLink>
+									</h:panelGroup>
+									<h:commandLink value="中断" styleClass="btn_solid_small"
+										action="#{managePurchaseBean.interrupt}">
+										<f:param name="purchase_id" value="#{purchase.oid}" />
+									</h:commandLink>
+								</h:panelGroup>
+							</div>
+						</ui:repeat>
+					</div>
+				</ui:repeat>
+				<div class="navigation_bar_right">
+					<h:commandLink styleClass="btn_solid_small" style="float:left;"
+						action="#{managePurchaseBean.prevPage}">上一页</h:commandLink>
+					<h:outputText
+						style="display:block;float:left;padding-top:6px;margin-right:5px;"
+						value="第#{managePurchaseBean.currentPage}页，共#{managePurchaseBean.pageCount}页" />
+					<h:commandLink styleClass="btn_solid_small" style="float:left;"
+						action="#{managePurchaseBean.nextPage}">下一页</h:commandLink>
+				</div>
+			</div>
+			<div class="clearer" />
+			<div style="margin-top: 20px;">
+				<label>快递单号</label>
+				<h:inputText value="#{managePurchaseBean.expressNo}" />
+				<label>操作说明:</label>
+				<h:inputText value="#{managePurchaseBean.comment}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

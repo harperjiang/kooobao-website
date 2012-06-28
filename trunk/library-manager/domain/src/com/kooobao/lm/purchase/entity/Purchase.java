@@ -64,6 +64,10 @@ public class Purchase extends VersionEntity {
 	@Embedded
 	private BasicAddress address = new BasicAddress();
 
+	private String process(String comment) {
+		return null == comment ? "" : comment;
+	}
+
 	public void request(String comment) {
 		Validate.isTrue(StringUtils.isEmpty(state));
 		setState(PurchaseState.SUBMIT);
@@ -71,7 +75,8 @@ public class Purchase extends VersionEntity {
 		PurchaseLog log = new PurchaseLog();
 		log.setCreateTime(new Date());
 		log.setToState(PurchaseState.SUBMIT);
-		log.setDescription(MessageFormat.format("您的订单已经提交。{0}", comment));
+		log.setDescription(MessageFormat.format("您的订单已经提交。{0}",
+				process(comment)));
 		log.setHeader(this);
 		getLogs().add(log);
 	}
@@ -86,7 +91,8 @@ public class Purchase extends VersionEntity {
 		log.setFromState(PurchaseState.SUBMIT);
 		log.setToState(PurchaseState.APPROVE);
 		log.setOperatorId(operatorId);
-		log.setDescription(MessageFormat.format("您的订单已经通过审核。{0}", comment));
+		log.setDescription(MessageFormat.format("您的订单已经通过审核。{0}",
+				process(comment)));
 		log.setHeader(this);
 		getLogs().add(log);
 	}
@@ -102,7 +108,7 @@ public class Purchase extends VersionEntity {
 		log.setToState(PurchaseState.SENT);
 		log.setOperatorId(operatorId);
 		log.setDescription(MessageFormat.format("您的订单已经发货，物流信息:{0}。{1}",
-				deliveryInfo, comment));
+				deliveryInfo, process(comment)));
 		log.setHeader(this);
 		getLogs().add(log);
 	}
@@ -110,7 +116,7 @@ public class Purchase extends VersionEntity {
 	public void cancel(String reason) {
 		Validate.isTrue(getState() == PurchaseState.APPROVE
 				|| getState() == PurchaseState.SUBMIT);
-
+		Validate.notEmpty(reason);
 		PurchaseLog log = new PurchaseLog();
 		log.setCreateTime(new Date());
 		log.setFromState(getState());
@@ -125,6 +131,7 @@ public class Purchase extends VersionEntity {
 	public void reject(String operatorId, String reason) {
 		Validate.isTrue(getState() == PurchaseState.SUBMIT);
 		Validate.isTrue(!StringUtils.isEmpty(operatorId));
+		Validate.notEmpty(reason);
 		setState(PurchaseState.REJECT);
 
 		PurchaseLog log = new PurchaseLog();
@@ -139,8 +146,8 @@ public class Purchase extends VersionEntity {
 	}
 
 	public void interrupt(String operatorId, String reason) {
-		Validate.isTrue(!StringUtils.isEmpty(operatorId));
-
+		Validate.notEmpty(operatorId);
+		Validate.notEmpty(reason);
 		PurchaseLog log = new PurchaseLog();
 		log.setCreateTime(new Date());
 		log.setFromState(getState());
@@ -159,7 +166,7 @@ public class Purchase extends VersionEntity {
 		log.setFromState(getState());
 		log.setToState(getState());
 		log.setOperatorId(operatorId);
-		log.setDescription(MessageFormat.format("说明:{0}。", comment));
+		log.setDescription(MessageFormat.format("说明:{0}。", process(comment)));
 		log.setHeader(this);
 		getLogs().add(log);
 	}
@@ -254,7 +261,7 @@ public class Purchase extends VersionEntity {
 	public String getStateText() {
 		return StatusUtils.text(getState());
 	}
-	
+
 	public String getDeliveryText() {
 		return StatusUtils.text(getDeliveryMethod());
 	}
