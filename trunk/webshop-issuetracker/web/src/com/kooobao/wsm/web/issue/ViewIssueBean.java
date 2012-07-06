@@ -3,7 +3,6 @@ package com.kooobao.wsm.web.issue;
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
 import com.kooobao.wsm.domain.dao.IssueDao;
@@ -12,11 +11,6 @@ import com.kooobao.wsm.domain.entity.issue.TrackLog;
 import com.kooobao.wsm.web.AbstractBean;
 
 public class ViewIssueBean extends AbstractBean {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1223656656837709445L;
 
 	private long issueOid;
 
