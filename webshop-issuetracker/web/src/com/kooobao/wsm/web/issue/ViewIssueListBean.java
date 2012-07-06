@@ -12,11 +12,6 @@ import com.kooobao.wsm.web.Utilities;
 
 public class ViewIssueListBean extends AbstractBean {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2904629592898212412L;
-
 	@Override
 	public void onPageLoad() {
 		reload();
