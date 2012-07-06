@@ -10,6 +10,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -30,6 +31,11 @@ public abstract class AbstractBean implements JSFLifecycleAware {
 	public String getParameter(String paramName) {
 		return FacesContext.getCurrentInstance().getExternalContext()
 				.getRequestParameterMap().get(paramName);
+	}
+
+	public static HttpSession getSession() {
+		return (HttpSession) FacesContext.getCurrentInstance()
+				.getExternalContext().getSession(true);
 	}
 
 	public Cookie getCookie(String name) {

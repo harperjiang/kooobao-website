@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.kooobao.common.spring.ApplicationContextHolder;
 import com.kooobao.common.util.ConfigLoader;
 
@@ -20,8 +22,9 @@ public class BeanStartuper implements ServletContextListener {
 			keys = new HashSet<String>();
 			String keyString = ConfigLoader.getInstance().load(
 					"startup_bean_list", "key");
-			for (String val : keyString.split(","))
-				keys.add(val);
+			if (!StringUtils.isEmpty(keyString))
+				for (String val : keyString.split(","))
+					keys.add(val);
 		}
 		return keys;
 	}
