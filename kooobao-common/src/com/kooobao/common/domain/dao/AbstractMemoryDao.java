@@ -22,12 +22,12 @@ public abstract class AbstractMemoryDao<T extends VersionEntity> implements
 	public T store(T entity) {
 		if (entity.getOid() == 0) {
 			entity.setOid(count++);
+			entity.setCreateTime(new Date());
 		}
 		storage.put(entity.getOid(), entity);
-		entity.setCreateTime(new Date());
 		return entity;
 	}
-	
+
 	public T remove(T entity) {
 		return storage.remove(entity.getOid());
 	}
@@ -47,7 +47,7 @@ public abstract class AbstractMemoryDao<T extends VersionEntity> implements
 	protected Map<Long, T> getStorage() {
 		return storage;
 	}
-	
+
 	public Cursor<T> findAll() {
 		// TODO Auto-generated method stub
 		return null;

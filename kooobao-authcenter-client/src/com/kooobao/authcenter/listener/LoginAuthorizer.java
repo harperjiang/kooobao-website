@@ -41,7 +41,7 @@ public class LoginAuthorizer implements PhaseListener {
 	public static Map<String, ValidatePattern> patterns;
 
 	private static boolean multiSystem;
-	
+
 	static {
 		patterns = new ConcurrentHashMap<String, ValidatePattern>();
 		initPatterns(patterns);
@@ -136,6 +136,7 @@ public class LoginAuthorizer implements PhaseListener {
 	}
 
 	public static Token getToken(HttpSession ssn, String system) {
+		@SuppressWarnings("unchecked")
 		Map<String, Token> tokens = (Map<String, Token>) ssn
 				.getAttribute(Constants.TOKEN);
 		if (null == tokens) {
@@ -146,6 +147,7 @@ public class LoginAuthorizer implements PhaseListener {
 	}
 
 	public static void setToken(HttpSession ssn, String system, Token token) {
+		@SuppressWarnings("unchecked")
 		Map<String, Token> tokens = (Map<String, Token>) ssn
 				.getAttribute(Constants.TOKEN);
 		if (null == tokens) {
