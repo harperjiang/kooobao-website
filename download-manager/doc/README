@@ -1,0 +1,7 @@
+Requirement list:
+1. Manage FTP files
+	a) Scan files under given directories for changed
+	b) Index changed files and assign id
+2. Provide URL access
+	a) URL format: base?file_id=xx
+	b) Provide anti-leech utils

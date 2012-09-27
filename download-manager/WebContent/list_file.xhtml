@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>List Files</title>
+</h:head>
+<h:body>
+
+	<h:form>
+		<h:panelGroup layout="block" style="display:block;">
+			<h:outputText
+				value="Current Location: #{listFileBean.root != NULL ? listFileBean.root.filePath: '/'}" />
+			<h:commandLink style="margin-left:30px;"
+				action="#{listFileBean.upLevel}">Up</h:commandLink>
+			<ui:repeat var="child" value="#{listFileBean.children}">
+				<h:panelGroup layout="block"
+					style="display:block;margin-left:40px;margin-top:5px;margin-bottom:5px;">
+					<h:panelGroup rendered="#{child.file}">
+						<h:outputText value="#{child.displayName}" />
+						<h:outputText style="margin-left:30px;"
+							value="http://localhost:8080/download-manager/download?file_id=#{child.oid}" />
+					</h:panelGroup>
+					<h:commandLink rendered="#{!child.file}"
+						action="#{listFileBean.enter}">
+						<f:param name="file_id" value="#{child.oid}" />
+						<h:outputText value="#{child.displayName}" />
+					</h:commandLink>
+				</h:panelGroup>
+			</ui:repeat>
+		</h:panelGroup>
+		<h:commandButton action="#{listFileBean.refresh}" value="Refresh" />
+
+	</h:form>
+</h:body>
+</html>
