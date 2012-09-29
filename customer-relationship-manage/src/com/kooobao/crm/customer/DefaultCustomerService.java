@@ -1,5 +1,6 @@
 package com.kooobao.crm.customer;
 
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,37 @@ public class DefaultCustomerService implements CustomerService {
 	public void update(Context context, Customer customer) {
 		// TODO Set unmodifiable limit to some fields
 		// TODO Generate change log
-		getCustomerDao().store(customer);
+
+		Customer old = getCustomerDao().find(customer.getOid());
+
+		CustomerFollowup change = generateChange(old, customer);
+		if (null != change) {
+			change.setOwnBy(context.getOperatorId());
+			customer.addFollowup(change);
+
+			getCustomerDao().store(customer);
+		}
+	}
+
+	private CustomerFollowup generateChange(Customer old, Customer customer) {
+		StringBuffer change = new StringBuffer();
+
+		if (!old.getName().equals(customer.getName())) {
+			change.append(MessageFormat.format("Name: {0} -> {1}\n",
+					old.getName(), customer.getName()));
+		}
+
+		if (!old.getContact().equals(customer.getContact())) {
+			change.append(MessageFormat.format("Contact: {0} -> {1}\n", old
+					.getContact().toString(), customer.getContact().toString()));
+		}
+
+		if (change.length() != 0) {
+			CustomerFollowup cfu = new CustomerFollowup();
+			cfu.setReference(change.toString());
+			return cfu;
+		} else
+			return null;
 	}
 
 	@Override
