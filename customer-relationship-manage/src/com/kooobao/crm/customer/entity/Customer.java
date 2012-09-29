@@ -1,13 +1,16 @@
 package com.kooobao.crm.customer.entity;
 
+import java.util.Map;
+
 
 public class Customer {
 
-	private String recorder;
+	private String registerBy;
 
-	private String currentOwner;
+	private String ownBy;
 
 	private String name;
 
-	private Contact contact;
+	private Map<String, Contact> contacts;
+
 }
