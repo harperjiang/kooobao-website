@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+	xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_1.xsd">
+	<converter name="enumConverter"
+		class="com.kooobao.common.domain.converter.EnumConverter" />
+
+	<table-generator name="customerTG" table="crm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="crm_customer" />
+	<table-generator name="followupTG" table="crm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="crm_followup" />
+	<table-generator name="hintTG" table="crm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="crm_hint" />
+
+	<entity class="com.kooobao.crm.customer.entity.Customer">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="customerTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.crm.customer.entity.CustomerFollowup">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="followupTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.crm.customer.entity.HintFollowup">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="followupTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.crm.customer.entity.Hint">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="hintTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+</entity-mappings>

@@ -1,11 +1,21 @@
 package com.kooobao.crm.customer.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Contact {
 
+	@Column(name = "contact_name")
 	private String name;
 
+	@Column(name = "phone")
 	private String phone;
 
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "address")
 	private String address;
 
 	public String getName() {

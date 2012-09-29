@@ -2,8 +2,10 @@ package com.kooobao.crm.customer;
 
 import java.util.List;
 
+import com.kooobao.crm.common.Context;
 import com.kooobao.crm.customer.entity.CustomerNature;
 import com.kooobao.crm.customer.entity.Hint;
+import com.kooobao.crm.customer.entity.HintFollowup;
 import com.kooobao.crm.order.entity.Order;
 
 public interface HintService {
@@ -15,7 +17,7 @@ public interface HintService {
 	 * @return <code>true</code> if success, <code>false</code> if already
 	 *         exists
 	 */
-	boolean addHint(Hint hint);
+	boolean addHint(Context context, Hint hint);
 
 	/**
 	 * Record a follow up action. System should try to determine whether this
@@ -23,7 +25,7 @@ public interface HintService {
 	 * 
 	 * @param hint
 	 */
-	void followup(Hint hint);
+	void followup(Context context, HintFollowup followup);
 
 	/**
 	 * Place an order for the potential customer, and this will upgrade the hint
@@ -32,21 +34,22 @@ public interface HintService {
 	 * @param hint
 	 * @param order
 	 */
-	void placeOrder(Hint hint, Order order, CustomerNature nature);
+	void placeOrder(Context context, Hint hint, Order order,
+			CustomerNature nature);
 
 	/**
 	 * Get hints list for current user
 	 * 
 	 * @return
 	 */
-	List<Hint> getAvailableHints();
+	List<Hint> getAvailableHints(Context context);
 
 	/**
 	 * Request hints to be allocated
 	 * 
 	 * @return the number of hints as the request result
 	 */
-	int request();
+	int request(Context context);
 
 	/**
 	 * Exchange given hints with new hints from library
@@ -54,5 +57,10 @@ public interface HintService {
 	 * @param hints
 	 * @return count of newly allocated
 	 */
-	int exchange(List<Hint> hints);
+	int exchange(Context context, List<Hint> hints);
+	
+	/**
+	 * 
+	 */
+	void freeHints();
 }

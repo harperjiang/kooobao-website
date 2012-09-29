@@ -3,6 +3,7 @@
     <wb-module deploy-name="customer-relationship-manage">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="java-output-path" value="/customer-relationship-manage/build/classes"/>
         <property name="context-root" value="customer-relationship-manage"/>
     </wb-module>
