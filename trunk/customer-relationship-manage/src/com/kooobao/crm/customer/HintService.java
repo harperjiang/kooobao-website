@@ -2,6 +2,7 @@ package com.kooobao.crm.customer;
 
 import java.util.List;
 
+import com.kooobao.crm.customer.entity.CustomerNature;
 import com.kooobao.crm.customer.entity.Hint;
 import com.kooobao.crm.order.entity.Order;
 
@@ -31,7 +32,7 @@ public interface HintService {
 	 * @param hint
 	 * @param order
 	 */
-	void placeOrder(Hint hint, Order order);
+	void placeOrder(Hint hint, Order order, CustomerNature nature);
 
 	/**
 	 * Get hints list for current user
