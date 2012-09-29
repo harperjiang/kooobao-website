@@ -6,6 +6,8 @@ import com.kooobao.crm.customer.entity.Customer;
 
 public class Order {
 
+	private String status;
+
 	private String externalOid;
 
 	private String ownBy;
@@ -15,6 +17,14 @@ public class Order {
 	private BigDecimal amount;
 
 	private int quality;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getExternalOid() {
 		return externalOid;

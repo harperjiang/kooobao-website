@@ -2,13 +2,19 @@ package com.kooobao.crm.customer.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,7 +28,7 @@ public class Hint extends VersionEntity {
 	private String name;
 
 	@Embedded
-	private Contact contact;
+	private Contact contact = new Contact();
 
 	@Column(name = "register_by")
 	private String registerBy;
@@ -36,8 +42,16 @@ public class Hint extends VersionEntity {
 	@Column(name = "update_time")
 	private Date updateTime;
 
+	@Column(name = "desc_text")
+	private String description;
+
 	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "hint")
 	private List<HintFollowup> followups = new ArrayList<HintFollowup>();
+
+	@ElementCollection
+	@MapKeyColumn(name = "contact_type")
+	@CollectionTable(name = "crm_hint_contact", joinColumns = { @JoinColumn(name = "hint_id", referencedColumnName = "obj_id") })
+	private Map<String, String> otherContact = new HashMap<String, String>();
 
 	public String getName() {
 		return name;
@@ -49,10 +63,6 @@ public class Hint extends VersionEntity {
 
 	public Contact getContact() {
 		return contact;
-	}
-
-	public void setContact(Contact contact) {
-		this.contact = contact;
 	}
 
 	public String getRegisterBy() {
@@ -94,6 +104,18 @@ public class Hint extends VersionEntity {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Map<String, String> getOtherContact() {
+		return otherContact;
 	}
 
 }

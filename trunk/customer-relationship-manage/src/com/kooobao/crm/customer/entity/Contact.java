@@ -18,6 +18,9 @@ public class Contact {
 	@Column(name = "address")
 	private String address;
 
+	@Column(name = "qq")
+	private String qq;
+
 	public String getName() {
 		return name;
 	}
@@ -40,6 +43,14 @@ public class Contact {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
 	}
 
 }

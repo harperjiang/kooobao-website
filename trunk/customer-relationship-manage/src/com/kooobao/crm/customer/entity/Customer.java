@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -24,6 +25,12 @@ import com.kooobao.common.domain.entity.VersionEntity;
 @Entity
 @Table(name = "crm_customer")
 public class Customer extends VersionEntity {
+
+	@Column(name = "source")
+	private String source;
+
+	@Column(name = "id")
+	private String id;
 
 	@Column(name = "register_by")
 	private String registerBy;
@@ -41,16 +48,38 @@ public class Customer extends VersionEntity {
 	@Convert("enumConverter")
 	private CustomerNature nature;
 
+	@Embedded
+	private Contact contact = new Contact();
+
 	@ElementCollection
 	@MapKeyColumn(name = "contact_type")
 	@CollectionTable(name = "crm_customer_contact", joinColumns = { @JoinColumn(name = "customer_id", referencedColumnName = "obj_id") })
-	private Map<String, Contact> contacts = new HashMap<String, Contact>();
+	private Map<String, String> otherContact = new HashMap<String, String>();
 
 	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade = { CascadeType.ALL }, mappedBy = "customer")
 	private List<CustomerFollowup> followups = new ArrayList<CustomerFollowup>();
 
 	@Column(name = "update_time")
 	private Date updateTime;
+
+	@Column(name = "desc_text")
+	private String description;
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getRegisterBy() {
 		return registerBy;
@@ -84,8 +113,12 @@ public class Customer extends VersionEntity {
 		this.nature = nature;
 	}
 
-	public Map<String, Contact> getContacts() {
-		return contacts;
+	public Contact getContact() {
+		return contact;
+	}
+
+	public Map<String, String> getOtherContact() {
+		return otherContact;
 	}
 
 	public List<CustomerFollowup> getFollowups() {
@@ -111,5 +144,13 @@ public class Customer extends VersionEntity {
 
 	public void setStatus(CustomerStatus status) {
 		this.status = status.name();
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

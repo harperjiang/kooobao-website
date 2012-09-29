@@ -9,11 +9,12 @@ import com.kooobao.crm.customer.entity.CustomerFollowup;
 public interface CustomerService {
 
 	/**
-	 * Add a customer info
+	 * Update Customer Info
 	 * 
+	 * @param context
 	 * @param customer
 	 */
-	void addCustomer(Context context, Customer customer);
+	void update(Context context, Customer customer);
 
 	/**
 	 * Current operator mark a follow up action of the indicated customer
@@ -45,7 +46,8 @@ public interface CustomerService {
 	int exchange(Context context, List<Customer> old);
 
 	/**
-	 * 
+	 * Free occupied customers that is over time
 	 */
 	void freeCustomers();
+
 }
