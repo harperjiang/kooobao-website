@@ -49,10 +49,45 @@ public class CustomerScore {
 
 	public static class CustomerScorePK implements Serializable {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -2877046036804052931L;
+
 		private long customerId;
 
 		private int score;
 
+		public Long getCustomerId() {
+			return customerId;
+		}
+
+		public void setCustomerId(long customerId) {
+			this.customerId = customerId;
+		}
+
+		public Integer getScore() {
+			return score;
+		}
+
+		public void setScore(int score) {
+			this.score = score;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof CustomerScorePK) {
+				CustomerScorePK csp = (CustomerScorePK) obj;
+				return csp.getCustomerId() == getCustomerId()
+						&& csp.getScore() == getScore();
+			}
+			return super.equals(obj);
+		}
+
+		@Override
+		public int hashCode() {
+			return getScore().hashCode() * 39 + getCustomerId().hashCode();
+		}
 	}
 
 }
