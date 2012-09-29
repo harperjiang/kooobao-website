@@ -28,6 +28,24 @@ public interface HintService {
 	void followup(Context context, HintFollowup followup);
 
 	/**
+	 * Check the suspect hint
+	 * 
+	 * @param context
+	 * @param hint
+	 * @param pass
+	 *            true to FREE, false to DISCARD
+	 */
+	void revise(Context context, Hint hint, boolean pass);
+
+	/**
+	 * Discard the indicated hint
+	 * 
+	 * @param context
+	 * @param hint
+	 */
+	void discard(Context context, Hint hint, String comment);
+
+	/**
 	 * Place an order for the potential customer, and this will upgrade the hint
 	 * to a customer
 	 * 
@@ -58,7 +76,7 @@ public interface HintService {
 	 * @return count of newly allocated
 	 */
 	int exchange(Context context, List<Hint> hints);
-	
+
 	/**
 	 * 
 	 */

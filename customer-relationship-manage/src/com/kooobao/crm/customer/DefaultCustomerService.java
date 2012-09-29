@@ -7,6 +7,8 @@ import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.crm.common.Context;
+import com.kooobao.crm.common.unique.UniquenessDao;
+import com.kooobao.crm.common.wordsplit.WordService;
 import com.kooobao.crm.customer.dao.CustomerDao;
 import com.kooobao.crm.customer.entity.Customer;
 import com.kooobao.crm.customer.entity.CustomerFollowup;
@@ -16,20 +18,11 @@ import com.kooobao.crm.setting.entity.CustomerSetting;
 
 public class DefaultCustomerService implements CustomerService {
 
-	protected boolean duplicate(Customer customer) {
-		return false;
-	}
-
 	@Override
-	public void addCustomer(Context context, Customer customer) {
-		// TODO Global Lock to ensure uniqueness
-		if (!duplicate(customer)) {
-			customer.setStatus(CustomerStatus.OCCUPIED);
-			customer.setRegisterBy(context.getOperatorId());
-			customer.setOwnBy(context.getOperatorId());
-			customer.setUpdateTime(new Date());
-			getCustomerDao().store(customer);
-		}
+	public void update(Context context, Customer customer) {
+		// TODO Set unmodifiable limit to some fields
+		// TODO Generate change log
+		getCustomerDao().store(customer);
 	}
 
 	@Override
@@ -90,17 +83,33 @@ public class DefaultCustomerService implements CustomerService {
 
 	@Override
 	public void freeCustomers() {
+		Context context = new Context();
+		context.setOperatorId("SYSTEM");
 		Cursor<Customer> customers = getCustomerDao().getOvertimeCustomers(
 				getSettingDao().getCustomerSetting().getCustomerRetainTime());
 		while (customers.hasNext()) {
 			Customer cust = customers.next();
-			cust.setOwnBy(null);
-			cust.setStatus(CustomerStatus.FREE);
-			cust.setUpdateTime(new Date());
+			free(context, cust, "OVERTIME");
 		}
 	}
 
+	public void free(Context context, Customer customer, String comment) {
+		customer.setOwnBy(null);
+		customer.setStatus(CustomerStatus.FREE);
+		customer.setUpdateTime(new Date());
+
+		CustomerFollowup cf = new CustomerFollowup();
+		cf.setComment("FREE:" + comment);
+		cf.setCreateTime(new Date());
+		cf.setOwnBy(context.getOperatorId());
+		customer.addFollowup(cf);
+	}
+
 	private CustomerDao customerDao;
+
+	private UniquenessDao uniquenessDao;
+
+	private WordService wordService;
 
 	public CustomerDao getCustomerDao() {
 		return customerDao;
@@ -118,6 +127,22 @@ public class DefaultCustomerService implements CustomerService {
 
 	public void setSettingDao(SettingDao settingDao) {
 		this.settingDao = settingDao;
+	}
+
+	public UniquenessDao getUniquenessDao() {
+		return uniquenessDao;
+	}
+
+	public void setUniquenessDao(UniquenessDao uniquenessDao) {
+		this.uniquenessDao = uniquenessDao;
+	}
+
+	public WordService getWordService() {
+		return wordService;
+	}
+
+	public void setWordService(WordService wordService) {
+		this.wordService = wordService;
 	}
 
 }

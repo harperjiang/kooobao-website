@@ -23,7 +23,7 @@ public class CustomerFollowup extends SimpleEntity {
 
 	@Column(name = "method")
 	@Convert("enumConverter")
-	FollowupMethod method;
+	ContactMethod method;
 
 	@Column(name = "reference")
 	String reference;
@@ -47,11 +47,11 @@ public class CustomerFollowup extends SimpleEntity {
 		this.comment = comment;
 	}
 
-	public FollowupMethod getMethod() {
+	public ContactMethod getMethod() {
 		return method;
 	}
 
-	public void setMethod(FollowupMethod method) {
+	public void setMethod(ContactMethod method) {
 		this.method = method;
 	}
 

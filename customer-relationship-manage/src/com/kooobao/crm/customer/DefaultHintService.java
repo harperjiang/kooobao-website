@@ -2,11 +2,16 @@ package com.kooobao.crm.customer;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.crm.common.Context;
+import com.kooobao.crm.common.unique.UniqueEntry;
+import com.kooobao.crm.common.unique.UniquenessDao;
+import com.kooobao.crm.common.unique.UniquenessException;
+import com.kooobao.crm.common.wordsplit.WordService;
 import com.kooobao.crm.customer.dao.CustomerDao;
 import com.kooobao.crm.customer.dao.HintDao;
 import com.kooobao.crm.customer.entity.Customer;
@@ -22,17 +27,42 @@ import com.kooobao.crm.setting.entity.CustomerSetting;
 public class DefaultHintService implements HintService {
 
 	public void freeHints() {
+		Context context = new Context();
+		context.setOperatorId("SYSTEM");
 		Cursor<Hint> hints = getHintDao().getOvertimeHints(
 				getSettingDao().getCustomerSetting().getHintRetainTime());
 		while (hints.hasNext()) {
 			Hint hint = hints.next();
-			hint.setOwnBy(null);
+			free(context, hint, "Over protection");
 		}
 	}
 
 	protected boolean duplicate(Hint hint) {
-		// TODO Not implemented
-		return false;
+		// Construct Uniqueness Entry
+		UniqueEntry ue = new UniqueEntry();
+		ue.setCategory("HINT");
+		// Split and filter words
+		String[] nameKeys = getWordService().splitWord(hint.getName());
+		for (String nameKey : nameKeys) {
+			ue.getAttributes("NAME").put(nameKey, "NAME");
+		}
+		ue.getAttributes("CONTACT").put(hint.getContact().getPhone(), "PHONE");
+		ue.getAttributes("CONTACT").put(hint.getContact().getName(), "NAME");
+		ue.getAttributes("CONTACT").put(hint.getContact().getQq(), "QQ");
+		ue.getAttributes("CONTACT").put(hint.getContact().getAddress(),
+				"ADDRESS");
+
+		// Store to uniqueness store
+		try {
+			getUniquenessDao().store(ue);
+			return false;
+		} catch (UniquenessException e) {
+			if (e.getCode() == UniquenessException.SUSPECT) {
+				hint.setStatus(HintStatus.SUSPEND);
+				return false;
+			}
+			return true;
+		}
 	}
 
 	@Override
@@ -40,7 +70,9 @@ public class DefaultHintService implements HintService {
 		// TODO Return Error Code
 		if (duplicate(hint))
 			return false;
-
+		if (HintStatus.SUSPEND == hint.getStatus()) {
+			// Need human revise
+		}
 		hint.setRegisterBy(context.getOperatorId());
 		hint.setStatus(HintStatus.NEW);
 		getHintDao().store(hint);
@@ -80,9 +112,22 @@ public class DefaultHintService implements HintService {
 		Customer cust = new Customer();
 		cust.setName(hint.getName());
 		cust.setStatus(CustomerStatus.FREE);
-		cust.getContacts().put("DEFAULT", hint.getContact());
+		cust.getContact().setAddress(hint.getContact().getAddress());
+		cust.getContact().setName(hint.getContact().getName());
+		cust.getContact().setPhone(hint.getContact().getPhone());
+		cust.getContact().setQq(hint.getContact().getQq());
+
+		for (Entry<String, String> oc : hint.getOtherContact().entrySet())
+			cust.getOtherContact().put(oc.getKey(), oc.getValue());
+
+		assignId(cust);
 
 		return cust;
+	}
+
+	private void assignId(Customer cust) {
+		// TODO Not implemented
+
 	}
 
 	@Override
@@ -120,11 +165,44 @@ public class DefaultHintService implements HintService {
 		return newHints.size();
 	}
 
+	@Override
+	public void discard(Context context, Hint hint, String comment) {
+		HintFollowup hfu = new HintFollowup();
+		hfu.setOwnBy(context.getOperatorId());
+		hfu.setCreateTime(new Date());
+		hfu.setComment("Discarded:" + comment);
+		hfu.setReference("Discard");
+		hint.setStatus(HintStatus.DISCARDED);
+
+	}
+
+	public void free(Context context, Hint hint, String comment) {
+		HintFollowup hfu = new HintFollowup();
+		hfu.setOwnBy(context.getOperatorId());
+		hfu.setCreateTime(new Date());
+		hfu.setComment("Free:" + comment);
+		hfu.setReference("Free");
+		hint.setStatus(HintStatus.FREE);
+	}
+
+	@Override
+	public void revise(Context context, Hint hint, boolean pass) {
+		if (pass) {
+			free(context, hint, "Revise");
+		} else {
+			discard(context, hint, "Revise");
+		}
+	}
+
 	private HintDao hintDao;
 
 	private CustomerDao customerDao;
 
 	private SettingDao settingDao;
+
+	private UniquenessDao uniquenessDao;
+
+	private WordService wordService;
 
 	public HintDao getHintDao() {
 		return hintDao;
@@ -148,6 +226,22 @@ public class DefaultHintService implements HintService {
 
 	public void setSettingDao(SettingDao settingDao) {
 		this.settingDao = settingDao;
+	}
+
+	public UniquenessDao getUniquenessDao() {
+		return uniquenessDao;
+	}
+
+	public void setUniquenessDao(UniquenessDao uniquenessDao) {
+		this.uniquenessDao = uniquenessDao;
+	}
+
+	public WordService getWordService() {
+		return wordService;
+	}
+
+	public void setWordService(WordService wordService) {
+		this.wordService = wordService;
 	}
 
 }
