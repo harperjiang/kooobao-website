@@ -8,6 +8,13 @@ import com.kooobao.crm.customer.entity.CustomerFollowup;
 public interface CustomerService {
 
 	/**
+	 * Add a customer info
+	 * 
+	 * @param customer
+	 */
+	void addCustomer(Customer customer);
+
+	/**
 	 * Current operator mark a follow up action of the indicated customer
 	 * 
 	 * @param customer

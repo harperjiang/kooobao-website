@@ -10,6 +10,8 @@ public class Customer {
 	private String ownBy;
 
 	private String name;
+	
+	private CustomerNature nature;
 
 	private Map<String, Contact> contacts;
 
