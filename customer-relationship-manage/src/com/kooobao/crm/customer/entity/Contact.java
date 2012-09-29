@@ -1,4 +1,4 @@
-package com.kooobao.cof.customer.entity;
+package com.kooobao.crm.customer.entity;
 
 public class Contact {
 
