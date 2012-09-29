@@ -1,4 +1,4 @@
-package com.kooobao.cof.profile.bean;
+package com.kooobao.crm.profile.bean;
 
 public class Operator {
 
