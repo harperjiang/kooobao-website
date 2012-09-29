@@ -20,6 +20,14 @@ public interface HintService {
 	boolean addHint(Context context, Hint hint);
 
 	/**
+	 * Update Hint info
+	 * 
+	 * @param context
+	 * @param hint
+	 */
+	void update(Context context, Hint hint);
+
+	/**
 	 * Record a follow up action. System should try to determine whether this
 	 * hint have fulfilled the quality requirement
 	 * 

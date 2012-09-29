@@ -194,6 +194,11 @@ public class DefaultHintService implements HintService {
 		}
 	}
 
+	@Override
+	public void update(Context context, Hint hint) {
+		getHintDao().store(hint);
+	}
+
 	private HintDao hintDao;
 
 	private CustomerDao customerDao;
