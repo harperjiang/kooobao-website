@@ -1,5 +1,7 @@
 package com.kooobao.crm.customer;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
@@ -9,8 +11,8 @@ import org.apache.commons.lang.Validate;
 import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.crm.common.Context;
 import com.kooobao.crm.common.unique.UniqueEntry;
-import com.kooobao.crm.common.unique.UniquenessDao;
 import com.kooobao.crm.common.unique.UniquenessException;
+import com.kooobao.crm.common.unique.UniquenessService;
 import com.kooobao.crm.common.wordsplit.WordService;
 import com.kooobao.crm.customer.dao.CustomerDao;
 import com.kooobao.crm.customer.dao.HintDao;
@@ -42,26 +44,29 @@ public class DefaultHintService implements HintService {
 		UniqueEntry ue = new UniqueEntry();
 		ue.setCategory("HINT");
 		// Split and filter words
-		String[] nameKeys = getWordService().splitWord(hint.getName());
-		for (String nameKey : nameKeys) {
-			ue.getAttributes("NAME").put(nameKey, "NAME");
-		}
-		ue.getAttributes("CONTACT").put(hint.getContact().getPhone(), "PHONE");
-		ue.getAttributes("CONTACT").put(hint.getContact().getName(), "NAME");
-		ue.getAttributes("CONTACT").put(hint.getContact().getQq(), "QQ");
-		ue.getAttributes("CONTACT").put(hint.getContact().getAddress(),
-				"ADDRESS");
+		Collection<String> nameKeys = getWordService()
+				.splitWord(hint.getName());
+
+		ue.getAttributes().put("NAME", nameKeys);
+
+		List<String> phones = new ArrayList<String>();
+		phones.add(hint.getContact().getPhone());
+		List<String> qqs = new ArrayList<String>();
+		qqs.add(hint.getContact().getQq());
+
+		ue.getAttributes().put("CONTACT-PHONE", phones);
+		ue.getAttributes().put("CONTACT-QQ", qqs);
 
 		// Store to uniqueness store
 		try {
-			getUniquenessDao().store(ue);
-			hint.setStatus(HintStatus.FOLLOWUP);
+			int score = getUniquenessService().store(ue);
+			if (score != 0)
+				hint.setStatus(HintStatus.SUSPEND);
+			else
+				hint.setStatus(HintStatus.FOLLOWUP);
 			return false;
 		} catch (UniquenessException e) {
-			if (e.getCode() == UniquenessException.SUSPECT) {
-				hint.setStatus(HintStatus.SUSPEND);
-				return false;
-			}
+
 			return true;
 		}
 	}
@@ -211,7 +216,7 @@ public class DefaultHintService implements HintService {
 
 	private SettingDao settingDao;
 
-	private UniquenessDao uniquenessDao;
+	private UniquenessService uniquenessService;
 
 	private WordService wordService;
 
@@ -239,12 +244,12 @@ public class DefaultHintService implements HintService {
 		this.settingDao = settingDao;
 	}
 
-	public UniquenessDao getUniquenessDao() {
-		return uniquenessDao;
+	public UniquenessService getUniquenessService() {
+		return uniquenessService;
 	}
 
-	public void setUniquenessDao(UniquenessDao uniquenessDao) {
-		this.uniquenessDao = uniquenessDao;
+	public void setUniquenessService(UniquenessService uniquenessService) {
+		this.uniquenessService = uniquenessService;
 	}
 
 	public WordService getWordService() {

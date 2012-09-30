@@ -1,5 +1,6 @@
 package com.kooobao.crm.common.unique;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ public class UniqueEntry extends SimpleEntity {
 
 	private String category;
 
-	private Map<String, Map<String, String>> attributes = new HashMap<String, Map<String, String>>();
+	private Map<String, Collection<String>> attributes = new HashMap<String, Collection<String>>();
 
 	public String getCategory() {
 		return category;
@@ -19,10 +20,8 @@ public class UniqueEntry extends SimpleEntity {
 		this.category = category;
 	}
 
-	public Map<String, String> getAttributes(String section) {
-		if (!attributes.containsKey(section))
-			attributes.put(section, new HashMap<String, String>());
-		return attributes.get(section);
+	public Map<String, Collection<String>> getAttributes() {
+		return attributes;
 	}
 
 }

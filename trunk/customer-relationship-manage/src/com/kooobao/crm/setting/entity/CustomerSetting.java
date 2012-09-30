@@ -2,9 +2,9 @@ package com.kooobao.crm.setting.entity;
 
 public class CustomerSetting {
 
-	private int hintLimit;
+	private int hintLimit = 7;
 
-	private int customerLimit;
+	private int customerLimit = 7;
 
 	/**
 	 * Times of exchange operation
