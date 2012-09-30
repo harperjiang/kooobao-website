@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.eclipse.persistence.annotations.Convert;
 
@@ -60,6 +62,7 @@ public class Customer extends VersionEntity {
 	private List<CustomerFollowup> followups = new ArrayList<CustomerFollowup>();
 
 	@Column(name = "update_time")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
 
 	@Column(name = "desc_text")
