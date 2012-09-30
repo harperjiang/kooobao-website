@@ -1,5 +1,7 @@
 package com.kooobao.crm.common.wordsplit;
 
+import java.util.Collection;
+
 public interface WordService {
 
 	/**
@@ -8,5 +10,5 @@ public interface WordService {
 	 * @param input
 	 * @return
 	 */
-	public String[] splitWord(String input);
+	public Collection<String> splitWord(String input);
 }

@@ -13,4 +13,8 @@
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
+	<bean id="settingDao" class="com.kooobao.crm.setting.dao.JpaSettingDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
 </beans>

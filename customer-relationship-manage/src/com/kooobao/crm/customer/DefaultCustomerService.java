@@ -8,7 +8,7 @@ import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.crm.common.Context;
-import com.kooobao.crm.common.unique.UniquenessDao;
+import com.kooobao.crm.common.unique.UniquenessService;
 import com.kooobao.crm.common.wordsplit.WordService;
 import com.kooobao.crm.customer.dao.CustomerDao;
 import com.kooobao.crm.customer.entity.Customer;
@@ -138,8 +138,6 @@ public class DefaultCustomerService implements CustomerService {
 
 	private CustomerDao customerDao;
 
-	private UniquenessDao uniquenessDao;
-
 	private WordService wordService;
 
 	public CustomerDao getCustomerDao() {
@@ -158,14 +156,6 @@ public class DefaultCustomerService implements CustomerService {
 
 	public void setSettingDao(SettingDao settingDao) {
 		this.settingDao = settingDao;
-	}
-
-	public UniquenessDao getUniquenessDao() {
-		return uniquenessDao;
-	}
-
-	public void setUniquenessDao(UniquenessDao uniquenessDao) {
-		this.uniquenessDao = uniquenessDao;
 	}
 
 	public WordService getWordService() {

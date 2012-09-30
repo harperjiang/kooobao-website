@@ -6,4 +6,5 @@ public interface SettingDao {
 
 	CustomerSetting getCustomerSetting();
 
+	void setCustomerSetting(CustomerSetting cs);
 }

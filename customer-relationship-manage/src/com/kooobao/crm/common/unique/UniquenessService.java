@@ -1,7 +1,6 @@
 package com.kooobao.crm.common.unique;
 
-
-public interface UniquenessDao {
+public interface UniquenessService {
 
 	/**
 	 * Check and store a unique entry
@@ -10,6 +9,6 @@ public interface UniquenessDao {
 	 * @throws UniquenessException
 	 *             if the entry is not unique in the given category
 	 */
-	void store(UniqueEntry uniqueEntry) throws UniquenessException;
+	int store(UniqueEntry uniqueEntry) throws UniquenessException;
 
 }
