@@ -46,7 +46,7 @@ public interface HintService {
 	void revise(Context context, Hint hint, boolean pass);
 
 	/**
-	 * Discard the indicated hint
+	 * Discard the hint
 	 * 
 	 * @param context
 	 * @param hint

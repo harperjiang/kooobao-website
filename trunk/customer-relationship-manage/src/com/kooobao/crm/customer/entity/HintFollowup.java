@@ -25,7 +25,7 @@ public class HintFollowup extends SimpleEntity {
 	@Convert("enumConverter")
 	private ContactMethod method;
 
-	@Column(name = "reference")
+	@Column(name = "ref_text")
 	private String reference;
 
 	@Column(name = "own_by")

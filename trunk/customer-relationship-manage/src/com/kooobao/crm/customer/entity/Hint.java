@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.kooobao.common.domain.entity.VersionEntity;
 
@@ -40,6 +42,7 @@ public class Hint extends VersionEntity {
 	private String status;
 
 	@Column(name = "update_time")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
 
 	@Column(name = "desc_text")
@@ -50,6 +53,7 @@ public class Hint extends VersionEntity {
 
 	@ElementCollection
 	@MapKeyColumn(name = "contact_type")
+	@Column(name = "contact_info")
 	@CollectionTable(name = "crm_hint_contact", joinColumns = { @JoinColumn(name = "hint_id", referencedColumnName = "obj_id") })
 	private Map<String, String> otherContact = new HashMap<String, String>();
 

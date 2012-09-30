@@ -25,7 +25,7 @@ public class CustomerFollowup extends SimpleEntity {
 	@Convert("enumConverter")
 	ContactMethod method;
 
-	@Column(name = "reference")
+	@Column(name = "ref_text")
 	String reference;
 
 	@Column(name = "own_by")

@@ -55,6 +55,7 @@ public class DefaultHintService implements HintService {
 		// Store to uniqueness store
 		try {
 			getUniquenessDao().store(ue);
+			hint.setStatus(HintStatus.FOLLOWUP);
 			return false;
 		} catch (UniquenessException e) {
 			if (e.getCode() == UniquenessException.SUSPECT) {
@@ -74,7 +75,6 @@ public class DefaultHintService implements HintService {
 			// Need human revise
 		}
 		hint.setRegisterBy(context.getOperatorId());
-		hint.setStatus(HintStatus.NEW);
 		getHintDao().store(hint);
 		return true;
 	}
@@ -143,14 +143,21 @@ public class DefaultHintService implements HintService {
 			return 0;
 		List<Hint> hints = getHintDao().getFreeHints(
 				cs.getHintLimit() - current);
-		allocate(context.getOperatorId(), hints);
+		assign(context, hints);
 		return hints.size();
 	}
 
-	private void allocate(String operatorId, List<Hint> hints) {
+	protected void assign(Context context, List<Hint> hints) {
 		for (Hint hint : hints) {
-			hint.setOwnBy(operatorId);
+			hint.setOwnBy(context.getOperatorId());
 			hint.setUpdateTime(new Date());
+			hint.setStatus(HintStatus.FOLLOWUP);
+
+			HintFollowup hfu = new HintFollowup();
+			hfu.setOwnBy(context.getOperatorId());
+			hfu.setCreateTime(new Date());
+			hfu.setComment("Assign");
+			hfu.setReference("Assign");
 		}
 	}
 
@@ -158,10 +165,10 @@ public class DefaultHintService implements HintService {
 	public int exchange(Context context, List<Hint> hints) {
 		// TODO Limit exchange size
 		for (Hint hint : hints) {
-			hint.setOwnBy(null);
+			free(context, hint, "Exchange");
 		}
 		List<Hint> newHints = getHintDao().getFreeHints(hints.size());
-		allocate(context.getOperatorId(), newHints);
+		assign(context, newHints);
 		return newHints.size();
 	}
 
@@ -173,7 +180,6 @@ public class DefaultHintService implements HintService {
 		hfu.setComment("Discarded:" + comment);
 		hfu.setReference("Discard");
 		hint.setStatus(HintStatus.DISCARDED);
-
 	}
 
 	public void free(Context context, Hint hint, String comment) {
