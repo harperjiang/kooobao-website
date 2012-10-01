@@ -9,6 +9,7 @@
 		<class>com.kooobao.crm.customer.entity.Hint</class>
 		<class>com.kooobao.crm.customer.entity.HintFollowup</class>
 		<class>com.kooobao.crm.setting.entity.SettingEntry</class>
+		<class>com.kooobao.crm.common.unique.UniqueItem</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

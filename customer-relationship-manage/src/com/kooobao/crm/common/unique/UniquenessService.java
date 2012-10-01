@@ -9,6 +9,13 @@ public interface UniquenessService {
 	 * @throws UniquenessException
 	 *             if the entry is not unique in the given category
 	 */
-	int store(UniqueEntry uniqueEntry) throws UniquenessException;
+	UniqueResult store(UniqueEntry uniqueEntry) throws UniquenessException;
+
+	/**
+	 * Discard the entry by given id
+	 * 
+	 * @param refId
+	 */
+	void discardEntry(String refId);
 
 }

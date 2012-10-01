@@ -17,4 +17,11 @@
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
+	<bean id="uniqueEntryDao" class="com.kooobao.crm.common.unique.JpaUniqueEntryDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
+	<bean id="uniquenessService" class="com.kooobao.crm.common.unique.DefaultUniquenessService">
+		<property name="uniqueEntryDao" ref="uniqueEntryDao" />
+	</bean>
 </beans>

@@ -57,6 +57,9 @@ public class Hint extends VersionEntity {
 	@CollectionTable(name = "crm_hint_contact", joinColumns = { @JoinColumn(name = "hint_id", referencedColumnName = "obj_id") })
 	private Map<String, String> otherContact = new HashMap<String, String>();
 
+	@Column(name = "ref_id")
+	private String refId;
+
 	public String getName() {
 		return name;
 	}
@@ -120,6 +123,14 @@ public class Hint extends VersionEntity {
 
 	public Map<String, String> getOtherContact() {
 		return otherContact;
+	}
+
+	public String getRefId() {
+		return refId;
+	}
+
+	public void setRefId(String refId) {
+		this.refId = refId;
 	}
 
 }
