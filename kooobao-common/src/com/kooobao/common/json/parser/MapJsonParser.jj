@@ -1,0 +1,118 @@
+PARSER_BEGIN(MapJsonParser)
+
+package com.kooobao.common.json.parser;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
+
+public class MapJsonParser {
+
+  public static void main(String args[]) {
+    MapJsonParser parser;
+    parser = new MapJsonParser(System.in);
+    
+    try {
+      parser.result();
+      System.out.println("IDL Parser Version 0.1:  IDL file parsed successfully.");
+    } catch (ParseException e) {
+      System.out.println("IDL Parser Version 0.1:  Encountered errors during parse.");
+    }
+  }
+
+}
+
+PARSER_END(MapJsonParser)
+
+
+/*
+ * Tokens to ignore in the BNF follow.
+ */
+
+SKIP :
+{
+  < " " >
+| < "\t" >
+| < "\n" >
+| < "\r" >
+| < "//" (~["\n"])* "\n" >
+| <"/*" (~["*"])* "*" (~["/"] (~["*"])* "*")* "/">
+| < "#" ([" ","\t"])* (["0"-"9"])+
+    (([" ","\t"])* "\"" (~["\""])+ "\""
+           ([" ","\t"])* (["0"-"9"])* ([" ","\t"])* (["0"-"9"])*)? "\n" >
+}
+
+
+Map<String,Object> result() :
+{Map<String,Object> me;}
+{
+  "{" me=map_entries() "}" {return me;} 
+  
+| LOOKAHEAD(2) "{}" {return new HashMap<String,Object>();}
+}
+
+Map<String,Object> map_entries() :
+{Object[] me; Map<String,Object> mes;}
+{	LOOKAHEAD(7)
+	me = map_entry() "," mes = map_entries() {mes.put((String)me[0],me[1]); return mes;}
+|	me = map_entry() {Map<String,Object> map = new HashMap<String,Object>();map.put((String)me[0],me[1]);return map;}
+}
+
+Object[] map_entry() :
+{String s; Object o;}
+{
+	s = string() ":" o=object() {return new Object[]{s,o};}
+}
+
+Object object() :
+{String s; Collection<String> a;}
+{
+	s = string() {return s;}  
+|	a = array() {return a;} 
+}
+
+Collection<String> array() :
+{Collection<String> a,b;}
+{
+	a = empty_array() {return a;} 
+|	b = full_array() {return b;} 
+}
+
+Collection<String> full_array() : 
+{Collection<String> x;}
+{	
+	"[" x = array_content() "]" {return x;}
+}
+
+Collection<String> array_content() :
+{Collection<String> x; String y,a;}
+{	LOOKAHEAD(2)
+	y = string() "," x = array_content()   {x.add(y);return x;}
+|	a = string() {List<String> newList = new ArrayList<String>(); newList.add(a); return newList;}
+}
+
+Collection<String> empty_array() :
+{}
+{
+	"[]" {return new ArrayList<String>();} 
+}
+
+String string() : 
+{Token s;}
+{
+	s = <STRING> {return s.image.substring(1,s.image.length()-1);} 
+}
+TOKEN :
+{
+  <  STRING : "\""
+   ( ( ~["\"","\\","\n","\r"])
+   | ("\\" (  ["n","t","v","b","r","f","a","\\","?","'","\""]
+            | "0" (["0"-"7"])*
+            | ["1"-"9"] (["0"-"9"])*
+            | ("0x" | "0X") (["0"-"9","a"-"f","A"-"F"])+
+           )
+     )
+   )*
+   "\"" >
+}
