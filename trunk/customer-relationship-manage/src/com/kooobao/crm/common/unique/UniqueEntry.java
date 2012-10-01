@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.kooobao.common.domain.entity.SimpleEntity;
+public class UniqueEntry {
 
-public class UniqueEntry extends SimpleEntity {
+	private long oid;
 
 	private String category;
 
@@ -22,6 +22,14 @@ public class UniqueEntry extends SimpleEntity {
 
 	public Map<String, Collection<String>> getAttributes() {
 		return attributes;
+	}
+
+	public long getOid() {
+		return oid;
+	}
+
+	public void setOid(long oid) {
+		this.oid = oid;
 	}
 
 }

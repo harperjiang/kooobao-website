@@ -11,6 +11,7 @@ import org.apache.commons.lang.Validate;
 import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.crm.common.Context;
 import com.kooobao.crm.common.unique.UniqueEntry;
+import com.kooobao.crm.common.unique.UniqueResult;
 import com.kooobao.crm.common.unique.UniquenessException;
 import com.kooobao.crm.common.unique.UniquenessService;
 import com.kooobao.crm.common.wordsplit.WordService;
@@ -59,11 +60,12 @@ public class DefaultHintService implements HintService {
 
 		// Store to uniqueness store
 		try {
-			int score = getUniquenessService().store(ue);
-			if (score != 0)
+			UniqueResult result = getUniquenessService().store(ue);
+			if (result.getScore() != 0)
 				hint.setStatus(HintStatus.SUSPEND);
 			else
 				hint.setStatus(HintStatus.FOLLOWUP);
+			hint.setRefId(result.getUuid());
 			return false;
 		} catch (UniquenessException e) {
 
@@ -185,6 +187,8 @@ public class DefaultHintService implements HintService {
 		hfu.setComment("Discarded:" + comment);
 		hfu.setReference("Discard");
 		hint.setStatus(HintStatus.DISCARDED);
+		
+		getUniquenessService().discardEntry(hint.getRefId());
 	}
 
 	public void free(Context context, Hint hint, String comment) {

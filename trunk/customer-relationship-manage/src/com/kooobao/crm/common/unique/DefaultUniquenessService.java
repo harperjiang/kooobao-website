@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 
 public class DefaultUniquenessService implements UniquenessService {
 
 	@Override
-	public int store(UniqueEntry uniqueEntry) throws UniquenessException {
+	public UniqueResult store(UniqueEntry uniqueEntry)
+			throws UniquenessException {
 		String category = uniqueEntry.getCategory();
 
-		List<List<UniqueEntry>> score = new ArrayList<List<UniqueEntry>>();
+		List<Set<String>> score = new ArrayList<Set<String>>();
 
 		for (Entry<String, Collection<String>> entry : uniqueEntry
 				.getAttributes().entrySet()) {
-			List<UniqueEntry> duplicate = uniqueEntryDao.find(category,
+			Set<String> duplicate = uniqueEntryDao.find(category,
 					entry.getKey(), entry.getValue());
 			if (!CollectionUtils.isEmpty(duplicate))
 				score.add(duplicate);
@@ -37,8 +39,16 @@ public class DefaultUniquenessService implements UniquenessService {
 		// Threshold for warning
 		if (result > 100)
 			throw new UniquenessException(UniquenessException.DUPLICATE);
-		getUniqueEntryDao().store(uniqueEntry);
-		return result;
+		UniqueResult ur = new UniqueResult();
+		String uuid = getUniqueEntryDao().store(uniqueEntry);
+		ur.setUuid(uuid);
+		ur.setScore(result);
+		return ur;
+	}
+
+	@Override
+	public void discardEntry(String refId) {
+		getUniqueEntryDao().discard(refId);
 	}
 
 	private UniqueEntryDao uniqueEntryDao;
