@@ -1,5 +1,7 @@
 package com.kooobao.crm.common.unique;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -57,7 +59,12 @@ public class UniqueItem {
 		this.value = value;
 	}
 
-	public static class UniqueItemId {
+	public static class UniqueItemId implements Serializable {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 302670089043160468L;
 
 		private String uuid;
 

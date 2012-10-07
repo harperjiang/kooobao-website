@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,6 +27,7 @@ import com.kooobao.common.domain.entity.VersionEntity;
 
 @Entity
 @Table(name = "crm_customer")
+@NamedQuery(name="findCustomerBySourceAndId",query="select c from Customer c where c.source = :source and c.id = :id")
 public class Customer extends VersionEntity {
 
 	@Column(name = "source")

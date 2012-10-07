@@ -9,6 +9,13 @@ import com.kooobao.crm.customer.entity.CustomerFollowup;
 public interface CustomerService {
 
 	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Customer getCustomer(Context context, String source, String id);
+
+	/**
 	 * Update Customer Info
 	 * 
 	 * @param context

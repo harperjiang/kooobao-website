@@ -8,7 +8,6 @@ import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.domain.dao.Cursor;
 import com.kooobao.crm.common.Context;
-import com.kooobao.crm.common.unique.UniquenessService;
 import com.kooobao.crm.common.wordsplit.WordService;
 import com.kooobao.crm.customer.dao.CustomerDao;
 import com.kooobao.crm.customer.entity.Customer;
@@ -20,10 +19,14 @@ import com.kooobao.crm.setting.entity.CustomerSetting;
 public class DefaultCustomerService implements CustomerService {
 
 	@Override
+	public Customer getCustomer(Context context, String source, String id) {
+		return getCustomerDao().find(source, id);
+	}
+
+	@Override
 	public void update(Context context, Customer customer) {
 		// TODO Set unmodifiable limit to some fields
 		// TODO Generate change log
-
 		Customer old = getCustomerDao().find(customer.getOid());
 
 		CustomerFollowup change = generateChange(old, customer);

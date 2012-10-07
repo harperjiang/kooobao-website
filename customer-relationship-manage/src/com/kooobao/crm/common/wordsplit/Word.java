@@ -5,8 +5,9 @@ import java.text.MessageFormat;
 public class Word {
 
 	public Word(int location, String content) {
-		this.content = content;
-		this.location = location;
+		super();
+		setContent(content);
+		setLocation(location);
 	}
 
 	private String content;

@@ -1,6 +1,7 @@
 package com.kooobao.crm.customer.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
 
@@ -46,6 +47,8 @@ public class JpaCustomerDaoTest extends
 		customerDao.store(cust);
 
 		cust = new Customer();
+		cust.setSource("SOURCE0");
+		cust.setId("ID0");
 		cust.setStatus(CustomerStatus.FREE);
 		customerDao.store(cust);
 
@@ -77,4 +80,8 @@ public class JpaCustomerDaoTest extends
 		assertEquals(2, count);
 	}
 
+	@Test
+	public void testFindCustomerBySourceAndId() {
+		assertNotNull(customerDao.find("SOURCE0", "ID0"));
+	}
 }
