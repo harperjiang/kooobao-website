@@ -1,11 +1,16 @@
 package com.kooobao.crm.customer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+
+import javax.annotation.Resource;
 
 import org.junit.Test;
 
 public class DefaultHintServiceTest {
 
+	@Resource
+	private DefaultHintService hintService;
+	
 	@Test
 	public void testFreeHints() {
 		fail("Not yet implemented");

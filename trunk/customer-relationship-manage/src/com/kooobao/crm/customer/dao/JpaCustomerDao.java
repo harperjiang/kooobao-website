@@ -42,4 +42,12 @@ public class JpaCustomerDao extends AbstractJpaDao<Customer> implements
 		return new JpaCursor<Customer>(query);
 	}
 
+	@Override
+	public Customer find(String source, String id) {
+		return getEntityManager()
+				.createNamedQuery("findCustomerBySourceAndId", Customer.class)
+				.setParameter("source", source).setParameter("id", id)
+				.getSingleResult();
+	}
+
 }

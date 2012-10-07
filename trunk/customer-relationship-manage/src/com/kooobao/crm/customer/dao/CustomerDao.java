@@ -14,4 +14,6 @@ public interface CustomerDao extends Dao<Customer> {
 
 	Cursor<Customer> getOvertimeCustomers(int customerRetainTime);
 
+	Customer find(String source, String id);
+
 }

@@ -21,6 +21,10 @@
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
+	<bean id="dictDao" class="com.kooobao.crm.common.wordsplit.DefaultDictDao">
+		<property name="entityManager" ref="entityManager" />
+	</bean>
+
 	<bean id="uniquenessService" class="com.kooobao.crm.common.unique.DefaultUniquenessService">
 		<property name="uniqueEntryDao" ref="uniqueEntryDao" />
 	</bean>
