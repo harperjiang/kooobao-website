@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.kooobao.common.json.JsonWriter;
 
-public class DefaultModuleRegistry implements ModuleRegistry {
+public class DefaultRegistryService implements RegistryService {
 
 	private Map<RegistryKey, List<RegistryCallbackStub>> registry = new ConcurrentHashMap<RegistryKey, List<RegistryCallbackStub>>();
 
