@@ -14,27 +14,26 @@
 		<property name="serviceInterface" value="com.kooobao.registry.RegistryService" />
 	</bean>
 
-	<bean id="socketFactory" class="sun.rmi.transport.proxy.RMIDirectSocketFactory" />
+	<!-- bean id="socketFactory" class="sun.rmi.transport.proxy.RMIDirectSocketFactory" 
+		/ -->
 
-	<bean id="rmiRegistry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
-		<property name="port" value="11085" />
-		<property name="serverSocketFactory" ref="socketFactory" />
-		<property name="clientSocketFactory" ref="socketFactory" />
-		<property name="alwaysCreate" value="true" />
-	</bean>
+	<!-- bean id="rmiRegistry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean"> 
+		<property name="port" value="9001" /> <property name="serverSocketFactory" 
+		ref="socketFactory" /> <property name="clientSocketFactory" ref="socketFactory" 
+		/> <property name="alwaysCreate" value="true" /> </bean -->
 
-	<bean id="defaultRegistryCallback"
-		class="com.kooobao.registry.DefaultRegistryCallback">
+	<bean id="defaultRegistryCallback" class="com.kooobao.registry.BlankCallback">
 	</bean>
 
 	<bean id="registryCallback" class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<property name="registryPort" value="9001" />
 		<property name="registryHost" value="localhost" />
 		<property name="servicePort" value="9002" />
-		<property name="serviceInterface"
-			value="com.kooobao.authcenter.service.AuthenticateService" />
-		<property name="serviceName" value="AuthenticateService" />
-		<property name="service" ref="defaultAuthenticateService" />
+		<property name="serviceInterface" value="com.kooobao.registry.RegistryCallback" />
+		<property name="serviceName" value="BlankCallback" />
+		<property name="service" ref="defaultRegistryCallback" />
 	</bean>
-
+	
+	<bean id="appContextHolder"
+		class="com.kooobao.common.spring.ApplicationContextHolder.Adaptor" />
 </beans>

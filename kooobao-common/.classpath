@@ -25,6 +25,5 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/org.harper.frm.data/lib/javacup.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

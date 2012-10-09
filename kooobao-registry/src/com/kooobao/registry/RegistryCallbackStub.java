@@ -10,7 +10,6 @@ public class RegistryCallbackStub implements RegistryCallback {
 		rmi = new RmiProxyFactoryBean();
 		rmi.setServiceInterface(RegistryCallback.class);
 		rmi.setServiceUrl(callbackAddress);
-		rmi.afterPropertiesSet();
 	}
 
 	public String getAddress() {
@@ -19,6 +18,13 @@ public class RegistryCallbackStub implements RegistryCallback {
 
 	@Override
 	public void invoke(String system, String function, String data) {
+		if (null == rmi.getObject()) {
+			// Initialization
+			synchronized (rmi) {
+				if (null == rmi.getObject())
+					rmi.afterPropertiesSet();
+			}
+		}
 		((RegistryCallback) rmi.getObject()).invoke(system, function, data);
 	}
 
