@@ -18,5 +18,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Spring Framework 3.1"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/kooobao-common"/>
+	<classpathentry kind="lib" path="config"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Logging"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
