@@ -6,7 +6,7 @@ package com.kooobao.registry;
  * @author harper
  * 
  */
-public interface ModuleRegistry {
+public interface RegistryService {
 
 	/**
 	 * Register a callback address with the given info
