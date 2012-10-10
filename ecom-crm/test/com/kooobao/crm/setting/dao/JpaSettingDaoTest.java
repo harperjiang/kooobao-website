@@ -10,8 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
-import com.kooobao.crm.setting.entity.CustomerSetting;
-import com.kooobao.crm.setting.entity.SettingEntry;
+import com.kooobao.ecom.crm.setting.dao.JpaSettingDao;
+import com.kooobao.ecom.crm.setting.entity.CustomerSetting;
+import com.kooobao.ecom.crm.setting.entity.SettingEntry;
 
 @ContextConfiguration(locations = { "/application-context.xml" })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)

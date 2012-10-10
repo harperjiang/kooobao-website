@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_1.xsd">
 	<converter name="enumConverter"
 		class="com.kooobao.common.domain.converter.EnumConverter" />
-	<converter name="jsonConverter" class="com.kooobao.crm.common.JsonConverter" />
+	<converter name="jsonConverter" class="com.kooobao.ecom.crm.common.JsonConverter" />
 	
 	<table-generator name="customerTG" table="crm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="crm_customer" />
@@ -16,7 +16,7 @@
 	<table-generator name="ueTG" table="crm_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="crm_unique_entry" />
 
-	<entity class="com.kooobao.crm.customer.entity.Customer">
+	<entity class="com.kooobao.ecom.crm.customer.entity.Customer">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
@@ -28,7 +28,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.kooobao.crm.customer.entity.CustomerFollowup">
+	<entity class="com.kooobao.ecom.crm.customer.entity.CustomerFollowup">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
@@ -40,7 +40,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.kooobao.crm.customer.entity.HintFollowup">
+	<entity class="com.kooobao.ecom.crm.customer.entity.HintFollowup">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
@@ -52,7 +52,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.kooobao.crm.customer.entity.Hint">
+	<entity class="com.kooobao.ecom.crm.customer.entity.Hint">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
@@ -64,7 +64,7 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.kooobao.crm.common.unique.UniqueEntry">
+	<entity class="com.kooobao.ecom.crm.common.unique.UniqueEntry">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>

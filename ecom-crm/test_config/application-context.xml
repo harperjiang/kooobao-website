@@ -5,27 +5,27 @@
 
 	<import resource="env.xml" />
 
-	<bean id="hintDao" class="com.kooobao.crm.customer.dao.JpaHintDao">
+	<bean id="hintDao" class="com.kooobao.ecom.crm.customer.dao.JpaHintDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
-	<bean id="customerDao" class="com.kooobao.crm.customer.dao.JpaCustomerDao">
+	<bean id="customerDao" class="com.kooobao.ecom.crm.customer.dao.JpaCustomerDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
-	<bean id="settingDao" class="com.kooobao.crm.setting.dao.JpaSettingDao">
+	<bean id="settingDao" class="com.kooobao.ecom.crm.setting.dao.JpaSettingDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
-	<bean id="uniqueEntryDao" class="com.kooobao.crm.common.unique.JpaUniqueEntryDao">
+	<bean id="uniqueEntryDao" class="com.kooobao.ecom.crm.common.unique.JpaUniqueEntryDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
-	<bean id="dictDao" class="com.kooobao.crm.common.wordsplit.DefaultDictDao">
+	<bean id="dictDao" class="com.kooobao.ecom.crm.common.wordsplit.DefaultDictDao">
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
-	<bean id="uniquenessService" class="com.kooobao.crm.common.unique.DefaultUniquenessService">
+	<bean id="uniquenessService" class="com.kooobao.ecom.crm.common.unique.DefaultUniquenessService">
 		<property name="uniqueEntryDao" ref="uniqueEntryDao" />
 	</bean>
 </beans>

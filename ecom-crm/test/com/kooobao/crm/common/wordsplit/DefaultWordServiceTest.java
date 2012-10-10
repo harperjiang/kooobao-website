@@ -10,6 +10,10 @@ import java.util.Stack;
 
 import org.junit.Test;
 
+import com.kooobao.ecom.crm.common.wordsplit.DefaultWordService;
+import com.kooobao.ecom.crm.common.wordsplit.DictDao;
+import com.kooobao.ecom.crm.common.wordsplit.Word;
+
 public class DefaultWordServiceTest {
 
 	@Test
