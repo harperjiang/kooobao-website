@@ -26,6 +26,7 @@ import com.kooobao.crm.customer.entity.HintStatus;
 import com.kooobao.crm.order.entity.Order;
 import com.kooobao.crm.setting.dao.SettingDao;
 import com.kooobao.crm.setting.entity.CustomerSetting;
+import com.kooobao.registry.RegistryAccessor;
 
 public class DefaultHintService implements HintService {
 
@@ -113,6 +114,9 @@ public class DefaultHintService implements HintService {
 		getHintDao().store(hint);
 		getCustomerDao().store(cust);
 		// TODO Store the order
+
+		// Publish the created customer
+		RegistryAccessor.getInstance().publish("createCustomer", cust);
 	}
 
 	protected Customer hintToCustomer(Hint hint) {
@@ -187,7 +191,7 @@ public class DefaultHintService implements HintService {
 		hfu.setComment("Discarded:" + comment);
 		hfu.setReference("Discard");
 		hint.setStatus(HintStatus.DISCARDED);
-		
+
 		getUniquenessService().discardEntry(hint.getRefId());
 	}
 

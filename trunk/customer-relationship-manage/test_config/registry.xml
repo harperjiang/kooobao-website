@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+                     http://www.springframework.org/schema/beans/spring-beans.xsd  
+                     http://www.springframework.org/schema/tx  
+                     http://www.springframework.org/schema/tx/spring-tx.xsd  
+                     http://www.springframework.org/schema/aop  
+                     http://www.springframework.org/schema/aop/spring-aop.xsd ">
+
+	<bean id="registryService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://localhost:9001/RegistryService" />
+		<property name="serviceInterface" value="com.kooobao.registry.RegistryService" />
+	</bean>
+
+	<!-- bean id="socketFactory" class="sun.rmi.transport.proxy.RMIDirectSocketFactory" 
+		/ -->
+
+	<!-- bean id="rmiRegistry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean"> 
+		<property name="port" value="9001" /> <property name="serverSocketFactory" 
+		ref="socketFactory" /> <property name="clientSocketFactory" ref="socketFactory" 
+		/> <property name="alwaysCreate" value="true" /> </bean -->
+
+	<bean id="newOrderCallbackStub" class="com.kooobao.crm.order.callback.NewOrderCallback">
+	</bean>
+
+	<bean id="newOrderCallback" class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="registryPort" value="9001" />
+		<property name="registryHost" value="localhost" />
+		<property name="servicePort" value="9002" />
+		<property name="serviceInterface" value="com.kooobao.registry.RegistryCallback" />
+		<property name="serviceName" value="CrmNewOrderCallback" />
+		<property name="service" ref="newOrderCallbackStub" />
+	</bean>
+</beans>

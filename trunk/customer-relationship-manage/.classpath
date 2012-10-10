@@ -25,5 +25,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/EclipseLink_2.1.2"/>
 	<classpathentry kind="lib" path="test_config"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kooobao-registry-client"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
