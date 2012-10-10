@@ -3,14 +3,14 @@
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="customer-relationship-manage" transaction-type="RESOURCE_LOCAL">
-		<class>com.kooobao.crm.customer.entity.Contact</class>
-		<class>com.kooobao.crm.customer.entity.Customer</class>
-		<class>com.kooobao.crm.customer.entity.CustomerFollowup</class>
-		<class>com.kooobao.crm.customer.entity.Hint</class>
-		<class>com.kooobao.crm.customer.entity.HintFollowup</class>
-		<class>com.kooobao.crm.setting.entity.SettingEntry</class>
-		<class>com.kooobao.crm.common.unique.UniqueItem</class>
-		<class>com.kooobao.crm.common.wordsplit.WordTreeNode</class>
+		<class>com.kooobao.ecom.crm.customer.entity.Contact</class>
+		<class>com.kooobao.ecom.crm.customer.entity.Customer</class>
+		<class>com.kooobao.ecom.crm.customer.entity.CustomerFollowup</class>
+		<class>com.kooobao.ecom.crm.customer.entity.Hint</class>
+		<class>com.kooobao.ecom.crm.customer.entity.HintFollowup</class>
+		<class>com.kooobao.ecom.crm.setting.entity.SettingEntry</class>
+		<class>com.kooobao.ecom.crm.common.unique.UniqueItem</class>
+		<class>com.kooobao.ecom.crm.common.wordsplit.WordTreeNode</class>
 		<properties>
 			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

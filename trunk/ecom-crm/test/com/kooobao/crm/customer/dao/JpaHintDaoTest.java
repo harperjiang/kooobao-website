@@ -15,8 +15,9 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
 import com.kooobao.common.domain.dao.Cursor;
-import com.kooobao.crm.customer.entity.Hint;
-import com.kooobao.crm.customer.entity.HintStatus;
+import com.kooobao.ecom.crm.customer.dao.JpaHintDao;
+import com.kooobao.ecom.crm.customer.entity.Hint;
+import com.kooobao.ecom.crm.customer.entity.HintStatus;
 
 @ContextConfiguration(locations = { "/application-context.xml" })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)

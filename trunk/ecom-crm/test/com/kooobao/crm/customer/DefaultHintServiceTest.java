@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
+import com.kooobao.ecom.crm.customer.DefaultHintService;
+
 public class DefaultHintServiceTest {
 
 	@Resource

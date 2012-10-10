@@ -22,7 +22,7 @@
 		ref="socketFactory" /> <property name="clientSocketFactory" ref="socketFactory" 
 		/> <property name="alwaysCreate" value="true" /> </bean -->
 
-	<bean id="newOrderCallbackStub" class="com.kooobao.crm.order.callback.NewOrderCallback">
+	<bean id="newOrderCallbackStub" class="com.kooobao.ecom.crm.order.callback.NewOrderCallback">
 	</bean>
 
 	<bean id="newOrderCallback" class="org.springframework.remoting.rmi.RmiServiceExporter">

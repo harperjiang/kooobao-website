@@ -12,6 +12,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+import com.kooobao.ecom.crm.common.unique.DefaultUniquenessService;
+import com.kooobao.ecom.crm.common.unique.UniqueEntry;
+import com.kooobao.ecom.crm.common.unique.UniqueResult;
+
 @ContextConfiguration(locations = { "/application-context.xml" })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class DefaultUniquenessServiceTest extends

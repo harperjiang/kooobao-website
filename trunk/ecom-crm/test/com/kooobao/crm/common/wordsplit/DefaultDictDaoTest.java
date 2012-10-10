@@ -12,6 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+import com.kooobao.ecom.crm.common.wordsplit.DefaultDictDao;
+import com.kooobao.ecom.crm.common.wordsplit.WordTreeNode;
+
 @ContextConfiguration(locations = { "/application-context.xml" })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class DefaultDictDaoTest extends
