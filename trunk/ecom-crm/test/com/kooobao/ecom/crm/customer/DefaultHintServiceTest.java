@@ -1,4 +1,4 @@
-package com.kooobao.crm.customer;
+package com.kooobao.ecom.crm.customer;
 
 import static org.junit.Assert.fail;
 

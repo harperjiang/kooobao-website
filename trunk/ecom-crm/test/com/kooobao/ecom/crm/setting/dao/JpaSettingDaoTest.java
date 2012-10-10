@@ -1,4 +1,4 @@
-package com.kooobao.crm.setting.dao;
+package com.kooobao.ecom.crm.setting.dao;
 
 import static org.junit.Assert.assertEquals;
 

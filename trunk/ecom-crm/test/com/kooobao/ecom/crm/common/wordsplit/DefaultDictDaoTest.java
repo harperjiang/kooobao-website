@@ -1,4 +1,4 @@
-package com.kooobao.crm.common.wordsplit;
+package com.kooobao.ecom.crm.common.wordsplit;
 
 import static org.junit.Assert.assertEquals;
 

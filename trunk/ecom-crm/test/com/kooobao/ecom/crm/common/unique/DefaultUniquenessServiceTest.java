@@ -1,4 +1,4 @@
-package com.kooobao.crm.common.unique;
+package com.kooobao.ecom.crm.common.unique;
 
 import static org.junit.Assert.assertEquals;
 
