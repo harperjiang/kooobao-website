@@ -29,6 +29,7 @@ public class JsonConverter implements Converter {
 	public Object convertObjectValueToDataValue(Object value, Session session) {
 		if (null == value)
 			return null;
+		@SuppressWarnings("unchecked")
 		Map<String, Collection<String>> map = (Map<String, Collection<String>>) value;
 		JsonMapWriter writer = new JsonMapWriter();
 		writer.write(map);
