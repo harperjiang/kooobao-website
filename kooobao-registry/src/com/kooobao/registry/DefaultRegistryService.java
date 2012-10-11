@@ -2,9 +2,12 @@ package com.kooobao.registry;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -126,6 +129,19 @@ public class DefaultRegistryService implements RegistryService {
 		JsonWriter writer = new JsonWriter();
 		writer.write(data);
 		return writer.toString();
+	}
+
+	private Set<String> systems = Collections
+			.synchronizedSet(new HashSet<String>());
+
+	@Override
+	public void install(String system) {
+		systems.add(system);
+	}
+
+	@Override
+	public String[] list() {
+		return systems.toArray(new String[systems.size()]);
 	}
 
 }
