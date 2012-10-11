@@ -20,30 +20,29 @@ public class RegistryAccessor {
 
 	private boolean inited = false;
 
+	private RegistryService registryService = ApplicationContextHolder
+			.getInstance().getApplicationContext()
+			.getBean("registryService", RegistryService.class);
+
 	public void register() {
 		if (!inited) {
 			synchronized (this) {
 				if (!inited) {
 					try {
-						String system = ConfigLoader.getInstance().load(
-								"registry", "system");
 						String functionStr = ConfigLoader.getInstance().load(
 								"registry", "functions");
-						if (StringUtils.isEmpty(system)
-								|| StringUtils.isEmpty(functionStr))
+						if (StringUtils.isEmpty(functionStr))
 							return;
 						String[] functions = functionStr.split(",");
-						RegistryService registryService = ApplicationContextHolder
-								.getInstance()
-								.getApplicationContext()
-								.getBean("registryService",
-										RegistryService.class);
+						RegistryService registryService = getRegistryService();
 						for (String function : functions) {
+							String[] functionPart = function.split("\\.");
+
 							String localLocation = ConfigLoader.getInstance()
 									.load("registry", function + "_url");
 							if (!StringUtils.isEmpty(localLocation)) {
-								registryService.register(system, function,
-										localLocation);
+								registryService.register(functionPart[0],
+										functionPart[1], localLocation);
 							}
 						}
 						inited = true;
@@ -56,4 +55,29 @@ public class RegistryAccessor {
 			}
 		}
 	}
+
+	public void publish(String function, Object data) {
+		RegistryService registryService = getRegistryService();
+		String publishSystem = ConfigLoader.getInstance().load("registry",
+				"publish_system");
+		if (StringUtils.isEmpty(publishSystem))
+			publishSystem = "default";
+		registryService.publish(publishSystem, function, data);
+	}
+
+	public void install() {
+		String publishSystem = ConfigLoader.getInstance().load("registry",
+				"publish_system");
+		RegistryService registryService = getRegistryService();
+		registryService.install(publishSystem);
+	}
+
+	public String[] list() {
+		return getRegistryService().list();
+	}
+
+	private RegistryService getRegistryService() {
+		return registryService;
+	}
+
 }

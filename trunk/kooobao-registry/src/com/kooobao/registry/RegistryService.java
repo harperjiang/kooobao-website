@@ -34,4 +34,18 @@ public interface RegistryService {
 	 *            bean contains data info
 	 */
 	public void publish(String system, String function, Object data);
+
+	/**
+	 * Notify the registry that the given system had been installed
+	 * 
+	 * @param system
+	 */
+	public void install(String system);
+
+	/**
+	 * List all installed systems
+	 * 
+	 * @return
+	 */
+	public String[] list();
 }
