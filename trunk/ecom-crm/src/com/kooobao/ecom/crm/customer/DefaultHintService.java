@@ -23,7 +23,7 @@ import com.kooobao.ecom.crm.customer.entity.CustomerStatus;
 import com.kooobao.ecom.crm.customer.entity.Hint;
 import com.kooobao.ecom.crm.customer.entity.HintFollowup;
 import com.kooobao.ecom.crm.customer.entity.HintStatus;
-import com.kooobao.ecom.crm.order.entity.Order;
+import com.kooobao.ecom.crm.order.entity.SimpleOrder;
 import com.kooobao.ecom.crm.setting.dao.SettingDao;
 import com.kooobao.ecom.crm.setting.entity.CustomerSetting;
 import com.kooobao.registry.RegistryAccessor;
@@ -100,7 +100,7 @@ public class DefaultHintService implements HintService {
 	}
 
 	@Override
-	public void placeOrder(Context context, Hint hint, Order order,
+	public void placeOrder(Context context, Hint hint, SimpleOrder order,
 			CustomerNature nature) {
 		Validate.isTrue(hint.getStatus() != HintStatus.CUSTOMER);
 		Customer cust = hintToCustomer(hint);
