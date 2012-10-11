@@ -2,9 +2,14 @@ package com.kooobao.ecom.crm.order.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.kooobao.ecom.crm.customer.entity.Customer;
 
-public class Order {
+@Entity
+@Table(name="crm_order_simple")
+public class SimpleOrder {
 
 	private String status;
 
