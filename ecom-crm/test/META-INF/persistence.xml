@@ -2,25 +2,30 @@
 <persistence version="2.0"
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-	<persistence-unit name="customer-relationship-manage" transaction-type="RESOURCE_LOCAL">
-		<class>com.kooobao.ecom.crm.customer.entity.Contact</class>
-		<class>com.kooobao.ecom.crm.customer.entity.Customer</class>
-		<class>com.kooobao.ecom.crm.customer.entity.CustomerFollowup</class>
-		<class>com.kooobao.ecom.crm.customer.entity.Hint</class>
-		<class>com.kooobao.ecom.crm.customer.entity.HintFollowup</class>
-		<class>com.kooobao.ecom.crm.setting.entity.SettingEntry</class>
-		<class>com.kooobao.ecom.crm.common.unique.UniqueItem</class>
-		<class>com.kooobao.ecom.crm.common.wordsplit.WordTreeNode</class>
+	<persistence-unit name="ecom-order" transaction-type="RESOURCE_LOCAL">
+		<class>com.kooobao.ecom.order.product.entity.Product</class>
+		<class>com.kooobao.ecom.order.product.entity.ProductSet</class>
+		<class>com.kooobao.ecom.order.product.entity.ProductUnit</class>
+		<class>com.kooobao.ecom.order.purchase.entity.Purchase</class>
+		<class>com.kooobao.ecom.order.purchase.entity.PurchaseItem</class>
+		<class>com.kooobao.ecom.order.purchase.entity.DisplayItem</class>
+		<class>com.kooobao.ecom.order.customer.entity.Customer</class>
+		<class>com.kooobao.ecom.order.delivery.entity.Delivery</class>
+		<class>com.kooobao.ecom.order.delivery.entity.DeliveryItem</class>
+		<class>com.kooobao.ecom.order.delivery.entity.DeliverySite</class>
+		<class>com.kooobao.ecom.order.returnreq.entity.ReturnRequest</class>
+		<class>com.kooobao.ecom.order.returnreq.entity.ReturnItem</class>
+		<class>com.kooobao.ecom.order.returnreq.entity.RequestLog</class>
 		<properties>
-			<property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/website"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="J1eninan"/>
-			<property name="eclipselink.jdbc.bind-parameters" value="true"/>
-			<property name="eclipselink.logging.level" value="OFF"/>
+			<property name="eclipselink.jdbc.batch-writing" value="JDBC" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ecom" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="J1eninan" />
+			<property name="eclipselink.jdbc.bind-parameters" value="true" />
+			<property name="eclipselink.logging.level" value="OFF" />
 			<property name="eclipselink.logging.level.sql" value="ALL"></property>
-			<property name="eclipselink.logging.timestamp" value="true"/>
+			<property name="eclipselink.logging.timestamp" value="true" />
 		</properties>
 	</persistence-unit>
 </persistence>
