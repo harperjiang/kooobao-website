@@ -1,0 +1,2 @@
+serviceClass: com.kooobao.ecom.ui.client.GreetingService
+path: 9756A5DD8DF0F64E1A5E0A6F03182A6A.gwt.rpc

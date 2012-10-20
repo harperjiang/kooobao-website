@@ -1,0 +1,3 @@
+# Module ecom_ui
+# RPC service class, partial path of RPC policy file
+com.kooobao.ecom.ui.client.GreetingService, 9756A5DD8DF0F64E1A5E0A6F03182A6A.gwt.rpc
