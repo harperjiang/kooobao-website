@@ -49,18 +49,6 @@ public class Ecom_ui implements EntryPoint {
 		splitLayoutPanel.addWest(menuStackPanel, 200);
 		menuStackPanel.setSize("100%", "800");
 		
-		VerticalPanel productPanel = new VerticalPanel();
-		menuStackPanel.add(productPanel, "Product", false);
-		productPanel.setWidth("100%");
-		
-		Hyperlink manageProductLink = new Hyperlink("Manage Product", false, "newHistoryToken");
-		manageProductLink.setStyleName("menuItem");
-		productPanel.add(manageProductLink);
-		
-		Hyperlink manageProductSetLink = new Hyperlink("Manage Product Set", false, "newHistoryToken");
-		manageProductSetLink.setStyleName("menuItem");
-		productPanel.add(manageProductSetLink);
-		
 		VerticalPanel purchasePanel = new VerticalPanel();
 		menuStackPanel.add(purchasePanel, "Purchase", false);
 		purchasePanel.setSize("100%", "");
@@ -87,21 +75,66 @@ public class Ecom_ui implements EntryPoint {
 		recordDeliveryLink.setStyleName("menuItem");
 		deliveryPanel.add(recordDeliveryLink);
 		
-		VerticalPanel stockPanel = new VerticalPanel();
-		menuStackPanel.add(stockPanel, "Stock", false);
-		stockPanel.setSize("100%", "100%");
+		VerticalPanel inventoryPanel = new VerticalPanel();
+		menuStackPanel.add(inventoryPanel, "Inventory", false);
+		inventoryPanel.setSize("100%", "100%");
+		
+		Hyperlink manageSiteLink = new Hyperlink("Manage Site", false, "newHistoryToken");
+		manageSiteLink.setStyleName("menuItem");
+		inventoryPanel.add(manageSiteLink);
+		
+		Hyperlink stocktakeLink = new Hyperlink("Stocktake", false, "newHistoryToken");
+		stocktakeLink.setHTML("Stocktake");
+		stocktakeLink.setStyleName("menuItem");
+		inventoryPanel.add(stocktakeLink);
 		
 		VerticalPanel reportPanel = new VerticalPanel();
 		menuStackPanel.add(reportPanel, "Report", false);
 		reportPanel.setSize("100%", "100%");
 		
+		VerticalPanel productPanel = new VerticalPanel();
+		menuStackPanel.add(productPanel, "Product", false);
+		productPanel.setWidth("100%");
+		
+		Hyperlink manageProductLink = new Hyperlink("Manage Product", false, "newHistoryToken");
+		manageProductLink.setStyleName("menuItem");
+		productPanel.add(manageProductLink);
+		
+		Hyperlink manageProductSetLink = new Hyperlink("Manage Product Set", false, "newHistoryToken");
+		manageProductSetLink.setStyleName("menuItem");
+		productPanel.add(manageProductSetLink);
+		
 		VerticalPanel userPanel = new VerticalPanel();
 		menuStackPanel.add(userPanel, "User", false);
 		userPanel.setSize("100%", "100%");
 		
+		Hyperlink manageUserLink = new Hyperlink("Manage User", false, "newHistoryToken");
+		manageUserLink.setStyleName("menuItem");
+		userPanel.add(manageUserLink);
+		
+		Hyperlink manageRoleLink = new Hyperlink("Manage Role", false, "newHistoryToken");
+		manageRoleLink.setStyleName("menuItem");
+		userPanel.add(manageRoleLink);
+		
+		Hyperlink viewAuthLink = new Hyperlink("View Authority", false, "newHistoryToken");
+		viewAuthLink.setStyleName("menuItem");
+		userPanel.add(viewAuthLink);
+		
 		VerticalPanel customerPanel = new VerticalPanel();
 		menuStackPanel.add(customerPanel, "Customer", false);
 		customerPanel.setSize("100%", "100%");
+		
+		Hyperlink addHintLink = new Hyperlink("Add Hint", false, "newHistoryToken");
+		addHintLink.setStyleName("menuItem");
+		customerPanel.add(addHintLink);
+		
+		Hyperlink followupLink = new Hyperlink("Followup", false, "newHistoryToken");
+		followupLink.setStyleName("menuItem");
+		customerPanel.add(followupLink);
+		
+		Hyperlink manageMyHintLink = new Hyperlink("Manage My Hint", false, "newHistoryToken");
+		manageMyHintLink.setStyleName("menuItem");
+		customerPanel.add(manageMyHintLink);
 		
 		VerticalPanel settingPanel = new VerticalPanel();
 		menuStackPanel.add(settingPanel, "Setting", false);
