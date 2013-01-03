@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.eclipse.persistence.jpa.JpaHelper;
@@ -11,6 +12,7 @@ import org.eclipse.persistence.queries.QueryByExamplePolicy;
 import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReadObjectQuery;
 import org.eclipse.persistence.sessions.server.Server;
+import org.springframework.orm.jpa.EntityManagerFactoryInfo;
 
 import com.kooobao.common.domain.dao.cursor.JpaCursor;
 import com.kooobao.common.domain.entity.SimpleEntity;
@@ -40,11 +42,11 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 			entity = getEntityManager().merge(entity);
 		}
 		// Copy Object
+		EntityManagerFactory nativeEmf = extract(getEntityManager()
+				.getEntityManagerFactory());
 		if (entity instanceof VersionEntity
-				&& JpaHelper.isEclipseLink(getEntityManager()
-						.getEntityManagerFactory())) {
-			Server server = JpaHelper.getServerSession(getEntityManager()
-					.getEntityManagerFactory());
+				&& JpaHelper.isEclipseLink(nativeEmf)) {
+			Server server = JpaHelper.getServerSession(nativeEmf);
 			VersionEntity ve = (VersionEntity) server.copy(entity, null);
 			ve.setVersion(ve.getVersion() + 1);
 			return (T) ve;
@@ -53,9 +55,30 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 
 	}
 
+	private EntityManagerFactory extract(
+			EntityManagerFactory entityManagerFactory) {
+		if (entityManagerFactory instanceof EntityManagerFactoryInfo) {
+			return ((EntityManagerFactoryInfo) entityManagerFactory)
+					.getNativeEntityManagerFactory();
+		}
+		return entityManagerFactory;
+	}
+
 	public T remove(T entity) {
 		getEntityManager().remove(entity);
 		return entity;
+	}
+
+	public void removeAll() {
+		getEntityManager().createQuery(
+				"delete from " + getParamClass().getSimpleName())
+				.executeUpdate();
+		EntityManagerFactory nativeEmf = extract(getEntityManager()
+				.getEntityManagerFactory());
+		if (JpaHelper.isEclipseLink(nativeEmf)) {
+			Server server = JpaHelper.getServerSession(nativeEmf);
+			server.getIdentityMapAccessor().invalidateClass(getParamClass());
+		}
 	}
 
 	public T find(long oid) {

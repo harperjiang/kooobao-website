@@ -47,4 +47,21 @@ public class SimpleEntity {
 		return sb.toString();
 	}
 
+	public static <T extends Comparable<T>> int compare(T a, T b) {
+		if (a == b && a == null)
+			return 0;
+		if (a != null && b == null)
+			return 1;
+		if (a == null && b != null)
+			return -1;
+		return a.compareTo(b);
+	}
+
+	public static boolean equals(Object a, Object b) {
+		if (a == b)
+			return true;
+		if (a == null)
+			return false;
+		return a.equals(b);
+	}
 }

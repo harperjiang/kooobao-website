@@ -35,8 +35,6 @@ import org.apache.commons.fileupload.util.Streams;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.kooobao.common.util.ConfigLoader;
-
 public class MultipartRequestWrapper extends HttpServletRequestWrapper {
 
 	HttpServletRequest request = null;
@@ -46,14 +44,16 @@ public class MultipartRequestWrapper extends HttpServletRequestWrapper {
 	int maxSize;
 	int thresholdSize;
 	String repositoryPath;
+	String storagePath;
 
 	public MultipartRequestWrapper(HttpServletRequest request, int maxSize,
-			int thresholdSize, String repositoryPath) {
+			int thresholdSize, String repositoryPath, String storagePath) {
 		super(request);
 		this.request = request;
 		this.maxSize = maxSize;
 		this.thresholdSize = thresholdSize;
 		this.repositoryPath = repositoryPath;
+		this.storagePath = storagePath;
 	}
 
 	private void parseRequest() {
@@ -74,7 +74,7 @@ public class MultipartRequestWrapper extends HttpServletRequestWrapper {
 		parametersMap = new HashMap<String, Object>();
 		files = new HashMap<String, FileBean>();
 
-		String path = ConfigLoader.getInstance().load("fileupload", "folder");
+		String path = storagePath;
 
 		try {
 			// Parse the request
