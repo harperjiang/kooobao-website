@@ -69,7 +69,7 @@ public class RegistryAccessor {
 		String publishSystem = ConfigLoader.getInstance().load("registry",
 				"publish_system");
 		RegistryService registryService = getRegistryService();
-		registryService.install(publishSystem);
+		registryService.install(publishSystem, null);
 	}
 
 	public String[] list() {

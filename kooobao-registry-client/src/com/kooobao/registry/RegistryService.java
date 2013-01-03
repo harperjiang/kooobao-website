@@ -1,5 +1,7 @@
 package com.kooobao.registry;
 
+import java.util.Map;
+
 /**
  * Interface to access module registry
  * 
@@ -40,7 +42,7 @@ public interface RegistryService {
 	 * 
 	 * @param system
 	 */
-	public void install(String system);
+	public void install(String system, Map<String, String> properties);
 
 	/**
 	 * List all installed systems
