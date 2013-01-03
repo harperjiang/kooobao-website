@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
-import com.kooobao.ecom.order.product.entity.Product;
+import com.kooobao.ecom.product.entity.Product;
 
 @Entity
 @Table(name = "order_purchase_item")

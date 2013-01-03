@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
-import com.kooobao.ecom.order.product.entity.ContactInfo;
+import com.kooobao.ecom.common.entity.ContactInfo;
 
 @Entity
 @Table(name = "order_customer")
