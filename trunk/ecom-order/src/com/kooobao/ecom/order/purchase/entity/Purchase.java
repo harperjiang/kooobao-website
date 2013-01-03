@@ -17,9 +17,9 @@ import javax.persistence.Table;
 import org.eclipse.persistence.annotations.Convert;
 
 import com.kooobao.common.domain.entity.VersionEntity;
+import com.kooobao.ecom.common.entity.ContactInfo;
 import com.kooobao.ecom.order.customer.entity.Customer;
 import com.kooobao.ecom.order.delivery.entity.Delivery;
-import com.kooobao.ecom.order.product.entity.ContactInfo;
 
 @Entity
 @Table(name = "order_purchase")

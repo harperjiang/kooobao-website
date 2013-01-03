@@ -23,5 +23,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="test_config"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL JDBC Driver"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ecom-metadata"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
