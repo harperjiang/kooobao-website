@@ -8,6 +8,8 @@ public interface Dao<T> {
 	public T store(T entity);
 	
 	public T remove(T entity);
+	
+	public void removeAll();
 
 	public T find(long oid);
 	

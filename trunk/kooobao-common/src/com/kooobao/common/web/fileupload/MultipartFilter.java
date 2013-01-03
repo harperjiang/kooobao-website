@@ -37,6 +37,7 @@ import org.apache.commons.fileupload.servlet.ServletRequestContext;
  * @author Sylvain Vieujot (latest modification by $Author: oros $)
  * @author <a HREF="mailto:oliver@rossmueller.com"
  *         mce_HREF="mailto:oliver@rossmueller.com">Oliver Rossmueller </a>
+ * @author Harper Jiang
  * @version $Revision: 1.1 $ $Date: 2005/03/20 23:16:08 $
  */
 public class MultipartFilter implements Filter {
@@ -47,6 +48,8 @@ public class MultipartFilter implements Filter {
 
 	private String uploadRepositoryPath = null; // standard temp directory
 
+	private String uploadStoragePath = null;
+
 	public void init(FilterConfig filterConfig) {
 		uploadMaxFileSize = resolveSize(
 				filterConfig.getInitParameter("uploadMaxFileSize"),
@@ -56,6 +59,7 @@ public class MultipartFilter implements Filter {
 				uploadThresholdSize);
 		uploadRepositoryPath = filterConfig
 				.getInitParameter("uploadRepositoryPath");
+		uploadStoragePath = filterConfig.getInitParameter("uploadStoragePath");
 	}
 
 	private int resolveSize(String param, int defaultValue) {
@@ -92,11 +96,11 @@ public class MultipartFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
 		// For multipart/form-data requests
-		if (ServletFileUpload
-				.isMultipartContent(new ServletRequestContext(httpRequest))) {
+		if (ServletFileUpload.isMultipartContent(new ServletRequestContext(
+				httpRequest))) {
 			chain.doFilter(new MultipartRequestWrapper(httpRequest,
 					uploadMaxFileSize, uploadThresholdSize,
-					uploadRepositoryPath), response);
+					uploadRepositoryPath, uploadStoragePath), response);
 		} else {
 			chain.doFilter(request, response);
 		}

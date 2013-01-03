@@ -65,7 +65,7 @@ public class HtmlMessagesDialogRenderer extends Renderer {
 		writer.startElement(HTML.BUTTON_ELEM, component);
 		writer.writeAttribute("class", "dialog_btn", null);
 		writer.writeAttribute("onclick", "hide_dialog('" + id + "')", null);
-		writer.writeText("确认", null);
+		writer.writeText("OK", null);
 		writer.endElement(HTML.BUTTON_ELEM);
 
 		writer.endElement(HTML.DIV_ELEM);

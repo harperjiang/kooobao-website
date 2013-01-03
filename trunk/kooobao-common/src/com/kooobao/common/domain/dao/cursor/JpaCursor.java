@@ -11,10 +11,12 @@ public class JpaCursor<T> implements Cursor<T> {
 
 	int currentCount;
 
+	int totalIndex;
+
 	public boolean hasNext() {
 		if (currentCount < getBuffer().size())
 			return true;
-		if (buffer.size() < getPageSize())
+		if (getBuffer().size() < getPageSize())
 			return false;
 		getNextPage();
 		return hasNext();
@@ -29,9 +31,11 @@ public class JpaCursor<T> implements Cursor<T> {
 	private List<T> buffer;
 
 	protected void getNextPage() {
-		query.setFirstResult(currentCount);
-		query.setMaxResults(getPageSize());
+		query.setFirstResult(totalIndex);
+		query.setMaxResults(totalIndex + getPageSize());
 		buffer = query.getResultList();
+		totalIndex += buffer.size();
+		currentCount = 0;
 	}
 
 	public T next() {
