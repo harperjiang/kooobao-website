@@ -2,11 +2,10 @@ package com.kooobao.ecom.user.entity;
 
 import java.util.List;
 
-public class User {
+public class Category {
 
-	private String id;
-	
-	private Role role;
+	private String name;
 	
 	private List<Authority> authorities;
+
 }
