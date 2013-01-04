@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+	xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_2_1.xsd">
+	<converter name="enumConverter"
+		class="com.kooobao.common.domain.converter.EnumConverter" />
+
+
+	<table-generator name="productTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_product" />
+	<table-generator name="purchaseTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_purchase" />
+	<table-generator name="purchaseItemTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_purchase_item" />
+	<table-generator name="displayItemTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_purchase_ditem" />
+	<table-generator name="customerTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_customer" />
+	<table-generator name="deliveryTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_delivery" />
+	<table-generator name="deliveryItemTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_delivery_item" />
+	<table-generator name="deliverySiteTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_delivery_site" />
+	<table-generator name="returnRequestTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_returnreq" />
+	<table-generator name="returnItemTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_returnreq_item" />
+	<table-generator name="requestLogTG" table="order_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="order_returnreq_log" />
+
+
+	<entity class="com.kooobao.ecom.order.product.entity.Product">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="productTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.purchase.entity.Purchase">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="purchaseTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.purchase.entity.PurchaseItem">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="purchaseItemTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.purchase.entity.DisplayItem">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="displayItemTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.customer.entity.Customer">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="customerTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.delivery.entity.Delivery">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="deliveryTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.delivery.entity.DeliveryItem">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="deliveryItemTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.delivery.entity.DeliverySite">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="deliverySiteTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.returnreq.entity.ReturnRequest">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="returnRequestTG" />
+			</basic>
+		</attributes>
+	</entity>
+
+	<entity class="com.kooobao.ecom.order.returnreq.entity.ReturnItem">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="returnItemTG" />
+			</basic>
+		</attributes>
+	</entity>
+	
+<entity class="com.kooobao.ecom.order.returnreq.entity.RequestLog">
+		<primary-key>
+			<column name="obj_id" />
+		</primary-key>
+		<attributes>
+			<basic name="oid">
+				<column name="obj_id" />
+				<generated-value generator="requestLogTG" />
+			</basic>
+		</attributes>
+	</entity>	
+</entity-mappings>
