@@ -1,4 +1,4 @@
-package com.kooobao.ecom.crm.setting.entity;
+package com.kooobao.ecom.crm.setting;
 
 public class CustomerSetting {
 
