@@ -20,8 +20,8 @@ public class Contact {
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "qq")
-	private String qq;
+	@Column(name = "im")
+	private String im;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -31,7 +31,7 @@ public class Contact {
 					&& getPhone().equals(compare.getPhone())
 					&& getEmail().equals(compare.getEmail())
 					&& getAddress().equals(compare.getAddress())
-					&& getQq().equals(compare.getQq());
+					&& getIm().equals(compare.getIm());
 		}
 		return super.equals(obj);
 	}
@@ -39,8 +39,8 @@ public class Contact {
 	@Override
 	public String toString() {
 		return MessageFormat.format(
-				"Contact: {0}, Phone: {1}, Email: {2}, QQ: {3}, Address: {4}",
-				getName(), getPhone(), getEmail(), getQq(), getAddress());
+				"Contact: {0}, Phone: {1}, Email: {2}, IM: {3}, Address: {4}",
+				getName(), getPhone(), getEmail(), getIm(), getAddress());
 	}
 
 	public String getName() {
@@ -67,12 +67,12 @@ public class Contact {
 		this.address = address;
 	}
 
-	public String getQq() {
-		return qq;
+	public String getIm() {
+		return im;
 	}
 
-	public void setQq(String qq) {
-		this.qq = qq;
+	public void setIm(String im) {
+		this.im = im;
 	}
 
 	public String getEmail() {

@@ -3,7 +3,7 @@ package com.kooobao.ecom.crm.customer;
 import java.util.List;
 
 import com.kooobao.ecom.crm.common.Context;
-import com.kooobao.ecom.crm.customer.entity.CustomerNature;
+import com.kooobao.ecom.crm.customer.entity.CustomerType;
 import com.kooobao.ecom.crm.customer.entity.Hint;
 import com.kooobao.ecom.crm.customer.entity.HintFollowup;
 import com.kooobao.ecom.crm.profit.entity.ProfitRecord;
@@ -61,7 +61,7 @@ public interface HintService {
 	 * @param order
 	 */
 	void placeOrder(Context context, Hint hint, ProfitRecord order,
-			CustomerNature nature);
+			CustomerType nature);
 
 	/**
 	 * Get hints list for current user

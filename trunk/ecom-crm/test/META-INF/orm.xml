@@ -6,80 +6,18 @@
 	<converter name="enumConverter"
 		class="com.kooobao.common.domain.converter.EnumConverter" />
 
+	<table-generator name="customerTG" table="crm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="crm_customer" />
+	<table-generator name="cfuTG" table="crm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="crm_customer_followup" />
+	<table-generator name="hintTG" table="crm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="crm_hint" />
+	<table-generator name="hfuTG" table="crm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="crm_hint_followup" />
+	<table-generator name="wtnTG" table="crm_sequence"
+		pk-column-name="name" value-column-name="count" pk-column-value="crm_wordsplit_wtn" />
 
-	<table-generator name="productTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_product" />
-	<table-generator name="purchaseTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_purchase" />
-	<table-generator name="purchaseItemTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_purchase_item" />
-	<table-generator name="displayItemTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_purchase_ditem" />
-	<table-generator name="customerTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_customer" />
-	<table-generator name="deliveryTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_delivery" />
-	<table-generator name="deliveryItemTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_delivery_item" />
-	<table-generator name="deliverySiteTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_delivery_site" />
-	<table-generator name="returnRequestTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_returnreq" />
-	<table-generator name="returnItemTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_returnreq_item" />
-	<table-generator name="requestLogTG" table="order_sequence"
-		pk-column-name="name" value-column-name="count" pk-column-value="order_returnreq_log" />
-
-
-	<entity class="com.kooobao.ecom.order.product.entity.Product">
-		<primary-key>
-			<column name="obj_id" />
-		</primary-key>
-		<attributes>
-			<basic name="oid">
-				<column name="obj_id" />
-				<generated-value generator="productTG" />
-			</basic>
-		</attributes>
-	</entity>
-
-	<entity class="com.kooobao.ecom.order.purchase.entity.Purchase">
-		<primary-key>
-			<column name="obj_id" />
-		</primary-key>
-		<attributes>
-			<basic name="oid">
-				<column name="obj_id" />
-				<generated-value generator="purchaseTG" />
-			</basic>
-		</attributes>
-	</entity>
-
-	<entity class="com.kooobao.ecom.order.purchase.entity.PurchaseItem">
-		<primary-key>
-			<column name="obj_id" />
-		</primary-key>
-		<attributes>
-			<basic name="oid">
-				<column name="obj_id" />
-				<generated-value generator="purchaseItemTG" />
-			</basic>
-		</attributes>
-	</entity>
-
-	<entity class="com.kooobao.ecom.order.purchase.entity.DisplayItem">
-		<primary-key>
-			<column name="obj_id" />
-		</primary-key>
-		<attributes>
-			<basic name="oid">
-				<column name="obj_id" />
-				<generated-value generator="displayItemTG" />
-			</basic>
-		</attributes>
-	</entity>
-
-	<entity class="com.kooobao.ecom.order.customer.entity.Customer">
+	<entity class="com.kooobao.ecom.crm.customer.entity.Customer">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
@@ -91,75 +29,51 @@
 		</attributes>
 	</entity>
 
-	<entity class="com.kooobao.ecom.order.delivery.entity.Delivery">
+	<entity class="com.kooobao.ecom.crm.customer.entity.CustomerFollowup">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
 		<attributes>
 			<basic name="oid">
 				<column name="obj_id" />
-				<generated-value generator="deliveryTG" />
+				<generated-value generator="cfuTG" />
 			</basic>
 		</attributes>
 	</entity>
 
-	<entity class="com.kooobao.ecom.order.delivery.entity.DeliveryItem">
+	<entity class="com.kooobao.ecom.crm.customer.entity.Hint">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
 		<attributes>
 			<basic name="oid">
 				<column name="obj_id" />
-				<generated-value generator="deliveryItemTG" />
+				<generated-value generator="hintTG" />
 			</basic>
 		</attributes>
 	</entity>
 
-	<entity class="com.kooobao.ecom.order.delivery.entity.DeliverySite">
+	<entity class="com.kooobao.ecom.crm.customer.entity.HintFollowup">
 		<primary-key>
 			<column name="obj_id" />
 		</primary-key>
 		<attributes>
 			<basic name="oid">
 				<column name="obj_id" />
-				<generated-value generator="deliverySiteTG" />
-			</basic>
-		</attributes>
-	</entity>
-
-	<entity class="com.kooobao.ecom.order.returnreq.entity.ReturnRequest">
-		<primary-key>
-			<column name="obj_id" />
-		</primary-key>
-		<attributes>
-			<basic name="oid">
-				<column name="obj_id" />
-				<generated-value generator="returnRequestTG" />
-			</basic>
-		</attributes>
-	</entity>
-
-	<entity class="com.kooobao.ecom.order.returnreq.entity.ReturnItem">
-		<primary-key>
-			<column name="obj_id" />
-		</primary-key>
-		<attributes>
-			<basic name="oid">
-				<column name="obj_id" />
-				<generated-value generator="returnItemTG" />
+				<generated-value generator="hfuTG" />
 			</basic>
 		</attributes>
 	</entity>
 	
-<entity class="com.kooobao.ecom.order.returnreq.entity.RequestLog">
+	<entity class="com.kooobao.ecom.crm.common.wordsplit.WordTreeNode">
 		<primary-key>
-			<column name="obj_id" />
+			<column name="id" />
 		</primary-key>
 		<attributes>
-			<basic name="oid">
-				<column name="obj_id" />
-				<generated-value generator="requestLogTG" />
+			<basic name="id">
+				<column name="id" />
+				<generated-value generator="wtnTG" />
 			</basic>
 		</attributes>
-	</entity>	
+	</entity>
 </entity-mappings>

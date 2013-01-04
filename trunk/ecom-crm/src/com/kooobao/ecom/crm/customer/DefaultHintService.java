@@ -18,8 +18,8 @@ import com.kooobao.ecom.crm.common.wordsplit.WordService;
 import com.kooobao.ecom.crm.customer.dao.CustomerDao;
 import com.kooobao.ecom.crm.customer.dao.HintDao;
 import com.kooobao.ecom.crm.customer.entity.Customer;
-import com.kooobao.ecom.crm.customer.entity.CustomerNature;
 import com.kooobao.ecom.crm.customer.entity.CustomerStatus;
+import com.kooobao.ecom.crm.customer.entity.CustomerType;
 import com.kooobao.ecom.crm.customer.entity.Hint;
 import com.kooobao.ecom.crm.customer.entity.HintFollowup;
 import com.kooobao.ecom.crm.customer.entity.HintStatus;
@@ -55,7 +55,7 @@ public class DefaultHintService implements HintService {
 		List<String> phones = new ArrayList<String>();
 		phones.add(hint.getContact().getPhone());
 		List<String> qqs = new ArrayList<String>();
-		qqs.add(hint.getContact().getQq());
+		qqs.add(hint.getContact().getIm());
 
 		ue.getAttributes().put("CONTACT-PHONE", phones);
 		ue.getAttributes().put("CONTACT-QQ", qqs);
@@ -102,10 +102,10 @@ public class DefaultHintService implements HintService {
 
 	@Override
 	public void placeOrder(Context context, Hint hint, ProfitRecord order,
-			CustomerNature nature) {
+			CustomerType type) {
 		Validate.isTrue(hint.getStatus() != HintStatus.CUSTOMER);
 		Customer cust = hintToCustomer(hint);
-		cust.setNature(nature);
+		cust.setType(type);
 		cust.setStatus(CustomerStatus.OCCUPIED);
 		cust.setOwnBy(context.getOperatorId());
 		cust.setRegisterBy(context.getOperatorId());
@@ -127,7 +127,7 @@ public class DefaultHintService implements HintService {
 		cust.getContact().setAddress(hint.getContact().getAddress());
 		cust.getContact().setName(hint.getContact().getName());
 		cust.getContact().setPhone(hint.getContact().getPhone());
-		cust.getContact().setQq(hint.getContact().getQq());
+		cust.getContact().setIm(hint.getContact().getIm());
 
 		for (Entry<String, String> oc : hint.getOtherContact().entrySet())
 			cust.getOtherContact().put(oc.getKey(), oc.getValue());
