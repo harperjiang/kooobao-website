@@ -23,9 +23,9 @@ import com.kooobao.ecom.crm.customer.entity.CustomerStatus;
 import com.kooobao.ecom.crm.customer.entity.Hint;
 import com.kooobao.ecom.crm.customer.entity.HintFollowup;
 import com.kooobao.ecom.crm.customer.entity.HintStatus;
-import com.kooobao.ecom.crm.order.entity.SimpleOrder;
-import com.kooobao.ecom.crm.setting.dao.SettingDao;
-import com.kooobao.ecom.crm.setting.entity.CustomerSetting;
+import com.kooobao.ecom.crm.profit.entity.ProfitRecord;
+import com.kooobao.ecom.crm.setting.CustomerSetting;
+import com.kooobao.ecom.setting.dao.SettingDao;
 import com.kooobao.registry.RegistryAccessor;
 
 public class DefaultHintService implements HintService {
@@ -34,7 +34,8 @@ public class DefaultHintService implements HintService {
 		Context context = new Context();
 		context.setOperatorId("SYSTEM");
 		Cursor<Hint> hints = getHintDao().getOvertimeHints(
-				getSettingDao().getCustomerSetting().getHintRetainTime());
+				getSettingDao().getSetting(CustomerSetting.class)
+						.getHintRetainTime());
 		while (hints.hasNext()) {
 			Hint hint = hints.next();
 			free(context, hint, "Over protection");
@@ -100,7 +101,7 @@ public class DefaultHintService implements HintService {
 	}
 
 	@Override
-	public void placeOrder(Context context, Hint hint, SimpleOrder order,
+	public void placeOrder(Context context, Hint hint, ProfitRecord order,
 			CustomerNature nature) {
 		Validate.isTrue(hint.getStatus() != HintStatus.CUSTOMER);
 		Customer cust = hintToCustomer(hint);
@@ -148,7 +149,7 @@ public class DefaultHintService implements HintService {
 
 	@Override
 	public int request(Context context) {
-		CustomerSetting cs = getSettingDao().getCustomerSetting();
+		CustomerSetting cs = getSettingDao().getSetting(CustomerSetting.class);
 		int current = getAvailableHints(context).size();
 		if (cs.getHintLimit() <= current)
 			return 0;

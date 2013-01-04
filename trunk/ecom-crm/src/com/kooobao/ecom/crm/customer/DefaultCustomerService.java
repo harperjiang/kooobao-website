@@ -13,8 +13,8 @@ import com.kooobao.ecom.crm.customer.dao.CustomerDao;
 import com.kooobao.ecom.crm.customer.entity.Customer;
 import com.kooobao.ecom.crm.customer.entity.CustomerFollowup;
 import com.kooobao.ecom.crm.customer.entity.CustomerStatus;
-import com.kooobao.ecom.crm.setting.dao.SettingDao;
-import com.kooobao.ecom.crm.setting.entity.CustomerSetting;
+import com.kooobao.ecom.crm.setting.CustomerSetting;
+import com.kooobao.ecom.setting.dao.SettingDao;
 
 public class DefaultCustomerService implements CustomerService {
 
@@ -81,7 +81,7 @@ public class DefaultCustomerService implements CustomerService {
 
 	@Override
 	public int request(Context context) {
-		CustomerSetting cs = getSettingDao().getCustomerSetting();
+		CustomerSetting cs = getSettingDao().getSetting(CustomerSetting.class);
 		int owned = getCustomers(context).size();
 		if (owned >= cs.getCustomerLimit())
 			return 0;
@@ -120,7 +120,8 @@ public class DefaultCustomerService implements CustomerService {
 		Context context = new Context();
 		context.setOperatorId("SYSTEM");
 		Cursor<Customer> customers = getCustomerDao().getOvertimeCustomers(
-				getSettingDao().getCustomerSetting().getCustomerRetainTime());
+				getSettingDao().getSetting(CustomerSetting.class)
+						.getCustomerRetainTime());
 		while (customers.hasNext()) {
 			Customer cust = customers.next();
 			free(context, cust, "OVERTIME");

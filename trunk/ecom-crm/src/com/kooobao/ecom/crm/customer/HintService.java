@@ -6,7 +6,7 @@ import com.kooobao.ecom.crm.common.Context;
 import com.kooobao.ecom.crm.customer.entity.CustomerNature;
 import com.kooobao.ecom.crm.customer.entity.Hint;
 import com.kooobao.ecom.crm.customer.entity.HintFollowup;
-import com.kooobao.ecom.crm.order.entity.SimpleOrder;
+import com.kooobao.ecom.crm.profit.entity.ProfitRecord;
 
 public interface HintService {
 
@@ -60,7 +60,7 @@ public interface HintService {
 	 * @param hint
 	 * @param order
 	 */
-	void placeOrder(Context context, Hint hint, SimpleOrder order,
+	void placeOrder(Context context, Hint hint, ProfitRecord order,
 			CustomerNature nature);
 
 	/**
