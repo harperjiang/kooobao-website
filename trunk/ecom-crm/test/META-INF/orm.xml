@@ -6,6 +6,7 @@
 	<converter name="enumConverter"
 		class="com.kooobao.common.domain.converter.EnumConverter" />
 
+
 	<table-generator name="productTG" table="order_sequence"
 		pk-column-name="name" value-column-name="count" pk-column-value="order_product" />
 	<table-generator name="purchaseTG" table="order_sequence"
