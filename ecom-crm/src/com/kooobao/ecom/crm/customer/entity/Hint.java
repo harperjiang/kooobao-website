@@ -57,6 +57,7 @@ public class Hint extends VersionEntity {
 	@CollectionTable(name = "crm_hint_contact", joinColumns = { @JoinColumn(name = "hint_id", referencedColumnName = "obj_id") })
 	private Map<String, String> otherContact = new HashMap<String, String>();
 
+	// Reference ID for unique check
 	@Column(name = "ref_id")
 	private String refId;
 

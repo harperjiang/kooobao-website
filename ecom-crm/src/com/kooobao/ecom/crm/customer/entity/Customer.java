@@ -27,7 +27,7 @@ import com.kooobao.common.domain.entity.VersionEntity;
 
 @Entity
 @Table(name = "crm_customer")
-@NamedQuery(name="findCustomerBySourceAndId",query="select c from Customer c where c.source = :source and c.id = :id")
+@NamedQuery(name = "findCustomerBySourceAndId", query = "select c from Customer c where c.source = :source and c.id = :id")
 public class Customer extends VersionEntity {
 
 	@Column(name = "source")
@@ -48,9 +48,9 @@ public class Customer extends VersionEntity {
 	@Column(name = "status")
 	private String status;
 
-	@Column(name = "cust_nature")
+	@Column(name = "type")
 	@Convert("enumConverter")
-	private CustomerNature nature;
+	private CustomerType type;
 
 	@Embedded
 	private Contact contact = new Contact();
@@ -110,12 +110,12 @@ public class Customer extends VersionEntity {
 		this.name = name;
 	}
 
-	public CustomerNature getNature() {
-		return nature;
+	public CustomerType getType() {
+		return type;
 	}
 
-	public void setNature(CustomerNature nature) {
-		this.nature = nature;
+	public void setType(CustomerType type) {
+		this.type = type;
 	}
 
 	public Contact getContact() {

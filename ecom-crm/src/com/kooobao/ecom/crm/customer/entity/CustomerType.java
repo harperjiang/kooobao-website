@@ -1,6 +1,6 @@
 package com.kooobao.ecom.crm.customer.entity;
 
-public enum CustomerNature {
+public enum CustomerType {
 
 	BIG_SCHOOL, SMALL_SCHOOL, PERSONAL
 }

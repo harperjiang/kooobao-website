@@ -21,7 +21,7 @@ public class WordTreeNode {
 	@Column(name = "id")
 	private long id;
 
-	// @Column(name = "content")
+	//@Column(name = "content")
 	Character content;
 
 	@ManyToOne
