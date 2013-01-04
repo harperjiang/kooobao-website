@@ -1,6 +1,8 @@
 package com.kooobao.ecom.crm.setting;
 
-public class CustomerSetting {
+import com.kooobao.ecom.setting.SettingInfo;
+
+public class CustomerSetting implements SettingInfo {
 
 	private int hintLimit = 7;
 
