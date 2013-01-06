@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.eclipse.persistence.jpa.JpaHelper;
+import org.eclipse.persistence.queries.AttributeGroup;
 import org.eclipse.persistence.queries.QueryByExamplePolicy;
 import org.eclipse.persistence.queries.ReadAllQuery;
 import org.eclipse.persistence.queries.ReadObjectQuery;
@@ -47,7 +48,7 @@ public abstract class AbstractJpaDao<T> implements Dao<T> {
 		if (entity instanceof VersionEntity
 				&& JpaHelper.isEclipseLink(nativeEmf)) {
 			Server server = JpaHelper.getServerSession(nativeEmf);
-			VersionEntity ve = (VersionEntity) server.copy(entity, null);
+			VersionEntity ve = (VersionEntity) server.copy(entity);
 			ve.setVersion(ve.getVersion() + 1);
 			return (T) ve;
 		}
