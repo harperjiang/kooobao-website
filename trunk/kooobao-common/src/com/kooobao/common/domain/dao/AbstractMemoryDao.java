@@ -49,7 +49,10 @@ public abstract class AbstractMemoryDao<T extends VersionEntity> implements
 	}
 
 	public Cursor<T> findAll() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void removeAll() {
+		storage.clear();
 	}
 }
