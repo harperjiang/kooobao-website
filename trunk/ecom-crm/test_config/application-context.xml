@@ -25,7 +25,21 @@
 		<property name="entityManager" ref="entityManager" />
 	</bean>
 
-	<bean id="uniquenessService" class="com.kooobao.ecom.crm.common.unique.DefaultUniquenessService">
+	<bean id="uniquenessService"
+		class="com.kooobao.ecom.crm.common.unique.DefaultUniquenessService">
 		<property name="uniqueEntryDao" ref="uniqueEntryDao" />
+	</bean>
+
+	<bean id="wordService"
+		class="com.kooobao.ecom.crm.common.wordsplit.DefaultWordService" />
+
+	<bean id="memoryCustomerDao" class="com.kooobao.ecom.crm.customer.MemoryCustomerDao" />
+
+	<bean id="customerService" class="com.kooobao.ecom.crm.customer.DefaultCustomerService">
+		<property name="wordService" ref="wordService" />
+		<property name="customerDao" ref="memoryCustomerDao" />
+		<property name="settingDao">
+			<bean class="com.kooobao.ecom.crm.customer.DummySettingDao" />
+		</property>
 	</bean>
 </beans>

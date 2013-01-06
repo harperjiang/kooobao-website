@@ -1,15 +1,18 @@
 package com.kooobao.ecom.crm.customer;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 import com.kooobao.common.domain.dao.Cursor;
-import com.kooobao.ecom.crm.common.Context;
+import com.kooobao.common.domain.service.Context;
+import com.kooobao.ecom.crm.ErrorCode;
+import com.kooobao.ecom.crm.common.ChangeHelper;
 import com.kooobao.ecom.crm.common.unique.UniqueEntry;
 import com.kooobao.ecom.crm.common.unique.UniqueResult;
 import com.kooobao.ecom.crm.common.unique.UniquenessException;
@@ -17,19 +20,15 @@ import com.kooobao.ecom.crm.common.unique.UniquenessService;
 import com.kooobao.ecom.crm.common.wordsplit.WordService;
 import com.kooobao.ecom.crm.customer.dao.CustomerDao;
 import com.kooobao.ecom.crm.customer.dao.HintDao;
-import com.kooobao.ecom.crm.customer.entity.Customer;
-import com.kooobao.ecom.crm.customer.entity.CustomerStatus;
-import com.kooobao.ecom.crm.customer.entity.CustomerType;
 import com.kooobao.ecom.crm.customer.entity.Hint;
 import com.kooobao.ecom.crm.customer.entity.HintFollowup;
 import com.kooobao.ecom.crm.customer.entity.HintStatus;
-import com.kooobao.ecom.crm.profit.entity.ProfitRecord;
 import com.kooobao.ecom.crm.setting.CustomerSetting;
 import com.kooobao.ecom.setting.dao.SettingDao;
-import com.kooobao.registry.RegistryAccessor;
 
 public class DefaultHintService implements HintService {
 
+	@Override
 	public void freeHints() {
 		Context context = new Context();
 		context.setOperatorId("SYSTEM");
@@ -38,11 +37,21 @@ public class DefaultHintService implements HintService {
 						.getHintRetainTime());
 		while (hints.hasNext()) {
 			Hint hint = hints.next();
-			free(context, hint, "Over protection");
+			updateStatus(context, hint, HintStatus.FREE, "Over protection");
 		}
 	}
 
-	protected boolean duplicate(Hint hint) {
+	@Override
+	public Hint addHint(Context context, Hint hint) {
+		checkDuplicate(hint);
+		if (HintStatus.SUSPEND == hint.getStatus()) {
+			// Need human revise, do nothing now
+		}
+		hint.setRegisterBy(context.getOperatorId());
+		return getHintDao().store(hint);
+	}
+
+	protected void checkDuplicate(Hint hint) {
 		// Construct Uniqueness Entry
 		UniqueEntry ue = new UniqueEntry();
 		ue.setCategory("HINT");
@@ -68,78 +77,23 @@ public class DefaultHintService implements HintService {
 			else
 				hint.setStatus(HintStatus.FOLLOWUP);
 			hint.setRefId(result.getUuid());
-			return false;
 		} catch (UniquenessException e) {
-
-			return true;
+			throw new DuplicateHintException(ErrorCode.HINT_DUPLICATE.name());
 		}
-	}
-
-	@Override
-	public boolean addHint(Context context, Hint hint) {
-		// TODO Return Error Code
-		if (duplicate(hint))
-			return false;
-		if (HintStatus.SUSPEND == hint.getStatus()) {
-			// Need human revise
-		}
-		hint.setRegisterBy(context.getOperatorId());
-		getHintDao().store(hint);
-		return true;
 	}
 
 	@Override
 	public void followup(Context context, HintFollowup followup) {
-		Validate.isTrue(followup.getHint().getOwnBy()
-				.equals(context.getOperatorId()));
-		Validate.isTrue(!followup.getHint().getStatus()
-				.equals(HintStatus.CUSTOMER));
+		Validate.isTrue(
+				followup.getHint().getOwnBy().equals(context.getOperatorId()),
+				ErrorCode.HINT_UPDATE_NOT_OWN.name());
+		Validate.isTrue(
+				!followup.getHint().getStatus().equals(HintStatus.CUSTOMER),
+				ErrorCode.HINT_UPDATE_ALREADY_CUSTOMER.name());
 
 		Hint copy = getHintDao().find(followup.getHint().getOid());
 		followup.setOwnBy(context.getOperatorId());
 		copy.addFollowup(followup);
-	}
-
-	@Override
-	public void placeOrder(Context context, Hint hint, ProfitRecord order,
-			CustomerType type) {
-		Validate.isTrue(hint.getStatus() != HintStatus.CUSTOMER);
-		Customer cust = hintToCustomer(hint);
-		cust.setType(type);
-		cust.setStatus(CustomerStatus.OCCUPIED);
-		cust.setOwnBy(context.getOperatorId());
-		cust.setRegisterBy(context.getOperatorId());
-		hint.setStatus(HintStatus.CUSTOMER);
-		order.setCustomer(cust);
-
-		getHintDao().store(hint);
-		getCustomerDao().store(cust);
-		// TODO Store the order
-
-		// Publish the created customer
-		RegistryAccessor.getInstance().publish("createCustomer", cust);
-	}
-
-	protected Customer hintToCustomer(Hint hint) {
-		Customer cust = new Customer();
-		cust.setName(hint.getName());
-		cust.setStatus(CustomerStatus.FREE);
-		cust.getContact().setAddress(hint.getContact().getAddress());
-		cust.getContact().setName(hint.getContact().getName());
-		cust.getContact().setPhone(hint.getContact().getPhone());
-		cust.getContact().setIm(hint.getContact().getIm());
-
-		for (Entry<String, String> oc : hint.getOtherContact().entrySet())
-			cust.getOtherContact().put(oc.getKey(), oc.getValue());
-
-		assignId(cust);
-
-		return cust;
-	}
-
-	private void assignId(Customer cust) {
-		// TODO Not implemented
-
 	}
 
 	@Override
@@ -155,68 +109,92 @@ public class DefaultHintService implements HintService {
 			return 0;
 		List<Hint> hints = getHintDao().getFreeHints(
 				cs.getHintLimit() - current);
-		assign(context, hints);
+		updateStatus(context, hints, HintStatus.FOLLOWUP, "Request");
 		return hints.size();
 	}
 
-	protected void assign(Context context, List<Hint> hints) {
+	protected void updateStatus(Context context, List<Hint> hints,
+			HintStatus newstatus, String comment) {
 		for (Hint hint : hints) {
-			hint.setOwnBy(context.getOperatorId());
-			hint.setUpdateTime(new Date());
-			hint.setStatus(HintStatus.FOLLOWUP);
-
-			HintFollowup hfu = new HintFollowup();
-			hfu.setOwnBy(context.getOperatorId());
-			hfu.setCreateTime(new Date());
-			hfu.setComment("Assign");
-			hfu.setReference("Assign");
+			updateStatus(context, hint, newstatus, comment);
 		}
+	}
+
+	protected void updateStatus(Context context, Hint hint,
+			HintStatus newstatus, String comment) {
+		hint.setOwnBy(context.getOperatorId());
+		hint.setUpdateTime(new Date());
+		HintStatus old = hint.getStatus();
+		hint.setStatus(newstatus);
+
+		HintFollowup hfu = new HintFollowup();
+		hfu.setOwnBy(context.getOperatorId());
+		hfu.setCreateTime(new Date());
+		hfu.setComment(comment);
+		hfu.setReference(MessageFormat.format("Status: {0} -> {1}", old.name(),
+				newstatus.name()));
+
 	}
 
 	@Override
 	public int exchange(Context context, List<Hint> hints) {
 		// TODO Limit exchange size
 		for (Hint hint : hints) {
-			free(context, hint, "Exchange");
+			updateStatus(context, hint, HintStatus.FREE, "Exchange");
 		}
 		List<Hint> newHints = getHintDao().getFreeHints(hints.size());
-		assign(context, newHints);
+		updateStatus(context, newHints, HintStatus.FOLLOWUP, "Exchange");
 		return newHints.size();
 	}
 
 	@Override
 	public void discard(Context context, Hint hint, String comment) {
-		HintFollowup hfu = new HintFollowup();
-		hfu.setOwnBy(context.getOperatorId());
-		hfu.setCreateTime(new Date());
-		hfu.setComment("Discarded:" + comment);
-		hfu.setReference("Discard");
-		hint.setStatus(HintStatus.DISCARDED);
-
+		updateStatus(context, hint, HintStatus.DISCARDED, comment);
 		getUniquenessService().discardEntry(hint.getRefId());
-	}
-
-	public void free(Context context, Hint hint, String comment) {
-		HintFollowup hfu = new HintFollowup();
-		hfu.setOwnBy(context.getOperatorId());
-		hfu.setCreateTime(new Date());
-		hfu.setComment("Free:" + comment);
-		hfu.setReference("Free");
-		hint.setStatus(HintStatus.FREE);
 	}
 
 	@Override
 	public void revise(Context context, Hint hint, boolean pass) {
 		if (pass) {
-			free(context, hint, "Revise");
+			updateStatus(context, hint, HintStatus.FREE, "Revise Pass");
 		} else {
-			discard(context, hint, "Revise");
+			discard(context, hint, "Revise Reject");
 		}
 	}
 
 	@Override
-	public void update(Context context, Hint hint) {
-		getHintDao().store(hint);
+	public Hint update(Context context, Hint hint) {
+		// Record follow up
+		Validate.isTrue(context.getOperatorId().equals(hint.getOwnBy()),
+				ErrorCode.HINT_UPDATE_NOT_OWN.name());
+		Hint old = getHintDao().find(hint.getOid());
+		HintFollowup hfu = generateChange(old, hint);
+		if (null != hfu) {
+			hint.addFollowup(hfu);
+		}
+		return getHintDao().store(hint);
+	}
+
+	private HintFollowup generateChange(Hint old, Hint newhint) {
+		HintFollowup hfu = new HintFollowup();
+		hfu.setCreateTime(new Date());
+
+		ChangeHelper.checkInvalidChange(old, newhint, new String[] { "id",
+				ErrorCode.HINT_UPDATE_FORBID.name(), "registerBy",
+				ErrorCode.HINT_UPDATE_FORBID.name() });
+
+		String change = ChangeHelper.generateChange(old, newhint, new String[] {
+				"name", "Name: {0} -> {1}", "contact.name",
+				"Contact Name: {0} -> {1}", "contact.email",
+				"Contact Email: {0} -> {1}", "contact.phone",
+				"Contact Phone: {0} -> {1}", "contact.address",
+				"Contact Address: {0} -> {1}", "contact.im",
+				"Contact Im: {0} -> {1}" });
+		if (!StringUtils.isEmpty(change)) {
+			hfu.setReference(change);
+			return hfu;
+		}
+		return null;
 	}
 
 	private HintDao hintDao;

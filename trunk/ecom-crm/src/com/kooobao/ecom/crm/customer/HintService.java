@@ -2,11 +2,9 @@ package com.kooobao.ecom.crm.customer;
 
 import java.util.List;
 
-import com.kooobao.ecom.crm.common.Context;
-import com.kooobao.ecom.crm.customer.entity.CustomerType;
+import com.kooobao.common.domain.service.Context;
 import com.kooobao.ecom.crm.customer.entity.Hint;
 import com.kooobao.ecom.crm.customer.entity.HintFollowup;
-import com.kooobao.ecom.crm.profit.entity.ProfitRecord;
 
 public interface HintService {
 
@@ -14,10 +12,9 @@ public interface HintService {
 	 * Register a Hint
 	 * 
 	 * @param hint
-	 * @return <code>true</code> if success, <code>false</code> if already
-	 *         exists
+	 * 
 	 */
-	boolean addHint(Context context, Hint hint);
+	Hint addHint(Context context, Hint hint);
 
 	/**
 	 * Update Hint info
@@ -25,7 +22,7 @@ public interface HintService {
 	 * @param context
 	 * @param hint
 	 */
-	void update(Context context, Hint hint);
+	Hint update(Context context, Hint hint);
 
 	/**
 	 * Record a follow up action. System should try to determine whether this
@@ -54,16 +51,6 @@ public interface HintService {
 	void discard(Context context, Hint hint, String comment);
 
 	/**
-	 * Place an order for the potential customer, and this will upgrade the hint
-	 * to a customer
-	 * 
-	 * @param hint
-	 * @param order
-	 */
-	void placeOrder(Context context, Hint hint, ProfitRecord order,
-			CustomerType nature);
-
-	/**
 	 * Get hints list for current user
 	 * 
 	 * @return
@@ -86,7 +73,7 @@ public interface HintService {
 	int exchange(Context context, List<Hint> hints);
 
 	/**
-	 * 
+	 * Free the hints that over times
 	 */
 	void freeHints();
 }

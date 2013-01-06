@@ -39,7 +39,7 @@ public class Contact {
 	@Override
 	public String toString() {
 		return MessageFormat.format(
-				"Contact: {0}, Phone: {1}, Email: {2}, IM: {3}, Address: {4}",
+				"Contact Name: {0}, Phone: {1}, Email: {2}, IM: {3}, Address: {4}",
 				getName(), getPhone(), getEmail(), getIm(), getAddress());
 	}
 
