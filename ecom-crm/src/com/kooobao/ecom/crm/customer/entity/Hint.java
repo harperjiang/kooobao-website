@@ -21,6 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.kooobao.common.domain.entity.VersionEntity;
+import com.kooobao.ecom.common.entity.Contact;
 
 @Entity
 @Table(name = "crm_hint")
