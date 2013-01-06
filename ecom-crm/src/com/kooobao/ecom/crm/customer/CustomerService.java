@@ -2,9 +2,11 @@ package com.kooobao.ecom.crm.customer;
 
 import java.util.List;
 
-import com.kooobao.ecom.crm.common.Context;
+import com.kooobao.common.domain.service.Context;
 import com.kooobao.ecom.crm.customer.entity.Customer;
 import com.kooobao.ecom.crm.customer.entity.CustomerFollowup;
+import com.kooobao.ecom.crm.customer.entity.CustomerType;
+import com.kooobao.ecom.crm.customer.entity.Hint;
 
 public interface CustomerService {
 
@@ -21,14 +23,14 @@ public interface CustomerService {
 	 * @param context
 	 * @param customer
 	 */
-	void update(Context context, Customer customer);
+	Customer update(Context context, Customer customer);
 
 	/**
 	 * Current operator mark a follow up action of the indicated customer
 	 * 
 	 * @param customer
 	 */
-	void recordFollowup(Context context, CustomerFollowup followup);
+	Customer recordFollowup(Context context, CustomerFollowup followup);
 
 	/**
 	 * Get customers that belongs to current operator
@@ -56,5 +58,13 @@ public interface CustomerService {
 	 * Free occupied customers that is over time
 	 */
 	void freeCustomers();
+
+	/**
+	 * Upgrade the hint to a customer record
+	 * 
+	 * @param hint
+	 * @return newly created customer
+	 */
+	Customer upgrade(Context context, Hint hint, CustomerType nature);
 
 }
