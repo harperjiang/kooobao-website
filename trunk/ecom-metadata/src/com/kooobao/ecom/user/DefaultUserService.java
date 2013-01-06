@@ -20,10 +20,10 @@ public class DefaultUserService implements UserService {
 	}
 
 	@Override
-	public boolean canAccess(String userId, long authorityId) {
+	public boolean canAccess(String userId, String authorityId) {
 		try {
 			User user = getUserDao().find(userId);
-			Authority auth = getAuthorityDao().find(authorityId);
+			Authority auth = getAuthorityDao().findAuthority(authorityId);
 			return user.getAllAuthorities().contains(auth);
 		} catch (NoResultException e) {
 			return false;

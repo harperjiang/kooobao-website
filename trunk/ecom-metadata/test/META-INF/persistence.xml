@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="ecom-metadata" transaction-type="RESOURCE_LOCAL">
+		<class>com.kooobao.ecom.common.entity.ContactInfo</class>
+		<class>com.kooobao.ecom.product.entity.Product</class>
+		<class>com.kooobao.ecom.product.entity.ProductSet</class>
+		<class>com.kooobao.ecom.product.entity.ProductUnit</class>
+		<class>com.kooobao.ecom.setting.entity.SettingEntry</class>
+		<class>com.kooobao.ecom.user.entity.Authority</class>
+		<class>com.kooobao.ecom.user.entity.Category</class>
+		<class>com.kooobao.ecom.user.entity.Role</class>
+		<class>com.kooobao.ecom.user.entity.User</class>
+		<properties>
+			<property name="eclipselink.jdbc.batch-writing" value="JDBC" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ecom" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="J1eninan" />
+			<property name="eclipselink.jdbc.bind-parameters" value="true" />
+			<property name="eclipselink.logging.level" value="OFF" />
+			<property name="eclipselink.logging.level.sql" value="ALL"></property>
+			<property name="eclipselink.logging.timestamp" value="true" />
+		</properties>
+	</persistence-unit>
+</persistence>

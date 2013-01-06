@@ -3,37 +3,38 @@ package com.kooobao.ecom.common.entity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import com.kooobao.common.domain.entity.SimpleEntity;
-
-
 @Embeddable
-public class ContactInfo {
+public class Contact {
 
 	@Column(name = "contact_name")
 	private String name;
 
-	@Column(name = "contact_email")
+	@Column(name = "email")
 	private String email;
 
-	@Column(name = "contact_address")
+	@Column(name = "address")
 	private String address;
 
-	@Column(name = "contact_phone")
+	@Column(name = "phone")
 	private String phone;
 
+	@Column(name = "im")
+	private String im;
+
 	@Override
-	public boolean equals(Object comp) {
-		if (comp instanceof ContactInfo) {
-			ContactInfo info = (ContactInfo) comp;
-			return SimpleEntity.equals(name, info.getName())
-					&& SimpleEntity.equals(email, info.getEmail())
-					&& SimpleEntity.equals(address, info.getAddress())
-					&& SimpleEntity.equals(phone, info.getPhone());
+	public boolean equals(Object obj) {
+		if (obj instanceof Contact) {
+			Contact compare = (Contact) obj;
+			return getName().equals(compare.getName())
+					&& getPhone().equals(compare.getPhone())
+					&& getEmail().equals(compare.getEmail())
+					&& getAddress().equals(compare.getAddress())
+					&& getIm().equals(compare.getIm());
 		}
-		return super.equals(comp);
+		return super.equals(obj);
 	}
 
-	public void copy(ContactInfo src) {
+	public void copy(Contact src) {
 		setName(src.getName());
 		setAddress(src.getAddress());
 		setEmail(src.getEmail());
@@ -70,5 +71,13 @@ public class ContactInfo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getIm() {
+		return im;
+	}
+
+	public void setIm(String im) {
+		this.im = im;
 	}
 }

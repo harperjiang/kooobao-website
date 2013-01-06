@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.kooobao.common.domain.entity.VersionEntity;
-import com.kooobao.ecom.common.entity.ContactInfo;
+import com.kooobao.ecom.common.entity.Contact;
 
 @Entity
 @Table(name = "meta_user")
@@ -21,15 +21,15 @@ public class User extends VersionEntity {
 	private String id;
 
 	@ManyToOne
-	@JoinColumn(name = "role_id", referencedColumnName = "id")
+	@JoinColumn(name = "role_id", referencedColumnName = "obj_id")
 	private Role role;
 
 	@Embedded
-	private ContactInfo contact;
+	private Contact contact;
 
 	public User() {
 		super();
-		contact = new ContactInfo();
+		contact = new Contact();
 	}
 
 	public Set<Authority> getAllAuthorities() {
@@ -54,7 +54,7 @@ public class User extends VersionEntity {
 		this.role = role;
 	}
 
-	public ContactInfo getContact() {
+	public Contact getContact() {
 		return contact;
 	}
 }
