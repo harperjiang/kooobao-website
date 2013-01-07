@@ -6,7 +6,7 @@ Ext.Loader.setConfig({
 });
 
 Ext.require([ 'Kooobao.mvc.Controller', 'Kooobao.ecom.LoginView',
-		'Kooobao.ecom.LoginForm' ]);
+		'Kooobao.ecom.LoginForm', 'Kooobao.layout.Center' ]);
 Ext.namespace('Kooobao');
 Ext.application({
 	name : 'Kooobao Ecom System',
