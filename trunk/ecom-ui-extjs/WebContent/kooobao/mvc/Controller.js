@@ -39,6 +39,7 @@ Ext.define('Kooobao.mvc.Controller', {
 	bindings : new Array(),
 	addBinding : function(binding) {
 		debugger;
+		
 		binding.addListener(this);
 		this.bindings.push(binding);
 	},
