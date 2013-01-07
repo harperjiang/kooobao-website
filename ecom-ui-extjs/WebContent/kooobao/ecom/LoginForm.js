@@ -7,8 +7,9 @@ Ext.define('Kooobao.ecom.LoginForm', {
 
 	listeners : {
 		afterrender : function() {
-			this.controller.addBinding(Ext.create('Kooobao.mvc.TextBinding',
-					Ext.get('login_userid'), 'userid'));
+			var a = Ext.getCmp('login_userid');
+			this.controller.addBinding(Ext.create('Kooobao.mvc.TextBinding', a,
+					'userid'));
 		}
 	},
 
@@ -18,7 +19,7 @@ Ext.define('Kooobao.ecom.LoginForm', {
 		anchor : '100%'
 	},
 	// Controller
-	controller : Ext.create('Kooobao.mvc.Controller'),
+	controller : Ext.create('Kooobao.mvc.Controller', {}),
 	// The fields
 	defaultType : 'textfield',
 	items : [ {
@@ -40,8 +41,8 @@ Ext.define('Kooobao.ecom.LoginForm', {
 	}, {
 		text : 'Submit',
 		handler : function() {
-			Ext.destroy(Kooobao.currentViewPort);
-			Kooobao.currentViewPort = Ext.create('Kooobao.ecom.MainView');
+			// Ext.destroy(Kooobao.currentViewPort);
+			// Kooobao.currentViewPort = Ext.create('Kooobao.ecom.MainView');
 		}
 	} ],
 	renderTo : Ext.getBody()

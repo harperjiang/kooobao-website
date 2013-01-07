@@ -1,5 +1,5 @@
 Ext.define('Kooobao.ecom.LoginView', {
-	layout : 'absolute',
+	layout : 'kooobao.center',
 	extend : 'Ext.container.Viewport',
 	items : [ {
 		xtype : 'ecom-loginform',
