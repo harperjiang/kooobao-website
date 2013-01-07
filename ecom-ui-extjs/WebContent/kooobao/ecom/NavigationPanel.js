@@ -1,0 +1,74 @@
+Ext.define('Kooobao.ecom.NavigationMenu', {
+	xtype : 'ecom-navmenu',
+	extend : 'Ext.panel.Panel',
+	layout : {
+		type : 'vbox',
+		align : 'left'
+	}
+});
+
+Ext.define('Kooobao.ecom.NavigationButton', {
+	extend : 'Ext.Button',
+	xtype : 'ecom-navbutton',
+	textAlign : 'left',
+});
+
+Ext.define('Kooobao.ecom.NavigationPanel', {
+	id : 'nav_panel',
+	extend : 'Ext.panel.Panel',
+	xtype : 'ecom-navpanel',
+	title : 'Navigation',
+	width : 300,
+	layout : {
+		// layout-specific configs go here
+		type : 'accordion',
+		titleCollapse : true,
+		animate : true,
+		activeOnTop : true
+	},
+	items : [ {
+		title : 'User & Authority',
+		xtype : 'ecom-navmenu',
+		items : [ {
+			xtype : 'ecom-navbutton',
+			text : 'Manage User',
+			width : '100%'
+		}, {
+			xtype : 'ecom-navbutton',
+			text : 'Manage Role',
+			width : '100%'
+		}, {
+			xtype : 'ecom-navbutton',
+			text : 'View Authority',
+			width : '100%'
+		} ]
+	}, {
+		title : 'Product',
+		xtype : 'ecom-navmenu',
+		items : [ {
+			xtype : 'ecom-navbutton',
+			text : 'Manage Product',
+			width : '100%'
+		}, {
+			xtype : 'ecom-navbutton',
+			text : 'Manage Product Set',
+			width : '100%'
+		} ]
+	}, {
+		title : 'CRM',
+		xtype : 'ecom-navmenu',
+		items : [ {
+			xtype : 'ecom-navbutton',
+			text : 'Manage User',
+			width : '100%'
+		}, {
+			xtype : 'ecom-navbutton',
+			text : 'Manage Role',
+			width : '100%'
+		}, {
+			xtype : 'ecom-navbutton',
+			text : 'View Authority',
+			width : '100%'
+		} ]
+	} ]
+});
