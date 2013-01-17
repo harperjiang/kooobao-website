@@ -11,6 +11,22 @@ Ext.define('Kooobao.ecom.NavigationButton', {
 	extend : 'Ext.Button',
 	xtype : 'ecom-navbutton',
 	textAlign : 'left',
+	listeners : {
+		click : function() {
+			var tabClass = this.tabClass;
+			if (undefined !== tabClass) {
+				var newTab = Ext.create(tabClass);
+				if (undefined !== newTab) {
+					var mainTabPanel = Ext.getCmp('main_tabpanel');
+					mainTabPanel.add(newTab);
+				} else {
+					alert('Failed to create tab from ' + tabClass);
+				}
+			} else {
+				alert('Undefined Tab Class');
+			}
+		}
+	}
 });
 
 Ext.define('Kooobao.ecom.NavigationPanel', {

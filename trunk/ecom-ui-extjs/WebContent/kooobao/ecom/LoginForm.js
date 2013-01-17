@@ -7,9 +7,12 @@ Ext.define('Kooobao.ecom.LoginForm', {
 
 	listeners : {
 		afterrender : function() {
-			var a = Ext.getCmp('login_userid');
-			this.controller.addBinding(Ext.create('Kooobao.mvc.TextBinding', a,
-					'userid'));
+			var useridText = Ext.getCmp('login_userid');
+			this.controller.addBinding(Ext.create('Kooobao.mvc.TextBinding',
+					useridText, 'userid'));
+			var passwordText = Ext.getCmp('login_password');
+			this.controller.addBinding(Ext.create('Kooobao.mvc.TextBinding',
+					passwordText, 'password'));
 		}
 	},
 
@@ -29,21 +32,39 @@ Ext.define('Kooobao.ecom.LoginForm', {
 	}, {
 		fieldLabel : 'Password',
 		inputType : 'password',
-		name : 'password'
+		name : 'password',
+		id : 'login_password'
 	} ],
 
 	// Reset and Submit buttons
-	buttons : [ {
-		text : 'Reset',
-		handler : function() {
+	buttons : [
+			{
+				text : 'Reset',
+				handler : function() {
 
+				}
+			},
+			{
+				text : 'Submit',
+				handler : function() {
+					var model = this.up('panel').controller.model;
+					authenticateService.login('ecom', model.get('userid'),
+							model.get('password'),
+							this.up('panel').callbacks.onLoginDone);
+				}
+			} ],
+	renderTo : Ext.getBody(),
+	callbacks : {
+		onLoginDone : function(token) {
+			if (null == token) {
+				// Display the error message
+				Ext.MessageBox.alert('Login', 'Login Failed.');
+			} else {
+				// Save Token in LocalStorage
+				Kooobao.state.LocalState.set('user_token', token);
+				Ext.destroy(Kooobao.currentViewPort);
+				Kooobao.currentViewPort = Ext.create('Kooobao.ecom.MainView');
+			}
 		}
-	}, {
-		text : 'Submit',
-		handler : function() {
-			// Ext.destroy(Kooobao.currentViewPort);
-			// Kooobao.currentViewPort = Ext.create('Kooobao.ecom.MainView');
-		}
-	} ],
-	renderTo : Ext.getBody()
+	}
 });

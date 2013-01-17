@@ -45,34 +45,25 @@ Ext.define('Kooobao.layout.Center',
 					// ratio = item[dimension + 'Ratio']; // backwards compat
 					return item[dimension];
 				}
-
 			},
 
 			positionItemX : function(itemContext, info) {
-				debugger;
 				var left = this.getPos(itemContext, info, 'width');
-
 				itemContext.setProp('x', left);
 			},
 
 			positionItemY : function(itemContext, info) {
-				debugger;
 				var top = this.getPos(itemContext, info, 'height');
-
 				itemContext.setProp('y', top);
 			},
 
 			setItemHeight : function(itemContext, info) {
-				debugger;
 				var height = this.getSize(itemContext.target, info, 'height');
-
 				itemContext.setHeight(height);
 			},
 
 			setItemWidth : function(itemContext, info) {
-				debugger;
 				var width = this.getSize(itemContext.target, info, 'width');
-
 				itemContext.setWidth(width);
 			}
 		});

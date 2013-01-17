@@ -18,11 +18,7 @@ Ext.define('Kooobao.ecom.MainView', {
 	}, {
 		region : 'center',
 		xtype : 'tabpanel',
-		activeTab : 0,
-		items : {
-			title : 'Default Tab',
-			bodyPadding : 10,
-			html : 'The first tab\'s content. Others may be added dynamically'
-		}
+		id : 'main_tabpanel',
+		activeTab : 0
 	} ]
 });
