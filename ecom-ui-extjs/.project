@@ -3,6 +3,9 @@
 	<name>ecom-ui-extjs</name>
 	<comment></comment>
 	<projects>
+		<project>kooobao-common</project>
+		<project>kooobao-authcenter-client</project>
+		<project>ecom-metadata</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
