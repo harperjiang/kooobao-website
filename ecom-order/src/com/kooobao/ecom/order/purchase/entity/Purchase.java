@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import org.eclipse.persistence.annotations.Convert;
 
 import com.kooobao.common.domain.entity.VersionEntity;
-import com.kooobao.ecom.common.entity.ContactInfo;
+import com.kooobao.ecom.common.entity.Contact;
 import com.kooobao.ecom.order.customer.entity.Customer;
 import com.kooobao.ecom.order.delivery.entity.Delivery;
 
@@ -53,7 +53,7 @@ public class Purchase extends VersionEntity {
 	private String refno;
 
 	@Embedded
-	private ContactInfo contact = new ContactInfo();
+	private Contact contact = new Contact();
 
 	@Column(name = "total_amount")
 	private BigDecimal totalAmount;
@@ -142,11 +142,11 @@ public class Purchase extends VersionEntity {
 		this.refno = refno;
 	}
 
-	public ContactInfo getContact() {
+	public Contact getContact() {
 		return contact;
 	}
 
-	public void setContact(ContactInfo contact) {
+	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
 

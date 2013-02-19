@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.eclipse.persistence.annotations.Convert;
 
 import com.kooobao.common.domain.entity.VersionEntity;
-import com.kooobao.ecom.common.entity.ContactInfo;
+import com.kooobao.ecom.common.entity.Contact;
 
 @Entity
 @Table(name = "order_delivery")
@@ -41,7 +41,7 @@ public class Delivery extends VersionEntity {
 	private List<DeliveryItem> items = new ArrayList<DeliveryItem>();
 
 	@Embedded
-	private ContactInfo contact;
+	private Contact contact;
 
 	@Column(name = "send_missed")
 	private boolean sendMissed;
@@ -89,11 +89,11 @@ public class Delivery extends VersionEntity {
 		this.number = number;
 	}
 
-	public ContactInfo getContact() {
+	public Contact getContact() {
 		return contact;
 	}
 
-	public void setContact(ContactInfo contact) {
+	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
 
