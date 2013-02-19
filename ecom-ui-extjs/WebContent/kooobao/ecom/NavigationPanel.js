@@ -19,6 +19,8 @@ Ext.define('Kooobao.ecom.NavigationButton', {
 				if (undefined !== newTab) {
 					var mainTabPanel = Ext.getCmp('main_tabpanel');
 					mainTabPanel.add(newTab);
+					// Set it as the active one
+					mainTabPanel.setActiveTab(mainTabPanel.items.length - 1);
 				} else {
 					alert('Failed to create tab from ' + tabClass);
 				}
@@ -48,15 +50,18 @@ Ext.define('Kooobao.ecom.NavigationPanel', {
 		items : [ {
 			xtype : 'ecom-navbutton',
 			text : 'Manage User',
-			width : '100%'
+			width : '100%',
+			tabClass : 'Kooobao.ecom.user.ManageUserPanel'
 		}, {
 			xtype : 'ecom-navbutton',
 			text : 'Manage Role',
-			width : '100%'
+			width : '100%',
+			tabClass : 'Kooobao.ecom.user.ManageRolePanel'
 		}, {
 			xtype : 'ecom-navbutton',
 			text : 'View Authority',
-			width : '100%'
+			width : '100%',
+			tabClass : 'Kooobao.ecom.user.ViewAuthorityPanel'
 		} ]
 	}, {
 		title : 'Product',

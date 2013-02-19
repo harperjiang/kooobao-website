@@ -18,6 +18,7 @@ Ext.define('Kooobao.ecom.MainView', {
 	}, {
 		region : 'center',
 		xtype : 'tabpanel',
+		closable : true,
 		id : 'main_tabpanel',
 		activeTab : 0
 	} ]

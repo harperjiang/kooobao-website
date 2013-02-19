@@ -10,6 +10,10 @@ Ext.require([ 'Kooobao.mvc.Controller', 'Kooobao.state.UserState',
 		'Kooobao.ecom.MainView', 'Kooobao.ecom.NavigationPanel',
 		'Kooobao.ecom.TitlePanel', 'Kooobao.layout.Center' ]);
 
+Ext.require([ 'Kooobao.ecom.user.ManageRolePanel',
+		'Kooobao.ecom.user.ManageUserPanel',
+		'Kooobao.ecom.user.ViewAuthorityPanel' ]);
+
 Ext.require([ 'Ext.window.MessageBox' ]);
 
 Ext.namespace('Kooobao');
