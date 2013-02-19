@@ -39,7 +39,7 @@
 				<property name="host" value="smtp.exmail.qq.com" />
 				<property name="port" value="25" />
 				<property name="username" value="info@kooobao.cn" />
-				<property name="password" value="debbie1984" />
+				<property name="password" value="KubaoMail@123" />
 			</bean>
 		</property>
 		<property name="customerDao" ref="customerDao" />
