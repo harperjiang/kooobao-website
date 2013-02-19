@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.kooobao.common.domain.entity.SimpleEntity;
-import com.kooobao.ecom.common.entity.ContactInfo;
+import com.kooobao.ecom.common.entity.Contact;
 
 @Entity
 @Table(name = "order_customer")
@@ -22,7 +22,7 @@ public class Customer extends SimpleEntity {
 	private String id;
 
 	@Embedded
-	private ContactInfo contact;
+	private Contact contact;
 
 	public String getName() {
 		return name;
@@ -48,11 +48,11 @@ public class Customer extends SimpleEntity {
 		this.source = source;
 	}
 
-	public ContactInfo getContact() {
+	public Contact getContact() {
 		return contact;
 	}
 
-	public void setContact(ContactInfo contact) {
+	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
 
