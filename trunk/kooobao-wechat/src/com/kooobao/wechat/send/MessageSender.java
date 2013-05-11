@@ -1,4 +1,4 @@
-package com.kooobao.wechat;
+package com.kooobao.wechat.send;
 
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
@@ -122,23 +122,6 @@ public class MessageSender {
 		sendpost.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
 
 		getClient().execute(sendpost);
-		//
-		// $send_snoopy = new Snoopy;
-		// $post = array();
-		// $post['tofakeid'] = $id;
-		// $post['type'] = 1;
-		// $post['token'] = $this->_token;
-		// $post['content'] = $content;
-		// $post['ajax'] = 1;
-		// $send_snoopy->referer =
-		// "https://mp.weixin.qq.com/cgi-bin/singlemsgpage?fromfakeid={$id}&msgid=&source=&count=20&t=wxm-singlechat&lang=zh_CN";
-		// $send_snoopy->rawheaders['Cookie']= $this->cookie;
-		// $submit =
-		// "https://mp.weixin.qq.com/cgi-bin/singlesend?t=ajax-response";
-		// $send_snoopy->submit($submit,$post);
-		// $this->log($send_snoopy->results);
-		// return $send_snoopy->results;
-
 	}
 
 	private static Pattern PATTERN = Pattern

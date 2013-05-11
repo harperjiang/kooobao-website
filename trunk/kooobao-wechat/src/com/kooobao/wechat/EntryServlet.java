@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import com.kooobao.wechat.msg.IncomingMessage;
 import com.kooobao.wechat.msg.OutgoingMessage;
 import com.kooobao.wechat.msg.TextOutgoing;
+import com.kooobao.wechat.reply.MessageReplyer;
+import com.kooobao.wechat.reply.ReplyerPool;
 
 /**
  * Servlet implementation class VerifyServlet
@@ -79,30 +81,33 @@ public class EntryServlet extends HttpServlet {
 		}
 	}
 
+	private ReplyerPool pool = new ReplyerPool();
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		IncomingMessage incoming = null;
-		OutgoingMessage outgoing = null;
+		MessageReplyer replyer = null;
 		try {
-			incoming = IncomingMessage.parse(req.getInputStream());
-			outgoing = MessageProcessor.process(incoming);
+			IncomingMessage incoming = IncomingMessage.parse(req
+					.getInputStream());
+			replyer = pool.acquire(incoming.getFrom());
+			OutgoingMessage outgoing = replyer.reply(incoming);
+			if (null == outgoing)
+				outgoing = errormsg(incoming);
+			resp.getOutputStream().write(outgoing.toString().getBytes("utf8"));
+			resp.getOutputStream().flush();
 		} catch (Exception e) {
 			if (logger.isErrorEnabled()) {
 				logger.error("Error when processing messages", e);
 			}
-			if (incoming != null)
-				outgoing = errormsg(incoming);
-			else {
-				resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				return;
-			}
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			return;
+		} finally {
+			pool.release(replyer);
 		}
-		resp.getOutputStream().write(outgoing.toString().getBytes("utf8"));
-		resp.getOutputStream().flush();
 	}
 
 	protected OutgoingMessage errormsg(IncomingMessage incoming) {
-		return new TextOutgoing(incoming, "很抱歉无法处理这个消息");
+		return new TextOutgoing(incoming, "那个...酷堡大概脑子进水了...等下试试看？");
 	}
 }
