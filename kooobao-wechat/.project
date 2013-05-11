@@ -3,6 +3,7 @@
 	<name>kooobao-wechat</name>
 	<comment></comment>
 	<projects>
+		<project>kooobao-common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

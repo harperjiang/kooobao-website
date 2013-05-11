@@ -3,6 +3,7 @@ package com.kooobao.wechat;
 import org.junit.Test;
 
 import com.kooobao.wechat.msg.TextOutgoing;
+import com.kooobao.wechat.send.MessageSender;
 
 public class MessageSenderTest extends MessageSender {
 
