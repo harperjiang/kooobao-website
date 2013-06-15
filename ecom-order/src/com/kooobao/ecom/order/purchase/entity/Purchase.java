@@ -18,7 +18,7 @@ import org.eclipse.persistence.annotations.Convert;
 
 import com.kooobao.common.domain.entity.VersionEntity;
 import com.kooobao.ecom.common.entity.Contact;
-import com.kooobao.ecom.order.customer.entity.Customer;
+import com.kooobao.ecom.customer.entity.Customer;
 import com.kooobao.ecom.order.delivery.entity.Delivery;
 
 @Entity
