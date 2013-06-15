@@ -173,6 +173,8 @@ public class DefaultCustomerService implements CustomerService {
 		cust.setRegisterBy(context.getOperatorId());
 		hint.setStatus(HintStatus.CUSTOMER);
 
+		// Create Meta-Customer
+		
 		getHintDao().store(hint);
 		cust = getCustomerDao().store(cust);
 		assignId(cust);
